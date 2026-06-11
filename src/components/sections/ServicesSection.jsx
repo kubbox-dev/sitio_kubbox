@@ -1,11 +1,13 @@
-import { motion } from 'framer-motion'
-import { Monitor, Megaphone, BarChart2, Globe, Cpu, Layers } from 'lucide-react'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Monitor, Megaphone, BarChart2, Cpu, ChevronRight } from 'lucide-react'
 import GlowOrb from '../ui/GlowOrb'
 import Button from '../ui/Button'
-import { useScrollAnimation, fadeUp, scaleUp, staggerContainer } from '../../hooks/useScrollAnimation'
+import { useScrollAnimation, fadeUp, staggerContainer } from '../../hooks/useScrollAnimation'
 
 const SERVICES = [
   {
+    id: 'desarrollo',
     icon: Monitor,
     title: 'Desarrollo Digital',
     bullets: [
@@ -16,6 +18,7 @@ const SERVICES = [
     ],
   },
   {
+    id: 'marketing',
     icon: Megaphone,
     title: 'Marketing Digital',
     bullets: [
@@ -26,6 +29,7 @@ const SERVICES = [
     ],
   },
   {
+    id: 'performance',
     icon: BarChart2,
     title: 'Performance & Data',
     bullets: [
@@ -36,6 +40,7 @@ const SERVICES = [
     ],
   },
   {
+    id: 'ia',
     icon: Cpu,
     title: 'IA & Automatización',
     bullets: [
@@ -47,9 +52,12 @@ const SERVICES = [
   },
 ]
 
+const PERSON_IMG = 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=900&q=85'
+
 export default function ServicesSection() {
+  const [active, setActive] = useState(0)
   const { ref: headRef, controls: headControls } = useScrollAnimation()
-  const { ref: gridRef, controls: gridControls } = useScrollAnimation(0.1)
+  const service = SERVICES[active]
 
   return (
     <section
@@ -57,141 +65,244 @@ export default function ServicesSection() {
       style={{
         position: 'relative',
         overflow: 'hidden',
-        paddingBlock: 'clamp(4rem, 10vw, 7rem)',
         background: 'oklch(0.08 0.023 260)',
+        minHeight: '100svh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        paddingBlock: 'clamp(4rem, 8vw, 6rem)',
       }}
     >
-      <GlowOrb color="lime" size={500} top="10%" right="-5%" opacity={0.8} blur={110} />
-      <GlowOrb color="teal" size={400} bottom="5%" left="-5%" opacity={0.7} blur={100} />
+      <GlowOrb color="lime"  size={600} top="-5%"  right="-8%"  opacity={0.9} blur={130} />
+      <GlowOrb color="teal"  size={450} bottom="0%" left="-5%"  opacity={0.7} blur={110} />
 
-      <div style={{ maxWidth: 'var(--container)', marginInline: 'auto', paddingInline: 'var(--container-pad)', position: 'relative', zIndex: 1 }}>
+      <div style={{ maxWidth: 'var(--container)', marginInline: 'auto', paddingInline: 'var(--container-pad)', position: 'relative', zIndex: 1, width: '100%' }}>
 
-        {/* Heading */}
+        {/* ── Top heading ───────────────────────────── */}
         <motion.div
           ref={headRef}
           initial="hidden"
           animate={headControls}
-          variants={staggerContainer(0.12)}
-          style={{ marginBottom: 'clamp(3rem, 6vw, 5rem)', textAlign: 'center' }}
+          variants={staggerContainer(0.1)}
+          style={{ marginBottom: 'clamp(2rem, 5vw, 3.5rem)', textAlign: 'center' }}
         >
-          <motion.p
-            variants={fadeUp}
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: '0.8rem',
-              fontWeight: 600,
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              color: 'var(--c-lime)',
-              marginBottom: '0.75rem',
-            }}
-          >
+          <motion.p variants={fadeUp} style={{ fontFamily: 'var(--font-body)', fontSize: '0.78rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--c-lime)', marginBottom: '0.5rem' }}>
             5 años encontrando identidad
           </motion.p>
-          <motion.h2
-            variants={fadeUp}
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontWeight: 900,
-              fontSize: 'clamp(2.5rem, 7vw, 5rem)',
-              letterSpacing: '-0.02em',
-              textTransform: 'uppercase',
-              color: 'var(--c-ink)',
-              lineHeight: 0.95,
-            }}
-          >
-            NUESTROS
-            <br />
-            <span style={{ color: 'var(--c-lime)' }}>SERVICIOS</span>
+          <motion.h2 variants={fadeUp} style={{ fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 'clamp(2.5rem, 7vw, 5.25rem)', letterSpacing: '-0.02em', textTransform: 'uppercase', lineHeight: 0.95, color: 'var(--c-ink)' }}>
+            NUESTROS{' '}
+            <span style={{ color: 'var(--c-lime)', WebkitTextStroke: '2px var(--c-lime)', WebkitTextFillColor: 'transparent' }}>
+              SERVICIOS
+            </span>
           </motion.h2>
-
-          <motion.p
-            variants={fadeUp}
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontWeight: 700,
-              fontSize: 'clamp(1.1rem, 2.5vw, 1.5rem)',
-              letterSpacing: '0.04em',
-              textTransform: 'uppercase',
-              color: 'var(--c-muted)',
-              marginTop: '1.5rem',
-            }}
-          >
+          <motion.p variants={fadeUp} style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(0.9rem, 2vw, 1.2rem)', letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--c-muted)', marginTop: '1rem' }}>
             IMPULSA TU <span style={{ color: 'var(--c-ink)' }}>MARCA</span> CON{' '}
             <span style={{ color: 'var(--c-lime)' }}>NUESTRAS SOLUCIONES</span>
           </motion.p>
         </motion.div>
 
-        {/* Services grid */}
-        <motion.div
-          ref={gridRef}
-          initial="hidden"
-          animate={gridControls}
-          variants={staggerContainer(0.1, 0.2)}
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '1.5rem',
-          }}
+        {/* ── Main split layout ─────────────────────── */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'minmax(280px, 420px) 1fr',
+          gap: 'clamp(2rem, 5vw, 4rem)',
+          alignItems: 'center',
+        }}
+          className="services-grid"
         >
-          {SERVICES.map(({ icon: Icon, title, bullets }) => (
-            <ServiceCard key={title} icon={Icon} title={title} bullets={bullets} />
-          ))}
-        </motion.div>
+          {/* Left — service detail */}
+          <div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
+                  <div style={{ width: '2.5rem', height: '2.5rem', border: '1px solid oklch(0.28 0.028 260)', borderRadius: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--c-lime)' }}>
+                    <service.icon size={18} strokeWidth={1.5} />
+                  </div>
+                  <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 'clamp(1.6rem, 3.5vw, 2.25rem)', letterSpacing: '-0.01em', textTransform: 'uppercase', color: 'var(--c-ink)' }}>
+                    {service.title}
+                  </h3>
+                </div>
+
+                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '2rem' }}>
+                  {service.bullets.map(b => (
+                    <li key={b} style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+                      <ChevronRight size={16} style={{ flexShrink: 0, marginTop: '0.2rem', color: 'var(--c-lime)' }} />
+                      <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.975rem', color: 'oklch(0.72 0.010 260)', lineHeight: 1.55 }}>
+                        {b}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                <Button variant="outline" size="md">Ver más</Button>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Service tabs */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.625rem', marginTop: '2.5rem' }}>
+              {SERVICES.map((s, i) => {
+                const Icon = s.icon
+                return (
+                  <motion.button
+                    key={s.id}
+                    onClick={() => setActive(i)}
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.97 }}
+                    style={{
+                      background: i === active ? 'oklch(0.88 0.220 130 / 0.12)' : 'var(--c-surface)',
+                      border: `1px solid ${i === active ? 'var(--c-lime)' : 'oklch(0.22 0.022 260)'}`,
+                      borderRadius: '0.5rem',
+                      padding: '0.5rem 0.875rem',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      cursor: 'pointer',
+                      color: i === active ? 'var(--c-lime)' : 'var(--c-muted)',
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '0.8rem',
+                      fontWeight: 500,
+                      transition: 'all var(--transition-base)',
+                    }}
+                  >
+                    <Icon size={14} strokeWidth={1.5} />
+                    {s.title}
+                  </motion.button>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* Right — person visual with arc decoration */}
+          <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            {/* Rotating arc ring */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 40, ease: 'linear' }}
+              style={{
+                position: 'absolute',
+                inset: '-8%',
+                borderRadius: '50%',
+                border: '1px dashed oklch(0.88 0.260 130 / 0.20)',
+                pointerEvents: 'none',
+              }}
+            />
+            <motion.div
+              animate={{ rotate: -360 }}
+              transition={{ repeat: Infinity, duration: 28, ease: 'linear' }}
+              style={{
+                position: 'absolute',
+                inset: '2%',
+                borderRadius: '50%',
+                border: '1px dashed oklch(0.72 0.150 190 / 0.18)',
+                pointerEvents: 'none',
+              }}
+            />
+
+            {/* Person image */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                position: 'relative',
+                width: '100%',
+                maxWidth: '520px',
+                aspectRatio: '4/5',
+                borderRadius: '1.5rem',
+                overflow: 'hidden',
+                border: '1px solid oklch(0.22 0.025 260)',
+                boxShadow: '0 0 80px oklch(0.88 0.260 130 / 0.10), 0 0 40px oklch(0.72 0.150 190 / 0.08)',
+              }}
+            >
+              <img
+                src={PERSON_IMG}
+                alt="Soluciones digitales con tecnología de vanguardia"
+                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
+              />
+              {/* Lime tint overlay at bottom */}
+              <div style={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: '40%',
+                background: 'linear-gradient(to top, oklch(0.08 0.025 260 / 0.80), transparent)',
+              }} />
+              {/* Lime glow overlay */}
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'radial-gradient(ellipse 80% 60% at 50% 30%, oklch(0.72 0.150 190 / 0.10), transparent)',
+                mixBlendMode: 'screen',
+              }} />
+            </motion.div>
+
+            {/* Floating service count badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+              style={{
+                position: 'absolute',
+                bottom: '6%',
+                right: '-4%',
+                background: 'var(--c-surface)',
+                border: '1px solid oklch(0.25 0.028 260)',
+                borderRadius: '0.875rem',
+                padding: '0.875rem 1.25rem',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                backdropFilter: 'blur(12px)',
+              }}
+            >
+              <span style={{ fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: '2rem', color: 'var(--c-lime)', lineHeight: 1 }}>+50</span>
+              <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.75rem', color: 'var(--c-muted)', letterSpacing: '0.04em', marginTop: '0.25rem' }}>proyectos</span>
+            </motion.div>
+
+            {/* Floating years badge */}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.65, duration: 0.6 }}
+              style={{
+                position: 'absolute',
+                top: '8%',
+                left: '-4%',
+                background: 'var(--c-surface)',
+                border: '1px solid oklch(0.28 0.028 260)',
+                borderRadius: '0.875rem',
+                padding: '0.875rem 1.25rem',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                backdropFilter: 'blur(12px)',
+              }}
+            >
+              <span style={{ fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: '2rem', color: 'var(--c-teal)', lineHeight: 1 }}>5+</span>
+              <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.75rem', color: 'var(--c-muted)', letterSpacing: '0.04em', marginTop: '0.25rem' }}>años</span>
+            </motion.div>
+          </div>
+        </div>
       </div>
+
+      {/* Responsive: stack on mobile */}
+      <style>{`
+        @media (max-width: 768px) {
+          .services-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </section>
-  )
-}
-
-function ServiceCard({ icon: Icon, title, bullets }) {
-  return (
-    <motion.div
-      variants={fadeUp}
-      whileHover={{ y: -6, borderColor: 'var(--c-lime)' }}
-      transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
-      style={{
-        background: 'var(--c-surface)',
-        border: '1px solid oklch(0.20 0.022 260)',
-        borderRadius: '1rem',
-        padding: '2rem',
-        transition: 'border-color var(--transition-base)',
-      }}
-    >
-      <div style={{
-        width: '3rem',
-        height: '3rem',
-        border: '1px solid oklch(0.28 0.028 260)',
-        borderRadius: '0.625rem',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: 'var(--c-lime)',
-        marginBottom: '1.25rem',
-      }}>
-        <Icon size={22} strokeWidth={1.5} />
-      </div>
-
-      <h3 style={{
-        fontFamily: 'var(--font-display)',
-        fontWeight: 800,
-        fontSize: '1.4rem',
-        letterSpacing: '-0.01em',
-        color: 'var(--c-ink)',
-        marginBottom: '1rem',
-      }}>
-        {title}
-      </h3>
-
-      <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        {bullets.map(bullet => (
-          <li key={bullet} style={{ display: 'flex', gap: '0.625rem', alignItems: 'flex-start' }}>
-            <span style={{ flexShrink: 0, marginTop: '0.35rem', width: '5px', height: '5px', borderRadius: '50%', background: 'var(--c-lime)', display: 'block' }} />
-            <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.9rem', color: 'var(--c-muted)', lineHeight: 1.5 }}>
-              {bullet}
-            </span>
-          </li>
-        ))}
-      </ul>
-    </motion.div>
   )
 }

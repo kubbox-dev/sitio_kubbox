@@ -44,10 +44,10 @@ export default function HeroSection() {
         paddingInline: 'var(--container-pad)',
       }}
     >
-      {/* Atmospheric orbs */}
-      <GlowOrb color="teal" size={600} top="-10%" left="-15%" opacity={1.2} blur={120} />
-      <GlowOrb color="lime" size={500} top="20%" right="-10%" opacity={0.9} blur={100} />
-      <GlowOrb color="teal" size={400} bottom="5%" left="30%" opacity={0.7} blur={90} />
+      {/* Atmospheric orbs — match design: large teal left, lime right */}
+      <GlowOrb color="teal" size={800} top="-20%" left="-20%" opacity={1.4} blur={140} />
+      <GlowOrb color="lime" size={700} top="10%"  right="-15%" opacity={1.1} blur={130} />
+      <GlowOrb color="teal" size={500} bottom="0%" left="25%"  opacity={0.8} blur={110} />
 
       {/* Dot grid overlay */}
       <div

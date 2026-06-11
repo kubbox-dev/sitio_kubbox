@@ -1,8 +1,12 @@
 import { motion } from 'framer-motion'
-import { Sparkles } from 'lucide-react'
+import { Sparkles, ArrowRight } from 'lucide-react'
 import GlowOrb from '../ui/GlowOrb'
 import Button from '../ui/Button'
-import { useScrollAnimation, fadeUp, scaleUp, staggerContainer } from '../../hooks/useScrollAnimation'
+import { SplineScene } from '../ui/SplineScene'
+import { Spotlight } from '../ui/Spotlight'
+import { useScrollAnimation, fadeUp, staggerContainer } from '../../hooks/useScrollAnimation'
+
+const SPLINE_ROBOT = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode'
 
 export default function AISection() {
   const { ref, controls } = useScrollAnimation(0.15)
@@ -13,149 +17,214 @@ export default function AISection() {
         position: 'relative',
         overflow: 'hidden',
         paddingBlock: 'clamp(4rem, 10vw, 7rem)',
+        background: 'var(--c-bg)',
       }}
     >
-      <GlowOrb color="teal" size={600} top="-10%" left="20%" opacity={0.9} blur={130} />
-      <GlowOrb color="lime" size={350} bottom="0%" right="10%" opacity={0.7} blur={90} />
+      {/* Subtle background glows */}
+      <GlowOrb color="teal" size={600} top="-15%" left="10%"  opacity={0.70} blur={140} />
+      <GlowOrb color="lime" size={350} bottom="-5%" right="8%" opacity={0.55} blur={100} />
 
       <div
         style={{
           maxWidth: 'var(--container)',
           marginInline: 'auto',
           paddingInline: 'var(--container-pad)',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: 'clamp(2rem, 6vw, 5rem)',
-          alignItems: 'center',
           position: 'relative',
           zIndex: 1,
         }}
       >
-        {/* Left — giant IA text */}
+        {/* ── Card wrapper (same concept as shadcn Card in the demo) ─── */}
         <motion.div
-          initial={{ opacity: 0, clipPath: 'inset(100% 0 0 0)' }}
-          whileInView={{ opacity: 1, clipPath: 'inset(0% 0 0 0)' }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          style={{ position: 'relative' }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            position: 'relative',
+            overflow: 'hidden',
+            borderRadius: '1.5rem',
+            border: '1px solid oklch(0.22 0.025 260)',
+            background: 'oklch(0.07 0.022 260 / 0.96)',
+            minHeight: '520px',
+            display: 'flex',
+          }}
+          className="ai-card"
         >
+          {/* Spotlight effect — follows cursor */}
+          <Spotlight size={320} />
+
+          {/* ── Left: Spline 3D robot ───────────────── */}
           <div
             style={{
-              fontFamily: 'var(--font-display)',
-              fontWeight: 900,
-              fontSize: 'clamp(8rem, 22vw, 16rem)',
-              lineHeight: 0.85,
-              letterSpacing: '-0.04em',
-              color: 'transparent',
-              WebkitTextStroke: '2px var(--c-lime)',
-              userSelect: 'none',
+              flex: 1,
               position: 'relative',
+              minHeight: '420px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
-            IA
-            {/* Glow behind the text */}
+            {/* "IA" ghost text behind the scene */}
             <div
               aria-hidden="true"
               style={{
                 position: 'absolute',
-                inset: '-20px',
-                background: 'radial-gradient(ellipse 60% 60% at 50% 50%, oklch(0.88 0.260 130 / 0.12), transparent)',
+                inset: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontFamily: 'var(--font-display)',
+                fontWeight: 900,
+                fontSize: 'clamp(8rem, 18vw, 16rem)',
+                letterSpacing: '-0.04em',
+                color: 'transparent',
+                WebkitTextStroke: '1.5px oklch(0.88 0.260 130 / 0.18)',
+                userSelect: 'none',
                 pointerEvents: 'none',
-                zIndex: -1,
+                zIndex: 0,
+              }}
+            >
+              IA
+            </div>
+
+            {/* Spline scene */}
+            <div style={{ position: 'relative', zIndex: 1, width: '100%', height: '100%', minHeight: '420px' }}>
+              <SplineScene
+                scene={SPLINE_ROBOT}
+                className="w-full h-full"
+              />
+            </div>
+
+            {/* Bottom fade so scene blends into card */}
+            <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: '30%',
+                background: 'linear-gradient(to top, oklch(0.07 0.022 260), transparent)',
+                pointerEvents: 'none',
+                zIndex: 2,
               }}
             />
           </div>
 
-          {/* Floating phone placeholder */}
+          {/* ── Right: copy ────────────────────────── */}
           <motion.div
-            animate={{ y: [0, -12, 0] }}
-            transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
+            ref={ref}
+            initial="hidden"
+            animate={controls}
+            variants={staggerContainer(0.12, 0.15)}
             style={{
-              width: 'clamp(120px, 20vw, 180px)',
-              aspectRatio: '9/16',
-              background: 'linear-gradient(160deg, oklch(0.18 0.030 260), oklch(0.12 0.025 260))',
-              borderRadius: '1.5rem',
-              border: '2px solid oklch(0.28 0.028 260)',
-              position: 'absolute',
-              bottom: '-1rem',
-              right: '1rem',
+              flex: 1,
+              padding: 'clamp(2rem, 5vw, 3.5rem)',
               display: 'flex',
-              alignItems: 'center',
+              flexDirection: 'column',
               justifyContent: 'center',
-              boxShadow: '0 0 40px oklch(0.72 0.150 190 / 0.25)',
+              position: 'relative',
+              zIndex: 1,
             }}
           >
-            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: '2rem', color: 'var(--c-teal)' }}>
-              📱
-            </span>
-          </motion.div>
-        </motion.div>
+            {/* Badge */}
+            <motion.div
+              variants={fadeUp}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                background: 'oklch(0.88 0.260 130 / 0.08)',
+                border: '1px solid oklch(0.88 0.260 130 / 0.22)',
+                borderRadius: '2rem',
+                padding: '0.375rem 1rem',
+                marginBottom: '1.5rem',
+                width: 'fit-content',
+              }}
+            >
+              <Sparkles size={13} color="var(--c-lime)" />
+              <span style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '0.75rem',
+                fontWeight: 600,
+                letterSpacing: '0.10em',
+                textTransform: 'uppercase',
+                color: 'var(--c-lime)',
+              }}>
+                Inteligencia Artificial
+              </span>
+            </motion.div>
 
-        {/* Right — copy */}
-        <motion.div
-          ref={ref}
-          initial="hidden"
-          animate={controls}
-          variants={staggerContainer(0.12, 0.2)}
-        >
-          <motion.div
-            variants={fadeUp}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              background: 'oklch(0.88 0.260 130 / 0.10)',
-              border: '1px solid oklch(0.88 0.260 130 / 0.30)',
-              borderRadius: '2rem',
-              padding: '0.375rem 1rem',
-              marginBottom: '1.5rem',
-            }}
-          >
-            <Sparkles size={14} color="var(--c-lime)" />
-            <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.8rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--c-lime)' }}>
-              Inteligencia Artificial
-            </span>
-          </motion.div>
+            {/* Headline */}
+            <motion.h2
+              variants={fadeUp}
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontWeight: 900,
+                fontSize: 'clamp(1.8rem, 4vw, 3.25rem)',
+                letterSpacing: '-0.025em',
+                textTransform: 'uppercase',
+                lineHeight: 1.05,
+                marginBottom: '1.25rem',
+                textWrap: 'balance',
+              }}
+            >
+              <span style={{ color: 'var(--c-ink)' }}>CREATIVIDAD</span><br />
+              <span style={{ color: 'var(--c-lime)' }}>IMPULSADA</span>
+              <span style={{ color: 'var(--c-ink)' }}> POR IA</span>
+            </motion.h2>
 
-          <motion.h2
-            variants={fadeUp}
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontWeight: 900,
-              fontSize: 'clamp(2rem, 4.5vw, 3.25rem)',
-              letterSpacing: '-0.02em',
-              textTransform: 'uppercase',
-              color: 'var(--c-ink)',
-              lineHeight: 1.05,
-              marginBottom: '1.25rem',
-              textWrap: 'balance',
-            }}
-          >
-            CREATIVIDAD <br />
-            <span style={{ color: 'var(--c-lime)' }}>IMPULSADA</span> POR IA
-          </motion.h2>
+            {/* Sub */}
+            <motion.p
+              variants={fadeUp}
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '0.9rem',
+                fontWeight: 600,
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase',
+                color: 'oklch(0.65 0.020 260)',
+                marginBottom: '1rem',
+              }}
+            >
+              Adaptándonos a los nuevos entornos<br />digitales y tecnológicos
+            </motion.p>
 
-          <motion.p
-            variants={fadeUp}
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: '1rem',
-              color: 'var(--c-muted)',
-              lineHeight: 1.7,
-              maxWidth: '52ch',
-              marginBottom: '2rem',
-            }}
-          >
-            En Kubbox usamos inteligencia artificial como un aliado tecnológico para crear soluciones innovadoras y analíticas más rápidas y eficientes. Combinamos el ingenio humano con el poder de la automatización para diseñar estrategias, optimizar procesos y generar contenido que funciona.
-          </motion.p>
+            {/* Body copy */}
+            <motion.p
+              variants={fadeUp}
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '0.95rem',
+                color: 'var(--c-muted)',
+                lineHeight: 1.75,
+                maxWidth: '46ch',
+                marginBottom: '2rem',
+                textWrap: 'pretty',
+              }}
+            >
+              En Kubbox usamos inteligencia artificial como un aliado tecnológico para crear soluciones innovadoras y analíticas más rápidas. Combinamos el ingenio humano con el poder de la automatización para diseñar estrategias que realmente funcionan.
+            </motion.p>
 
-          <motion.div variants={fadeUp}>
-            <Button variant="outline" size="md">
-              Descubre nuestras soluciones
-            </Button>
+            {/* CTA */}
+            <motion.div variants={fadeUp}>
+              <Button variant="primary" size="md">
+                <span>Descubre nuestras soluciones</span>
+                <ArrowRight size={16} />
+              </Button>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Responsive: stack on mobile */}
+      <style>{`
+        @media (max-width: 768px) {
+          .ai-card {
+            flex-direction: column !important;
+          }
+        }
+      `}</style>
     </section>
   )
 }
