@@ -52,7 +52,8 @@ const SERVICES = [
   },
 ]
 
-const PERSON_IMG = 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=900&q=85'
+const PERSON_IMG = '/images/HOME/WEB/Ruleta/se%C3%B1ora.png'
+const RULETA_IMG = '/images/HOME/WEB/Ruleta/Ruleta completa.png'
 
 export default function ServicesSection() {
   const [active, setActive] = useState(0)
@@ -65,7 +66,6 @@ export default function ServicesSection() {
       style={{
         position: 'relative',
         overflow: 'hidden',
-        background: 'oklch(0.08 0.023 260)',
         minHeight: '100svh',
         display: 'flex',
         flexDirection: 'column',
@@ -178,31 +178,28 @@ export default function ServicesSection() {
             </div>
           </div>
 
-          {/* Right — person visual with arc decoration */}
-          <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            {/* Rotating arc ring */}
+          {/* Right — person visual with ruleta decoration */}
+          <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '500px' }}>
+            {/* Ruleta decorativa girando en el fondo */}
             <motion.div
               animate={{ rotate: 360 }}
-              transition={{ repeat: Infinity, duration: 40, ease: 'linear' }}
+              transition={{ repeat: Infinity, duration: 60, ease: 'linear' }}
               style={{
                 position: 'absolute',
-                inset: '-8%',
-                borderRadius: '50%',
-                border: '1px dashed oklch(0.88 0.260 130 / 0.20)',
+                width: '90%',
+                aspectRatio: '1',
                 pointerEvents: 'none',
+                zIndex: 0,
+                opacity: 0.35,
               }}
-            />
-            <motion.div
-              animate={{ rotate: -360 }}
-              transition={{ repeat: Infinity, duration: 28, ease: 'linear' }}
-              style={{
-                position: 'absolute',
-                inset: '2%',
-                borderRadius: '50%',
-                border: '1px dashed oklch(0.72 0.150 190 / 0.18)',
-                pointerEvents: 'none',
-              }}
-            />
+            >
+              <img
+                src={RULETA_IMG}
+                alt=""
+                aria-hidden="true"
+                style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+              />
+            </motion.div>
 
             {/* Person image */}
             <motion.div
@@ -212,36 +209,16 @@ export default function ServicesSection() {
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 position: 'relative',
-                width: '100%',
-                maxWidth: '520px',
-                aspectRatio: '4/5',
-                borderRadius: '1.5rem',
-                overflow: 'hidden',
-                border: '1px solid oklch(0.22 0.025 260)',
-                boxShadow: '0 0 80px oklch(0.88 0.260 130 / 0.10), 0 0 40px oklch(0.72 0.150 190 / 0.08)',
+                zIndex: 1,
+                width: '80%',
+                maxWidth: '460px',
               }}
             >
               <img
                 src={PERSON_IMG}
                 alt="Soluciones digitales con tecnología de vanguardia"
-                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
+                style={{ width: '100%', height: 'auto', objectFit: 'contain', display: 'block' }}
               />
-              {/* Lime tint overlay at bottom */}
-              <div style={{
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                right: 0,
-                height: '40%',
-                background: 'linear-gradient(to top, oklch(0.08 0.025 260 / 0.80), transparent)',
-              }} />
-              {/* Lime glow overlay */}
-              <div style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'radial-gradient(ellipse 80% 60% at 50% 30%, oklch(0.72 0.150 190 / 0.10), transparent)',
-                mixBlendMode: 'screen',
-              }} />
             </motion.div>
 
             {/* Floating service count badge */}

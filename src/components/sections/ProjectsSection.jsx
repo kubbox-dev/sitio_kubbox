@@ -12,6 +12,7 @@ const PROJECTS = [
     tags: ['Estrategia', 'Pauta Digital', 'Contenido'],
     imgBg: 'linear-gradient(135deg, oklch(0.55 0.18 30), oklch(0.35 0.12 20))',
     accent: 'oklch(0.75 0.20 50)',
+    logo: '/images/NUESTROS PROYECTOS/WEB/Logos/Kelloggs logo.svg',
   },
   {
     number: '02',
@@ -21,6 +22,7 @@ const PROJECTS = [
     tags: ['Branding', 'Redes Sociales', 'Web Design'],
     imgBg: 'linear-gradient(135deg, oklch(0.50 0.16 145), oklch(0.30 0.10 155))',
     accent: 'oklch(0.78 0.22 145)',
+    logo: '/images/HOME/WEB/Logos/pollocoa logo.svg',
   },
   {
     number: '03',
@@ -30,6 +32,7 @@ const PROJECTS = [
     tags: ['E-commerce', 'UI/UX', 'SEO'],
     imgBg: 'linear-gradient(135deg, oklch(0.45 0.15 270), oklch(0.28 0.12 255))',
     accent: 'oklch(0.70 0.18 270)',
+    logo: '/images/HOME/WEB/Logos/frixo logo.svg',
   },
   {
     number: '04',
@@ -39,6 +42,7 @@ const PROJECTS = [
     tags: ['Meta Ads', 'Google Ads', 'Analytics'],
     imgBg: 'linear-gradient(135deg, oklch(0.42 0.14 200), oklch(0.25 0.10 210))',
     accent: 'oklch(0.72 0.150 190)',
+    logo: '/images/HOME/WEB/Logos/centro automotriz logo.svg',
   },
 ]
 
@@ -128,8 +132,24 @@ export default function ProjectsSection() {
                     <div key={i} style={{ width: '7px', height: '7px', borderRadius: '50%', background: c }} />
                   ))}
                 </div>
-                {/* Screen content gradient */}
-                <div style={{ flex: 1, background: project.imgBg, opacity: 0.7 }} />
+                {/* Screen content — gradient bg + centered logo */}
+                <div style={{ flex: 1, background: project.imgBg, opacity: 0.85, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {project.logo && (
+                    <img
+                      src={project.logo}
+                      alt={project.title}
+                      style={{
+                        maxWidth: '55%',
+                        maxHeight: '60%',
+                        objectFit: 'contain',
+                        filter: 'brightness(0) invert(1)',
+                        opacity: 0.9,
+                        position: 'relative',
+                        zIndex: 1,
+                      }}
+                    />
+                  )}
+                </div>
               </div>
 
               {/* Glow */}

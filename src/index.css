@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Barlow:wght@400;500;600&display=swap');
 @import "tailwindcss";
 @import "./styles/tokens.css";
 
@@ -17,9 +17,18 @@ html {
 body {
   font-family: var(--font-body);
   background-color: var(--c-bg);
+  background-image: url('/images/HOME/WEB/Fondo/fondo-web.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-attachment: fixed;
   color: var(--c-ink);
   line-height: 1.65;
   overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  body { background-attachment: scroll; }
 }
 
 #root {

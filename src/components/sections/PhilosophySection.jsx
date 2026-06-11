@@ -25,7 +25,6 @@ export default function PhilosophySection() {
     <section
       style={{
         paddingBlock: 'clamp(4rem, 10vw, 7rem)',
-        background: 'oklch(0.08 0.023 260)',
         position: 'relative',
         overflow: 'hidden',
       }}

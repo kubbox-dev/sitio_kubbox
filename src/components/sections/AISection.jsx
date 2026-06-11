@@ -17,10 +17,8 @@ export default function AISection() {
         position: 'relative',
         overflow: 'hidden',
         paddingBlock: 'clamp(4rem, 10vw, 7rem)',
-        background: 'var(--c-bg)',
       }}
     >
-      {/* Subtle background glows */}
       <GlowOrb color="teal" size={600} top="-15%" left="10%"  opacity={0.70} blur={140} />
       <GlowOrb color="lime" size={350} bottom="-5%" right="8%" opacity={0.55} blur={100} />
 
@@ -33,7 +31,7 @@ export default function AISection() {
           zIndex: 1,
         }}
       >
-        {/* ── Card wrapper (same concept as shadcn Card in the demo) ─── */}
+        {/* ── Layout split ─────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -41,19 +39,15 @@ export default function AISection() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           style={{
             position: 'relative',
-            overflow: 'hidden',
-            borderRadius: '1.5rem',
-            border: '1px solid oklch(0.22 0.025 260)',
-            background: 'oklch(0.07 0.022 260 / 0.96)',
-            minHeight: '520px',
             display: 'flex',
+            minHeight: '520px',
           }}
           className="ai-card"
         >
-          {/* Spotlight effect — follows cursor */}
+          {/* Spotlight — cursor glow */}
           <Spotlight size={320} />
 
-          {/* ── Left: Spline 3D robot ───────────────── */}
+          {/* ── Left: Spline robot ───────────────────── */}
           <div
             style={{
               flex: 1,
@@ -64,7 +58,7 @@ export default function AISection() {
               justifyContent: 'center',
             }}
           >
-            {/* "IA" ghost text behind the scene */}
+            {/* "IA" ghost text — z-index 2 so queda sobre el robot como watermark */}
             <div
               aria-hidden="true"
               style={{
@@ -78,10 +72,10 @@ export default function AISection() {
                 fontSize: 'clamp(8rem, 18vw, 16rem)',
                 letterSpacing: '-0.04em',
                 color: 'transparent',
-                WebkitTextStroke: '1.5px oklch(0.88 0.260 130 / 0.18)',
+                WebkitTextStroke: '1.5px oklch(0.88 0.260 130 / 0.22)',
                 userSelect: 'none',
                 pointerEvents: 'none',
-                zIndex: 0,
+                zIndex: 2,
               }}
             >
               IA
@@ -89,13 +83,10 @@ export default function AISection() {
 
             {/* Spline scene */}
             <div style={{ position: 'relative', zIndex: 1, width: '100%', height: '100%', minHeight: '420px' }}>
-              <SplineScene
-                scene={SPLINE_ROBOT}
-                className="w-full h-full"
-              />
+              <SplineScene scene={SPLINE_ROBOT} className="w-full h-full" />
             </div>
 
-            {/* Bottom fade so scene blends into card */}
+            {/* Bottom fade */}
             <div
               aria-hidden="true"
               style={{
@@ -104,14 +95,14 @@ export default function AISection() {
                 left: 0,
                 right: 0,
                 height: '30%',
-                background: 'linear-gradient(to top, oklch(0.07 0.022 260), transparent)',
+                background: 'linear-gradient(to top, var(--c-bg), transparent)',
                 pointerEvents: 'none',
-                zIndex: 2,
+                zIndex: 3,
               }}
             />
           </div>
 
-          {/* ── Right: copy ────────────────────────── */}
+          {/* ── Right: copy ─────────────────────────── */}
           <motion.div
             ref={ref}
             initial="hidden"
@@ -217,12 +208,9 @@ export default function AISection() {
         </motion.div>
       </div>
 
-      {/* Responsive: stack on mobile */}
       <style>{`
         @media (max-width: 768px) {
-          .ai-card {
-            flex-direction: column !important;
-          }
+          .ai-card { flex-direction: column !important; }
         }
       `}</style>
     </section>

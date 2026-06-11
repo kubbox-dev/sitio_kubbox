@@ -1,30 +1,18 @@
 import { motion } from 'framer-motion'
 import { ArrowDown } from 'lucide-react'
-import GlowOrb from '../ui/GlowOrb'
-import Button from '../ui/Button'
 
-const HEADLINE_WORDS_1 = ['TU', 'MARCA', 'EN']
-const HEADLINE_WORDS_2 = ['EL', 'MUNDO', 'DIGITAL']
+/* Slide-up reveal per línea — parent necesita overflow:hidden */
+const lineReveal = (delay = 0) => ({
+  hidden:  { y: '110%', opacity: 0, skewY: 2 },
+  visible: { y: '0%',   opacity: 1, skewY: 0,
+    transition: { delay, duration: 1.0, ease: [0.16, 1, 0.3, 1] } },
+})
 
-const wordVariant = {
-  hidden:  { opacity: 0, y: 60, skewY: 4 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    skewY: 0,
-    transition: { delay: i * 0.1, duration: 0.75, ease: [0.16, 1, 0.3, 1] },
-  }),
-}
-
-const subtitleVariant = {
-  hidden:  { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { delay: 0.75, duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
-}
-
-const ctaVariant = {
-  hidden:  { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { delay: 0.95, duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
-}
+const NEON_SHADOW =
+  '0 0 7px var(--c-lime), 0 0 18px var(--c-lime), ' +
+  '0 0 45px oklch(0.88 0.260 130 / 0.80), ' +
+  '0 0 90px oklch(0.88 0.260 130 / 0.40), ' +
+  '0 0 160px oklch(0.88 0.260 130 / 0.20)'
 
 export default function HeroSection() {
   return (
@@ -39,128 +27,138 @@ export default function HeroSection() {
         alignItems: 'center',
         textAlign: 'center',
         overflow: 'hidden',
-        paddingTop: '6rem',
-        paddingBottom: '4rem',
-        paddingInline: 'var(--container-pad)',
+        paddingTop: '5rem',
+        paddingBottom: '5rem',
+        paddingInline: 'clamp(1rem, 4vw, 3rem)',
       }}
     >
-      {/* Atmospheric orbs — match design: large teal left, lime right */}
-      <GlowOrb color="teal" size={800} top="-20%" left="-20%" opacity={1.4} blur={140} />
-      <GlowOrb color="lime" size={700} top="10%"  right="-15%" opacity={1.1} blur={130} />
-      <GlowOrb color="teal" size={500} bottom="0%" left="25%"  opacity={0.8} blur={110} />
-
-      {/* Dot grid overlay */}
+      {/* Dot grid texture */}
       <div
         aria-hidden="true"
         style={{
           position: 'absolute',
           inset: 0,
-          backgroundImage: 'radial-gradient(oklch(0.40 0.020 260 / 0.35) 1px, transparent 1px)',
-          backgroundSize: '32px 32px',
+          backgroundImage: 'radial-gradient(oklch(0.45 0.020 260 / 0.30) 1px, transparent 1px)',
+          backgroundSize: '30px 30px',
+          maskImage: 'radial-gradient(ellipse 85% 85% at 50% 50%, black 45%, transparent 100%)',
           zIndex: 0,
-          maskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%)',
         }}
       />
 
-      <div style={{ position: 'relative', zIndex: 1, maxWidth: '900px' }}>
-        {/* Line 1 — white */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            gap: '0 0.4em',
-            overflow: 'hidden',
-          }}
+      <div style={{ position: 'relative', zIndex: 1, width: '100%', maxWidth: '1300px' }}>
+
+        {/* ── TU MARCA EN ──────────────────────────── */}
+        <div style={{ overflow: 'hidden' }}>
+          <motion.h1
+            variants={lineReveal(0)}
+            initial="hidden"
+            animate="visible"
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontWeight: 900,
+              fontStyle: 'italic',
+              fontSize: 'clamp(2.8rem, 10.5vw, 8.5rem)',
+              lineHeight: 0.92,
+              letterSpacing: '-0.025em',
+              textTransform: 'uppercase',
+              color: 'var(--c-ink)',
+              margin: 0,
+              whiteSpace: 'nowrap',
+            }}
+          >
+            TU MARCA EN
+          </motion.h1>
+        </div>
+
+        {/* ── EL MUNDO ─────────────────────────────── */}
+        <div style={{ overflow: 'hidden' }}>
+          <motion.div
+            variants={lineReveal(0.14)}
+            initial="hidden"
+            animate="visible"
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontWeight: 900,
+              fontStyle: 'italic',
+              fontSize: 'clamp(3.5rem, 15.5vw, 13rem)',
+              lineHeight: 0.88,
+              letterSpacing: '-0.03em',
+              textTransform: 'uppercase',
+              color: 'var(--c-lime)',
+              textShadow: NEON_SHADOW,
+              whiteSpace: 'nowrap',
+            }}
+          >
+            EL MUNDO
+          </motion.div>
+        </div>
+
+        {/* ── DIGITAL ──────────────────────────────── */}
+        <div style={{ overflow: 'hidden', marginBottom: 'clamp(2rem, 5vw, 4.5rem)' }}>
+          <motion.div
+            variants={lineReveal(0.26)}
+            initial="hidden"
+            animate="visible"
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontWeight: 900,
+              fontStyle: 'italic',
+              fontSize: 'clamp(4rem, 18vw, 15.5rem)',
+              lineHeight: 0.88,
+              letterSpacing: '-0.03em',
+              textTransform: 'uppercase',
+              color: 'var(--c-lime)',
+              textShadow: NEON_SHADOW,
+              whiteSpace: 'nowrap',
+            }}
+          >
+            DIGITAL
+          </motion.div>
+        </div>
+
+        {/* ── CONOCE NUESTROS PROYECTOS ────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.72, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          {HEADLINE_WORDS_1.map((word, i) => (
-            <motion.span
-              key={word}
-              custom={i}
-              variants={wordVariant}
-              initial="hidden"
-              animate="visible"
+          <a
+            href="#experiencia"
+            style={{ display: 'inline-block', textDecoration: 'none', cursor: 'pointer' }}
+          >
+            <span
               style={{
                 fontFamily: 'var(--font-display)',
                 fontWeight: 900,
-                fontSize: 'clamp(3.5rem, 9vw, 6rem)',
-                lineHeight: 1,
-                letterSpacing: '-0.02em',
+                fontStyle: 'italic',
+                fontSize: 'clamp(1.2rem, 3.2vw, 2.4rem)',
+                letterSpacing: '-0.01em',
                 textTransform: 'uppercase',
                 color: 'var(--c-ink)',
+                lineHeight: 1.1,
                 display: 'block',
               }}
             >
-              {word}
-            </motion.span>
-          ))}
-        </div>
-
-        {/* Line 2 — neon lime */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            gap: '0 0.4em',
-            overflow: 'hidden',
-          }}
-        >
-          {HEADLINE_WORDS_2.map((word, i) => (
-            <motion.span
-              key={word}
-              custom={i + HEADLINE_WORDS_1.length}
-              variants={wordVariant}
-              initial="hidden"
-              animate="visible"
+              CONOCE NUESTROS
+            </span>
+            <span
               style={{
                 fontFamily: 'var(--font-display)',
                 fontWeight: 900,
-                fontSize: 'clamp(3.5rem, 9vw, 6rem)',
-                lineHeight: 1,
-                letterSpacing: '-0.02em',
+                fontStyle: 'italic',
+                fontSize: 'clamp(1.2rem, 3.2vw, 2.4rem)',
+                letterSpacing: '-0.01em',
                 textTransform: 'uppercase',
-                color: 'var(--c-lime)',
+                color: 'transparent',
+                WebkitTextFillColor: 'transparent',
+                WebkitTextStroke: '1.5px oklch(0.98 0 0 / 0.60)',
+                lineHeight: 1.1,
                 display: 'block',
               }}
             >
-              {word}
-            </motion.span>
-          ))}
-        </div>
-
-        {/* Subtitle */}
-        <motion.p
-          variants={subtitleVariant}
-          initial="hidden"
-          animate="visible"
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(1rem, 2vw, 1.2rem)',
-            fontWeight: 400,
-            color: 'var(--c-muted)',
-            marginTop: '1.5rem',
-            maxWidth: '52ch',
-            marginInline: 'auto',
-            lineHeight: 1.7,
-          }}
-        >
-          Agencia de marketing digital que transforma marcas en experiencias que conectan, convierten y perduran.
-        </motion.p>
-
-        {/* CTA */}
-        <motion.div
-          variants={ctaVariant}
-          initial="hidden"
-          animate="visible"
-          style={{ marginTop: '2.5rem', display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}
-        >
-          <Button size="lg" variant="primary" as="a" href="#experiencia">
-            Conoce nuestros proyectos
-          </Button>
-          <Button size="lg" variant="outline" as="a" href="#servicios">
-            Nuestros servicios
-          </Button>
+              PROYECTOS
+            </span>
+          </a>
         </motion.div>
       </div>
 
@@ -174,10 +172,6 @@ export default function HeroSection() {
           bottom: '2rem',
           left: '50%',
           transform: 'translateX(-50%)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '0.375rem',
         }}
       >
         <motion.div
