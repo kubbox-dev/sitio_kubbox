@@ -1,26 +1,71 @@
+import { Suspense, useRef, useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { Sparkles, ArrowRight } from 'lucide-react'
 import GlowOrb from '../ui/GlowOrb'
 import Button from '../ui/Button'
 import { SplineScene } from '../ui/SplineScene'
-import { Spotlight } from '../ui/Spotlight'
-import { useScrollAnimation, fadeUp, staggerContainer } from '../../hooks/useScrollAnimation'
 
 const SPLINE_ROBOT = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode'
 
+// Variantes de animación más suaves
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
+}
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.12, delayChildren: 0.1 },
+  },
+}
+
 export default function AISection() {
-  const { ref, controls } = useScrollAnimation(0.15)
+  const sectionRef = useRef(null)
+  const splineRef = useRef(null)
+  const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 })
+
+  const handleMouseMove = useCallback((e) => {
+    if (!sectionRef.current) return
+    const rect = sectionRef.current.getBoundingClientRect()
+    const x = (e.clientX - rect.left) / rect.width
+    const y = (e.clientY - rect.top) / rect.height
+    setMousePos({ x, y })
+
+    if (splineRef.current && splineRef.current.emitEvent) {
+      splineRef.current.emitEvent('mouseMove', { 
+        x: x * 2 - 1,
+        y: y * 2 - 1 
+      })
+    }
+  }, [])
 
   return (
     <section
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
       style={{
         position: 'relative',
         overflow: 'hidden',
         paddingBlock: 'clamp(4rem, 10vw, 7rem)',
+        marginTop: '-1px', // ← elimina posible línea entre secciones
+        // Fondo degradado: transparente arriba → oscuro abajo
+        background: 'linear-gradient(to bottom, transparent 0%, var(--c-bg) 15%, var(--c-bg) 100%)',
       }}
     >
-      <GlowOrb color="teal" size={600} top="-15%" left="10%"  opacity={0.70} blur={140} />
-      <GlowOrb color="lime" size={350} bottom="-5%" right="8%" opacity={0.55} blur={100} />
+      {/* Spotlight global que sigue al mouse */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-150"
+        style={{
+          background: `radial-gradient(500px circle at ${mousePos.x * 100}% ${mousePos.y * 100}%, oklch(0.88 0.26 130 / 0.12), transparent 75%)`,
+        }}
+      />
+
+      {/* Glow Orbs */}
+      <GlowOrb color="teal" size={500} top="-15%" left="10%" opacity={0.5} blur={140} />
+      <GlowOrb color="lime" size={300} bottom="-5%" right="8%" opacity={0.4} blur={100} />
 
       <div
         style={{
@@ -31,7 +76,6 @@ export default function AISection() {
           zIndex: 1,
         }}
       >
-        {/* ── Layout split ─────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -41,49 +85,71 @@ export default function AISection() {
             position: 'relative',
             display: 'flex',
             minHeight: '520px',
+            flexDirection: 'column',
           }}
           className="ai-card"
         >
-          {/* Spotlight — cursor glow */}
-          <Spotlight size={320} />
-
-          {/* ── Left: Spline robot ───────────────────── */}
+          {/* Left: Spline robot */}
           <div
             style={{
               flex: 1,
               position: 'relative',
-              minHeight: '420px',
+              minHeight: '320px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
             }}
           >
-            {/* "IA" ghost text — z-index 2 so queda sobre el robot como watermark */}
+            {/* IA watermark */}
             <div
               aria-hidden="true"
               style={{
                 position: 'absolute',
-                inset: 0,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                top: '0.5rem',
+                right: '0.75rem',
                 fontFamily: 'var(--font-display)',
                 fontWeight: 900,
-                fontSize: 'clamp(8rem, 18vw, 16rem)',
+                fontSize: 'clamp(2.5rem, 8vw, 5rem)',
                 letterSpacing: '-0.04em',
                 color: 'transparent',
-                WebkitTextStroke: '1.5px oklch(0.88 0.260 130 / 0.22)',
+                WebkitTextStroke: '1.5px oklch(0.88 0.260 130 / 0.25)',
                 userSelect: 'none',
                 pointerEvents: 'none',
-                zIndex: 2,
+                zIndex: 15,
+                opacity: 0.7,
               }}
             >
               IA
             </div>
 
-            {/* Spline scene */}
-            <div style={{ position: 'relative', zIndex: 1, width: '100%', height: '100%', minHeight: '420px' }}>
-              <SplineScene scene={SPLINE_ROBOT} className="w-full h-full" />
+            {/* Spline scene con fallback */}
+            <div style={{ position: 'relative', zIndex: 1, width: '100%', height: '100%', minHeight: '320px' }}>
+              <Suspense
+                fallback={
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '100%',
+                    width: '100%',
+                  }}>
+                    <div style={{
+                      width: '32px',
+                      height: '32px',
+                      border: '2px solid var(--c-lime)',
+                      borderTopColor: 'transparent',
+                      borderRadius: '50%',
+                      animation: 'spin 0.8s linear infinite',
+                    }} />
+                  </div>
+                }
+              >
+                <SplineScene 
+                  ref={splineRef}
+                  scene={SPLINE_ROBOT} 
+                  className="w-full h-full" 
+                />
+              </Suspense>
             </div>
 
             {/* Bottom fade */}
@@ -94,28 +160,28 @@ export default function AISection() {
                 bottom: 0,
                 left: 0,
                 right: 0,
-                height: '30%',
+                height: '25%',
                 background: 'linear-gradient(to top, var(--c-bg), transparent)',
                 pointerEvents: 'none',
-                zIndex: 3,
+                zIndex: 5,
               }}
             />
           </div>
 
-          {/* ── Right: copy ─────────────────────────── */}
+          {/* Right: copy */}
           <motion.div
-            ref={ref}
+            variants={staggerContainer}
             initial="hidden"
-            animate={controls}
-            variants={staggerContainer(0.12, 0.15)}
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
             style={{
               flex: 1,
-              padding: 'clamp(2rem, 5vw, 3.5rem)',
+              padding: 'clamp(1.5rem, 5vw, 3rem) clamp(1rem, 4vw, 2rem)',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
               position: 'relative',
-              zIndex: 1,
+              zIndex: 2,
             }}
           >
             {/* Badge */}
@@ -128,7 +194,7 @@ export default function AISection() {
                 background: 'oklch(0.88 0.260 130 / 0.08)',
                 border: '1px solid oklch(0.88 0.260 130 / 0.22)',
                 borderRadius: '2rem',
-                padding: '0.375rem 1rem',
+                padding: '0.35rem 1rem',
                 marginBottom: '1.5rem',
                 width: 'fit-content',
               }}
@@ -136,9 +202,9 @@ export default function AISection() {
               <Sparkles size={13} color="var(--c-lime)" />
               <span style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '0.75rem',
+                fontSize: '0.7rem',
                 fontWeight: 600,
-                letterSpacing: '0.10em',
+                letterSpacing: '0.1em',
                 textTransform: 'uppercase',
                 color: 'var(--c-lime)',
               }}>
@@ -152,11 +218,11 @@ export default function AISection() {
               style={{
                 fontFamily: 'var(--font-display)',
                 fontWeight: 900,
-                fontSize: 'clamp(1.8rem, 4vw, 3.25rem)',
+                fontSize: 'clamp(1.8rem, 5vw, 3rem)',
                 letterSpacing: '-0.025em',
                 textTransform: 'uppercase',
-                lineHeight: 1.05,
-                marginBottom: '1.25rem',
+                lineHeight: 1.1,
+                marginBottom: '1rem',
                 textWrap: 'balance',
               }}
             >
@@ -165,43 +231,43 @@ export default function AISection() {
               <span style={{ color: 'var(--c-ink)' }}> POR IA</span>
             </motion.h2>
 
-            {/* Sub */}
+            {/* Subtítulo */}
             <motion.p
               variants={fadeUp}
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '0.9rem',
+                fontSize: '0.8rem',
                 fontWeight: 600,
                 letterSpacing: '0.04em',
                 textTransform: 'uppercase',
                 color: 'oklch(0.65 0.020 260)',
-                marginBottom: '1rem',
+                marginBottom: '0.75rem',
               }}
             >
               Adaptándonos a los nuevos entornos<br />digitales y tecnológicos
             </motion.p>
 
-            {/* Body copy */}
+            {/* Body */}
             <motion.p
               variants={fadeUp}
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '0.95rem',
+                fontSize: '0.9rem',
                 color: 'var(--c-muted)',
-                lineHeight: 1.75,
+                lineHeight: 1.6,
                 maxWidth: '46ch',
                 marginBottom: '2rem',
                 textWrap: 'pretty',
               }}
             >
-              En Kubbox usamos inteligencia artificial como un aliado tecnológico para crear soluciones innovadoras y analíticas más rápidas. Combinamos el ingenio humano con el poder de la automatización para diseñar estrategias que realmente funcionan.
+              En Kubbox usamos inteligencia artificial como un aliado tecnológico para crear soluciones innovadoras y análisis más rápidos. Combinamos el ingenio humano con el poder de la automatización para diseñar estrategias que realmente funcionan.
             </motion.p>
 
             {/* CTA */}
             <motion.div variants={fadeUp}>
-              <Button variant="primary" size="md">
+              <Button variant="primary" size="md" className="group gap-2">
                 <span>Descubre nuestras soluciones</span>
-                <ArrowRight size={16} />
+                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
               </Button>
             </motion.div>
           </motion.div>
@@ -209,8 +275,11 @@ export default function AISection() {
       </div>
 
       <style>{`
-        @media (max-width: 768px) {
-          .ai-card { flex-direction: column !important; }
+        @media (min-width: 769px) {
+          .ai-card { flex-direction: row !important; }
+        }
+        @keyframes spin {
+          to { transform: rotate(360deg); }
         }
       `}</style>
     </section>

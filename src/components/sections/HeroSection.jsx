@@ -1,18 +1,19 @@
 import { motion } from 'framer-motion'
 import { ArrowDown } from 'lucide-react'
 
-/* Slide-up reveal per línea — parent necesita overflow:hidden */
+const BG_DARK = 'oklch(0.06 0.018 260)'
+const transparent = 'transparent'
 const lineReveal = (delay = 0) => ({
-  hidden:  { y: '110%', opacity: 0, skewY: 2 },
+  hidden:  { y: '110%', opacity: 0, skewY: 1 },
   visible: { y: '0%',   opacity: 1, skewY: 0,
     transition: { delay, duration: 1.0, ease: [0.16, 1, 0.3, 1] } },
 })
 
-const NEON_SHADOW =
-  '0 0 7px var(--c-lime), 0 0 18px var(--c-lime), ' +
-  '0 0 45px oklch(0.88 0.260 130 / 0.80), ' +
-  '0 0 90px oklch(0.88 0.260 130 / 0.40), ' +
-  '0 0 160px oklch(0.88 0.260 130 / 0.20)'
+const NEON_STYLE = {
+  color: 'var(--c-lime)',
+  WebkitTextFillColor: transparent,
+  WebkitTextStroke: '2px var(--c-lime)',
+}
 
 export default function HeroSection() {
   return (
@@ -32,22 +33,37 @@ export default function HeroSection() {
         paddingInline: 'clamp(1rem, 4vw, 3rem)',
       }}
     >
-      {/* Dot grid texture */}
+      {/* ── Triángulo invertido con degradado interno ─────────────── */}
       <div
         aria-hidden="true"
         style={{
           position: 'absolute',
           inset: 0,
-          backgroundImage: 'radial-gradient(oklch(0.45 0.020 260 / 0.30) 1px, transparent 1px)',
-          backgroundSize: '30px 30px',
-          maskImage: 'radial-gradient(ellipse 85% 85% at 50% 50%, black 45%, transparent 100%)',
+          background: 'radial-gradient(ellipse 100% 95% at 50% 10%, oklch(0.06 0.018 260 / 0.96) 0%, oklch(0.06 0.018 260 / 0.90) 45%, oklch(0.06 0.018 260 / 0.45) 100%)',
+          clipPath: 'polygon(-20% -5%, 120% -5%, 50% 100%)',
           zIndex: 0,
+          pointerEvents: 'none',
         }}
       />
 
-      <div style={{ position: 'relative', zIndex: 1, width: '100%', maxWidth: '1300px' }}>
+      {/* ── Dot grid texture — sutil ────────────────────────────────── */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: 'radial-gradient(oklch(0.40 0.015 260 / 0.18) 1px, transparent 1px)',
+          backgroundSize: '28px 28px',
+          maskImage: 'radial-gradient(ellipse 65% 65% at 50% 35%, black 25%, transparent 75%)',
+          zIndex: 1,
+          pointerEvents: 'none',
+        }}
+      />
 
-        {/* ── TU MARCA EN ──────────────────────────── */}
+      {/* ── Contenido ───────────────────────────────────────────────── */}
+      <div style={{ position: 'relative', zIndex: 2, width: '100%', maxWidth: '1200px' }}>
+
+        {/* TU MARCA EN */}
         <div style={{ overflow: 'hidden' }}>
           <motion.h1
             variants={lineReveal(0)}
@@ -57,20 +73,19 @@ export default function HeroSection() {
               fontFamily: 'var(--font-display)',
               fontWeight: 900,
               fontStyle: 'italic',
-              fontSize: 'clamp(2.8rem, 10.5vw, 8.5rem)',
+              fontSize: 'clamp(2.5rem, 9vw, 7.5rem)',
               lineHeight: 0.92,
               letterSpacing: '-0.025em',
               textTransform: 'uppercase',
               color: 'var(--c-ink)',
               margin: 0,
-              whiteSpace: 'nowrap',
             }}
           >
             TU MARCA EN
           </motion.h1>
         </div>
 
-        {/* ── EL MUNDO ─────────────────────────────── */}
+        {/* EL MUNDO — hollow outline */}
         <div style={{ overflow: 'hidden' }}>
           <motion.div
             variants={lineReveal(0.14)}
@@ -80,21 +95,19 @@ export default function HeroSection() {
               fontFamily: 'var(--font-display)',
               fontWeight: 900,
               fontStyle: 'italic',
-              fontSize: 'clamp(3.5rem, 15.5vw, 13rem)',
+              fontSize: 'clamp(3rem, 14vw, 11rem)',
               lineHeight: 0.88,
               letterSpacing: '-0.03em',
               textTransform: 'uppercase',
-              color: 'var(--c-lime)',
-              textShadow: NEON_SHADOW,
-              whiteSpace: 'nowrap',
+              ...NEON_STYLE,
             }}
           >
             EL MUNDO
           </motion.div>
         </div>
 
-        {/* ── DIGITAL ──────────────────────────────── */}
-        <div style={{ overflow: 'hidden', marginBottom: 'clamp(2rem, 5vw, 4.5rem)' }}>
+        {/* DIGITAL — hollow outline */}
+        <div style={{ overflow: 'hidden', marginBottom: 'clamp(2rem, 5vw, 4rem)' }}>
           <motion.div
             variants={lineReveal(0.26)}
             initial="hidden"
@@ -103,59 +116,49 @@ export default function HeroSection() {
               fontFamily: 'var(--font-display)',
               fontWeight: 900,
               fontStyle: 'italic',
-              fontSize: 'clamp(4rem, 18vw, 15.5rem)',
+              fontSize: 'clamp(3.5rem, 16vw, 13.5rem)',
               lineHeight: 0.88,
               letterSpacing: '-0.03em',
               textTransform: 'uppercase',
-              color: 'var(--c-lime)',
-              textShadow: NEON_SHADOW,
-              whiteSpace: 'nowrap',
+              ...NEON_STYLE,
             }}
           >
             DIGITAL
           </motion.div>
         </div>
 
-        {/* ── CONOCE NUESTROS PROYECTOS ────────────── */}
+        {/* CONOCE NUESTROS / PROYECTOS */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.72, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ delay: 0.65, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <a
-            href="#experiencia"
-            style={{ display: 'inline-block', textDecoration: 'none', cursor: 'pointer' }}
-          >
-            <span
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontWeight: 900,
-                fontStyle: 'italic',
-                fontSize: 'clamp(1.2rem, 3.2vw, 2.4rem)',
-                letterSpacing: '-0.01em',
-                textTransform: 'uppercase',
-                color: 'var(--c-ink)',
-                lineHeight: 1.1,
-                display: 'block',
-              }}
-            >
+          <a href="#experiencia" style={{ display: 'inline-block', textDecoration: 'none', cursor: 'pointer' }}>
+            <span style={{
+              fontFamily: 'var(--font-display)',
+              fontWeight: 900,
+              fontStyle: 'italic',
+              fontSize: 'clamp(1rem, 2.8vw, 2.1rem)',
+              letterSpacing: '-0.01em',
+              textTransform: 'uppercase',
+              color: 'var(--c-ink)',
+              lineHeight: 1.1,
+              display: 'block',
+            }}>
               CONOCE NUESTROS
             </span>
-            <span
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontWeight: 900,
-                fontStyle: 'italic',
-                fontSize: 'clamp(1.2rem, 3.2vw, 2.4rem)',
-                letterSpacing: '-0.01em',
-                textTransform: 'uppercase',
-                color: 'transparent',
-                WebkitTextFillColor: 'transparent',
-                WebkitTextStroke: '1.5px oklch(0.98 0 0 / 0.60)',
-                lineHeight: 1.1,
-                display: 'block',
-              }}
-            >
+            <span style={{
+              fontFamily: 'var(--font-display)',
+              fontWeight: 900,
+              fontStyle: 'italic',
+              fontSize: 'clamp(1rem, 2.8vw, 2.1rem)',
+              letterSpacing: '-0.01em',
+              textTransform: 'uppercase',
+              WebkitTextFillColor: 'transparent',
+              WebkitTextStroke: '1.5px oklch(0.98 0 0 / 0.55)',
+              lineHeight: 1.1,
+              display: 'block',
+            }}>
               PROYECTOS
             </span>
           </a>
@@ -167,19 +170,23 @@ export default function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4, duration: 0.6 }}
-        style={{
-          position: 'absolute',
-          bottom: '2rem',
-          left: '50%',
-          transform: 'translateX(-50%)',
-        }}
+        style={{ position: 'absolute', bottom: '2rem', left: '50%', transform: 'translateX(-50%)' }}
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-          style={{ color: 'var(--c-muted)' }}
+          style={{
+            color: 'var(--c-muted)',
+            background: 'oklch(0.12 0.020 260 / 0.55)',
+            border: '1px solid oklch(0.28 0.020 260)',
+            borderRadius: '50%',
+            padding: '0.45rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
         >
-          <ArrowDown size={20} />
+          <ArrowDown size={18} />
         </motion.div>
       </motion.div>
     </section>
