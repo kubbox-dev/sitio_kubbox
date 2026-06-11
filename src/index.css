@@ -1,15 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;500;600&display=swap');
 @import "tailwindcss";
+@import "./styles/tokens.css";
 
 *, *::before, *::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
-  -webkit-font-smoothing: antialiased;
+  font-family: var(--font-body);
+  background-color: var(--c-bg);
+  color: var(--c-ink);
+  line-height: 1.65;
+  overflow-x: hidden;
 }
 
 #root {
   min-height: 100vh;
+  isolation: isolate;
+}
+
+/* ── Utility: container ───────────────────────── */
+.container {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+/* ── Utility: section spacing ─────────────────── */
+.section {
+  padding-block: clamp(4rem, 10vw, 7rem);
+}
+
+/* ── Responsive nav helpers ───────────────────── */
+.hidden-mobile { display: flex; }
+.show-mobile   { display: none; }
+
+@media (max-width: 700px) {
+  .hidden-mobile { display: none !important; }
+  .show-mobile   { display: flex !important; }
+}
+
+/* ── Scrollbar hide for drag-scroll tracks ────── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* ── Reduced motion: kill all transforms/opacity animations */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

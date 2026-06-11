@@ -1,0 +1,55 @@
+:root {
+  /* ── Brand colors ─────────────────────────────── */
+  --c-lime:      oklch(0.88 0.260 130);
+  --c-teal:      oklch(0.72 0.150 190);
+
+  /* ── Surfaces ─────────────────────────────────── */
+  --c-bg:        oklch(0.09 0.025 260);
+  --c-surface:   oklch(0.14 0.028 260);
+  --c-surface2:  oklch(0.18 0.025 260);
+
+  /* ── Text ─────────────────────────────────────── */
+  --c-ink:       oklch(0.98 0.000 0);
+  --c-muted:     oklch(0.56 0.018 260);
+
+  /* ── CTA button fill (lime bg + dark text) ────── */
+  --c-cta-bg:    oklch(0.88 0.220 130);
+  --c-cta-ink:   oklch(0.09 0.025 260);
+
+  /* ── Glows ────────────────────────────────────── */
+  --glow-lime:   oklch(0.88 0.260 130 / 0.18);
+  --glow-teal:   oklch(0.72 0.150 190 / 0.15);
+
+  /* ── Typography ───────────────────────────────── */
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body:    'Barlow', sans-serif;
+
+  /* ── Spacing scale ────────────────────────────── */
+  --space-xs:  0.5rem;
+  --space-sm:  1rem;
+  --space-md:  1.5rem;
+  --space-lg:  2.5rem;
+  --space-xl:  4rem;
+  --space-2xl: 6rem;
+  --space-3xl: 9rem;
+
+  /* ── Container ────────────────────────────────── */
+  --container: 1200px;
+  --container-pad: clamp(1rem, 5vw, 3rem);
+
+  /* ── Z-index scale ────────────────────────────── */
+  --z-overlay:  10;
+  --z-sticky:   20;
+  --z-modal-bg: 30;
+  --z-modal:    40;
+  --z-toast:    50;
+
+  /* ── Easing ───────────────────────────────────── */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo:  cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ── Transitions ──────────────────────────────── */
+  --transition-fast:   150ms var(--ease-out-quart);
+  --transition-base:   250ms var(--ease-out-quart);
+  --transition-slow:   400ms var(--ease-out-expo);
+}
