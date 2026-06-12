@@ -8,6 +8,10 @@
   padding: 0;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  * { cursor: none !important; }
+}
+
 html {
   scroll-behavior: auto; /* Lenis handles smooth scroll */
   -webkit-font-smoothing: antialiased;

@@ -1,5 +1,5 @@
-import { Suspense, useRef, useState, useCallback } from 'react'
-import { motion } from 'framer-motion'
+import { Suspense, useRef, useCallback } from 'react'
+import { motion, useInView } from 'framer-motion'
 import { Sparkles, ArrowRight } from 'lucide-react'
 import GlowOrb from '../ui/GlowOrb'
 import Button from '../ui/Button'
@@ -24,21 +24,14 @@ const staggerContainer = {
 export default function AISection() {
   const sectionRef = useRef(null)
   const splineRef = useRef(null)
-  const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 })
+  const isInView = useInView(sectionRef, { once: true, amount: 0.2 })
 
   const handleMouseMove = useCallback((e) => {
-    if (!sectionRef.current) return
+    if (!sectionRef.current || !splineRef.current?.emitEvent) return
     const rect = sectionRef.current.getBoundingClientRect()
     const x = (e.clientX - rect.left) / rect.width
     const y = (e.clientY - rect.top) / rect.height
-    setMousePos({ x, y })
-
-    if (splineRef.current && splineRef.current.emitEvent) {
-      splineRef.current.emitEvent('mouseMove', { 
-        x: x * 2 - 1,
-        y: y * 2 - 1 
-      })
-    }
+    splineRef.current.emitEvent('mouseMove', { x: x * 2 - 1, y: y * 2 - 1 })
   }, [])
 
   return (
@@ -65,15 +58,6 @@ export default function AISection() {
           background: 'linear-gradient(to top, transparent, var(--c-bg))',
           pointerEvents: 'none',
           zIndex: 2,
-        }}
-      />
-
-      {/* Spotlight global que sigue al mouse */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-150"
-        style={{
-          background: `radial-gradient(500px circle at ${mousePos.x * 100}% ${mousePos.y * 100}%, oklch(0.88 0.26 130 / 0.12), transparent 75%)`,
         }}
       />
 
@@ -138,32 +122,34 @@ export default function AISection() {
 
             {/* Spline scene con fallback */}
             <div style={{ position: 'relative', zIndex: 1, width: '100%', height: '100%', minHeight: '320px' }}>
-              <Suspense
-                fallback={
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    height: '100%',
-                    width: '100%',
-                  }}>
+              {isInView && (
+                <Suspense
+                  fallback={
                     <div style={{
-                      width: '32px',
-                      height: '32px',
-                      border: '2px solid var(--c-lime)',
-                      borderTopColor: 'transparent',
-                      borderRadius: '50%',
-                      animation: 'spin 0.8s linear infinite',
-                    }} />
-                  </div>
-                }
-              >
-                <SplineScene 
-                  ref={splineRef}
-                  scene={SPLINE_ROBOT} 
-                  className="w-full h-full" 
-                />
-              </Suspense>
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: '100%',
+                      width: '100%',
+                    }}>
+                      <div style={{
+                        width: '32px',
+                        height: '32px',
+                        border: '2px solid var(--c-lime)',
+                        borderTopColor: 'transparent',
+                        borderRadius: '50%',
+                        animation: 'spin 0.8s linear infinite',
+                      }} />
+                    </div>
+                  }
+                >
+                  <SplineScene
+                    ref={splineRef}
+                    scene={SPLINE_ROBOT}
+                    className="w-full h-full"
+                  />
+                </Suspense>
+              )}
             </div>
 
             {/* Bottom fade */}
