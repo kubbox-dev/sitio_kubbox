@@ -93,7 +93,7 @@ export default function ProjectsSection() {
       }
 
   return (
-    <section id="experiencia" style={{ position: 'relative', overflow: 'hidden', paddingBlock: 'clamp(3rem, 8vw, 6rem)' }}>
+    <section id="experiencia" style={{ position: 'relative', overflow: 'hidden', paddingBlock: 'clamp(3rem, 8vw, 6rem)', marginTop: '-1px' }}>
       <GlowOrb color="lime" size={520} top="6%" right="-8%" opacity={0.55} blur={150} />
       <GlowOrb color="teal" size={420} bottom="2%" left="-6%" opacity={0.6} blur={130} />
 

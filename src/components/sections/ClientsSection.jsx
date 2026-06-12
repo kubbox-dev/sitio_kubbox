@@ -1,16 +1,16 @@
 import { motion } from 'framer-motion'
 
 const CLIENTS = [
-  { name: 'Pollocao',           src: '/images/HOME/WEB/Logos/pollocoa logo.svg' },
-  { name: 'F-rixo',             src: '/images/HOME/WEB/Logos/frixo logo.svg' },
-  { name: 'Chocolisto',         src: '/images/HOME/WEB/Logos/chocolisto logo.svg' },
-  { name: 'Corona',             src: '/images/HOME/WEB/Logos/corona logo.svg' },
-  { name: 'Centro Automotriz',  src: '/images/HOME/WEB/Logos/centro automotriz logo.svg' },
-  { name: 'Brand Plus',         src: '/images/HOME/WEB/Logos/brand plus logo.svg' },
-  { name: 'Grupointer',         src: '/images/HOME/WEB/Logos/grupointer logo.svg' },
-  { name: 'Suimagen',           src: '/images/HOME/WEB/Logos/suimagen logo.svg' },
-  { name: 'Biorgánicos',        src: '/images/HOME/WEB/Logos/biorganicos logo.svg' },
-  { name: 'Única Fem',          src: '/images/HOME/WEB/Logos/unica fem logo.svg' },
+  { name: 'Pollocao',          src: '/images/HOME/WEB/Logos/pollocoa logo.svg' },
+  { name: 'F-rixo',            src: '/images/HOME/WEB/Logos/frixo logo.svg' },
+  { name: 'Chocolisto',        src: '/images/HOME/WEB/Logos/chocolisto logo.svg', filter: 'invert(1) grayscale(1)' },
+  { name: 'Corona',            src: '/images/HOME/WEB/Logos/corona logo.svg',     filter: 'invert(1) grayscale(1)' },
+  { name: 'Centro Automotriz', src: '/images/HOME/WEB/Logos/centro automotriz logo.svg' },
+  { name: 'Brand Plus',        src: '/images/HOME/WEB/Logos/brand plus logo.svg' },
+  { name: 'Grupointer',        src: '/images/HOME/WEB/Logos/grupointer logo.svg' },
+  { name: 'Suimagen',          src: '/images/HOME/WEB/Logos/suimagen logo.svg' },
+  { name: 'Biorgánicos',       src: '/images/HOME/WEB/Logos/biorganicos logo.svg' },
+  { name: 'Única Fem',         src: '/images/HOME/WEB/Logos/unica fem logo.svg' },
 ]
 
 export default function ClientsSection() {
@@ -18,9 +18,10 @@ export default function ClientsSection() {
     <section
       style={{
         paddingBlock: 'clamp(3rem, 7vw, 5rem)',
-        borderTop: '1px solid oklch(0.16 0.022 260)',
-        borderBottom: '1px solid oklch(0.16 0.022 260)',
         overflow: 'hidden',
+        position: 'relative',
+        background: 'var(--c-bg)',
+        marginTop: '-1px',
       }}
     >
       <div style={{ maxWidth: 'var(--container)', marginInline: 'auto', paddingInline: 'var(--container-pad)', marginBottom: '2.5rem', textAlign: 'center' }}>
@@ -89,7 +90,7 @@ function MarqueeTrack({ offset = 0 }) {
               width: 'auto',
               maxWidth: '120px',
               objectFit: 'contain',
-              filter: 'brightness(0) invert(1)',
+              filter: client.filter ?? 'brightness(0) invert(1)',
               opacity: 0.65,
               transition: 'opacity 0.2s ease',
             }}

@@ -119,6 +119,7 @@ export default function ServicesSection() {
         position: 'relative',
         overflow: 'hidden',
         paddingBlock: 'clamp(3.5rem, 7vw, 5.5rem)',
+        marginTop: '-1px',
       }}
     >
       <GlowOrb color="lime" size={600} top="-5%"  right="-8%" opacity={0.7} blur={140} />
@@ -179,14 +180,25 @@ export default function ServicesSection() {
                 <h3 className="svc-card-title-new">{service.title}</h3>
                 <p className="svc-card-tagline-new">{service.tagline}</p>
                 <p className="svc-card-body-new">{service.body}</p>
-                <ul className="svc-card-bullets-new">
+                <motion.ul
+                  className="svc-card-bullets-new"
+                  initial="hidden"
+                  animate="visible"
+                  variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.09, delayChildren: 0.18 } } }}
+                >
                   {service.bullets.map(b => (
-                    <li key={b}>
+                    <motion.li
+                      key={b}
+                      variants={{
+                        hidden: { opacity: 0, x: -12 },
+                        visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
+                      }}
+                    >
                       <ChevronRight size={15} className="svc-bullet-ic" />
                       <span>{b}</span>
-                    </li>
+                    </motion.li>
                   ))}
-                </ul>
+                </motion.ul>
               </motion.div>
             </AnimatePresence>
 

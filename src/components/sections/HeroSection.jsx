@@ -105,6 +105,37 @@ export default function HeroSection() {
         }}
       />
 
+      {/* ── Noise grain — adds premium texture depth ──────────────── */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E\")",
+          backgroundSize: '300px 300px',
+          opacity: 0.032,
+          mixBlendMode: 'overlay',
+          zIndex: 5,
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* ── Lime glow at triangle apex (center-bottom) ────────────── */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '420px',
+          height: '220px',
+          background: 'radial-gradient(ellipse 55% 70% at 50% 100%, oklch(0.88 0.26 130 / 0.13), transparent)',
+          pointerEvents: 'none',
+          zIndex: 1,
+        }}
+      />
+
       {/* ── Contenido ───────────────────────────────────────────────── */}
       <div style={{ position: 'relative', zIndex: 2, width: '100%', maxWidth: '1200px' }}>
 
