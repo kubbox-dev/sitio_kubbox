@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
-import { ChevronRight } from 'lucide-react'
+import { ChevronRight, ArrowUpRight } from 'lucide-react'
 import GlowOrb from '../ui/GlowOrb'
 import Button from '../ui/Button'
 import { useScrollAnimation, fadeUp, staggerContainer } from '../../hooks/useScrollAnimation'
 
 const ICON = (name) => encodeURI(`/images/HOME/WEB/iconos/${name}.svg`)
-const PHOTO = (name) => encodeURI(`/images/HOME/WEB/Fotos/${name}.png`)
+const PERSON_IMG = '/images/HOME/WEB/Ruleta/senora.png'
 
 const SERVICES = [
   {
@@ -76,15 +76,6 @@ const SERVICES = [
   },
 ]
 
-const SHOWCASE = [
-  PHOTO('Celular IA'),
-  PHOTO('Piedras con celular'),
-  PHOTO('imagen escalera'),
-  PHOTO('piedras'),
-]
-
-const PERSON_IMG = '/images/HOME/WEB/Ruleta/senora.png'
-
 const N = SERVICES.length
 const STEP = 360 / N
 const AUTOPLAY_MS = 4200
@@ -135,68 +126,147 @@ export default function ServicesSection() {
 
       <div style={{ maxWidth: 'var(--container)', marginInline: 'auto', paddingInline: 'var(--container-pad)', position: 'relative', zIndex: 1, width: '100%' }}>
 
-        {/* ── Heading editorial ───────── */}
-        <motion.div
-          ref={headRef}
-          initial="hidden"
-          animate={headControls}
-          variants={staggerContainer(0.12)}
-          className="svc-head"
-          style={{ position: 'relative', marginBottom: 'clamp(1.5rem, 3vw, 2.5rem)' }}
-        >
-          <motion.div variants={fadeUp} className="svc-label svc-label--tr">
+        {/* ── Heading editorial con animaciones ───────── */}
+        <div className="svc-head">
+          <motion.div
+            className="svc-label svc-label--tr"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
             <span>Creados para ti</span>
             <span className="svc-label-line" />
           </motion.div>
-          <motion.h2 variants={fadeUp} className="svc-word svc-word--solid">NUESTROS</motion.h2>
-          <motion.div variants={fadeUp} className="svc-word svc-word--outline">SERVICIOS</motion.div>
-          <motion.p variants={fadeUp} className="svc-label svc-label--bl">5 años encontrando identidad</motion.p>
-        </motion.div>
+          <motion.h2
+            className="svc-word svc-word--solid"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            NUESTROS
+          </motion.h2>
+          <motion.div
+            className="svc-word svc-word--outline"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.08 }}
+          >
+            SERVICIOS
+          </motion.div>
+          <p className="svc-label svc-label--bl">5 años encontrando identidad</p>
+        </div>
 
-        {/* ── Tagline ───────── */}
         <motion.p
+          className="svc-impulsa"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="svc-impulsa"
+          transition={{ duration: 0.6 }}
         >
           IMPULSA TU <b>MARCA</b> CON <b>NUESTRAS SOLUCIONES</b>
         </motion.p>
 
-        {/* ── Stage: ruleta + card ───────── */}
+        {/* ── Card con 2 columnas (texto izquierda | ruleta derecha) ───────── */}
         <div
-          className="svc-stage"
+          className="svc-card-new"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
-          {/* Hero: arco + círculo lime + iconos + señora */}
-          <div className="svc-hero">
-            <div aria-hidden="true" className="svc-arc" />
-            <div aria-hidden="true" className="svc-limecircle" />
+          {/* Columna izquierda - Detalle del servicio */}
+          <div className="svc-card-left-new">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active}
+                initial={{ opacity: 0, x: -18 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <span className="svc-card-kicker">
+                  {String(active + 1).padStart(2, '0')} / {String(N).padStart(2, '0')}
+                </span>
+                <h3 className="svc-card-title-new">{service.title}</h3>
+                <p className="svc-card-tagline-new">{service.tagline}</p>
+                <p className="svc-card-body-new">{service.body}</p>
+                <ul className="svc-card-bullets-new">
+                  {service.bullets.map(b => (
+                    <li key={b}>
+                      <ChevronRight size={15} className="svc-bullet-ic" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+               
+              </motion.div>
+            </AnimatePresence>
 
-            {/* Iconos girando */}
-            <div className="wheel-stage">
-              <motion.div className="wheel-spin" animate={{ rotate: ringRot }} transition={spinTransition}>
+            {/* Tabs */}
+            <div className="svc-tabs-new">
+              {SERVICES.map((s, i) => (
+                <motion.button
+                  key={s.id}
+                  onClick={() => goTo(i)}
+                  whileHover={reduce ? undefined : { scale: 1.04 }}
+                  whileTap={reduce ? undefined : { scale: 0.97 }}
+                  className={`svc-tab-new ${i === active ? 'is-active' : ''}`}
+                >
+                  {s.title}
+                </motion.button>
+              ))}
+            </div>
+          </div>
+
+          {/* Columna derecha - Ruleta + Señora */}
+          <div className="svc-card-right-new">
+            {/* Ruleta container */}
+            <div className="wheel-stage-new" style={{
+              '--wheel-r': 'clamp(115px, 16vw, 165px)',
+              '--node': 'clamp(46px, 5.6vw, 58px)',
+            }}>
+              {/* Anillo decorativo */}
+              <div className="wheel-ring-bg" />
+              
+              {/* Núcleo central con ícono activo */}
+              <div className="wheel-core-new">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={active}
+                    className="wheel-core-inner"
+                    initial={{ opacity: 0, scale: 0.8, rotate: reduce ? 0 : -10 }}
+                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.35 }}
+                  >
+                    <img src={service.icon} alt="" className="wheel-core-icon" draggable="false" />
+                    <span className="wheel-core-label">{service.title}</span>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* Iconos giratorios */}
+              <motion.div className="wheel-spin-new" animate={{ rotate: ringRot }} transition={spinTransition}>
                 {SERVICES.map((s, i) => {
                   const isActive = i === active
                   return (
                     <div
                       key={s.id}
-                      className="wheel-node"
+                      className="wheel-node-new"
                       style={{ transform: `rotate(${i * STEP}deg) translateY(calc(-1 * var(--wheel-r)))` }}
                     >
-                      <div className="wheel-icon-pos">
+                      <div className="wheel-icon-pos-new">
                         <motion.button
                           onClick={() => goTo(i)}
                           aria-label={s.title}
-                          className={`wheel-icon ${isActive ? 'is-active' : ''}`}
+                          className={`wheel-icon-new ${isActive ? 'is-active' : ''}`}
                           animate={{ rotate: reduce ? 0 : (turn - i) * STEP }}
                           transition={spinTransition}
-                          whileHover={reduce ? undefined : { scale: isActive ? 1.0 : 1.08 }}
+                          whileHover={reduce ? undefined : { scale: isActive ? 1 : 1.1 }}
                           whileTap={reduce ? undefined : { scale: 0.94 }}
                         >
-                          <span className="wheel-icon-inner">
+                          <span className="wheel-icon-inner-new">
                             <img src={s.icon} alt="" draggable="false" />
                           </span>
                         </motion.button>
@@ -205,109 +275,33 @@ export default function ServicesSection() {
                   )
                 })}
               </motion.div>
-            </div>
 
-            {/* Etiqueta del servicio activo */}
-            <div className="wheel-toplabel" aria-hidden="true">
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={active}
-                  initial={{ opacity: 0, y: reduce ? 0 : 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: reduce ? 0 : -5 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {service.title}
-                </motion.span>
-              </AnimatePresence>
-            </div>
-
-            {/* Señora — estática (wrapper estático para no romper el centrado) */}
-            <div className="wheel-person-wrap">
-              <motion.img
-                src={PERSON_IMG}
-                alt="Soluciones digitales con tecnología de vanguardia"
-                className="wheel-person"
-                initial={{ opacity: 0, scale: 0.94 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-                draggable="false"
-              />
-            </div>
-          </div>
-
-          {/* CARD */}
-          <div className="svc-card">
-            {/* Left — detalle del servicio */}
-            <div className="svc-card-left">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={active}
-                  initial={{ opacity: 0, x: -18 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -10 }}
-                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <h3 className="svc-card-title">{service.title}</h3>
-                  <p className="svc-card-tagline">{service.tagline}</p>
-                  <p className="svc-card-body">{service.body}</p>
-                  <ul className="svc-card-bullets">
-                    {service.bullets.map(b => (
-                      <li key={b}>
-                        <ChevronRight size={15} style={{ flexShrink: 0, marginTop: '0.15rem', color: 'var(--c-lime)' }} />
-                        <span>{b}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Button variant="primary" size="md">Ver más</Button>
-                </motion.div>
-              </AnimatePresence>
-
-              {/* Tabs */}
-              <div className="svc-tabs">
-                {SERVICES.map((s, i) => (
-                  <motion.button
-                    key={s.id}
-                    onClick={() => goTo(i)}
-                    whileHover={reduce ? undefined : { scale: 1.04 }}
-                    whileTap={reduce ? undefined : { scale: 0.97 }}
-                    className={`svc-tab ${i === active ? 'is-active' : ''}`}
-                  >
-                    {s.title}
-                  </motion.button>
-                ))}
+              {/* Señora */}
+              <div className="wheel-person-wrap-new">
+                <motion.img
+                  src={PERSON_IMG}
+                  alt="Soluciones digitales con tecnología de vanguardia"
+                  className="wheel-person-new"
+                  initial={{ opacity: 0, scale: 0.94 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                  draggable="false"
+                />
               </div>
             </div>
 
-            {/* Right — grid de showcase */}
-            <div className="svc-card-right">
-              {SHOWCASE.map((src, i) => (
-                <motion.div
-                  key={src}
-                  className="svc-shot"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ delay: 0.1 + i * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                  whileHover={reduce ? undefined : { scale: 1.04 }}
-                >
-                  <img src={src} alt="" draggable="false" />
-                </motion.div>
+            {/* Dots de progreso */}
+            <div className="wheel-dots-new">
+              {SERVICES.map((s, i) => (
+                <button
+                  key={s.id}
+                  onClick={() => goTo(i)}
+                  aria-label={`Ir a ${s.title}`}
+                  className={i === active ? 'is-active' : ''}
+                />
               ))}
             </div>
-          </div>
-
-          {/* Dots de progreso */}
-          <div className="wheel-dots">
-            {SERVICES.map((s, i) => (
-              <button
-                key={s.id}
-                onClick={() => goTo(i)}
-                aria-label={`Ir a ${s.title}`}
-                className={i === active ? 'is-active' : ''}
-              />
-            ))}
           </div>
         </div>
       </div>
@@ -321,7 +315,7 @@ export default function ServicesSection() {
 
       <style>{`
         /* ── Heading editorial ── */
-        .svc-head { --svc-size: clamp(2.4rem, 10vw, 7.5rem); line-height: 0.82; padding-block: clamp(1rem, 2vw, 1.75rem); }
+        .svc-head { --svc-size: clamp(2.4rem, 10vw, 7.5rem); line-height: 0.82; padding-block: clamp(1rem, 2vw, 1.75rem); position: relative; margin-bottom: clamp(1.5rem, 3vw, 2.5rem); }
         .svc-word { font-family: var(--font-display); font-weight: 900; font-style: italic; font-size: var(--svc-size); letter-spacing: -0.03em; text-transform: uppercase; margin: 0; }
         .svc-word--solid { color: var(--c-ink); position: relative; z-index: 2; width: fit-content; }
         .svc-word--outline { color: transparent; -webkit-text-stroke: 1.5px oklch(0.98 0 0 / 0.65); margin-top: -0.18em; margin-left: clamp(2rem, 16vw, 14rem); width: fit-content; position: relative; z-index: 1; }
@@ -334,196 +328,372 @@ export default function ServicesSection() {
           text-align: center;
           font-family: var(--font-display); font-weight: 800; font-style: italic;
           font-size: clamp(1rem, 2.6vw, 2rem); letter-spacing: 0.01em; text-transform: uppercase;
-          color: var(--c-ink); margin: 0 auto clamp(0.5rem, 1.5vw, 1rem);
+          color: var(--c-ink); margin: 0 auto clamp(1.5rem, 3vw, 2.5rem);
         }
         .svc-impulsa b { color: var(--c-lime); font-weight: 800; }
 
-        /* ── Stage ── */
-        .svc-stage {
-          --wheel-r: clamp(165px, 23vw, 285px);
-          --node: clamp(44px, 5.4vw, 64px);
-          --cx: 50%;
-          --cy: clamp(155px, 20vw, 225px);
+        /* ── Nueva Card (2 columnas: texto | ruleta) ── */
+        .svc-card-new {
           position: relative;
-          isolation: isolate;
-        }
-
-        /* Hero (capa de la ruleta + señora) */
-        .svc-hero { position: relative; height: clamp(420px, 54vw, 600px); margin-top: clamp(30px, 5vw, 70px); z-index: 2; }
-
-        .svc-arc {
-          position: absolute;
-          left: var(--cx); top: var(--cy);
-          width: calc(var(--wheel-r) * 2 + var(--node) * 1.9);
-          height: calc(var(--wheel-r) * 2 + var(--node) * 1.9);
-          transform: translate(-50%, -50%);
-          border-radius: 50%;
-          clip-path: inset(0 0 48% 0);
-          background:
-            radial-gradient(circle at 50% 50%,
-              transparent 56%,
-              oklch(0.38 0.012 260 / 0.62) 58%,
-              oklch(0.30 0.012 260 / 0.52) 80%,
-              oklch(0.22 0.012 260 / 0.22) 94%,
-              transparent 100%);
-          z-index: 0;
-          pointer-events: none;
-        }
-        .svc-limecircle {
-          position: absolute;
-          left: var(--cx); top: calc(var(--cy) + var(--wheel-r) * 0.08);
-          width: clamp(185px, 25vw, 270px);
-          aspect-ratio: 1;
-          transform: translate(-50%, -50%);
-          border-radius: 50%;
-          background: radial-gradient(circle, oklch(0.87 0.255 130) 0%, oklch(0.86 0.255 131) 64%, oklch(0.80 0.25 134) 100%);
-          box-shadow: 0 0 45px oklch(0.88 0.26 130 / 0.30);
-          z-index: 1;
-          pointer-events: none;
-        }
-
-        .wheel-stage {
-          position: absolute;
-          left: var(--cx); top: var(--cy);
-          width: calc(var(--wheel-r) * 2);
-          height: calc(var(--wheel-r) * 2);
-          transform: translate(-50%, -50%);
-          z-index: 3;
-          pointer-events: none;
-        }
-        .wheel-spin { position: absolute; inset: 0; }
-        .wheel-node { position: absolute; top: 50%; left: 50%; width: 0; height: 0; }
-        .wheel-icon-pos { position: absolute; top: 0; left: 0; width: var(--node); height: var(--node); transform: translate(-50%, -50%); }
-        .wheel-icon { width: 100%; height: 100%; border: none; background: none; padding: 0; cursor: pointer; pointer-events: auto; display: block; }
-        .wheel-icon-inner {
-          display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;
-          border-radius: 50%;
-          background: oklch(0.22 0.018 260 / 0.78);
-          border: 1px solid oklch(0.34 0.020 260 / 0.7);
-          backdrop-filter: blur(6px);
-          transition: transform 0.3s var(--ease-out-quart), box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
-        }
-        .wheel-icon img { width: 58%; height: 58%; object-fit: contain; opacity: 0.92; transition: opacity 0.3s ease, filter 0.3s ease; }
-        .wheel-icon.is-active .wheel-icon-inner {
-          transform: scale(1.34);
-          background: oklch(0.88 0.250 130);
-          border-color: oklch(0.94 0.255 132);
-          box-shadow: 0 0 0 5px oklch(0.88 0.260 130 / 0.22), 0 8px 28px oklch(0.88 0.260 130 / 0.45);
-        }
-        .wheel-icon.is-active img {
-          opacity: 1;
-          filter: brightness(0) saturate(100%) invert(9%) sepia(18%) saturate(1600%) hue-rotate(200deg);
-        }
-        .wheel-icon:not(.is-active):hover .wheel-icon-inner { border-color: var(--c-lime); box-shadow: 0 0 16px oklch(0.88 0.260 130 / 0.3); }
-
-        .wheel-toplabel {
-          position: absolute;
-          left: var(--cx);
-          top: calc(var(--cy) - var(--wheel-r) - var(--node) * 0.95);
-          transform: translate(-50%, -50%);
-          z-index: 4;
-          font-family: var(--font-body); font-weight: 700; font-size: 0.72rem;
-          letter-spacing: 0.05em; text-transform: uppercase;
-          color: oklch(0.30 0.02 260); text-align: center; white-space: nowrap;
-        }
-
-        .wheel-person-wrap {
-          position: absolute;
-          left: 50%; bottom: 0;
-          transform: translateX(-50%);
-          height: 90%;
-          z-index: 4;
-          pointer-events: none;
-          display: flex; align-items: flex-end; justify-content: center;
-        }
-        .wheel-person {
-          height: 100%;
-          width: auto; max-width: none;
-          object-fit: contain;
-          display: block;
-          filter: drop-shadow(0 24px 40px oklch(0.04 0.02 260 / 0.55));
-          -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 99%);
-                  mask-image: linear-gradient(to bottom, black 80%, transparent 99%);
-        }
-
-        /* ── Card ── */
-        .svc-card {
-          position: relative;
-          z-index: 1;
-          margin-top: clamp(-130px, -16vw, -90px);
-          background: oklch(0.12 0.020 260 / 0.82);
-          border: 1px solid oklch(0.24 0.022 260);
+          background: oklch(0.13 0.020 260 / 0.85);
+          border: 1px solid oklch(0.26 0.022 260);
           border-radius: 1.5rem;
           backdrop-filter: blur(14px);
           box-shadow: 0 40px 110px -40px oklch(0.03 0.02 260 / 0.9);
           display: grid;
-          grid-template-columns: 1.05fr 0.62fr 1.1fr;
-          align-items: stretch;
-          gap: clamp(1rem, 2.5vw, 2.5rem);
-          padding: clamp(1.5rem, 3vw, 2.75rem);
-          padding-top: clamp(7rem, 13vw, 11rem);
+          grid-template-columns: 1.1fr 0.9fr;
+          align-items: center;
+          gap: clamp(1.5rem, 4vw, 3.5rem);
+          padding: clamp(1.75rem, 4vw, 3.25rem);
+          overflow: hidden;
         }
-        .svc-card-left { grid-column: 1; display: flex; flex-direction: column; }
-        .svc-card-title {
-          font-family: var(--font-display); font-weight: 900;
-          font-size: clamp(1.7rem, 3.4vw, 2.6rem); letter-spacing: -0.02em;
-          text-transform: uppercase; line-height: 0.92;
-          color: var(--c-ink); margin-bottom: 0.6rem;
-        }
-        .svc-card-title { color: var(--c-lime); }
-        .svc-card-tagline {
-          font-family: var(--font-body); font-style: italic; font-weight: 600;
-          font-size: clamp(0.85rem, 1.3vw, 1rem);
-          color: var(--c-lime); opacity: 0.78; margin-bottom: 1rem; max-width: 36ch;
-        }
-        .svc-card-body {
-          font-family: var(--font-body); font-size: clamp(0.82rem, 1vw, 0.92rem);
-          color: var(--c-muted); line-height: 1.6; margin-bottom: 1.25rem; max-width: 42ch;
-        }
-        .svc-card-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.75rem; }
-        .svc-card-bullets li { display: flex; gap: 0.55rem; align-items: flex-start; }
-        .svc-card-bullets span { font-family: var(--font-body); font-size: clamp(0.8rem, 1vw, 0.9rem); color: oklch(0.78 0.010 260); line-height: 1.45; }
 
-        .svc-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: auto; padding-top: 1.75rem; }
-        .svc-tab {
-          background: var(--c-surface); border: 1px solid oklch(0.22 0.022 260);
-          border-radius: 0.5rem; padding: 0.4rem 0.75rem; cursor: pointer;
-          color: var(--c-muted); font-family: var(--font-body); font-size: 0.74rem; font-weight: 500;
-          transition: all var(--transition-base);
+        /* Columna izquierda - texto */
+        .svc-card-left-new {
+          position: relative;
+          z-index: 1;
+          display: flex;
+          flex-direction: column;
         }
-        .svc-tab.is-active { background: oklch(0.88 0.220 130 / 0.12); border-color: var(--c-lime); color: var(--c-lime); }
 
-        .svc-card-right {
-          grid-column: 3;
-          display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr;
-          gap: clamp(0.6rem, 1.2vw, 1rem);
-          align-content: center;
+        .svc-card-kicker {
+          font-family: var(--font-body);
+          font-weight: 700;
+          font-size: 0.78rem;
+          letter-spacing: 0.18em;
+          color: var(--c-lime);
+          display: block;
+          margin-bottom: 0.6rem;
         }
-        .svc-shot {
-          position: relative; overflow: hidden; border-radius: 0.875rem;
-          aspect-ratio: 4 / 3;
-          border: 1px solid oklch(0.26 0.025 260);
-          background: oklch(0.16 0.022 260);
+
+        .svc-card-title-new {
+          font-family: var(--font-display);
+          font-weight: 900;
+          font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+          letter-spacing: -0.02em;
+          text-transform: uppercase;
+          line-height: 0.95;
+          color: var(--c-ink);
+          margin: 0 0 0.6rem;
+        }
+
+        .svc-card-tagline-new {
+          font-family: var(--font-body);
+          font-style: italic;
+          font-weight: 600;
+          font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+          color: var(--c-lime);
+          opacity: 0.85;
+          margin: 0 0 1rem;
+          max-width: 38ch;
+        }
+
+        .svc-card-body-new {
+          font-family: var(--font-body);
+          font-size: clamp(0.85rem, 1vw, 0.95rem);
+          color: var(--c-muted);
+          line-height: 1.6;
+          margin: 0 0 1.25rem;
+          max-width: 44ch;
+        }
+
+        .svc-card-bullets-new {
+          list-style: none;
+          padding: 0;
+          margin: 0 0 1.75rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .svc-card-bullets-new li {
+          display: flex;
+          gap: 0.55rem;
+          align-items: flex-start;
+        }
+
+        .svc-bullet-ic {
+          flex-shrink: 0;
+          margin-top: 0.15rem;
+          color: var(--c-lime);
+        }
+
+        .svc-card-bullets-new span {
+          font-family: var(--font-body);
+          font-size: clamp(0.82rem, 1vw, 0.92rem);
+          color: oklch(0.82 0.010 260);
+          line-height: 1.45;
+        }
+
+        .svc-btn-new {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          width: fit-content;
+        }
+
+        .svc-tabs-new {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+          margin-top: auto;
+          padding-top: 1.75rem;
+        }
+
+        .svc-tab-new {
+          background: var(--c-surface);
+          border: 1px solid oklch(0.28 0.022 260);
+          border-radius: 0.5rem;
+          padding: 0.4rem 0.75rem;
           cursor: pointer;
+          color: var(--c-muted);
+          font-family: var(--font-body);
+          font-size: 0.74rem;
+          font-weight: 500;
+          transition: all 0.25s ease;
         }
-        .svc-shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        .wheel-dots { position: absolute; bottom: clamp(0.9rem, 2vw, 1.4rem); right: clamp(1.2rem, 3vw, 2.5rem); display: flex; gap: 0.5rem; z-index: 5; }
-        .wheel-dots button { width: 9px; height: 9px; border-radius: 50%; border: none; padding: 0; cursor: pointer; background: oklch(0.32 0.05 200); transition: all 0.3s var(--ease-out-quart); }
-        .wheel-dots button.is-active { width: 26px; border-radius: 5px; background: var(--c-lime); box-shadow: 0 0 12px oklch(0.88 0.260 130 / 0.5); }
+        .svc-tab-new:hover {
+          border-color: oklch(0.45 0.08 140);
+          color: var(--c-ink);
+        }
 
-        /* ── Responsive ── */
+        .svc-tab-new.is-active {
+          background: oklch(0.88 0.22 130 / 0.12);
+          border-color: var(--c-lime);
+          color: var(--c-lime);
+        }
+
+        /* Columna derecha - Ruleta */
+        .svc-card-right-new {
+          position: relative;
+          z-index: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1.5rem;
+        }
+
+        .wheel-stage-new {
+          --wheel-r: clamp(115px, 16vw, 165px);
+          --node: clamp(46px, 5.6vw, 58px);
+          position: relative;
+          width: calc(var(--wheel-r) * 2 + var(--node));
+          height: calc(var(--wheel-r) * 2 + var(--node));
+          display: grid;
+          place-items: center;
+        }
+
+        .wheel-ring-bg {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          width: calc(var(--wheel-r) * 2);
+          height: calc(var(--wheel-r) * 2);
+          border-radius: 50%;
+          border: 1px dashed oklch(0.45 0.02 260 / 0.6);
+          pointer-events: none;
+        }
+
+        .wheel-core-new {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          width: clamp(155px, 22vw, 215px);
+          aspect-ratio: 1;
+          border-radius: 50%;
+          background: radial-gradient(circle at 35% 30%, oklch(0.92 0.235 128), oklch(0.84 0.25 134) 70%);
+          box-shadow: 0 0 55px oklch(0.88 0.26 130 / 0.35), inset 0 0 40px oklch(0.70 0.22 138 / 0.35);
+          display: grid;
+          place-items: center;
+          z-index: 10;
+        }
+
+        .wheel-core-inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.5rem;
+          color: oklch(0.16 0.05 150);
+          text-align: center;
+          padding: 0 1rem;
+        }
+
+        .wheel-core-icon {
+          width: 40px;
+          height: 40px;
+          object-fit: contain;
+          filter: brightness(0) invert(0);
+        }
+
+        .wheel-core-label {
+          font-family: var(--font-display);
+          font-weight: 900;
+          font-style: italic;
+          font-size: clamp(0.8rem, 1.4vw, 1rem);
+          text-transform: uppercase;
+          line-height: 1;
+          letter-spacing: -0.01em;
+        }
+
+        .wheel-spin-new {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: 0;
+          height: 0;
+          z-index: 5;
+        }
+
+        .wheel-node-new {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 0;
+          height: 0;
+        }
+
+        .wheel-icon-pos-new {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: var(--node);
+          height: var(--node);
+          transform: translate(-50%, -50%);
+        }
+
+        .wheel-icon-new {
+          width: 100%;
+          height: 100%;
+          border: none;
+          background: none;
+          padding: 0;
+          cursor: pointer;
+          display: block;
+        }
+
+        .wheel-icon-inner-new {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          background: oklch(0.22 0.018 260 / 0.85);
+          border: 1px solid oklch(0.34 0.020 260 / 0.8);
+          backdrop-filter: blur(6px);
+          transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+        }
+
+        .wheel-icon-inner-new img {
+          width: 58%;
+          height: 58%;
+          object-fit: contain;
+          opacity: 0.92;
+          transition: opacity 0.3s ease, filter 0.3s ease;
+        }
+
+        .wheel-icon-new.is-active .wheel-icon-inner-new {
+          transform: scale(1.18);
+          background: var(--c-lime);
+          border-color: oklch(0.94 0.255 132);
+          box-shadow: 0 0 0 5px oklch(0.88 0.26 130 / 0.20), 0 8px 28px oklch(0.88 0.26 130 / 0.45);
+        }
+
+        .wheel-icon-new.is-active .wheel-icon-inner-new img {
+          opacity: 1;
+          filter: brightness(0) saturate(100%) invert(9%) sepia(18%) saturate(1600%) hue-rotate(200deg);
+        }
+
+        .wheel-icon-new:not(.is-active):hover .wheel-icon-inner-new {
+          border-color: var(--c-lime);
+          box-shadow: 0 0 16px oklch(0.88 0.26 130 / 0.3);
+        }
+
+        .wheel-icon-new:not(.is-active):hover .wheel-icon-inner-new img {
+          opacity: 1;
+        }
+
+        .wheel-person-wrap-new {
+          position: absolute;
+          left: 50%;
+          bottom: -20%;
+          transform: translateX(-50%);
+          height: 85%;
+          z-index: 15;
+          pointer-events: none;
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+        }
+
+        .wheel-person-new {
+          height: 100%;
+          width: auto;
+          max-width: none;
+          object-fit: contain;
+          display: block;
+          filter: drop-shadow(0 24px 40px oklch(0.04 0.02 260 / 0.55));
+          -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 99%);
+          mask-image: linear-gradient(to bottom, black 80%, transparent 99%);
+        }
+
+        .wheel-dots-new {
+          display: flex;
+          gap: 0.5rem;
+        }
+
+        .wheel-dots-new button {
+          width: 9px;
+          height: 9px;
+          border-radius: 50%;
+          border: none;
+          padding: 0;
+          cursor: pointer;
+          background: oklch(0.40 0.02 260);
+          transition: all 0.3s ease;
+        }
+
+        .wheel-dots-new button.is-active {
+          width: 26px;
+          border-radius: 5px;
+          background: var(--c-lime);
+          box-shadow: 0 0 12px oklch(0.88 0.26 130 / 0.5);
+        }
+
+        /* Responsive */
         @media (max-width: 880px) {
-          .svc-card { grid-template-columns: 1fr; gap: 1.5rem; padding-top: clamp(6rem, 30vw, 9rem); }
-          .svc-card-left { grid-column: 1; }
-          .svc-card-right { grid-column: 1; }
-          .svc-hero { height: clamp(280px, 60vw, 360px); }
+          .svc-card-new {
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+          }
+          .svc-card-right-new {
+            order: -1;
+          }
+          .wheel-person-wrap-new {
+            bottom: -10%;
+          }
         }
+
         @media (max-width: 600px) {
-          .svc-word--outline { margin-left: clamp(1rem, 8vw, 4rem); }
-          .svc-label--tr { position: static; justify-content: flex-end; margin-bottom: 0.75rem; }
-          .svc-label--bl { position: static; margin-top: 0.85rem; }
-          .svc-card-right { grid-template-columns: 1fr 1fr; }
+          .svc-word--outline {
+            margin-left: clamp(1rem, 8vw, 4rem);
+          }
+          .svc-label--tr {
+            position: static;
+            justify-content: flex-end;
+            margin-bottom: 0.75rem;
+          }
+          .svc-label--bl {
+            position: static;
+            margin-top: 0.85rem;
+          }
+          .wheel-person-wrap-new {
+            bottom: -5%;
+            height: 75%;
+          }
         }
       `}</style>
     </section>
