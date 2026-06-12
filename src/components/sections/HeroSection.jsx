@@ -33,14 +33,59 @@ export default function HeroSection() {
         paddingInline: 'clamp(1rem, 4vw, 3rem)',
       }}
     >
-      {/* ── Triángulo invertido con degradado interno ─────────────── */}
+      {/* ── Triángulo relleno con degradado radial ───────────────── */}
       <div
         aria-hidden="true"
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'radial-gradient(ellipse 100% 95% at 50% 10%, oklch(0.06 0.018 260 / 0.96) 0%, oklch(0.06 0.018 260 / 0.90) 45%, oklch(0.06 0.018 260 / 0.45) 100%)',
+          background: 'radial-gradient(ellipse 100% 95% at 50% 10%, oklch(0.14 0.032 250 / 0.97) 0%, oklch(0.11 0.028 250 / 0.92) 45%, oklch(0.08 0.022 250 / 0.55) 100%)',
           clipPath: 'polygon(-20% -5%, 120% -5%, 50% 100%)',
+          zIndex: 0,
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* ── Capas de profundidad — franjas tonales cerca del borde ── */}
+      {/* Cada div cubre el interior del triángulo con un tono levemente diferente. */}
+      {/* La franja visible entre dos escalas consecutivas crea la ilusión de capa. */}
+      {/* Fórmula (escala s desde vértice superior 50%,-5%):                        */}
+      {/*   left = (50-70s)%  right = (50+70s)%  bottom-y = (-5+105s)%             */}
+
+      {/* s=0.93 — franja exterior ~7% de borde */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'oklch(0.18 0.036 245 / 0.50)',
+          clipPath: 'polygon(-15.1% -5%, 115.1% -5%, 50% 92.65%)',
+          zIndex: 0,
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* s=0.86 — segunda franja */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'oklch(0.16 0.032 245 / 0.40)',
+          clipPath: 'polygon(-10.2% -5%, 110.2% -5%, 50% 85.3%)',
+          zIndex: 0,
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* s=0.79 — tercera franja */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'oklch(0.14 0.028 245 / 0.30)',
+          clipPath: 'polygon(-5.3% -5%, 105.3% -5%, 50% 77.95%)',
           zIndex: 0,
           pointerEvents: 'none',
         }}

@@ -78,26 +78,34 @@ export default function ServicesSection() {
 
       <div style={{ maxWidth: 'var(--container)', marginInline: 'auto', paddingInline: 'var(--container-pad)', position: 'relative', zIndex: 1, width: '100%' }}>
 
-        {/* ── Top heading ───────────────────────────── */}
+        {/* ── Top heading — editorial overlap ───────── */}
         <motion.div
           ref={headRef}
           initial="hidden"
           animate={headControls}
-          variants={staggerContainer(0.1)}
-          style={{ marginBottom: 'clamp(2rem, 5vw, 3.5rem)', textAlign: 'center' }}
+          variants={staggerContainer(0.12)}
+          className="svc-head"
+          style={{ position: 'relative', marginBottom: 'clamp(2.5rem, 6vw, 4.5rem)' }}
         >
-          <motion.p variants={fadeUp} style={{ fontFamily: 'var(--font-body)', fontSize: '0.78rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--c-lime)', marginBottom: '0.5rem' }}>
-            5 años encontrando identidad
-          </motion.p>
-          <motion.h2 variants={fadeUp} style={{ fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 'clamp(2.5rem, 7vw, 5.25rem)', letterSpacing: '-0.02em', textTransform: 'uppercase', lineHeight: 0.95, color: 'var(--c-ink)' }}>
-            NUESTROS{' '}
-            <span style={{ color: 'var(--c-lime)', WebkitTextStroke: '2px var(--c-lime)', WebkitTextFillColor: 'transparent' }}>
-              SERVICIOS
-            </span>
+          {/* CREADOS PARA TI — top right */}
+          <motion.div variants={fadeUp} className="svc-label svc-label--tr">
+            <span>Creados para ti</span>
+            <span className="svc-label-line" />
+          </motion.div>
+
+          {/* NUESTROS — sólido */}
+          <motion.h2 variants={fadeUp} className="svc-word svc-word--solid">
+            NUESTROS
           </motion.h2>
-          <motion.p variants={fadeUp} style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(0.9rem, 2vw, 1.2rem)', letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--c-muted)', marginTop: '1rem' }}>
-            IMPULSA TU <span style={{ color: 'var(--c-ink)' }}>MARCA</span> CON{' '}
-            <span style={{ color: 'var(--c-lime)' }}>NUESTRAS SOLUCIONES</span>
+
+          {/* SERVICIOS — outline, superpuesto y desplazado */}
+          <motion.div variants={fadeUp} className="svc-word svc-word--outline" aria-hidden="false">
+            SERVICIOS
+          </motion.div>
+
+          {/* 5 AÑOS ENCONTRANDO IDENTIDAD — bottom left */}
+          <motion.p variants={fadeUp} className="svc-label svc-label--bl">
+            5 años encontrando identidad
           </motion.p>
         </motion.div>
 
@@ -272,8 +280,90 @@ export default function ServicesSection() {
         </div>
       </div>
 
+      {/* Fade oscuro al fondo — transición suave hacia AISection */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: '35%',
+          background: 'linear-gradient(to bottom, transparent, var(--c-bg))',
+          pointerEvents: 'none',
+          zIndex: 2,
+        }}
+      />
+
       {/* Responsive: stack on mobile */}
       <style>{`
+        /* ── Heading editorial ── */
+        .svc-head {
+          --svc-size: clamp(3rem, 13vw, 10rem);
+          line-height: 0.82;
+          padding-block: clamp(1.5rem, 3vw, 2.5rem);
+        }
+        .svc-word {
+          font-family: var(--font-display);
+          font-weight: 900;
+          font-style: italic;
+          font-size: var(--svc-size);
+          letter-spacing: -0.03em;
+          text-transform: uppercase;
+          margin: 0;
+        }
+        .svc-word--solid {
+          color: var(--c-ink);
+          position: relative;
+          z-index: 2;
+          width: fit-content;
+        }
+        .svc-word--outline {
+          color: transparent;
+          -webkit-text-stroke: 1.5px oklch(0.98 0 0 / 0.65);
+          margin-top: -0.18em;
+          margin-left: clamp(2rem, 18vw, 18rem);
+          width: fit-content;
+          position: relative;
+          z-index: 1;
+        }
+        .svc-label {
+          font-family: var(--font-display);
+          font-weight: 700;
+          font-style: italic;
+          font-size: clamp(0.7rem, 1.3vw, 0.95rem);
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: oklch(0.62 0.015 260);
+          margin: 0;
+        }
+        .svc-label--tr {
+          position: absolute;
+          top: clamp(1.5rem, 4vw, 3.5rem);
+          right: 0;
+          display: flex;
+          align-items: center;
+          gap: 0.85rem;
+          z-index: 3;
+        }
+        .svc-label-line {
+          width: clamp(2.5rem, 8vw, 7rem);
+          height: 1px;
+          background: oklch(0.62 0.015 260 / 0.6);
+          display: inline-block;
+        }
+        .svc-label--bl {
+          position: absolute;
+          left: 0;
+          bottom: clamp(0.5rem, 2vw, 1.5rem);
+          z-index: 3;
+        }
+        @media (max-width: 600px) {
+          .svc-word--outline { margin-left: clamp(1rem, 8vw, 4rem); }
+          .svc-label--tr { position: static; justify-content: flex-end; margin-bottom: 0.75rem; }
+          .svc-label--bl { position: static; margin-top: 0.85rem; }
+        }
+
         @media (max-width: 768px) {
           .services-grid {
             grid-template-columns: 1fr !important;

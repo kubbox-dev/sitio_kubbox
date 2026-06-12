@@ -50,10 +50,24 @@ export default function AISection() {
         overflow: 'hidden',
         paddingBlock: 'clamp(4rem, 10vw, 7rem)',
         marginTop: '-1px', // ← elimina posible línea entre secciones
-        // Fondo degradado: transparente arriba → oscuro abajo
-        background: 'linear-gradient(to bottom, transparent 0%, var(--c-bg) 15%, var(--c-bg) 100%)',
+        background: 'var(--c-bg)',
       }}
     >
+      {/* Fade oscuro al top — transición suave desde ServicesSection */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '30%',
+          background: 'linear-gradient(to top, transparent, var(--c-bg))',
+          pointerEvents: 'none',
+          zIndex: 2,
+        }}
+      />
+
       {/* Spotlight global que sigue al mouse */}
       <div
         aria-hidden="true"
