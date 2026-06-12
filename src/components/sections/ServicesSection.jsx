@@ -126,37 +126,25 @@ export default function ServicesSection() {
 
       <div style={{ maxWidth: 'var(--container)', marginInline: 'auto', paddingInline: 'var(--container-pad)', position: 'relative', zIndex: 1, width: '100%' }}>
 
-        {/* ── Heading editorial con animaciones ───────── */}
+        {/* ── Heading editorial exactamente como en ServicesHero ───────── */}
         <div className="svc-head">
-          <motion.div
-            className="svc-label svc-label--tr"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
+          {/* Top-right kicker */}
+          <div className="svc-kicker-top">
             <span>Creados para ti</span>
-            <span className="svc-label-line" />
-          </motion.div>
-          <motion.h2
-            className="svc-word svc-word--solid"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            NUESTROS
-          </motion.h2>
-          <motion.div
-            className="svc-word svc-word--outline"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.08 }}
-          >
-            SERVICIOS
-          </motion.div>
-          <p className="svc-label svc-label--bl">5 años encontrando identidad</p>
+            <span className="svc-kicker-line" />
+          </div>
+
+          {/* Headline block */}
+          <div className="svc-headline-block">
+            <h2 className="svc-heading-solid">NUESTROS</h2>
+            <span className="svc-heading-outline">SERVICIOS</span>
+          </div>
+
+          {/* Lower-left label with vertical divider */}
+          <div className="svc-years">
+            <span className="svc-years-line" />
+            <span>10 años encontrando identidad</span>
+          </div>
         </div>
 
         <motion.p
@@ -199,7 +187,6 @@ export default function ServicesSection() {
                     </li>
                   ))}
                 </ul>
-               
               </motion.div>
             </AnimatePresence>
 
@@ -308,31 +295,117 @@ export default function ServicesSection() {
 
       {/* Fade hacia AISection */}
       <div aria-hidden="true" style={{
-        position: 'absolute', bottom: 0, left: 0, right: 0, height: '30%',
+        position: 'absolute', bottom: 0, left: 0, right: 0, height: '15%',
         background: 'linear-gradient(to bottom, transparent, var(--c-bg))',
         pointerEvents: 'none', zIndex: 2,
       }} />
 
       <style>{`
-        /* ── Heading editorial ── */
-        .svc-head { --svc-size: clamp(2.4rem, 10vw, 7.5rem); line-height: 0.82; padding-block: clamp(1rem, 2vw, 1.75rem); position: relative; margin-bottom: clamp(1.5rem, 3vw, 2.5rem); }
-        .svc-word { font-family: var(--font-display); font-weight: 900; font-style: italic; font-size: var(--svc-size); letter-spacing: -0.03em; text-transform: uppercase; margin: 0; }
-        .svc-word--solid { color: var(--c-ink); position: relative; z-index: 2; width: fit-content; }
-        .svc-word--outline { color: transparent; -webkit-text-stroke: 1.5px oklch(0.98 0 0 / 0.65); margin-top: -0.18em; margin-left: clamp(2rem, 16vw, 14rem); width: fit-content; position: relative; z-index: 1; }
-        .svc-label { font-family: var(--font-display); font-weight: 700; font-style: italic; font-size: clamp(0.7rem, 1.3vw, 0.95rem); letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.62 0.015 260); margin: 0; }
-        .svc-label--tr { position: absolute; top: clamp(1rem, 3vw, 2.5rem); right: 0; display: flex; align-items: center; gap: 0.85rem; z-index: 3; }
-        .svc-label-line { width: clamp(2.5rem, 8vw, 7rem); height: 1px; background: oklch(0.62 0.015 260 / 0.6); display: inline-block; }
-        .svc-label--bl { position: absolute; left: 0; bottom: clamp(0.25rem, 1.5vw, 1rem); z-index: 3; }
+        /* ── Heading editorial estilo ServicesHero ── */
+        .svc-head {
+          position: relative;
+          margin-bottom: clamp(2rem, 5vw, 3.5rem);
+          padding-block: clamp(1rem, 2vw, 1.75rem);
+          min-height: clamp(180px, 22vw, 260px);
+        }
+
+        /* Top-right kicker */
+        .svc-kicker-top {
+          position: absolute;
+          top: clamp(0.5rem, 2vw, 1rem);
+          right: 0;
+          display: flex;
+          align-items: center;
+          gap: 0.85rem;
+          z-index: 3;
+        }
+        .svc-kicker-top span:first-child {
+          font-family: var(--font-display);
+          font-weight: 700;
+          font-style: italic;
+          font-size: clamp(0.65rem, 1.2vw, 0.85rem);
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: oklch(0.62 0.015 260);
+        }
+        .svc-kicker-line {
+          width: clamp(2.5rem, 8vw, 6rem);
+          height: 1px;
+          background: oklch(0.62 0.015 260 / 0.6);
+          display: inline-block;
+        }
+
+        /* Headline block */
+        .svc-headline-block {
+          display: flex;
+          flex-direction: column;
+          margin-top: clamp(0.5rem, 2vw, 1rem);
+        }
+        .svc-heading-solid {
+          font-family: var(--font-display);
+          font-weight: 900;
+          font-style: italic;
+          font-size: clamp(2.75rem, 13vw, 12rem);
+          letter-spacing: -0.03em;
+          text-transform: uppercase;
+          color: var(--c-ink);
+          margin: 0;
+          line-height: 0.86;
+        }
+        .svc-heading-outline {
+          font-family: var(--font-display);
+          font-weight: 900;
+          font-style: italic;
+          font-size: clamp(2.5rem, 12.5vw, 11.5rem);
+          letter-spacing: -0.03em;
+          text-transform: uppercase;
+          color: transparent;
+          -webkit-text-stroke: clamp(1px, 0.18vw, 2.5px) oklch(0.98 0 0 / 0.65);
+          line-height: 0.86;
+          align-self: flex-end;
+          margin-top: -0.1em;
+        }
+
+        /* Lower-left label with vertical divider */
+        .svc-years {
+          position: absolute;
+          left: 0;
+          bottom: clamp(0.25rem, 1.5vw, 1rem);
+          display: flex;
+          align-items: center;
+          gap: 0.85rem;
+          z-index: 3;
+        }
+        .svc-years-line {
+          height: clamp(2rem, 6vh, 4rem);
+          width: 1px;
+          background: oklch(0.62 0.015 260 / 0.6);
+          display: inline-block;
+        }
+        .svc-years span:last-child {
+          font-family: var(--font-display);
+          font-weight: 700;
+          font-style: italic;
+          font-size: clamp(0.55rem, 1vw, 0.8rem);
+          letter-spacing: 0.3em;
+          text-transform: uppercase;
+          color: oklch(0.62 0.015 260);
+        }
 
         .svc-impulsa {
           text-align: center;
-          font-family: var(--font-display); font-weight: 800; font-style: italic;
-          font-size: clamp(1rem, 2.6vw, 2rem); letter-spacing: 0.01em; text-transform: uppercase;
-          color: var(--c-ink); margin: 0 auto clamp(1.5rem, 3vw, 2.5rem);
+          font-family: var(--font-display);
+          font-weight: 800;
+          font-style: italic;
+          font-size: clamp(1rem, 2.6vw, 2rem);
+          letter-spacing: 0.01em;
+          text-transform: uppercase;
+          color: var(--c-ink);
+          margin: 0 auto clamp(1.5rem, 3vw, 2.5rem);
         }
         .svc-impulsa b { color: var(--c-lime); font-weight: 800; }
 
-        /* ── Nueva Card (2 columnas: texto | ruleta) ── */
+        /* ── Card (2 columnas: texto | ruleta) ── */
         .svc-card-new {
           position: relative;
           background: oklch(0.13 0.020 260 / 0.85);
@@ -677,18 +750,18 @@ export default function ServicesSection() {
           }
         }
 
-        @media (max-width: 600px) {
-          .svc-word--outline {
-            margin-left: clamp(1rem, 8vw, 4rem);
-          }
-          .svc-label--tr {
+        @media (max-width: 640px) {
+          .svc-kicker-top {
             position: static;
             justify-content: flex-end;
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
           }
-          .svc-label--bl {
+          .svc-headline-block {
+            margin-top: 0;
+          }
+          .svc-years {
             position: static;
-            margin-top: 0.85rem;
+            margin-top: 1rem;
           }
           .wheel-person-wrap-new {
             bottom: -5%;
