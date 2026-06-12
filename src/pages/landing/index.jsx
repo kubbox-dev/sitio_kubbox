@@ -9,7 +9,6 @@ import PhilosophySection from '../../components/sections/PhilosophySection'
 import ClientsSection    from '../../components/sections/ClientsSection'
 import CTASection        from '../../components/sections/CTASection'
 import CustomCursor      from '../../components/ui/CustomCursor'
-import FloatingBubbles  from '../../components/ui/FloatingBubbles'
 
 export default function LandingPage() {
   const darkZoneRef = useRef(null)
@@ -46,7 +45,6 @@ export default function LandingPage() {
 
   return (
     <>
-      <FloatingBubbles />
       <CustomCursor />
       <main>
         <HeroSection />
