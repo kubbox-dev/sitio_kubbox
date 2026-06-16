@@ -1,7 +1,7 @@
 import { Suspense, useRef, useCallback } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Sparkles, ArrowRight } from 'lucide-react'
-import GlowOrb from '../ui/GlowOrb'
+
 import Button from '../ui/Button'
 import { SplineScene } from '../ui/SplineScene'
 
@@ -61,9 +61,7 @@ export default function AISection() {
         }}
       />
 
-      {/* Glow Orbs */}
-      <GlowOrb color="teal" size={500} top="-15%" left="10%" opacity={0.5} blur={140} />
-      <GlowOrb color="lime" size={300} bottom="-5%" right="8%" opacity={0.4} blur={100} />
+     
 
       <div
         style={{

@@ -120,22 +120,6 @@ export default function HeroSection() {
         }}
       />
 
-      {/* ── Lime glow at triangle apex (center-bottom) ────────────── */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '420px',
-          height: '220px',
-          background: 'radial-gradient(ellipse 55% 70% at 50% 100%, oklch(0.88 0.26 130 / 0.13), transparent)',
-          pointerEvents: 'none',
-          zIndex: 1,
-        }}
-      />
-
       {/* ── Contenido ───────────────────────────────────────────────── */}
       <div style={{ position: 'relative', zIndex: 2, width: '100%', maxWidth: '1200px' }}>
 

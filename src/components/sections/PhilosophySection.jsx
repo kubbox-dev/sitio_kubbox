@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import GlowOrb from '../ui/GlowOrb'
+
 
 const BELIEFS = [
   {
@@ -28,8 +28,7 @@ const TAGLINE =
 export default function PhilosophySection() {
   return (
     <section style={{ paddingBlock: 'clamp(4rem, 10vw, 7rem)', position: 'relative', overflow: 'hidden', background: 'var(--c-bg)', marginTop: '-1px' }}>
-      <GlowOrb color="teal" size={520} top="8%"  right="-5%" opacity={0.55} blur={130} />
-      <GlowOrb color="lime" size={380} bottom="4%" left="-4%"  opacity={0.45} blur={110} />
+      
 
       {/* Subtle dot-grid texture */}
       <div aria-hidden="true" className="phil-grid-bg" />

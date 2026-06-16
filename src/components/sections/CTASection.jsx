@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import GlowOrb from '../ui/GlowOrb'
+
 import Button from '../ui/Button'
 import { useScrollAnimation, fadeUp, staggerContainer } from '../../hooks/useScrollAnimation'
 
@@ -23,17 +23,13 @@ export default function CTASection() {
       <div
         aria-hidden="true"
         style={{
-          position: 'absolute', top: 0, left: 0, right: 0, height: '22%',
+          position: 'absolute', top: 0, left: 0, right: 0, height: '10%',
           background: 'linear-gradient(to bottom, var(--c-bg), transparent)',
           pointerEvents: 'none', zIndex: 2,
         }}
       />
 
-      <GlowOrb color="lime" size={700} top="-20%" left="10%" opacity={1.0} blur={140} />
-      <GlowOrb color="teal" size={500} bottom="-10%" right="5%" opacity={0.8} blur={110} />
-
-      {/* Beam spotlight from top center */}
-      <div aria-hidden="true" className="cta-beam" />
+    
 
       {/* Subtle grid texture */}
       <div aria-hidden="true" className="cta-grid-bg" />

@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { ChevronRight, ArrowUpRight } from 'lucide-react'
-import GlowOrb from '../ui/GlowOrb'
 import Button from '../ui/Button'
 import { useScrollAnimation, fadeUp, staggerContainer } from '../../hooks/useScrollAnimation'
 
@@ -122,8 +121,7 @@ export default function ServicesSection() {
         marginTop: '-1px',
       }}
     >
-      <GlowOrb color="lime" size={600} top="-5%"  right="-8%" opacity={0.7} blur={140} />
-      <GlowOrb color="teal" size={460} bottom="2%" left="-6%" opacity={0.6} blur={120} />
+      
 
       <div style={{ maxWidth: 'var(--container)', marginInline: 'auto', paddingInline: 'var(--container-pad)', position: 'relative', zIndex: 1, width: '100%' }}>
 
