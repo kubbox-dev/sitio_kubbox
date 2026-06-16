@@ -29,11 +29,13 @@ function injectBlobStyles() {
   document.head.appendChild(el)
 }
 
+// Alta opacidad interna — el filtro goo necesita alpha ≥ ~50% para funcionar.
+// La opacidad visual final la controla el contenedor (opacity: 0.22).
 const PALETTE = [
-  'oklch(0.88 0.26 130 / 0.20)',
-  'oklch(0.88 0.26 130 / 0.14)',
-  'oklch(0.88 0.26 130 / 0.09)',
-  'oklch(0.94 0.07 115 / 0.08)',
+  'oklch(0.88 0.26 130 / 0.72)',
+  'oklch(0.88 0.26 130 / 0.66)',
+  'oklch(0.88 0.26 130 / 0.60)',
+  'oklch(0.94 0.07 115 / 0.58)',
 ]
 
 function randomParams() {
@@ -41,19 +43,19 @@ function randomParams() {
   const r = Math.random()
 
   const size =
-    r < 0.35 ? 70  + Math.random() * 60  :   // 70–130 px  (common)
-    r < 0.72 ? 130 + Math.random() * 100 :   // 130–230 px (medium)
-    r < 0.92 ? 230 + Math.random() * 110 :   // 230–340 px (large)
-               340 + Math.random() * 80       // 340–420 px (muy raro, impactante)
+    r < 0.35 ? 70  + Math.random() * 60  :
+    r < 0.72 ? 130 + Math.random() * 100 :
+    r < 0.92 ? 230 + Math.random() * 110 :
+               340 + Math.random() * 80
 
   const p = Math.random()
   let baseX, drift
   if (p < 0.40) {
-    baseX = -size * 0.25                     // borde izquierdo, parcialmente fuera
-    drift = 30 + Math.random() * 50          // deriva hacia el centro
+    baseX = -size * 0.25
+    drift = 30 + Math.random() * 50
   } else if (p < 0.80) {
-    baseX = w - size * 0.75                  // borde derecho, parcialmente fuera
-    drift = -(30 + Math.random() * 50)       // deriva hacia el centro
+    baseX = w - size * 0.75
+    drift = -(30 + Math.random() * 50)
   } else {
     baseX = w * 0.2 + Math.random() * w * 0.6
     drift = (20 + Math.random() * 35) * (Math.random() > 0.5 ? 1 : -1)
@@ -66,13 +68,13 @@ class BlobParticle {
   constructor(container) {
     const { size, baseX, drift } = randomParams()
 
-    this.size   = size
-    this.baseX  = baseX
-    this.y      = window.innerHeight + size
-    this.speed  = 0.22 + Math.random() * 0.48
-    this.drift  = drift
-    this.steps  = window.innerHeight * 0.9
-    this.color  = PALETTE[Math.floor(Math.random() * PALETTE.length)]
+    this.size  = size
+    this.baseX = baseX
+    this.y     = window.innerHeight + size
+    this.speed = 0.22 + Math.random() * 0.48
+    this.drift = drift
+    this.steps = window.innerHeight * 0.9
+    this.color = PALETTE[Math.floor(Math.random() * PALETTE.length)]
 
     const animIdx = Math.ceil(Math.random() * 4)
     const dur     = (9 + Math.random() * 8).toFixed(1)
@@ -113,11 +115,11 @@ const SPAWN_INTERVAL = 2800
 const MAX_BLOBS = 6
 
 export default function FloatingBubbles() {
-  const containerRef  = useRef(null)
-  const blobsRef      = useRef([])
-  const rafRef        = useRef(null)
-  const lastSpawnRef  = useRef(0)
-  const pausedRef     = useRef(false)
+  const containerRef = useRef(null)
+  const blobsRef     = useRef([])
+  const rafRef       = useRef(null)
+  const lastSpawnRef = useRef(0)
+  const pausedRef    = useRef(false)
 
   useEffect(() => {
     injectBlobStyles()
@@ -153,16 +155,44 @@ export default function FloatingBubbles() {
   }, [])
 
   return (
-    <div
-      ref={containerRef}
-      aria-hidden="true"
-      style={{
-        position: 'fixed',
-        inset: 0,
-        overflow: 'hidden',
-        pointerEvents: 'none',
-        zIndex: 0,
-      }}
-    />
+    <>
+      {/* Filtro SVG goo — fusión cuando dos blobs se tocan */}
+      <svg
+        aria-hidden="true"
+        style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}
+      >
+        <defs>
+          <filter id="blobs-goo">
+            {/* 1. Desenfoca todo el contenedor */}
+            <feGaussianBlur in="SourceGraphic" stdDeviation="16" result="blur" />
+            {/* 2. Umbral: solo sobreviven zonas con alpha suficiente, y si dos blobs
+                    se tocan su alpha combinado supera el umbral → se fusionan */}
+            <feColorMatrix
+              in="blur"
+              type="matrix"
+              values="1 0 0 0 0
+                      0 1 0 0 0
+                      0 0 1 0 0
+                      0 0 0 22 -11"
+            />
+          </filter>
+        </defs>
+      </svg>
+
+      {/* Contenedor con filtro + opacity final */}
+      <div
+        ref={containerRef}
+        aria-hidden="true"
+        style={{
+          position: 'fixed',
+          inset: 0,
+          overflow: 'hidden',
+          pointerEvents: 'none',
+          zIndex: 0,
+          filter: 'url(#blobs-goo)',
+          opacity: 0.22,
+        }}
+      />
+    </>
   )
 }
