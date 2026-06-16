@@ -9,6 +9,7 @@ import PhilosophySection from '../../components/sections/PhilosophySection'
 import ClientsSection    from '../../components/sections/ClientsSection'
 import CTASection        from '../../components/sections/CTASection'
 import CustomCursor      from '../../components/ui/CustomCursor'
+import MorphicBackground      from '../../components/layout/fondo'
 
 export default function LandingPage() {
   const darkZoneRef = useRef(null)
@@ -46,7 +47,8 @@ export default function LandingPage() {
   return (
     <>
       <CustomCursor />
-      <main>
+      <MorphicBackground />
+      <main>      
         <HeroSection />
         <ProjectsSection />
         <ServicesSection />
