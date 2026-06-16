@@ -151,7 +151,11 @@ export default function ProjectsSection() {
           </div>
 
           {/* Panel info */}
-          <div className="proj-info-panel">
+          <motion.div
+            className="proj-info-panel"
+            layout
+            transition={{ layout: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } }}
+          >
             <AnimatePresence initial={false} custom={dir}>
               <motion.div
                 key={`info-${idx}`}
@@ -199,7 +203,7 @@ export default function ProjectsSection() {
                 </motion.div>
               </motion.div>
             </AnimatePresence>
-          </div>
+          </motion.div>
 
           {/* Controles: dots + prev/next */}
           <div className="proj-controls">

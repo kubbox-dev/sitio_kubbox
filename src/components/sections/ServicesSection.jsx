@@ -155,47 +155,49 @@ export default function ServicesSection() {
         </motion.p>
 
         {/* ── Card con 2 columnas (texto izquierda | ruleta derecha) ───────── */}
-        <div
+        <motion.div
           className="svc-card-new"
+          layout
+          transition={{ layout: { duration: 0.45, ease: [0.16, 1, 0.3, 1] } }}
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
           {/* Columna izquierda - Detalle del servicio */}
-          <div className="svc-card-left-new">
-            <AnimatePresence mode="wait">
+          <motion.div className="svc-card-left-new" layout transition={{ layout: { duration: 0.42, ease: [0.16, 1, 0.3, 1] } }}>
+            <AnimatePresence mode="popLayout" initial={false}>
               <motion.div
                 key={active}
-                initial={{ opacity: 0, x: -18 }}
+                initial={{ opacity: 0, x: -14 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -10 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                exit={{ opacity: 0, x: -8 }}
+                transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
               >
-                <span className="svc-card-kicker">
-                  {String(active + 1).padStart(2, '0')} / {String(N).padStart(2, '0')}
-                </span>
-                <h3 className="svc-card-title-new">{service.title}</h3>
-                <p className="svc-card-tagline-new">{service.tagline}</p>
-                <p className="svc-card-body-new">{service.body}</p>
-                <motion.ul
-                  className="svc-card-bullets-new"
-                  initial="hidden"
-                  animate="visible"
-                  variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.09, delayChildren: 0.18 } } }}
-                >
-                  {service.bullets.map(b => (
-                    <motion.li
-                      key={b}
-                      variants={{
-                        hidden: { opacity: 0, x: -12 },
-                        visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
-                      }}
-                    >
-                      <ChevronRight size={15} className="svc-bullet-ic" />
-                      <span>{b}</span>
-                    </motion.li>
-                  ))}
-                </motion.ul>
-              </motion.div>
+                  <span className="svc-card-kicker">
+                    {String(active + 1).padStart(2, '0')} / {String(N).padStart(2, '0')}
+                  </span>
+                  <h3 className="svc-card-title-new">{service.title}</h3>
+                  <p className="svc-card-tagline-new">{service.tagline}</p>
+                  <p className="svc-card-body-new">{service.body}</p>
+                  <motion.ul
+                    className="svc-card-bullets-new"
+                    initial="hidden"
+                    animate="visible"
+                    variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.09, delayChildren: 0.18 } } }}
+                  >
+                    {service.bullets.map(b => (
+                      <motion.li
+                        key={b}
+                        variants={{
+                          hidden: { opacity: 0, x: -12 },
+                          visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
+                        }}
+                      >
+                        <ChevronRight size={15} className="svc-bullet-ic" />
+                        <span>{b}</span>
+                      </motion.li>
+                    ))}
+                  </motion.ul>
+                </motion.div>
             </AnimatePresence>
 
             {/* Tabs */}
@@ -212,7 +214,7 @@ export default function ServicesSection() {
                 </motion.button>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Columna derecha - Ruleta + Señora */}
           <div className="svc-card-right-new">
@@ -298,7 +300,7 @@ export default function ServicesSection() {
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Fade hacia AISection */}
