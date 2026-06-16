@@ -22,7 +22,7 @@ export default function CTASection() {
       <div
         aria-hidden="true"
         style={{
-          position: 'absolute', top: 0, left: 0, right: 0, height: '22%',
+          position: 'absolute', top: 0, left: 0, right: 0, height: '10%',
           background: 'linear-gradient(to bottom, var(--c-bg), transparent)',
           pointerEvents: 'none', zIndex: 2,
         }}

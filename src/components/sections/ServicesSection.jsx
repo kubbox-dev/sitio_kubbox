@@ -304,7 +304,7 @@ export default function ServicesSection() {
 
       {/* Fade hacia AISection */}
       <div aria-hidden="true" style={{
-        position: 'absolute', bottom: 0, left: 0, right: 0, height: '28%',
+        position: 'absolute', bottom: 0, left: 0, right: 0, height: '10%',
         background: 'linear-gradient(to bottom, transparent, var(--c-bg))',
         pointerEvents: 'none', zIndex: 2,
       }} />
@@ -416,6 +416,7 @@ export default function ServicesSection() {
 
         /* ── Card (2 columnas: texto | ruleta) ── */
         .svc-card-new {
+          margin-bottom: clamp(2rem, 5vw, 3.5rem);
           position: relative;
           background: oklch(0.13 0.020 260 / 0.85);
           border: 1px solid oklch(0.26 0.022 260);
