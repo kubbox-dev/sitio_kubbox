@@ -1,171 +1,229 @@
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { useState, useEffect, useRef } from 'react'
+import { motion } from 'framer-motion'
 
 const NAV_LINKS = [
-  { label: 'Experiencia', href: '#experiencia', section: 'experiencia' },
-  { label: 'Servicios',   href: '#servicios',   section: 'servicios'   },
-  { label: 'Contacto',    href: '#contacto',    section: 'contacto'    },
+  { label: 'Experiencia', href: null, section: 'experiencia' },
+  { label: 'Servicios',   href: null, section: 'servicios'   },
+  { label: 'Contacto',    href: null, section: 'contacto'    },
 ]
 
+// Página actual — cambiar al crear nuevas páginas
+const CURRENT_PAGE = 'experiencia'
+
 export default function Navbar() {
-  const [scrolled,      setScrolled]      = useState(false)
-  const [menuOpen,      setMenuOpen]      = useState(false)
-  const [activeSection, setActiveSection] = useState('')
+  const [scrolled,       setScrolled]       = useState(false)
+  const [hidden,         setHidden]         = useState(false)
+  const [scrollProgress, setScrollProgress] = useState(0)
+  const lastScrollY = useRef(0)
 
-  /* Scroll blur + active section via IntersectionObserver */
+  /* ── Scroll: progress + opacity + auto-hide (mobile only) ── */
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
-    window.addEventListener('scroll', onScroll, { passive: true })
+    const onScroll = () => {
+      const y      = window.scrollY
+      const maxY   = document.documentElement.scrollHeight - window.innerHeight
+      const mobile = window.innerWidth < 768
 
-    const sections = document.querySelectorAll('section[id]')
-    const io = new IntersectionObserver(
-      entries => {
-        entries.forEach(e => { if (e.isIntersecting) setActiveSection(e.target.id) })
-      },
-      { threshold: 0.35 },
-    )
-    sections.forEach(s => io.observe(s))
+      setScrollProgress(maxY > 0 ? Math.min(y / maxY, 1) : 0)
+      setScrolled(y > 60)
 
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-      io.disconnect()
+      if (mobile && y > 280) {
+        if (y > lastScrollY.current + 8) setHidden(true)
+        if (y < lastScrollY.current - 8) setHidden(false)
+      } else {
+        setHidden(false)
+      }
+
+      lastScrollY.current = y
     }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   return (
-    <motion.header
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0,   opacity: 1 }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      style={{
-        position: 'fixed',
-        top: 0, left: 0, right: 0,
-        zIndex: 'var(--z-sticky)',
-        padding: '0.75rem var(--container-pad)',
-        display: 'grid',
-        gridTemplateColumns: '1fr auto 1fr',
-        alignItems: 'center',
-        transition: 'background var(--transition-base), backdrop-filter var(--transition-base), border-bottom-color var(--transition-base)',
-        background: scrolled ? 'oklch(0.09 0.025 260 / 0.85)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(16px)' : 'none',
-        borderBottom: scrolled ? '1px solid oklch(0.20 0.020 260)' : '1px solid transparent',
-      }}
+    <>
+    <style>{`
+      @media (max-width: 430px) {
+        .nb-link {
+          padding: 0.26rem 0.32rem !important;
+          font-size: 0.5rem !important;
+          letter-spacing: 0.02em !important;
+        }
+        .nb-logo-wrap { padding: 0.12rem 0.3rem 0.12rem 0.22rem !important; }
+        .nb-logo-wrap img { height: 1.15rem !important; }
+        .nb-divider { margin-right: 0.08rem !important; }
+      }
+    `}</style>
+    <motion.div
+      initial={{ y: -96, opacity: 0 }}
+      animate={{ y: hidden ? -120 : 0, opacity: hidden ? 0 : 1 }}
+      transition={hidden
+        ? { duration: 0.28, ease: [0.4, 0, 1, 1] }
+        : { duration: 0.55, ease: [0.16, 1, 0.3, 1] }
+      }
+      className="fixed top-5 left-1/2 -translate-x-1/2 z-50"
     >
-      {/* Logo — columna izquierda */}
-      <a href="#" style={{ justifySelf: 'start', display: 'flex', alignItems: 'center', textDecoration: 'none', lineHeight: 0 }}>
-        <img
-          src="/images/LOGO BUENO KUBBOX/LOGO KUBBOX BUENO.svg"
-          alt="Kubbox Marketing Digital"
-          style={{ height: '2.75rem', width: 'auto' }}
-        />
-      </a>
+      <div
+        className="flex items-center rounded-full relative"
+        style={{
+          padding: '5px',
+          background: scrolled
+            ? 'oklch(0.11 0.028 260 / 0.95)'
+            : 'oklch(0.11 0.025 260 / 0.68)',
+          border: '1px solid oklch(0.26 0.022 260 / 0.60)',
+          backdropFilter: 'blur(22px) saturate(1.4)',
+          boxShadow: scrolled
+            ? '0 8px 48px oklch(0.04 0.02 260 / 0.75), 0 1px 0 oklch(0.32 0.020 260 / 0.12) inset, 0 -1px 0 oklch(0.08 0.020 260 / 0.6) inset'
+            : '0 4px 24px oklch(0.04 0.02 260 / 0.45), 0 1px 0 oklch(0.28 0.018 260 / 0.10) inset',
+          transition: 'background 0.5s ease, box-shadow 0.5s ease',
+        }}
+      >
+        {/* Decorativos en su propio wrapper — no recorta el contenido */}
+        <div aria-hidden="true" className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+          {/* Shimmer superior */}
+          <div style={{
+            position: 'absolute', top: 0, left: 0, right: 0, height: '1px',
+            background: 'linear-gradient(to right, transparent 8%, oklch(0.50 0.015 260 / 0.30) 40%, oklch(0.50 0.015 260 / 0.30) 60%, transparent 92%)',
+          }} />
+          {/* Barra de progreso */}
+          <div style={{
+            position: 'absolute', bottom: 0, left: 0,
+            height: '2px',
+            width: `${scrollProgress * 100}%`,
+            background: 'linear-gradient(to right, oklch(0.88 0.26 130 / 0.5), oklch(0.88 0.26 130 / 0.95))',
+            transition: 'width 0.12s linear',
+            borderRadius: '0 2px 0 0',
+          }} />
+        </div>
 
-      {/* Nav links — columna central */}
-      <nav aria-label="Navegación principal" style={{ display: 'flex', gap: '2.5rem' }} className="hidden-mobile">
-        {NAV_LINKS.map(({ label, href, section }) => (
-          <NavLink key={href} href={href} active={activeSection === section}>
-            {label}
-          </NavLink>
-        ))}
-      </nav>
-
-      {/* Mobile toggle — columna derecha */}
-      <div style={{ justifySelf: 'end' }}>
-        <button
-          aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
-          onClick={() => setMenuOpen(v => !v)}
-          style={{
-            background: 'none', border: 'none',
-            color: 'var(--c-ink)', cursor: 'pointer', padding: '0.25rem',
-            display: 'none',
-          }}
-          className="show-mobile"
+        {/* Logo */}
+        <a
+          href="#"
+          className="nb-logo-wrap group relative flex items-center shrink-0 no-underline rounded-full"
+          style={{ padding: '0.22rem 0.75rem 0.22rem 0.6rem' }}
         >
-          {menuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
+          <span
+            aria-hidden="true"
+            className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            style={{ background: 'oklch(0.88 0.26 130 / 0.07)', filter: 'blur(10px)' }}
+          />
+          <img
+            src="/images/LOGO BUENO KUBBOX/LOGO KUBBOX BUENO.svg"
+            alt="Kubbox"
+            className="relative w-auto transition-transform duration-300 group-hover:scale-[1.04]"
+            style={{ height: '1.9rem' }}
+          />
+        </a>
 
-      {/* Mobile dropdown */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2 }}
-            style={{
-              gridColumn: '1 / -1',
-              position: 'absolute',
-              top: '100%', left: 0, right: 0,
-              background: 'oklch(0.10 0.025 260 / 0.97)',
-              backdropFilter: 'blur(16px)',
-              borderBottom: '1px solid oklch(0.20 0.020 260)',
-              padding: '1.5rem var(--container-pad)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1.25rem',
-            }}
-          >
-            {NAV_LINKS.map(({ label, href, section }) => (
-              <a
-                key={href}
-                href={href}
-                onClick={() => setMenuOpen(false)}
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontWeight: 700,
-                  fontSize: '1.5rem',
-                  letterSpacing: '0.04em',
-                  textTransform: 'uppercase',
-                  color: activeSection === section ? 'var(--c-lime)' : 'var(--c-ink)',
-                  textDecoration: 'none',
-                }}
-              >
-                {label}
-              </a>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.header>
+        {/* Divider */}
+        <span
+          aria-hidden="true"
+          className="nb-divider w-px shrink-0"
+          style={{
+            height: '1.1rem',
+            marginRight: '0.25rem',
+            background: 'oklch(0.26 0.018 260 / 0.75)',
+          }}
+        />
+
+        {/* Links */}
+        {NAV_LINKS.map(({ label, href, section }) => (
+          <TubeLink key={section} href={href} active={CURRENT_PAGE === section}>
+            {label}
+          </TubeLink>
+        ))}
+      </div>
+    </motion.div>
+    </>
   )
 }
 
-function NavLink({ href, children, active }) {
+/* ── TubeLink ───────────────────────────────────── */
+function TubeLink({ href, children, active }) {
   return (
     <a
-      href={href}
+      href={href ?? undefined}
+      onClick={href ? undefined : e => e.preventDefault()}
+      className="nb-link group relative rounded-full no-underline"
       style={{
+        padding: '0.48rem 1.1rem',
         fontFamily: 'var(--font-body)',
-        fontWeight: 500,
-        fontSize: '0.9rem',
-        letterSpacing: '0.08em',
+        fontWeight: 600,
+        fontSize: '0.78rem',
+        letterSpacing: '0.10em',
         textTransform: 'uppercase',
-        color: active ? 'var(--c-ink)' : 'var(--c-muted)',
-        textDecoration: 'none',
-        position: 'relative',
-        paddingBottom: '3px',
-        transition: 'color var(--transition-base)',
+        color: active ? 'var(--c-ink)' : 'oklch(0.46 0.014 260)',
+        transition: 'color 0.2s ease',
+        zIndex: 1,
+        whiteSpace: 'nowrap',
       }}
-      onMouseEnter={e => (e.currentTarget.style.color = 'var(--c-ink)')}
-      onMouseLeave={e => (e.currentTarget.style.color = active ? 'var(--c-ink)' : 'var(--c-muted)')}
+      onMouseEnter={e => { if (!active) e.currentTarget.style.color = 'oklch(0.82 0.008 260)' }}
+      onMouseLeave={e => { if (!active) e.currentTarget.style.color = 'oklch(0.46 0.014 260)' }}
     >
-      {children}
-      {/* Underline activo — barra lime */}
-      {active && (
-        <motion.span
-          layoutId="nav-underline"
-          style={{
-            position: 'absolute',
-            bottom: 0, left: 0, right: 0,
-            height: '2px',
-            background: 'var(--c-lime)',
-            borderRadius: '1px',
-          }}
-          transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+      {/* Hover bg (solo no-activo) */}
+      {!active && (
+        <span
+          className="absolute inset-0 rounded-full -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+          style={{ background: 'oklch(0.16 0.024 260 / 0.7)' }}
         />
       )}
+
+      {/* Active pill + tubelight */}
+      {active && (
+        <motion.span
+          layoutId="tube-pill"
+          className="absolute inset-0 rounded-full -z-10"
+          style={{ background: 'oklch(0.17 0.030 260 / 0.95)' }}
+          transition={{ type: 'spring', stiffness: 400, damping: 34 }}
+        >
+          {/* Barra lamp */}
+          <span
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              top: -3,
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '1.5rem',
+              height: '3px',
+              background: 'var(--c-lime)',
+              borderRadius: '0 0 3px 3px',
+              boxShadow: '0 0 10px var(--c-lime)',
+            }}
+          />
+          {/* Halo exterior */}
+          <span
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              top: -22,
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '4rem',
+              height: '2rem',
+              background: 'oklch(0.88 0.26 130 / 0.13)',
+              borderRadius: '50%',
+              filter: 'blur(12px)',
+            }}
+          />
+          {/* Halo interior */}
+          <span
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              top: -11,
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '2rem',
+              height: '1rem',
+              background: 'oklch(0.88 0.26 130 / 0.28)',
+              borderRadius: '50%',
+              filter: 'blur(5px)',
+            }}
+          />
+        </motion.span>
+      )}
+
+      {children}
     </a>
   )
 }
