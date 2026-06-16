@@ -32,9 +32,22 @@ export default function HeroSection() {
         paddingInline: 'clamp(1rem, 4vw, 3rem)',
       }}
     >
+      <style>{`
+        @media (max-width: 767px) {
+          .hero-bg-layers {
+            mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 75%) !important;
+            -webkit-mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 75%) !important;
+          }
+          #inicio {
+            min-height: 90svh !important;
+          }
+        }
+      `}</style>
+
       {/* ── Capas de fondo — con fade en la base para fluir hacia Projects ── */}
       <div
         aria-hidden="true"
+        className="hero-bg-layers"
         style={{
           position: 'absolute',
           inset: 0,
