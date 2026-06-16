@@ -1,20 +1,19 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, ChevronDown } from 'lucide-react'
 
 const NAV_LINKS = [
-  { label: 'Experiencia', href: null, section: 'experiencia' },
-  { label: 'Servicios',   href: null, section: 'servicios', dropdown: true },
-  { label: 'Blog',        href: null, section: 'blog'       },
-  { label: 'Contacto',    href: null, section: 'contacto'   },
+  { label: 'Experiencia', href: '/',         section: 'experiencia' },
+  { label: 'Servicios',   href: null,        section: 'servicios', dropdown: true },
+  { label: 'Blog',        href: null,        section: 'blog'       },
+  { label: 'Contacto',    href: '/contacto', section: 'contacto'   },
 ]
 
 const SERVICES = [
   { label: 'Desarrollo Digital',    desc: 'Sitios web, e-commerce y apps a medida' },
   { label: 'Marketing Digital',     desc: 'Redes sociales y pauta digital' }
 ]
-
-const CURRENT_PAGE = 'experiencia'
 
 const PILL_BASE = {
   background: 'oklch(0.11 0.025 260 / 0.72)',
@@ -32,6 +31,9 @@ const PILL_DEFAULT = {
 }
 
 export default function Navbar() {
+  const location = useLocation()
+  const CURRENT_PAGE = location.pathname === '/contacto' ? 'contacto' : 'experiencia'
+
   const [scrolled,        setScrolled]        = useState(false)
   const [hidden,          setHidden]          = useState(false)
   const [scrollProgress,  setScrollProgress]  = useState(0)
@@ -205,9 +207,9 @@ export default function Navbar() {
             width: '90vw',
           }}
         >
-          <a href="#" className="flex items-center no-underline">
+          <Link to="/" className="flex items-center no-underline">
             <img src="/images/LOGO BUENO KUBBOX/LOGO KUBBOX BUENO.svg" alt="Kubbox" style={{ height: '1.75rem', width: 'auto' }} />
-          </a>
+          </Link>
 
           <button
             aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
@@ -325,22 +327,32 @@ export default function Navbar() {
                     </motion.div>
                   ) : (
                     /* ── Link normal ── */
-                    <motion.a
+                    <motion.div
                       key={link.section}
-                      href={link.href ?? undefined}
-                      onClick={() => setMenuOpen(false)}
                       initial={{ opacity: 0, x: -18 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.08 + i * 0.07, duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
-                      className="group flex items-center justify-between no-underline"
-                      style={{ padding: '1.1rem 0', borderBottom: i < NAV_LINKS.length - 1 ? '1px solid oklch(0.20 0.018 260)' : 'none' }}
                     >
-                      <div className="flex items-baseline gap-4">
-                        <span style={{ fontFamily:'var(--font-body)', fontSize:'0.68rem', fontWeight:600, letterSpacing:'0.14em', color:'oklch(0.35 0.014 260)' }}>0{i + 1}</span>
-                        <span style={{ fontFamily:'var(--font-display)', fontWeight:800, fontSize:'clamp(1.5rem, 6vw, 1.85rem)', textTransform:'uppercase', color: CURRENT_PAGE === link.section ? 'var(--c-lime)' : 'var(--c-ink)', letterSpacing:'-0.01em', transition:'color 0.2s ease' }}>{link.label}</span>
-                      </div>
-                      <span className="transition-transform duration-200 group-hover:translate-x-1.5" style={{ color: CURRENT_PAGE === link.section ? 'var(--c-lime)' : 'oklch(0.30 0.016 260)', fontSize: '1.1rem' }}>→</span>
-                    </motion.a>
+                      {(() => {
+                        const NavComp = link.href ? Link : 'a'
+                        const navProps = link.href
+                          ? { to: link.href, onClick: () => setMenuOpen(false) }
+                          : { onClick: e => { e.preventDefault(); setMenuOpen(false) } }
+                        return (
+                          <NavComp
+                            {...navProps}
+                            className="group flex items-center justify-between no-underline"
+                            style={{ padding: '1.1rem 0', borderBottom: i < NAV_LINKS.length - 1 ? '1px solid oklch(0.20 0.018 260)' : 'none' }}
+                          >
+                            <div className="flex items-baseline gap-4">
+                              <span style={{ fontFamily:'var(--font-body)', fontSize:'0.68rem', fontWeight:600, letterSpacing:'0.14em', color:'oklch(0.35 0.014 260)' }}>0{i + 1}</span>
+                              <span style={{ fontFamily:'var(--font-display)', fontWeight:800, fontSize:'clamp(1.5rem, 6vw, 1.85rem)', textTransform:'uppercase', color: CURRENT_PAGE === link.section ? 'var(--c-lime)' : 'var(--c-ink)', letterSpacing:'-0.01em', transition:'color 0.2s ease' }}>{link.label}</span>
+                            </div>
+                            <span className="transition-transform duration-200 group-hover:translate-x-1.5" style={{ color: CURRENT_PAGE === link.section ? 'var(--c-lime)' : 'oklch(0.30 0.016 260)', fontSize: '1.1rem' }}>→</span>
+                          </NavComp>
+                        )
+                      })()}
+                    </motion.div>
                   )
                 )}
               </div>
@@ -370,10 +382,10 @@ function PillDecorations({ scrollProgress }) {
 
 function Logo() {
   return (
-    <a href="#" className="group relative flex items-center shrink-0 no-underline rounded-full" style={{ padding: '0.22rem 0.75rem 0.22rem 0.6rem' }}>
+    <Link to="/" className="group relative flex items-center shrink-0 no-underline rounded-full" style={{ padding: '0.22rem 0.75rem 0.22rem 0.6rem' }}>
       <span aria-hidden="true" className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background:'oklch(0.88 0.26 130 / 0.07)', filter:'blur(10px)' }} />
       <img src="/images/LOGO BUENO KUBBOX/LOGO KUBBOX BUENO.svg" alt="Kubbox" className="relative w-auto transition-transform duration-300 group-hover:scale-[1.04]" style={{ height:'1.9rem' }} />
-    </a>
+    </Link>
   )
 }
 
@@ -382,10 +394,12 @@ function Divider() {
 }
 
 function TubeLink({ href, children, active, chevron }) {
+  const Comp = href ? Link : 'a'
+  const navProps = href ? { to: href } : { onClick: e => e.preventDefault() }
+
   return (
-    <a
-      href={href ?? undefined}
-      onClick={href ? undefined : e => e.preventDefault()}
+    <Comp
+      {...navProps}
       className="group relative rounded-full no-underline flex items-center gap-1"
       style={{
         padding: '0.48rem 1.1rem',
@@ -414,6 +428,6 @@ function TubeLink({ href, children, active, chevron }) {
 
       {children}
       {chevron && <ChevronDown size={11} style={{ opacity: 0.55, flexShrink: 0 }} />}
-    </a>
+    </Comp>
   )
 }

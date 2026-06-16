@@ -1,8 +1,8 @@
 import { useState, useCallback } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { ArrowUpRight, ChevronUp, ChevronDown } from 'lucide-react'
-import GlowOrb from '../ui/GlowOrb'
-import { useScrollAnimation, fadeUp, staggerContainer } from '../../hooks/useScrollAnimation'
+import GlowOrb from '../../ui/GlowOrb'
+import { useScrollAnimation, fadeUp, staggerContainer } from '../../../hooks/useScrollAnimation'
 
 const PROJECTS = [
   {

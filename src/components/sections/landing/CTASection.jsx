@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 
-import Button from '../ui/Button'
-import { useScrollAnimation, fadeUp, staggerContainer } from '../../hooks/useScrollAnimation'
+import Button from '../../ui/Button'
+import { useScrollAnimation, fadeUp, staggerContainer } from '../../../hooks/useScrollAnimation'
 
 const BARS = [40, 60, 50, 80, 65, 90, 100, 75, 85]
 

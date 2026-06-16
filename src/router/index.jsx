@@ -1,10 +1,17 @@
-import { lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { lazy, Suspense, useEffect } from 'react'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
 
 const LandingPage = lazy(() => import('../pages/landing'))
+const ContactPage = lazy(() => import('../pages/contacto'))
+
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+  return null
+}
 
 function PageLoader() {
   return (
@@ -34,13 +41,14 @@ function PageLoader() {
 export default function AppRouter() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Navbar />
       <Suspense fallback={<PageLoader />}>
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/contacto" element={<ContactPage />} />
           {/* Agregar páginas futuras aquí:
           <Route path="/servicios" element={<ServicesPage />} />
-          <Route path="/contacto"  element={<ContactPage />} />
           */}
         </Routes>
       </Suspense>

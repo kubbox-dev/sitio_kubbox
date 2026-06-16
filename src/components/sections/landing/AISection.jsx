@@ -2,8 +2,8 @@ import { Suspense, useRef, useCallback } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Sparkles, ArrowRight } from 'lucide-react'
 
-import Button from '../ui/Button'
-import { SplineScene } from '../ui/SplineScene'
+import Button from '../../ui/Button'
+import { SplineScene } from '../../ui/SplineScene'
 
 const SPLINE_ROBOT = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode'
 

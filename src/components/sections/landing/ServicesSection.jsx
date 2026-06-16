@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { ChevronRight, ArrowUpRight } from 'lucide-react'
-import Button from '../ui/Button'
-import { useScrollAnimation, fadeUp, staggerContainer } from '../../hooks/useScrollAnimation'
+import Button from '../../ui/Button'
+import { useScrollAnimation, fadeUp, staggerContainer } from '../../../hooks/useScrollAnimation'
 
 const ICON = (name) => encodeURI(`/images/HOME/WEB/iconos/${name}.svg`)
 const PERSON_IMG = '/images/HOME/WEB/Ruleta/senora.png'
