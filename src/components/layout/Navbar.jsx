@@ -4,7 +4,8 @@ import { motion } from 'framer-motion'
 const NAV_LINKS = [
   { label: 'Experiencia', href: null, section: 'experiencia' },
   { label: 'Servicios',   href: null, section: 'servicios'   },
-  { label: 'Contacto',    href: null, section: 'contacto'    },
+  { label: 'Blog',    href: null, section: 'contacto'    },
+  { label: 'Contacto',    href: null, section: 'contacto'    }
 ]
 
 // Página actual — cambiar al crear nuevas páginas

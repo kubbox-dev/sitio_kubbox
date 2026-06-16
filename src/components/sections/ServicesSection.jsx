@@ -16,7 +16,6 @@ const SERVICES = [
     icon: ICON('computador sin verde'),
     bullets: [
       'Sitios web corporativos y de marca',
-      'E-commerce y tiendas online',
       'Plataformas a medida y web apps',
       'Sistemas de registro, concursos y activaciones',
     ],
