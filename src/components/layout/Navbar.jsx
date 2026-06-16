@@ -1,23 +1,50 @@
 import { useState, useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Menu, X, ChevronDown } from 'lucide-react'
 
 const NAV_LINKS = [
   { label: 'Experiencia', href: null, section: 'experiencia' },
-  { label: 'Servicios',   href: null, section: 'servicios'   },
-  { label: 'Blog',    href: null, section: 'contacto'    },
-  { label: 'Contacto',    href: null, section: 'contacto'    }
+  { label: 'Servicios',   href: null, section: 'servicios', dropdown: true },
+  { label: 'Blog',        href: null, section: 'blog'       },
+  { label: 'Contacto',    href: null, section: 'contacto'   },
 ]
 
-// Página actual — cambiar al crear nuevas páginas
+const SERVICES = [
+  { label: 'Desarrollo Digital',    desc: 'Sitios web, e-commerce y apps a medida' },
+  { label: 'Marketing Digital',     desc: 'Redes sociales y pauta digital' },
+  { label: 'Performance & Data',    desc: 'Analítica y optimización de ROI' },
+  { label: 'SEO & Posicionamiento', desc: 'Visibilidad orgánica en buscadores' },
+  { label: 'IA & Automatización',   desc: 'Flujos inteligentes y chatbots' },
+]
+
 const CURRENT_PAGE = 'experiencia'
 
-export default function Navbar() {
-  const [scrolled,       setScrolled]       = useState(false)
-  const [hidden,         setHidden]         = useState(false)
-  const [scrollProgress, setScrollProgress] = useState(0)
-  const lastScrollY = useRef(0)
+const PILL_BASE = {
+  background: 'oklch(0.11 0.025 260 / 0.72)',
+  border: '1px solid oklch(0.26 0.022 260 / 0.60)',
+  backdropFilter: 'blur(22px) saturate(1.4)',
+}
 
-  /* ── Scroll: progress + opacity + auto-hide (mobile only) ── */
+const PILL_SCROLLED = {
+  background: 'oklch(0.11 0.028 260 / 0.95)',
+  boxShadow: '0 8px 48px oklch(0.04 0.02 260 / 0.75), 0 1px 0 oklch(0.32 0.020 260 / 0.12) inset',
+}
+
+const PILL_DEFAULT = {
+  boxShadow: '0 4px 24px oklch(0.04 0.02 260 / 0.45), 0 1px 0 oklch(0.28 0.018 260 / 0.10) inset',
+}
+
+export default function Navbar() {
+  const [scrolled,        setScrolled]        = useState(false)
+  const [hidden,          setHidden]          = useState(false)
+  const [scrollProgress,  setScrollProgress]  = useState(0)
+  const [menuOpen,        setMenuOpen]        = useState(false)
+  const [dropdownOpen,    setDropdownOpen]    = useState(false)
+  const [svcExpanded,     setSvcExpanded]     = useState(false)
+  const lastScrollY   = useRef(0)
+  const dropdownTimer = useRef(null)
+
+  /* ── Scroll ── */
   useEffect(() => {
     const onScroll = () => {
       const y      = window.scrollY
@@ -33,118 +60,336 @@ export default function Navbar() {
       } else {
         setHidden(false)
       }
-
       lastScrollY.current = y
     }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  /* ── Close menu on resize to desktop ── */
+  useEffect(() => {
+    const onResize = () => { if (window.innerWidth >= 768) setMenuOpen(false) }
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
+
+  /* ── Dropdown con delay para no cortar accidentalmente ── */
+  const openDropdown  = () => { clearTimeout(dropdownTimer.current); setDropdownOpen(true)  }
+  const closeDropdown = () => { dropdownTimer.current = setTimeout(() => setDropdownOpen(false), 150) }
+
+  const pillStyle = {
+    ...PILL_BASE,
+    ...(scrolled ? PILL_SCROLLED : PILL_DEFAULT),
+    transition: 'background 0.5s ease, box-shadow 0.5s ease',
+    padding: '5px',
+  }
+
   return (
     <>
-    <style>{`
-      @media (max-width: 430px) {
-        .nb-link {
-          padding: 0.26rem 0.32rem !important;
-          font-size: 0.5rem !important;
-          letter-spacing: 0.02em !important;
+      <motion.div
+        initial={{ y: -96, opacity: 0 }}
+        animate={{ y: hidden ? -120 : 0, opacity: hidden ? 0 : 1 }}
+        transition={hidden
+          ? { duration: 0.28, ease: [0.4, 0, 1, 1] }
+          : { duration: 0.55, ease: [0.16, 1, 0.3, 1] }
         }
-        .nb-logo-wrap { padding: 0.12rem 0.3rem 0.12rem 0.22rem !important; }
-        .nb-logo-wrap img { height: 1.15rem !important; }
-        .nb-divider { margin-right: 0.08rem !important; }
-      }
-    `}</style>
-    <motion.div
-      initial={{ y: -96, opacity: 0 }}
-      animate={{ y: hidden ? -120 : 0, opacity: hidden ? 0 : 1 }}
-      transition={hidden
-        ? { duration: 0.28, ease: [0.4, 0, 1, 1] }
-        : { duration: 0.55, ease: [0.16, 1, 0.3, 1] }
-      }
-      className="fixed top-5 left-1/2 -translate-x-1/2 z-50"
-    >
-      <div
-        className="flex items-center rounded-full relative"
-        style={{
-          padding: '5px',
-          background: scrolled
-            ? 'oklch(0.11 0.028 260 / 0.95)'
-            : 'oklch(0.11 0.025 260 / 0.68)',
-          border: '1px solid oklch(0.26 0.022 260 / 0.60)',
-          backdropFilter: 'blur(22px) saturate(1.4)',
-          boxShadow: scrolled
-            ? '0 8px 48px oklch(0.04 0.02 260 / 0.75), 0 1px 0 oklch(0.32 0.020 260 / 0.12) inset, 0 -1px 0 oklch(0.08 0.020 260 / 0.6) inset'
-            : '0 4px 24px oklch(0.04 0.02 260 / 0.45), 0 1px 0 oklch(0.28 0.018 260 / 0.10) inset',
-          transition: 'background 0.5s ease, box-shadow 0.5s ease',
-        }}
+        className="fixed top-5 left-1/2 -translate-x-1/2 z-50"
       >
-        {/* Decorativos en su propio wrapper — no recorta el contenido */}
-        <div aria-hidden="true" className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
-          {/* Shimmer superior */}
-          <div style={{
-            position: 'absolute', top: 0, left: 0, right: 0, height: '1px',
-            background: 'linear-gradient(to right, transparent 8%, oklch(0.50 0.015 260 / 0.30) 40%, oklch(0.50 0.015 260 / 0.30) 60%, transparent 92%)',
-          }} />
-          {/* Barra de progreso */}
-          <div style={{
-            position: 'absolute', bottom: 0, left: 0,
-            height: '2px',
-            width: `${scrollProgress * 100}%`,
-            background: 'linear-gradient(to right, oklch(0.88 0.26 130 / 0.5), oklch(0.88 0.26 130 / 0.95))',
-            transition: 'width 0.12s linear',
-            borderRadius: '0 2px 0 0',
-          }} />
+
+        {/* ══════════ DESKTOP pill (md+) ══════════ */}
+        <div
+          className="hidden md:flex items-center rounded-full relative"
+          style={pillStyle}
+        >
+          <PillDecorations scrollProgress={scrollProgress} />
+
+          {/* Logo */}
+          <Logo />
+
+          {/* Divider */}
+          <Divider />
+
+          {/* Links */}
+          {NAV_LINKS.map(link =>
+            link.dropdown ? (
+              <div
+                key={link.section}
+                className="relative"
+                onMouseEnter={openDropdown}
+                onMouseLeave={closeDropdown}
+              >
+                <TubeLink href={link.href} active={CURRENT_PAGE === link.section} chevron>
+                  {link.label}
+                </TubeLink>
+
+                <AnimatePresence>
+                  {dropdownOpen && (
+                    <motion.div
+                      key="dropdown"
+                      initial={{ opacity: 0, y: -6, scale: 0.97 }}
+                      animate={{ opacity: 1, y: 0,  scale: 1    }}
+                      exit={{ opacity: 0,    y: -4, scale: 0.98 }}
+                      transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                      onMouseEnter={openDropdown}
+                      onMouseLeave={closeDropdown}
+                      style={{
+                        position: 'absolute',
+                        top: 'calc(100% + 0.85rem)',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        minWidth: '270px',
+                        background: 'oklch(0.10 0.026 260 / 0.98)',
+                        border: '1px solid oklch(0.22 0.020 260)',
+                        borderRadius: '1rem',
+                        backdropFilter: 'blur(24px)',
+                        overflow: 'hidden',
+                        zIndex: 100,
+                      }}
+                    >
+                      <div style={{ height: '2px', background: 'linear-gradient(to right, transparent 5%, var(--c-lime) 40%, var(--c-lime) 60%, transparent 95%)', opacity: 0.65 }} />
+                      <div style={{ padding: '0.4rem' }}>
+                        {SERVICES.map((svc, i) => (
+                          <motion.a
+                            key={svc.label}
+                            href="#servicios"
+                            initial={{ opacity: 0, x: -6 }}
+                            animate={{ opacity: 1,  x: 0  }}
+                            transition={{ delay: i * 0.04, duration: 0.25 }}
+                            className="flex flex-col rounded-lg no-underline"
+                            style={{
+                              padding: '0.55rem 0.75rem',
+                              transition: 'background 0.15s ease',
+                              cursor: 'pointer',
+                            }}
+                            onMouseEnter={e => { e.currentTarget.style.background = 'oklch(0.16 0.024 260 / 0.8)' }}
+                            onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}
+                          >
+                            <span style={{
+                              fontFamily: 'var(--font-display)',
+                              fontWeight: 700,
+                              fontSize: '0.82rem',
+                              textTransform: 'uppercase',
+                              letterSpacing: '0.05em',
+                              color: 'var(--c-ink)',
+                            }}>
+                              {svc.label}
+                            </span>
+                            <span style={{
+                              fontFamily: 'var(--font-body)',
+                              fontSize: '0.71rem',
+                              color: 'oklch(0.46 0.014 260)',
+                              marginTop: '0.1rem',
+                            }}>
+                              {svc.desc}
+                            </span>
+                          </motion.a>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : (
+              <TubeLink key={link.section} href={link.href} active={CURRENT_PAGE === link.section}>
+                {link.label}
+              </TubeLink>
+            )
+          )}
         </div>
 
-        {/* Logo */}
-        <a
-          href="#"
-          className="nb-logo-wrap group relative flex items-center shrink-0 no-underline rounded-full"
-          style={{ padding: '0.22rem 0.75rem 0.22rem 0.6rem' }}
-        >
-          <span
-            aria-hidden="true"
-            className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            style={{ background: 'oklch(0.88 0.26 130 / 0.07)', filter: 'blur(10px)' }}
-          />
-          <img
-            src="/images/LOGO BUENO KUBBOX/LOGO KUBBOX BUENO.svg"
-            alt="Kubbox"
-            className="relative w-auto transition-transform duration-300 group-hover:scale-[1.04]"
-            style={{ height: '1.9rem' }}
-          />
-        </a>
-
-        {/* Divider */}
-        <span
-          aria-hidden="true"
-          className="nb-divider w-px shrink-0"
+        {/* ══════════ MOBILE pill (<md) ══════════ */}
+        <div
+          className="flex md:hidden items-center justify-between rounded-full"
           style={{
-            height: '1.1rem',
-            marginRight: '0.25rem',
-            background: 'oklch(0.26 0.018 260 / 0.75)',
+            ...PILL_BASE,
+            background: 'oklch(0.11 0.025 260 / 0.92)',
+            boxShadow: '0 4px 24px oklch(0.04 0.02 260 / 0.55)',
+            padding: '6px 8px 6px 14px',
+            width: '90vw',
           }}
-        />
+        >
+          <a href="#" className="flex items-center no-underline">
+            <img src="/images/LOGO BUENO KUBBOX/LOGO KUBBOX BUENO.svg" alt="Kubbox" style={{ height: '1.75rem', width: 'auto' }} />
+          </a>
 
-        {/* Links */}
-        {NAV_LINKS.map(({ label, href, section }) => (
-          <TubeLink key={section} href={href} active={CURRENT_PAGE === section}>
-            {label}
-          </TubeLink>
-        ))}
-      </div>
-    </motion.div>
+          <button
+            aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+            onClick={() => setMenuOpen(v => !v)}
+            className="flex items-center justify-center p-[7px] rounded-full border-none cursor-pointer"
+            style={{
+              background: menuOpen ? 'oklch(0.88 0.26 130 / 0.12)' : 'oklch(0.17 0.024 260)',
+              color: menuOpen ? 'var(--c-lime)' : 'var(--c-ink)',
+              border: `1px solid ${menuOpen ? 'oklch(0.88 0.26 130 / 0.25)' : 'oklch(0.24 0.020 260)'}`,
+              transition: 'all 0.2s ease',
+            }}
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              {menuOpen
+                ? <motion.span key="x"    initial={{rotate:-90,opacity:0}} animate={{rotate:0,opacity:1}} exit={{rotate:90,opacity:0}}  transition={{duration:0.16}} style={{display:'flex'}}><X size={17}/></motion.span>
+                : <motion.span key="menu" initial={{rotate:90,opacity:0}}  animate={{rotate:0,opacity:1}} exit={{rotate:-90,opacity:0}} transition={{duration:0.16}} style={{display:'flex'}}><Menu size={17}/></motion.span>
+              }
+            </AnimatePresence>
+          </button>
+        </div>
+      </motion.div>
+
+      {/* ══════════ MOBILE MENU overlay ══════════ */}
+      <AnimatePresence>
+        {menuOpen && (
+          <>
+            <motion.div
+              key="backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              onClick={() => setMenuOpen(false)}
+              className="fixed inset-0 md:hidden"
+              style={{ zIndex: 40, background: 'oklch(0.06 0.025 260 / 0.85)', backdropFilter: 'blur(10px)' }}
+            />
+
+            <motion.nav
+              key="panel"
+              initial={{ opacity: 0, y: -16, scale: 0.97 }}
+              animate={{ opacity: 1,  y: 0,   scale: 1    }}
+              exit={{ opacity: 0,     y: -10,  scale: 0.98 }}
+              transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+              className="fixed md:hidden rounded-2xl overflow-hidden"
+              style={{
+                top: '5rem', left: '1rem', right: '1rem',
+                zIndex: 41,
+                background: 'oklch(0.10 0.026 260 / 0.98)',
+                border: '1px solid oklch(0.22 0.020 260)',
+                backdropFilter: 'blur(24px)',
+              }}
+            >
+              <div style={{ height: '2px', background: 'linear-gradient(to right, transparent 5%, var(--c-lime) 40%, var(--c-lime) 60%, transparent 95%)', opacity: 0.7 }} />
+
+              <div style={{ padding: '0.5rem 1.5rem 1.5rem' }}>
+                {NAV_LINKS.map((link, i) =>
+                  link.dropdown ? (
+                    /* ── Servicios: accordion ── */
+                    <motion.div
+                      key={link.section}
+                      initial={{ opacity: 0, x: -18 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.08 + i * 0.07, duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                      <button
+                        onClick={() => setSvcExpanded(v => !v)}
+                        className="flex items-center justify-between w-full border-none cursor-pointer"
+                        style={{
+                          padding: '1.1rem 0',
+                          borderBottom: '1px solid oklch(0.20 0.018 260)',
+                          background: 'transparent',
+                          textAlign: 'left',
+                        }}
+                      >
+                        <div className="flex items-baseline gap-4">
+                          <span style={{ fontFamily:'var(--font-body)', fontSize:'0.68rem', fontWeight:600, letterSpacing:'0.14em', color:'oklch(0.35 0.014 260)' }}>0{i + 1}</span>
+                          <span style={{ fontFamily:'var(--font-display)', fontWeight:800, fontSize:'clamp(1.5rem, 6vw, 1.85rem)', textTransform:'uppercase', color:'var(--c-ink)', letterSpacing:'-0.01em' }}>{link.label}</span>
+                        </div>
+                        <motion.span animate={{ rotate: svcExpanded ? 180 : 0 }} transition={{ duration: 0.25 }} style={{ color: svcExpanded ? 'var(--c-lime)' : 'oklch(0.30 0.016 260)', display: 'flex' }}>
+                          <ChevronDown size={18} />
+                        </motion.span>
+                      </button>
+
+                      <AnimatePresence>
+                        {svcExpanded && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                            style={{ overflow: 'hidden' }}
+                          >
+                            <div style={{ padding: '0.5rem 0 0.75rem 1rem', display: 'flex', flexDirection: 'column', gap: '0.1rem' }}>
+                              {SERVICES.map((svc, si) => (
+                                <motion.a
+                                  key={svc.label}
+                                  href="#servicios"
+                                  onClick={() => setMenuOpen(false)}
+                                  initial={{ opacity: 0, x: -10 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: si * 0.05, duration: 0.25 }}
+                                  className="flex items-center gap-2 no-underline rounded-lg"
+                                  style={{ padding: '0.45rem 0.5rem', transition: 'background 0.15s ease' }}
+                                  onMouseEnter={e => e.currentTarget.style.background = 'oklch(0.16 0.024 260 / 0.7)'}
+                                  onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                                >
+                                  <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'var(--c-lime)', flexShrink: 0, boxShadow: '0 0 5px var(--c-lime)' }} />
+                                  <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.9rem', fontWeight: 500, color: 'oklch(0.72 0.010 260)' }}>{svc.label}</span>
+                                </motion.a>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </motion.div>
+                  ) : (
+                    /* ── Link normal ── */
+                    <motion.a
+                      key={link.section}
+                      href={link.href ?? undefined}
+                      onClick={() => setMenuOpen(false)}
+                      initial={{ opacity: 0, x: -18 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.08 + i * 0.07, duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+                      className="group flex items-center justify-between no-underline"
+                      style={{ padding: '1.1rem 0', borderBottom: i < NAV_LINKS.length - 1 ? '1px solid oklch(0.20 0.018 260)' : 'none' }}
+                    >
+                      <div className="flex items-baseline gap-4">
+                        <span style={{ fontFamily:'var(--font-body)', fontSize:'0.68rem', fontWeight:600, letterSpacing:'0.14em', color:'oklch(0.35 0.014 260)' }}>0{i + 1}</span>
+                        <span style={{ fontFamily:'var(--font-display)', fontWeight:800, fontSize:'clamp(1.5rem, 6vw, 1.85rem)', textTransform:'uppercase', color: CURRENT_PAGE === link.section ? 'var(--c-lime)' : 'var(--c-ink)', letterSpacing:'-0.01em', transition:'color 0.2s ease' }}>{link.label}</span>
+                      </div>
+                      <span className="transition-transform duration-200 group-hover:translate-x-1.5" style={{ color: CURRENT_PAGE === link.section ? 'var(--c-lime)' : 'oklch(0.30 0.016 260)', fontSize: '1.1rem' }}>→</span>
+                    </motion.a>
+                  )
+                )}
+              </div>
+
+              <div style={{ padding: '0.75rem 1.5rem', borderTop: '1px solid oklch(0.18 0.018 260)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span style={{ width:'6px', height:'6px', borderRadius:'50%', background:'var(--c-lime)', boxShadow:'0 0 8px var(--c-lime)', flexShrink:0 }} />
+                <span style={{ fontFamily:'var(--font-body)', fontSize:'0.72rem', fontWeight:500, letterSpacing:'0.08em', color:'oklch(0.38 0.014 260)' }}>Agencia creativa · Medellín, Colombia</span>
+              </div>
+            </motion.nav>
+          </>
+        )}
+      </AnimatePresence>
     </>
   )
 }
 
-/* ── TubeLink ───────────────────────────────────── */
-function TubeLink({ href, children, active }) {
+/* ── Subcomponentes ─────────────────────────────── */
+
+function PillDecorations({ scrollProgress }) {
+  return (
+    <div aria-hidden="true" className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+      <div style={{ position:'absolute', top:0, left:0, right:0, height:'1px', background:'linear-gradient(to right, transparent 8%, oklch(0.50 0.015 260 / 0.30) 40%, oklch(0.50 0.015 260 / 0.30) 60%, transparent 92%)' }} />
+      <div style={{ position:'absolute', bottom:0, left:0, height:'2px', width:`${scrollProgress * 100}%`, background:'linear-gradient(to right, oklch(0.88 0.26 130 / 0.5), oklch(0.88 0.26 130 / 0.95))', transition:'width 0.12s linear', borderRadius:'0 2px 0 0' }} />
+    </div>
+  )
+}
+
+function Logo() {
+  return (
+    <a href="#" className="group relative flex items-center shrink-0 no-underline rounded-full" style={{ padding: '0.22rem 0.75rem 0.22rem 0.6rem' }}>
+      <span aria-hidden="true" className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background:'oklch(0.88 0.26 130 / 0.07)', filter:'blur(10px)' }} />
+      <img src="/images/LOGO BUENO KUBBOX/LOGO KUBBOX BUENO.svg" alt="Kubbox" className="relative w-auto transition-transform duration-300 group-hover:scale-[1.04]" style={{ height:'1.9rem' }} />
+    </a>
+  )
+}
+
+function Divider() {
+  return <span aria-hidden="true" className="w-px shrink-0 mr-1" style={{ height:'1.1rem', background:'oklch(0.26 0.018 260 / 0.75)' }} />
+}
+
+function TubeLink({ href, children, active, chevron }) {
   return (
     <a
       href={href ?? undefined}
       onClick={href ? undefined : e => e.preventDefault()}
-      className="nb-link group relative rounded-full no-underline"
+      className="group relative rounded-full no-underline flex items-center gap-1"
       style={{
         padding: '0.48rem 1.1rem',
         fontFamily: 'var(--font-body)',
@@ -160,71 +405,18 @@ function TubeLink({ href, children, active }) {
       onMouseEnter={e => { if (!active) e.currentTarget.style.color = 'oklch(0.82 0.008 260)' }}
       onMouseLeave={e => { if (!active) e.currentTarget.style.color = 'oklch(0.46 0.014 260)' }}
     >
-      {/* Hover bg (solo no-activo) */}
-      {!active && (
-        <span
-          className="absolute inset-0 rounded-full -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-          style={{ background: 'oklch(0.16 0.024 260 / 0.7)' }}
-        />
-      )}
+      {!active && <span className="absolute inset-0 rounded-full -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" style={{ background:'oklch(0.16 0.024 260 / 0.7)' }} />}
 
-      {/* Active pill + tubelight */}
       {active && (
-        <motion.span
-          layoutId="tube-pill"
-          className="absolute inset-0 rounded-full -z-10"
-          style={{ background: 'oklch(0.17 0.030 260 / 0.95)' }}
-          transition={{ type: 'spring', stiffness: 400, damping: 34 }}
-        >
-          {/* Barra lamp */}
-          <span
-            aria-hidden="true"
-            style={{
-              position: 'absolute',
-              top: -3,
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: '1.5rem',
-              height: '3px',
-              background: 'var(--c-lime)',
-              borderRadius: '0 0 3px 3px',
-              boxShadow: '0 0 10px var(--c-lime)',
-            }}
-          />
-          {/* Halo exterior */}
-          <span
-            aria-hidden="true"
-            style={{
-              position: 'absolute',
-              top: -22,
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: '4rem',
-              height: '2rem',
-              background: 'oklch(0.88 0.26 130 / 0.13)',
-              borderRadius: '50%',
-              filter: 'blur(12px)',
-            }}
-          />
-          {/* Halo interior */}
-          <span
-            aria-hidden="true"
-            style={{
-              position: 'absolute',
-              top: -11,
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: '2rem',
-              height: '1rem',
-              background: 'oklch(0.88 0.26 130 / 0.28)',
-              borderRadius: '50%',
-              filter: 'blur(5px)',
-            }}
-          />
+        <motion.span layoutId="tube-pill" className="absolute inset-0 rounded-full -z-10" style={{ background:'oklch(0.17 0.030 260 / 0.95)' }} transition={{ type:'spring', stiffness:400, damping:34 }}>
+          <span aria-hidden="true" style={{ position:'absolute', top:-3, left:'50%', transform:'translateX(-50%)', width:'1.5rem', height:'3px', background:'var(--c-lime)', borderRadius:'0 0 3px 3px', boxShadow:'0 0 10px var(--c-lime)' }} />
+          <span aria-hidden="true" style={{ position:'absolute', top:-22, left:'50%', transform:'translateX(-50%)', width:'4rem', height:'2rem', background:'oklch(0.88 0.26 130 / 0.13)', borderRadius:'50%', filter:'blur(12px)' }} />
+          <span aria-hidden="true" style={{ position:'absolute', top:-11, left:'50%', transform:'translateX(-50%)', width:'2rem', height:'1rem', background:'oklch(0.88 0.26 130 / 0.28)', borderRadius:'50%', filter:'blur(5px)' }} />
         </motion.span>
       )}
 
       {children}
+      {chevron && <ChevronDown size={11} style={{ opacity: 0.55, flexShrink: 0 }} />}
     </a>
   )
 }

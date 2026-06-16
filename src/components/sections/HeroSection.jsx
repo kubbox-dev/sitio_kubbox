@@ -36,7 +36,7 @@ export default function HeroSection() {
         @media (max-width: 767px) {
           .hero-bg-layers {
             mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 75%) !important;
-            -webkit-mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 75%) !important;
+            -webkit-mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 85%) !important;
           }
           #inicio {
             min-height: 90svh !important;

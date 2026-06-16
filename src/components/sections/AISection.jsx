@@ -72,6 +72,7 @@ export default function AISection() {
         >
           {/* Left: Spline robot */}
           <div
+            className="ai-robot-wrap"
             style={{
               flex: 1,
               position: 'relative',
@@ -260,6 +261,13 @@ export default function AISection() {
       <style>{`
         @media (min-width: 769px) {
           .ai-card { flex-direction: row !important; }
+        }
+        @media (max-width: 768px) {
+          .ai-robot-wrap {
+            min-height: unset !important;
+            aspect-ratio: 1 / 1 !important;
+            width: 100% !important;
+          }
         }
         @keyframes spin {
           to { transform: rotate(360deg); }
