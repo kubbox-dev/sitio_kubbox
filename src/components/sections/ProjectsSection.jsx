@@ -531,8 +531,12 @@ export default function ProjectsSection() {
           .proj-info-panel {
             min-height: 0;
             display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr;
           }
           .proj-info-layer {
+            grid-column: 1;
+            grid-row: 1;
             position: relative;
             inset: auto;
             padding: 1.75rem 1.75rem 5rem;
