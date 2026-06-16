@@ -11,10 +11,7 @@ const NAV_LINKS = [
 
 const SERVICES = [
   { label: 'Desarrollo Digital',    desc: 'Sitios web, e-commerce y apps a medida' },
-  { label: 'Marketing Digital',     desc: 'Redes sociales y pauta digital' },
-  { label: 'Performance & Data',    desc: 'Analítica y optimización de ROI' },
-  { label: 'SEO & Posicionamiento', desc: 'Visibilidad orgánica en buscadores' },
-  { label: 'IA & Automatización',   desc: 'Flujos inteligentes y chatbots' },
+  { label: 'Marketing Digital',     desc: 'Redes sociales y pauta digital' }
 ]
 
 const CURRENT_PAGE = 'experiencia'
