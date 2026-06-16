@@ -19,6 +19,7 @@ html {
 }
 
 body {
+  overflow-x: hidden; /* previene scroll horizontal si algún glow sangra lateralmente */
   font-family: var(--font-body);
   background-color: var(--c-bg);
   background-image: url('/images/HOME/WEB/Fondo/fondo-web.png');

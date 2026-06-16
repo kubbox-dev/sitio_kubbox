@@ -18,9 +18,7 @@ export default function ClientsSection() {
     <section
       style={{
         paddingBlock: 'clamp(3rem, 7vw, 5rem)',
-        overflow: 'hidden',
         position: 'relative',
-        background: 'var(--c-bg)',
         marginTop: '-1px',
       }}
     >

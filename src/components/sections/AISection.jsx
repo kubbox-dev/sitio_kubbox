@@ -40,26 +40,11 @@ export default function AISection() {
       onMouseMove={handleMouseMove}
       style={{
         position: 'relative',
-        overflow: 'hidden',
         paddingBlock: 'clamp(4rem, 10vw, 7rem)',
-        marginTop: '-1px', // ← elimina posible línea entre secciones
-        background: 'var(--c-bg)',
+        marginTop: '-1px',
       }}
     >
       {/* Fade oscuro al top — transición suave desde ServicesSection */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: '30%',
-          background: 'linear-gradient(to top, transparent, var(--c-bg))',
-          pointerEvents: 'none',
-          zIndex: 2,
-        }}
-      />
 
      
 

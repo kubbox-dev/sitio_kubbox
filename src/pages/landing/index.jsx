@@ -56,7 +56,7 @@ export default function LandingPage() {
           ref={darkZoneRef}
           onMouseMove={onDarkMove}
           onMouseLeave={onDarkLeave}
-          style={{ position: 'relative', marginTop: '-1px' }}
+          style={{ position: 'relative', marginTop: '-1px', background: 'var(--c-bg)' }}
         >
           {spotPos && (
             <div

@@ -27,7 +27,7 @@ const TAGLINE =
 
 export default function PhilosophySection() {
   return (
-    <section style={{ paddingBlock: 'clamp(4rem, 10vw, 7rem)', position: 'relative', overflow: 'hidden', background: 'var(--c-bg)', marginTop: '-1px' }}>
+    <section style={{ paddingBlock: 'clamp(4rem, 10vw, 7rem)', position: 'relative', marginTop: '-1px' }}>
       
 
       {/* Subtle dot-grid texture */}

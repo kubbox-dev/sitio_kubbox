@@ -116,7 +116,6 @@ export default function ServicesSection() {
       id="servicios"
       style={{
         position: 'relative',
-        overflow: 'hidden',
         paddingBlock: 'clamp(3.5rem, 7vw, 5.5rem)',
         marginTop: '-1px',
       }}
@@ -305,7 +304,7 @@ export default function ServicesSection() {
 
       {/* Fade hacia AISection */}
       <div aria-hidden="true" style={{
-        position: 'absolute', bottom: 0, left: 0, right: 0, height: '15%',
+        position: 'absolute', bottom: 0, left: 0, right: 0, height: '28%',
         background: 'linear-gradient(to bottom, transparent, var(--c-bg))',
         pointerEvents: 'none', zIndex: 2,
       }} />

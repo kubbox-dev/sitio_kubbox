@@ -93,7 +93,7 @@ export default function ProjectsSection() {
       }
 
   return (
-    <section id="experiencia" style={{ position: 'relative', overflow: 'hidden', paddingBlock: 'clamp(3rem, 8vw, 6rem)', marginTop: '-1px' }}>
+    <section id="experiencia" style={{ position: 'relative', paddingBlock: 'clamp(3rem, 8vw, 6rem)', marginTop: '-1px' }}>
 
       <div className="proj-shell">
         {/* Heading / contador */}

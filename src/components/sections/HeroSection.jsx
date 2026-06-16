@@ -27,100 +27,66 @@ export default function HeroSection() {
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
-        overflow: 'hidden',
         paddingTop: '5rem',
         paddingBottom: '5rem',
         paddingInline: 'clamp(1rem, 4vw, 3rem)',
       }}
     >
-      {/* ── Triángulo relleno con degradado radial ───────────────── */}
+      {/* ── Capas de fondo — con fade en la base para fluir hacia Projects ── */}
       <div
         aria-hidden="true"
         style={{
           position: 'absolute',
           inset: 0,
+          pointerEvents: 'none',
+          zIndex: 0,
+          maskImage: 'linear-gradient(to bottom, black 0%, black 58%, transparent 88%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 58%, transparent 88%)',
+        }}
+      >
+        {/* Triángulo relleno */}
+        <div style={{
+          position: 'absolute', inset: 0,
           background: 'radial-gradient(ellipse 100% 95% at 50% 10%, oklch(0.14 0.032 250 / 0.97) 0%, oklch(0.11 0.028 250 / 0.92) 45%, oklch(0.08 0.022 250 / 0.55) 100%)',
           clipPath: 'polygon(-20% -5%, 120% -5%, 50% 100%)',
-          zIndex: 0,
-          pointerEvents: 'none',
-        }}
-      />
-
-      {/* ── Capas de profundidad — franjas tonales cerca del borde ── */}
-      {/* Cada div cubre el interior del triángulo con un tono levemente diferente. */}
-      {/* La franja visible entre dos escalas consecutivas crea la ilusión de capa. */}
-      {/* Fórmula (escala s desde vértice superior 50%,-5%):                        */}
-      {/*   left = (50-70s)%  right = (50+70s)%  bottom-y = (-5+105s)%             */}
-
-      {/* s=0.93 — franja exterior ~7% de borde */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
+        }} />
+        {/* Franja s=0.93 */}
+        <div style={{
+          position: 'absolute', inset: 0,
           background: 'oklch(0.18 0.036 245 / 0.50)',
           clipPath: 'polygon(-15.1% -5%, 115.1% -5%, 50% 92.65%)',
-          zIndex: 0,
-          pointerEvents: 'none',
-        }}
-      />
-
-      {/* s=0.86 — segunda franja */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
+        }} />
+        {/* Franja s=0.86 */}
+        <div style={{
+          position: 'absolute', inset: 0,
           background: 'oklch(0.16 0.032 245 / 0.40)',
           clipPath: 'polygon(-10.2% -5%, 110.2% -5%, 50% 85.3%)',
-          zIndex: 0,
-          pointerEvents: 'none',
-        }}
-      />
-
-      {/* s=0.79 — tercera franja */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
+        }} />
+        {/* Franja s=0.79 */}
+        <div style={{
+          position: 'absolute', inset: 0,
           background: 'oklch(0.14 0.028 245 / 0.30)',
           clipPath: 'polygon(-5.3% -5%, 105.3% -5%, 50% 77.95%)',
-          zIndex: 0,
-          pointerEvents: 'none',
-        }}
-      />
-
-      {/* ── Dot grid texture — sutil ────────────────────────────────── */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
+        }} />
+        {/* Dot grid */}
+        <div style={{
+          position: 'absolute', inset: 0,
           backgroundImage: 'radial-gradient(oklch(0.40 0.015 260 / 0.18) 1px, transparent 1px)',
           backgroundSize: '28px 28px',
           maskImage: 'radial-gradient(ellipse 65% 65% at 50% 35%, black 25%, transparent 75%)',
-          zIndex: 1,
-          pointerEvents: 'none',
-        }}
-      />
-
-      {/* ── Noise grain — adds premium texture depth ──────────────── */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
+          WebkitMaskImage: 'radial-gradient(ellipse 65% 65% at 50% 35%, black 25%, transparent 75%)',
+        }} />
+        {/* Noise grain */}
+        <div style={{
+          position: 'absolute', inset: 0,
           backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E\")",
           backgroundSize: '300px 300px',
           opacity: 0.032,
           mixBlendMode: 'overlay',
-          zIndex: 5,
-          pointerEvents: 'none',
-        }}
-      />
+        }} />
+      </div>
 
-      {/* ── Contenido ───────────────────────────────────────────────── */}
+{/* ── Contenido ───────────────────────────────────────────────── */}
       <div style={{ position: 'relative', zIndex: 2, width: '100%', maxWidth: '1200px' }}>
 
         {/* TU MARCA EN */}
