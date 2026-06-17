@@ -36,16 +36,13 @@ export default function DigitalHeroSection() {
     <section
       className="
         relative
-        overflow-hidden
-        flex
-        items-start
-        min-[901px]:items-center
+        overflow-hi        min-[1280px]:items-center
         min-h-[clamp(620px,145vw,820px)]
-        min-[901px]:min-h-[clamp(560px,63vw,920px)]
+        min-[1280px]:min-h-[920px]
         pt-[5.5rem]
-        min-[901px]:pt-[clamp(6.5rem,9vw,8.5rem)]
+        min-[1280px]:pt-[clamp(6.5rem,9vw,8.5rem)]
         pb-8
-        min-[901px]:pb-0
+        min-[1280px]:pb-0
       "
     >
       {/* BACKDROP */}
@@ -68,13 +65,13 @@ export default function DigitalHeroSection() {
             absolute
             right-[-10%]
             top-[4%]
-            h-[52%]
+            h-[50%]
             w-auto
             object-contain
 
-            min-[901px]:right-[1%]
-            min-[901px]:top-[0%]
-            min-[901px]:h-[75%]
+            min-[1280px]:right-[16px]
+            min-[1280px]:top-[0px]
+            min-[1280px]:h-[690px]
           "
         />
 
@@ -84,15 +81,16 @@ export default function DigitalHeroSection() {
           alt=""
           className="
             absolute
-            left-[2%]
-            bottom-[3%]
-            h-[40%]
+            left-[16%]
+            bottom-[40%]
+            h-[35%]
             w-auto
             object-contain
 
-            min-[901px]:left-[38%]
-            min-[901px]:bottom-[15%]
-            min-[901px]:h-[55%]
+            min-[1280px]:left-auto
+            min-[1280px]:right-[-5px]
+            min-[1280px]:bottom-[156px]
+            min-[1280px]:h-[490px]
           "
         />
       </div>
@@ -105,7 +103,8 @@ export default function DigitalHeroSection() {
           max-w-[760px]
           px-[clamp(1.5rem,6vw,5rem)]
           pt-10
-          min-[901px]:pt-0
+          min-[1280px]:mt-[5rem]
+          ml-2 min-[1280px]:ml-30
         "
       >
         <div className="overflow-hidden">
@@ -142,6 +141,11 @@ export default function DigitalHeroSection() {
               uppercase
               m-0
               leading-[0.92]
+              tracking-[-0.025em]
+              text-[clamp(3rem,8vw,7.5rem)]
+              ml-[0.6em]
+              min-[1280px]:ml-[0.85em]
+92]
               tracking-[-0.025em]
               text-[clamp(3rem,8vw,7.5rem)]
               ml-[0.6em]
