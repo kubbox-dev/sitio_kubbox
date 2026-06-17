@@ -26,9 +26,9 @@ const BACKDROP_STYLE = {
   background:
     'radial-gradient(ellipse 95% 85% at 26% 38%, oklch(0.13 0.030 250 / 0.96) 0%, oklch(0.09 0.024 250 / 0.88) 55%, oklch(0.07 0.020 250 / 0.35) 100%)',
   maskImage:
-    'linear-gradient(to bottom, black 0%, black 80%, transparent 100%)',
+    'linear-gradient(to bottom, black 0%, black 50%, transparent 100%)',
   WebkitMaskImage:
-    'linear-gradient(to bottom, black 0%, black 80%, transparent 100%)',
+    'linear-gradient(to bottom, black 0%, black 50%, transparent 100%)',
 }
 
 export default function DigitalHeroSection() {
