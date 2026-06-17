@@ -277,15 +277,17 @@ export default function ContactFormSection() {
           font-family: var(--font-display);
           font-weight: 900;
           font-style: italic;
-          font-size: clamp(1.85rem, 4vw, 2.75rem);
-          letter-spacing: -0.02em;
+          font-size: clamp(1.5rem, 2.6vw, 2.15rem);
+          letter-spacing: -0.01em;
           text-transform: uppercase;
           color: transparent;
           -webkit-text-stroke: 1.5px oklch(0.98 0 0 / 0.85);
           line-height: 1;
           margin: 0 0 0.5rem;
+          padding-right: 0.15em;
           position: relative;
           z-index: 1;
+          white-space: nowrap;
         }
 
         .contact-form {

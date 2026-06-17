@@ -36,7 +36,7 @@ export default function ContactHeroSection() {
             mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 75%) !important;
             -webkit-mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 75%) !important;
           }
-          .contact-hero { min-height: clamp(260px, 58vw, 380px) !important; }
+          .contact-hero { min-height: clamp(260px, 100vw, 380px) !important; }
         }
       `}</style>
 
@@ -104,6 +104,7 @@ export default function ContactHeroSection() {
             letterSpacing: '-0.03em',
             textTransform: 'uppercase',
             margin: 0,
+            padding: '0 0.08em',
             ...NEON_STYLE,
           }}
         >
