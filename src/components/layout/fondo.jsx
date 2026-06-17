@@ -112,7 +112,7 @@ class BlobParticle {
 }
 
 const SPAWN_INTERVAL = 2800
-const MAX_BLOBS = 6
+const MAX_BLOBS = 9
 
 export default function FloatingBubbles() {
   const containerRef = useRef(null)

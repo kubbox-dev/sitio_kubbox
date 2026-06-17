@@ -55,10 +55,10 @@ export function Input({ label, icon: Icon, className = '', value, ...props }) {
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         {...props}
-        className={cn(
-          'outline-none border-b-2 border-[var(--c-ink)]/30 py-2 w-full text-base font-medium text-[var(--c-ink)] bg-transparent placeholder-transparent transition-colors duration-200 focus:border-[var(--c-lime)]',
-          Icon && 'pl-6'
-        )}
+        // padding inline porque el preflight de Tailwind resetea padding/margin
+        // en <input> con más prioridad que las utilidades py-*/pl-* en este setup
+        style={{ padding: `0.5rem 0 0.5rem ${Icon ? '1.5rem' : '0'}` }}
+        className="relative z-10 outline-none border-b-2 border-[var(--c-ink)]/30 w-full text-base font-medium text-[var(--c-ink)] bg-transparent placeholder-transparent transition-colors duration-200 focus:border-[var(--c-lime)]"
       />
 
       {/* Glow bajo la línea al enfocar — mismo lenguaje visual que los demás glows del sitio */}
