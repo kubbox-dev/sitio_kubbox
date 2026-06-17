@@ -6,6 +6,7 @@ import Footer from '../components/layout/Footer'
 
 const LandingPage = lazy(() => import('../pages/landing'))
 const ContactPage = lazy(() => import('../pages/contacto'))
+const DesarrolloDigitalPage = lazy(() => import('../pages/servicios/desarrollo-digital'))
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -47,6 +48,7 @@ export default function AppRouter() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/contacto" element={<ContactPage />} />
+          <Route path="/servicios/desarrollo-digital" element={<DesarrolloDigitalPage />} />
           {/* Agregar páginas futuras aquí:
           <Route path="/servicios" element={<ServicesPage />} />
           */}

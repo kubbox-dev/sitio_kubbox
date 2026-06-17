@@ -11,8 +11,8 @@ const NAV_LINKS = [
 ]
 
 const SERVICES = [
-  { label: 'Desarrollo Digital',    desc: 'Sitios web, e-commerce y apps a medida' },
-  { label: 'Marketing Digital',     desc: 'Redes sociales y pauta digital' }
+  { label: 'Desarrollo Digital',    href: '/servicios/desarrollo-digital', desc: 'Sitios web, e-commerce y apps a medida' },
+  { label: 'Marketing Digital',     href: null,                            desc: 'Redes sociales y pauta digital' }
 ]
 
 const PILL_BASE = {
@@ -147,42 +147,51 @@ export default function Navbar() {
                     >
                       <div style={{ height: '2px', background: 'linear-gradient(to right, transparent 5%, var(--c-lime) 40%, var(--c-lime) 60%, transparent 95%)', opacity: 0.65 }} />
                       <div style={{ padding: '0.4rem' }}>
-                        {SERVICES.map((svc, i) => (
-                          <motion.a
-                            key={svc.label}
-                            href="#servicios"
-                            initial={{ opacity: 0, x: -6 }}
-                            animate={{ opacity: 1,  x: 0  }}
-                            transition={{ delay: i * 0.04, duration: 0.25 }}
-                            className="flex flex-col rounded-lg no-underline"
-                            style={{
-                              padding: '0.55rem 0.75rem',
-                              transition: 'background 0.15s ease',
-                              cursor: 'pointer',
-                            }}
-                            onMouseEnter={e => { e.currentTarget.style.background = 'oklch(0.16 0.024 260 / 0.8)' }}
-                            onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}
-                          >
-                            <span style={{
-                              fontFamily: 'var(--font-display)',
-                              fontWeight: 700,
-                              fontSize: '0.82rem',
-                              textTransform: 'uppercase',
-                              letterSpacing: '0.05em',
-                              color: 'var(--c-ink)',
-                            }}>
-                              {svc.label}
-                            </span>
-                            <span style={{
-                              fontFamily: 'var(--font-body)',
-                              fontSize: '0.71rem',
-                              color: 'oklch(0.46 0.014 260)',
-                              marginTop: '0.1rem',
-                            }}>
-                              {svc.desc}
-                            </span>
-                          </motion.a>
-                        ))}
+                        {SERVICES.map((svc, i) => {
+                          const SvcComp = svc.href ? Link : 'a'
+                          const svcNavProps = svc.href
+                            ? { to: svc.href, onClick: () => setDropdownOpen(false) }
+                            : { onClick: e => e.preventDefault() }
+                          return (
+                            <motion.div
+                              key={svc.label}
+                              initial={{ opacity: 0, x: -6 }}
+                              animate={{ opacity: 1,  x: 0  }}
+                              transition={{ delay: i * 0.04, duration: 0.25 }}
+                            >
+                              <SvcComp
+                                {...svcNavProps}
+                                className="flex flex-col rounded-lg no-underline"
+                                style={{
+                                  padding: '0.55rem 0.75rem',
+                                  transition: 'background 0.15s ease',
+                                  cursor: 'pointer',
+                                }}
+                                onMouseEnter={e => { e.currentTarget.style.background = 'oklch(0.16 0.024 260 / 0.8)' }}
+                                onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}
+                              >
+                                <span style={{
+                                  fontFamily: 'var(--font-display)',
+                                  fontWeight: 700,
+                                  fontSize: '0.82rem',
+                                  textTransform: 'uppercase',
+                                  letterSpacing: '0.05em',
+                                  color: 'var(--c-ink)',
+                                }}>
+                                  {svc.label}
+                                </span>
+                                <span style={{
+                                  fontFamily: 'var(--font-body)',
+                                  fontSize: '0.71rem',
+                                  color: 'oklch(0.46 0.014 260)',
+                                  marginTop: '0.1rem',
+                                }}>
+                                  {svc.desc}
+                                </span>
+                              </SvcComp>
+                            </motion.div>
+                          )
+                        })}
                       </div>
                     </motion.div>
                   )}
@@ -303,23 +312,31 @@ export default function Navbar() {
                             style={{ overflow: 'hidden' }}
                           >
                             <div style={{ padding: '0.5rem 0 0.75rem 1rem', display: 'flex', flexDirection: 'column', gap: '0.1rem' }}>
-                              {SERVICES.map((svc, si) => (
-                                <motion.a
-                                  key={svc.label}
-                                  href="#servicios"
-                                  onClick={() => setMenuOpen(false)}
-                                  initial={{ opacity: 0, x: -10 }}
-                                  animate={{ opacity: 1, x: 0 }}
-                                  transition={{ delay: si * 0.05, duration: 0.25 }}
-                                  className="flex items-center gap-2 no-underline rounded-lg"
-                                  style={{ padding: '0.45rem 0.5rem', transition: 'background 0.15s ease' }}
-                                  onMouseEnter={e => e.currentTarget.style.background = 'oklch(0.16 0.024 260 / 0.7)'}
-                                  onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
-                                >
-                                  <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'var(--c-lime)', flexShrink: 0, boxShadow: '0 0 5px var(--c-lime)' }} />
-                                  <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.9rem', fontWeight: 500, color: 'oklch(0.72 0.010 260)' }}>{svc.label}</span>
-                                </motion.a>
-                              ))}
+                              {SERVICES.map((svc, si) => {
+                                const SvcMobComp = svc.href ? Link : 'a'
+                                const svcMobNavProps = svc.href
+                                  ? { to: svc.href, onClick: () => setMenuOpen(false) }
+                                  : { onClick: e => { e.preventDefault(); setMenuOpen(false) } }
+                                return (
+                                  <motion.div
+                                    key={svc.label}
+                                    initial={{ opacity: 0, x: -10 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: si * 0.05, duration: 0.25 }}
+                                  >
+                                    <SvcMobComp
+                                      {...svcMobNavProps}
+                                      className="flex items-center gap-2 no-underline rounded-lg"
+                                      style={{ padding: '0.45rem 0.5rem', transition: 'background 0.15s ease' }}
+                                      onMouseEnter={e => e.currentTarget.style.background = 'oklch(0.16 0.024 260 / 0.7)'}
+                                      onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                                    >
+                                      <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'var(--c-lime)', flexShrink: 0, boxShadow: '0 0 5px var(--c-lime)' }} />
+                                      <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.9rem', fontWeight: 500, color: 'oklch(0.72 0.010 260)' }}>{svc.label}</span>
+                                    </SvcMobComp>
+                                  </motion.div>
+                                )
+                              })}
                             </div>
                           </motion.div>
                         )}
