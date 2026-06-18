@@ -36,7 +36,10 @@ export default function DigitalHeroSection() {
     <section
       className="
         relative
-        overflow-hi        min-[1280px]:items-center
+        overflow-hidden
+        flex
+        items-start
+        min-[1280px]:items-center
         min-h-[clamp(620px,145vw,820px)]
         min-[1280px]:min-h-[920px]
         pt-[5.5rem]
@@ -103,8 +106,8 @@ export default function DigitalHeroSection() {
           max-w-[760px]
           px-[clamp(1.5rem,6vw,5rem)]
           pt-10
-          min-[1280px]:mt-[5rem]
-          ml-2 min-[1280px]:ml-30
+          min-[1280px]:mt-[-25rem]
+          ml-2 min-[1280px]:ml-50
         "
       >
         <div className="overflow-hidden">
@@ -145,11 +148,6 @@ export default function DigitalHeroSection() {
               text-[clamp(3rem,8vw,7.5rem)]
               ml-[0.6em]
               min-[1280px]:ml-[0.85em]
-92]
-              tracking-[-0.025em]
-              text-[clamp(3rem,8vw,7.5rem)]
-              ml-[0.6em]
-              min-[901px]:ml-[0.85em]
             "
             style={{ color: 'var(--c-ink)' }}
           >
