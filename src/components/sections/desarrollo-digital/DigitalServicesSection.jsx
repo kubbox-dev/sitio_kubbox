@@ -15,7 +15,10 @@ export default function DigitalServicesSection() {
   const { ref, controls } = useScrollAnimation(0.15)
 
   return (
-    <section style={{ position: 'relative' }}>
+    <section
+      className="mt-[clamp(-150px,-58vw,-248px)] min-[1280px]:mt-0"
+      style={{ position: 'relative', paddingBlock: 'clamp(3rem, 7vw, 6.5rem)' }}
+    >
       <div
         style={{
           maxWidth: 'var(--container)',
