@@ -43,7 +43,7 @@ export default function DigitalPlatformsSection() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
           variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1, delayChildren: 0.15 } } }}
-          className="grid grid-cols-2 items-center justify-items-center gap-x-[clamp(2rem,6vw,3.5rem)] gap-y-[clamp(1.75rem,4vw,2.5rem)] min-[900px]:flex min-[900px]:flex-nowrap min-[900px]:justify-end min-[900px]:gap-[clamp(1.75rem,3vw,2.75rem)]"
+          className="grid w-full grid-cols-2 items-center justify-items-center gap-x-[clamp(2rem,6vw,3.5rem)] gap-y-[clamp(1.75rem,4vw,2.5rem)] min-[900px]:flex min-[900px]:w-auto min-[900px]:flex-nowrap min-[900px]:justify-end min-[900px]:gap-[clamp(1.75rem,3vw,2.75rem)]"
         >
           {LOGOS.map((logo) => (
             <motion.img
