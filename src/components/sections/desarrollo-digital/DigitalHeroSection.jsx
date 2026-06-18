@@ -84,7 +84,7 @@ export default function DigitalHeroSection() {
           alt=""
           className="
             absolute
-            left-[16%]
+            left-[13%]
             bottom-[40%]
             h-[35%]
             w-auto
@@ -107,7 +107,7 @@ export default function DigitalHeroSection() {
           px-[clamp(1.5rem,6vw,5rem)]
           pt-10
           min-[1280px]:mt-[-25rem]
-          ml-2 min-[1280px]:ml-50
+          ml-0 min-[1280px]:ml-50
         "
       >
         <div className="overflow-hidden">
@@ -123,7 +123,8 @@ export default function DigitalHeroSection() {
               m-0
               leading-[0.92]
               tracking-[-0.025em]
-              text-[clamp(3rem,8vw,7.5rem)]
+              text-[clamp(2.2rem,10vw,8rem)]
+              min-[1280px]:text-[clamp(4rem,7vw,7.5rem)]
               px-[0.08em]
             "
             style={NEON_STYLE}
@@ -145,7 +146,8 @@ export default function DigitalHeroSection() {
               m-0
               leading-[0.92]
               tracking-[-0.025em]
-              text-[clamp(3rem,8vw,7.5rem)]
+              text-[clamp(2.2rem,6vw,4rem)]
+              min-[1280px]:text-[clamp(4rem,7vw,7.5rem)]
               ml-[0.6em]
               min-[1280px]:ml-[0.85em]
             "

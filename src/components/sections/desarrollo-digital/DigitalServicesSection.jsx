@@ -16,7 +16,7 @@ export default function DigitalServicesSection() {
 
   return (
     <section
-      className="mt-[clamp(-150px,-58vw,-248px)] min-[1280px]:mt-0"
+      className="mt-[clamp(-328px,-58vw,-248px)] min-[1280px]:mt-0"
       style={{ position: 'relative', paddingBlock: 'clamp(3rem, 7vw, 6.5rem)' }}
     >
       <div
