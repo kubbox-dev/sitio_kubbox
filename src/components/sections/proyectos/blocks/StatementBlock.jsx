@@ -10,8 +10,8 @@ export default function StatementBlock({ titleLime, titleWhite, tags = [], parag
     show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
   }
 
-  // Layout with image: 3 separate columns — image / "Códigos Secretos" title / tags+paragraphs.
-  // Stacks in that same order on mobile.
+  // Layout with image: 2 columns — image (title overlaps its right edge) / tags+paragraphs.
+  // Stacks as image, title, then text on mobile.
   if (image) {
     return (
       <section className="relative py-[clamp(2.5rem,6vw,4.5rem)]">
@@ -20,22 +20,24 @@ export default function StatementBlock({ titleLime, titleWhite, tags = [], parag
           whileInView="show"
           viewport={{ once: true, amount: 0.3 }}
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
-          className="mx-auto grid max-w-[var(--container)] grid-cols-1 gap-[clamp(1.5rem,4vw,3rem)] px-[var(--container-pad)] min-[900px]:items-center min-[900px]:[grid-template-columns:1.55fr_clamp(7.5rem,9vw,9.5rem)_1.35fr]"
+          className="mx-auto grid max-w-[1440px] grid-cols-1 gap-[clamp(1.5rem,4vw,3rem)] px-[clamp(1rem,4vw,2rem)] min-[900px]:items-center min-[900px]:grid-cols-[1.3fr_1.1fr] min-[900px]:gap-x-[clamp(8rem,11vw,11.5rem)]"
         >
-          <motion.img variants={rise} src={image} alt={imageAlt} className="block h-auto w-full" />
+          <div className="relative">
+            <motion.img variants={rise} src={image} alt={imageAlt} className="block h-auto w-full" />
 
-          <motion.h2
-            variants={rise}
-            className="m-0 [font-family:var(--font-display)] text-[clamp(1.9rem,5vw,2.75rem)] font-black italic uppercase leading-[0.92] tracking-[-0.025em]"
-            style={{ color: 'var(--c-lime)' }}
-          >
-            {titleLime}
-          </motion.h2>
+            <motion.h2
+              variants={rise}
+              className="relative mt-[clamp(1rem,4vw,1.5rem)] [font-family:var(--font-display)] text-[clamp(2.2rem,5.5vw,3.5rem)] font-black italic uppercase leading-[0.92] tracking-[-0.025em] min-[900px]:absolute min-[900px]:left-full min-[900px]:top-[60%] min-[900px]:mt-0 min-[900px]:w-[clamp(8.5rem,12vw,12.5rem)] min-[900px]:-translate-x-[15%] min-[900px]:-translate-y-1/2 min-[900px]:text-center"
+              style={{ color: 'var(--c-lime)' }}
+            >
+              {titleLime}
+            </motion.h2>
+          </div>
 
           {/* Main text — tags act as its heading, paragraphs get the prominence */}
           <div>
             {tags.length > 0 && (
-              <motion.h3 variants={rise} className="m-0 [font-family:var(--font-display)] text-[clamp(2rem,5vw,3.25rem)] font-black italic uppercase leading-[0.95] tracking-[-0.02em]" style={HOLLOW}>
+              <motion.h3 variants={rise} className="m-0 [font-family:var(--font-display)] text-[clamp(2.2rem,5.5vw,3.5rem)] font-black italic uppercase leading-[0.95] tracking-[-0.02em]" style={HOLLOW}>
                 {tags.join(' · ')}
               </motion.h3>
             )}
