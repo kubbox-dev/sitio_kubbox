@@ -26,5 +26,13 @@ export default {
         ],
       },
     },
+    { type: 'sectionHeading', props: { lime: 'RESULTADOS DE', white: 'LA CAMPAÑA' } },
+    {
+      type: 'textPanel',
+      props: {
+        eyebrow: 'Resultados',
+        text: 'La campaña logró un incremento sostenido en las ventas y, a la vez, construyó una base de datos accionable de consumidores y ticket promedio en los tres países de Centroamérica.',
+      },
+    },
   ],
 }
