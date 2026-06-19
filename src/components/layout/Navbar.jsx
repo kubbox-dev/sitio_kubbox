@@ -12,7 +12,7 @@ const NAV_LINKS = [
 
 const SERVICES = [
   { label: 'Desarrollo Digital',    href: '/servicios/desarrollo-digital', desc: 'Sitios web, e-commerce y apps a medida' },
-  { label: 'Nuestros Proyectos',    href: null,                            desc: 'Casos de éxito y trabajos realizados' }
+  { label: 'Nuestros Proyectos',    href: '/proyectos',    desc: 'Casos de éxito y trabajos realizados' }
 ]
 
 const PILL_BASE = {
