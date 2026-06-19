@@ -1,12 +1,14 @@
 import { lazy, Suspense, useEffect } from 'react'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom'
 
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
+import { defaultSlug } from '../data/proyectos'
 
 const LandingPage = lazy(() => import('../pages/landing'))
 const ContactPage = lazy(() => import('../pages/contacto'))
 const DesarrolloDigitalPage = lazy(() => import('../pages/servicios/desarrollo-digital'))
+const ProyectoPage = lazy(() => import('../pages/proyectos'))
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -49,6 +51,8 @@ export default function AppRouter() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/contacto" element={<ContactPage />} />
           <Route path="/servicios/desarrollo-digital" element={<DesarrolloDigitalPage />} />
+          <Route path="/proyectos/:slug" element={<ProyectoPage />} />
+          <Route path="/proyectos" element={<Navigate to={`/proyectos/${defaultSlug}`} replace />} />
           {/* Agregar páginas futuras aquí:
           <Route path="/servicios" element={<ServicesPage />} />
           */}

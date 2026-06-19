@@ -1,12 +1,16 @@
 import { useState, useCallback } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { ArrowUpRight, ChevronUp, ChevronDown } from 'lucide-react'
 import GlowOrb from '../../ui/GlowOrb'
 import { useScrollAnimation, fadeUp, staggerContainer } from '../../../hooks/useScrollAnimation'
 
+const MotionLink = motion(Link)
+
 const PROJECTS = [
   {
     number: '01',
+    slug: 'kelloggs',
     title: "Kellogg's",
     subtitle: 'Códigos secretos',
     category: 'Campaña Digital · Centroamérica',
@@ -17,6 +21,7 @@ const PROJECTS = [
   },
   {
     number: '02',
+    slug: 'pollocao',
     title: 'Pollocao',
     subtitle: 'Identidad Visual',
     category: 'Identidad de Marca · Colombia',
@@ -27,6 +32,7 @@ const PROJECTS = [
   },
   {
     number: '03',
+    slug: 'frixo',
     title: 'F-rixo',
     subtitle: 'E-commerce',
     category: 'Desarrollo Web · E-commerce',
@@ -37,6 +43,7 @@ const PROJECTS = [
   },
   {
     number: '04',
+    slug: 'cam',
     title: 'CAM',
     subtitle: 'Performance Marketing',
     category: 'Performance Marketing',
@@ -196,10 +203,10 @@ export default function ProjectsSection() {
                     ))}
                   </motion.div>
 
-                  <motion.a variants={contentItem} href="#" className="proj-cta">
+                  <MotionLink variants={contentItem} to={`/proyectos/${project.slug}`} className="proj-cta">
                     Ver proyecto
                     <ArrowUpRight size={16} strokeWidth={2.5} className="proj-cta-arrow" />
-                  </motion.a>
+                  </MotionLink>
                 </motion.div>
               </motion.div>
             </AnimatePresence>

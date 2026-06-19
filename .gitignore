@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Temp verification scripts (Playwright, etc.)
+_tmp_*
