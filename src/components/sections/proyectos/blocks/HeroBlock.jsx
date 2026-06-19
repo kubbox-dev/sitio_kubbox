@@ -5,13 +5,21 @@ const OUTLINE_STYLE = { color: 'var(--c-ink)' }
 
 export default function HeroBlock({ eyebrowLime, eyebrowWhite, logo, logoAlt = '', art, artAlt = '' }) {
   const reduce = useReducedMotion()
-  const rise = {
+  const lineReveal = (delay = 0) => ({
+    hidden: { y: reduce ? 0 : '110%', opacity: 0, skewY: reduce ? 0 : 1 },
+    visible: {
+      y: '0%',
+      opacity: 1,
+      skewY: 0,
+      transition: { delay, duration: reduce ? 0.4 : 1.0, ease: [0.16, 1, 0.3, 1] },
+    },
+  })
+  const rise = (delay = 0) => ({
     hidden: { opacity: 0, y: reduce ? 0 : 24 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
-  }
+    show: { opacity: 1, y: 0, transition: { delay, duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
+  })
   return (
     <section className="relative overflow-hidden pt-[clamp(6rem,12vw,9rem)] pb-[clamp(2rem,5vw,3.5rem)] text-center">
-      {/* ── Fondo ── */}
       <div
         aria-hidden="true"
         className="hero-bg-layers"
@@ -19,18 +27,16 @@ export default function HeroBlock({ eyebrowLime, eyebrowWhite, logo, logoAlt = '
           position: 'absolute',
           inset: 0,
           pointerEvents: 'none',
-          zIndex: 0, // ← fondo en capa 0
+          zIndex: 0, 
           maskImage: 'linear-gradient(to bottom, black 0%, black 58%, transparent 88%)',
           WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 58%, transparent 88%)',
         }}
       >
-        {/* Triángulo relleno */}
         <div style={{
           position: 'absolute', inset: 0,
           background: 'radial-gradient(ellipse 100% 95% at 50% 10%, oklch(0.14 0.032 250 / 0.97) 0%, oklch(0.11 0.028 250 / 0.92) 45%, oklch(0.08 0.022 250 / 0.55) 100%)',
           clipPath: 'polygon(-20% -5%, 120% -5%, 50% 100%)',
         }} />
-        {/* Franjas */}
         <div style={{
           position: 'absolute', inset: 0,
           background: 'oklch(0.18 0.036 245 / 0.50)',
@@ -64,25 +70,28 @@ export default function HeroBlock({ eyebrowLime, eyebrowWhite, logo, logoAlt = '
         }} />
       </div>
 
-      {/* ── Contenido (AHORA CON zIndex EXPLÍCITO) ── */}
-      <motion.div
-        initial="hidden"
-        animate="show"
-        variants={{ hidden: {}, show: { transition: { staggerChildren: 0.12 } } }}
+      <div
         className="mx-auto flex max-w-[var(--container)] flex-col items-center gap-[clamp(1.5rem,4vw,2.5rem)] px-[var(--container-pad)]"
         style={{
-          position: 'relative', // ← necesario para que zIndex funcione
-          zIndex: 1,            // ← por encima del fondo
+          position: 'relative',
+          zIndex: 1,
         }}
       >
-        <motion.h1 variants={rise} className="m-0 [font-family:var(--font-display)] text-[clamp(2.5rem,9vw,6rem)] font-black italic uppercase leading-[0.9] tracking-[-0.02em]">
-          <span style={SOLID_STYLE}>{eyebrowLime}</span>
-          <br />
-          <span style={OUTLINE_STYLE}>{eyebrowWhite}</span>
-        </motion.h1>
-        {logo && <motion.img variants={rise} src={logo} alt={logoAlt} className="h-[clamp(2.5rem,7vw,4rem)] w-auto" />}
-        {art && <motion.img variants={rise} src={art} alt={artAlt} className="h-auto w-[clamp(180px,40vw,320px)]" />}
-      </motion.div>
+        <h1 className="m-0 [font-family:var(--font-display)] text-[clamp(2.5rem,9vw,6rem)] font-black italic uppercase leading-[0.9] tracking-[-0.02em]">
+          <div className="overflow-hidden">
+            <motion.div variants={lineReveal(0)} initial="hidden" animate="visible" style={SOLID_STYLE}>
+              {eyebrowLime}
+            </motion.div>
+          </div>
+          <div className="">
+            <motion.div variants={lineReveal(0.12)} initial="hidden" animate="visible" style={OUTLINE_STYLE}>
+              {eyebrowWhite}
+            </motion.div>
+          </div>
+        </h1>
+        {logo && <motion.img variants={rise(0.32)} initial="hidden" animate="show" src={logo} alt={logoAlt} className="h-[clamp(2.5rem,7vw,4rem)] w-auto" />}
+        {art && <motion.img variants={rise(0.42)} initial="hidden" animate="show" src={art} alt={artAlt} className="h-auto w-[clamp(180px,40vw,320px)]" />}
+      </div>
     </section>
   )
 }

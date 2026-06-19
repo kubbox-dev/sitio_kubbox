@@ -20,6 +20,8 @@ export default {
       props: {
         titleLime: 'Códigos Secretos',
         tags: ['API', 'WhatsApp'],
+        image: '/images/NUESTROS PROYECTOS/WEB/Fotos/collage fotos.png',
+        imageAlt: 'Collage de pantallas de la campaña Códigos Secretos: validación de código, captura de celular y términos y condiciones',
         paragraphs: [
           'Desarrollamos una campaña retail con presencia en Costa Rica, Guatemala y El Salvador, diseñada para incentivar la compra en el punto de venta.',
           'El objetivo principal fue doble: generar un incremento directo en las ventas y, simultáneamente, implementar un sistema de captura de datos estratégicos tales como el perfil del consumidor y el ticket promedio. Esto permitió transformar una transacción masiva en información accionable para futuras decisiones de marca.',
