@@ -3,6 +3,7 @@ import HeroBlock from './HeroBlock'
 import StatementBlock from './StatementBlock'
 import TextPanelBlock from './TextPanelBlock'
 import MediaGalleryBlock from './MediaGalleryBlock'
+import StatGridBlock from './StatGridBlock'
 
 const registry = {
   sectionHeading: SectionHeadingBlock,
@@ -10,6 +11,7 @@ const registry = {
   statement: StatementBlock,
   textPanel: TextPanelBlock,
   mediaGallery: MediaGalleryBlock,
+  statGrid: StatGridBlock,
 }
 
 export default registry

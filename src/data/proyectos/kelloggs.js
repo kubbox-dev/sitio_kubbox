@@ -44,5 +44,15 @@ export default {
         ],
       },
     },
+    {
+      type: 'statGrid',
+      props: {
+        stats: [
+          { icon: '/images/NUESTROS PROYECTOS/WEB/Iconos/Icono usuario.svg', label: 'Total usuarios registrados', value: '8.652' },
+          { icon: '/images/NUESTROS PROYECTOS/WEB/Iconos/icono code.svg', label: 'Total códigos registrados', value: '24.918' },
+          { icon: '/images/NUESTROS PROYECTOS/WEB/Iconos/icono medalla.svg', label: 'Total premios entregados', value: '2.547' },
+        ],
+      },
+    },
   ],
 }
