@@ -34,5 +34,15 @@ export default {
         text: 'La campaña logró un incremento sostenido en las ventas y, a la vez, construyó una base de datos accionable de consumidores y ticket promedio en los tres países de Centroamérica.',
       },
     },
+    {
+      type: 'mediaGallery',
+      props: {
+        columns: 2,
+        items: [
+          { src: '/images/NUESTROS PROYECTOS/WEB/Fotos/grafica 1.png', alt: 'Gráfica de usuarios registrados por día durante la campaña' },
+          { src: '/images/NUESTROS PROYECTOS/WEB/Fotos/grafica 2.png', alt: 'Gráfica de códigos registrados por día durante la campaña' },
+        ],
+      },
+    },
   ],
 }
