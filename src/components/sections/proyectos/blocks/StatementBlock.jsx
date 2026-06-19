@@ -27,7 +27,7 @@ export default function StatementBlock({ titleLime, titleWhite, tags = [], parag
 
             <motion.h2
               variants={rise}
-              className="relative mt-[clamp(1rem,4vw,1.5rem)] [font-family:var(--font-display)] text-[clamp(2.2rem,5.5vw,3.5rem)] font-black italic uppercase leading-[0.92] tracking-[-0.025em] min-[900px]:absolute min-[900px]:left-full min-[900px]:top-[60%] min-[900px]:mt-0 min-[900px]:w-[clamp(8.5rem,12vw,12.5rem)] min-[900px]:-translate-x-[15%] min-[900px]:-translate-y-1/2 min-[900px]:text-center"
+              className="relative mt-[clamp(1rem,4vw,1.5rem)] [font-family:var(--font-display)] text-[clamp(2.2rem,5.5vw,3.5rem)] font-black italic uppercase leading-[0.92] tracking-[-0.025em] before:absolute before:inset-[-0.6rem] before:-z-10 before:rounded-[1rem] before:border before:[background:oklch(0.13_0.020_260_/_0.72)] before:[backdrop-filter:blur(8px)] before:[border-color:oklch(0.26_0.022_260)] min-[900px]:absolute min-[900px]:left-full min-[900px]:top-[60%] min-[900px]:mt-0 min-[900px]:w-[clamp(8.5rem,12vw,12.5rem)] min-[900px]:-translate-x-[15%] min-[900px]:-translate-y-1/2 min-[900px]:text-center"
               style={{ color: 'var(--c-lime)' }}
             >
               {titleLime}
