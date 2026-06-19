@@ -1,93 +1,70 @@
-import { Camera, Users, Briefcase } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 const LINKS = [
-  { label: 'Experiencia', href: '#experiencia' },
-  { label: 'Servicios',   href: '#servicios' },
-  { label: 'Contacto',    href: '#contacto' },
+  { label: 'Experiencia', href: '/' },
+  { label: 'Servicios',   href: '/servicios/desarrollo-digital' },
+  { label: 'Contacto',    href: '/contacto' },
 ]
 
 const SOCIAL = [
-  { icon: Camera,   href: '#', label: 'Instagram' },
-  { icon: Users,    href: '#', label: 'Facebook' },
-  { icon: Briefcase, href: '#', label: 'LinkedIn' },
+  { Icon: IconInstagram, href: '#', label: 'Instagram' },
+  { Icon: IconFacebook,  href: '#', label: 'Facebook' },
+  { Icon: IconLinkedin,  href: '#', label: 'LinkedIn' },
 ]
 
 export default function Footer() {
   return (
-    <footer
-      style={{
-        background: 'oklch(0.07 0.020 260)',
-        borderTop: '1px solid oklch(0.16 0.025 260)',
-        padding: '3rem var(--container-pad)',
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 'var(--container)',
-          marginInline: 'auto',
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          gap: '1.5rem',
-        }}
-      >
-        {/* Logo */}
-        <span
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontWeight: 900,
-            fontSize: '1.5rem',
-            color: 'var(--c-ink)',
-            letterSpacing: '-0.01em',
-          }}
-        >
-          kubbox
-        </span>
+    <footer className="relative [background:oklch(0.07_0.020_260)]">
+      <span
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 block h-px opacity-70 [background:linear-gradient(to_right,transparent_5%,var(--c-lime)_40%,var(--c-lime)_60%,transparent_95%)]"
+      />
+
+      <div className="mx-auto grid max-w-[var(--container)] grid-cols-1 items-center justify-center gap-10 px-[var(--container-pad)] py-[clamp(2.5rem,5vw,3.5rem)] text-center min-[700px]:grid-cols-3 min-[700px]:items-start min-[700px]:text-left">
+        {/* Logo + tagline */}
+        <div className="flex flex-col items-center gap-2 min-[700px]:items-start min-[700px]:justify-self-start">
+          <Link to="/" className="flex items-center gap-[0.4rem] no-underline">
+            <span className="relative block overflow-hidden" style={{ height: '1.45rem', aspectRatio: '106.88 / 75' }}>
+              <img
+                src="/images/LOGO BUENO KUBBOX/LOGO KUBBOX BUENO.svg"
+                alt=""
+                className="absolute inset-0 h-full w-full object-cover object-top"
+              />
+            </span>
+            <span className="[font-family:var(--font-display)] text-[1.5rem] font-black tracking-[-0.01em]" style={{ color: 'var(--c-ink)' }}>
+              kubbox
+            </span>
+          </Link>
+          <span className="text-[0.78rem] tracking-[0.04em]" style={{ fontFamily: 'var(--font-body)', color: 'var(--c-muted)' }}>
+            Agencia creativa · Medellín, Colombia
+          </span>
+        </div>
 
         {/* Nav links */}
-        <nav style={{ display: 'flex', gap: '2rem' }} aria-label="Footer navigation">
+        <nav aria-label="Footer" className="flex flex-wrap justify-center gap-x-8 gap-y-2 min-[700px]:justify-self-center">
           {LINKS.map(({ label, href }) => (
-            <a
+            <Link
               key={href}
-              href={href}
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '0.875rem',
-                fontWeight: 500,
-                letterSpacing: '0.06em',
-                textTransform: 'uppercase',
-                color: 'var(--c-muted)',
-                textDecoration: 'none',
-                transition: 'color var(--transition-base)',
-              }}
+              to={href}
+              className="text-[0.85rem] font-medium uppercase tracking-[0.06em] no-underline transition-colors duration-200"
+              style={{ fontFamily: 'var(--font-body)', color: 'var(--c-muted)' }}
               onMouseEnter={e => (e.currentTarget.style.color = 'var(--c-ink)')}
               onMouseLeave={e => (e.currentTarget.style.color = 'var(--c-muted)')}
             >
               {label}
-            </a>
+            </Link>
           ))}
         </nav>
 
         {/* Social icons */}
-        <div style={{ display: 'flex', gap: '1rem' }}>
-          {SOCIAL.map(({ icon: Icon, href, label }) => (
+        <div className="flex justify-center gap-3 min-[700px]:justify-self-end">
+          {SOCIAL.map(({ Icon, href, label }) => (
             <a
               key={label}
               href={href}
               aria-label={label}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '2.25rem',
-                height: '2.25rem',
-                borderRadius: '50%',
-                border: '1px solid oklch(0.22 0.020 260)',
-                color: 'var(--c-muted)',
-                textDecoration: 'none',
-                transition: 'color var(--transition-base), border-color var(--transition-base)',
-              }}
+              className="flex h-9 w-9 items-center justify-center rounded-full border transition-colors duration-200"
+              style={{ borderColor: 'oklch(0.22 0.020 260)', color: 'var(--c-muted)' }}
               onMouseEnter={e => {
                 e.currentTarget.style.color = 'var(--c-lime)'
                 e.currentTarget.style.borderColor = 'var(--c-lime)'
@@ -104,20 +81,41 @@ export default function Footer() {
       </div>
 
       <p
-        style={{
-          maxWidth: 'var(--container)',
-          marginInline: 'auto',
-          marginTop: '2rem',
-          paddingTop: '1.5rem',
-          borderTop: '1px solid oklch(0.14 0.022 260)',
-          fontFamily: 'var(--font-body)',
-          fontSize: '0.8rem',
-          color: 'var(--c-muted)',
-          textAlign: 'center',
-        }}
+        className="mx-auto max-w-[var(--container)] border-t px-[var(--container-pad)] py-6 text-center text-[0.78rem]"
+        style={{ borderColor: 'oklch(0.14 0.022 260)', fontFamily: 'var(--font-body)', color: 'var(--c-muted)' }}
       >
         © {new Date().getFullYear()} Kubbox. Todos los derechos reservados.
       </p>
     </footer>
+  )
+}
+
+/* ── Brand icons (lucide-react ships no brand glyphs; matched to its stroke style) ── */
+
+function IconInstagram({ size = 16 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </svg>
+  )
+}
+
+function IconFacebook({ size = 16 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+    </svg>
+  )
+}
+
+function IconLinkedin({ size = 16 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect x="2" y="9" width="4" height="12" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
   )
 }

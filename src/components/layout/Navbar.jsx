@@ -32,7 +32,11 @@ const PILL_DEFAULT = {
 
 export default function Navbar() {
   const location = useLocation()
-  const CURRENT_PAGE = location.pathname === '/contacto' ? 'contacto' : 'experiencia'
+  const CURRENT_PAGE = location.pathname === '/contacto'
+    ? 'contacto'
+    : location.pathname.startsWith('/servicios')
+      ? 'servicios'
+      : 'experiencia'
 
   const [scrolled,        setScrolled]        = useState(false)
   const [hidden,          setHidden]          = useState(false)
@@ -125,9 +129,9 @@ export default function Navbar() {
                   {dropdownOpen && (
                     <motion.div
                       key="dropdown"
-                      initial={{ opacity: 0, y: -6, scale: 0.97 }}
-                      animate={{ opacity: 1, y: 0,  scale: 1    }}
-                      exit={{ opacity: 0,    y: -4, scale: 0.98 }}
+                      initial={{ opacity: 0, x: '-50%', y: -6, scale: 0.97 }}
+                      animate={{ opacity: 1, x: '-50%', y: 0,  scale: 1    }}
+                      exit={{ opacity: 0,    x: '-50%', y: -4, scale: 0.98 }}
                       transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
                       onMouseEnter={openDropdown}
                       onMouseLeave={closeDropdown}
@@ -135,7 +139,6 @@ export default function Navbar() {
                         position: 'absolute',
                         top: 'calc(100% + 0.85rem)',
                         left: '50%',
-                        transform: 'translateX(-50%)',
                         minWidth: '270px',
                         background: 'oklch(0.10 0.026 260 / 0.98)',
                         border: '1px solid oklch(0.22 0.020 260)',
@@ -216,8 +219,17 @@ export default function Navbar() {
             width: '90vw',
           }}
         >
-          <Link to="/" className="flex items-center no-underline">
-            <img src="/images/LOGO BUENO KUBBOX/LOGO KUBBOX BUENO.svg" alt="Kubbox" style={{ height: '1.75rem', width: 'auto' }} />
+          <Link to="/" className="flex items-center gap-[0.4rem] no-underline">
+            <span className="relative block overflow-hidden" style={{ height: '1.45rem', aspectRatio: '106.88 / 75' }}>
+              <img
+                src="/images/LOGO BUENO KUBBOX/LOGO KUBBOX BUENO.svg"
+                alt=""
+                className="absolute inset-0 h-full w-full object-cover object-top"
+              />
+            </span>
+            <span className="[font-family:var(--font-display)]" style={{ fontWeight: 900, fontSize: '1rem', color: 'var(--c-ink)', letterSpacing: '-0.01em' }}>
+              kubbox
+            </span>
           </Link>
 
           <button
@@ -399,9 +411,21 @@ function PillDecorations({ scrollProgress }) {
 
 function Logo() {
   return (
-    <Link to="/" className="group relative flex items-center shrink-0 no-underline rounded-full" style={{ padding: '0.22rem 0.75rem 0.22rem 0.6rem' }}>
+    <Link to="/" className="group relative flex items-center shrink-0 gap-[0.4rem] no-underline rounded-full" style={{ padding: '0.22rem 0.85rem 0.22rem 0.6rem' }}>
       <span aria-hidden="true" className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background:'oklch(0.88 0.26 130 / 0.07)', filter:'blur(10px)' }} />
-      <img src="/images/LOGO BUENO KUBBOX/LOGO KUBBOX BUENO.svg" alt="Kubbox" className="relative w-auto transition-transform duration-300 group-hover:scale-[1.04]" style={{ height:'1.9rem' }} />
+      <span className="relative block overflow-hidden transition-transform duration-300 group-hover:scale-[1.06]" style={{ height: '1.55rem', aspectRatio: '106.88 / 75' }}>
+        <img
+          src="/images/LOGO BUENO KUBBOX/LOGO KUBBOX BUENO.svg"
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover object-top"
+        />
+      </span>
+      <span
+        className="relative [font-family:var(--font-display)]"
+        style={{ fontWeight: 900, fontSize: '1.05rem', color: 'var(--c-ink)', letterSpacing: '-0.01em' }}
+      >
+        kubbox
+      </span>
     </Link>
   )
 }
