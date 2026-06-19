@@ -34,7 +34,7 @@ export default function Navbar() {
   const location = useLocation()
   const CURRENT_PAGE = location.pathname === '/contacto'
     ? 'contacto'
-    : location.pathname.startsWith('/servicios')
+    : (location.pathname.startsWith('/servicios') || location.pathname.startsWith('/proyectos'))
       ? 'servicios'
       : 'experiencia'
 
