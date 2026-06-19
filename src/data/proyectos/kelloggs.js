@@ -54,5 +54,21 @@ export default {
         ],
       },
     },
+    {
+      type: 'regionCards',
+      props: {
+        regions: [
+          { flag: '/images/NUESTROS PROYECTOS/WEB/Iconos/Guatemala.svg', name: 'Guatemala', stats: [
+            { label: 'Usuarios', value: '3.120' }, { label: 'Códigos', value: '9.840' }, { label: 'Premios', value: '910' },
+          ] },
+          { flag: '/images/NUESTROS PROYECTOS/WEB/Iconos/El salvador.svg', name: 'El Salvador', stats: [
+            { label: 'Usuarios', value: '2.480' }, { label: 'Códigos', value: '7.260' }, { label: 'Premios', value: '720' },
+          ] },
+          { flag: '/images/NUESTROS PROYECTOS/WEB/Iconos/Costa rica.svg', name: 'Costa Rica', stats: [
+            { label: 'Usuarios', value: '3.052' }, { label: 'Códigos', value: '7.818' }, { label: 'Premios', value: '917' },
+          ] },
+        ],
+      },
+    },
   ],
 }
