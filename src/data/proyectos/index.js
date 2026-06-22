@@ -1,4 +1,4 @@
-import kelloggs from './kelloggs'
+import kelloggs from './kelloggs.js'
 
 const projectList = [kelloggs]
 
