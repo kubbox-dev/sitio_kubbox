@@ -1,11 +1,10 @@
-import { spawn } from 'node:child_process'
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { dirname } from 'node:path'
 import { chromium } from 'playwright'
+import { preview } from 'vite'
 import { projectList } from '../src/data/proyectos/index.js'
 
 const PORT = 4173
-const BASE_URL = `http://localhost:${PORT}`
 const ROUTES = [
   '/',
   '/contacto',
@@ -13,34 +12,19 @@ const ROUTES = [
   ...projectList.map((p) => `/proyectos/${p.slug}`),
 ]
 
-function waitForServer(url, timeoutMs = 30000) {
-  const start = Date.now()
-  return new Promise((resolve, reject) => {
-    const tryFetch = () => {
-      fetch(url)
-        .then(() => resolve())
-        .catch(() => {
-          if (Date.now() - start > timeoutMs) reject(new Error('Preview server did not start in time'))
-          else setTimeout(tryFetch, 500)
-        })
-    }
-    tryFetch()
-  })
-}
-
 async function main() {
-  const server = spawn('npx', ['vite', 'preview', '--port', String(PORT), '--strictPort'], {
-    stdio: 'inherit',
-    shell: true,
+  const server = await preview({
+    preview: { port: PORT, strictPort: true },
   })
+  const url = server.resolvedUrls.local[0]
+  const baseUrl = url.replace(/\/$/, '')
 
   try {
-    await waitForServer(BASE_URL)
     const browser = await chromium.launch()
     const page = await browser.newPage()
 
     for (const route of ROUTES) {
-      await page.goto(`${BASE_URL}${route}`, { waitUntil: 'networkidle' })
+      await page.goto(`${baseUrl}${route}`, { waitUntil: 'networkidle' })
       await page.waitForSelector('h1', { timeout: 15000 })
       const html = await page.content()
 
@@ -52,7 +36,7 @@ async function main() {
 
     await browser.close()
   } finally {
-    server.kill()
+    await server.close()
   }
 }
 
