@@ -9,6 +9,7 @@ const LandingPage = lazy(() => import('../pages/landing'))
 const ContactPage = lazy(() => import('../pages/contacto'))
 const DesarrolloDigitalPage = lazy(() => import('../pages/servicios/desarrollo-digital'))
 const ProyectoPage = lazy(() => import('../pages/proyectos'))
+const NotFoundPage = lazy(() => import('../pages/not-found'))
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -56,6 +57,7 @@ export default function AppRouter() {
           {/* Agregar páginas futuras aquí:
           <Route path="/servicios" element={<ServicesPage />} />
           */}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>
       <Footer />
