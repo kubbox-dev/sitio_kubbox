@@ -19,6 +19,21 @@ export default function NotFoundSection() {
 
   return (
     <section className="relative flex min-h-[100svh] items-center overflow-hidden py-[clamp(6rem,12vw,9rem)] text-center">
+      {/* Keyframes only — Tailwind has no utility-class way to author @keyframes,
+          same exception already used by the router's PageLoader spinner. */}
+      <style>{`
+        @keyframes nf-glitch {
+          0%, 70%, 100% { opacity: 1; filter: none; }
+          72% { opacity: 0.8; filter: drop-shadow(3px 0 oklch(0.72 0.150 190 / 0.8)) drop-shadow(-3px 0 oklch(0.88 0.260 130 / 0.6)); }
+          74% { opacity: 1; filter: drop-shadow(-3px 0 oklch(0.72 0.150 190 / 0.8)) drop-shadow(3px 0 oklch(0.88 0.260 130 / 0.6)); }
+          76% { opacity: 0.55; filter: none; }
+          78% { opacity: 1; filter: drop-shadow(2px 0 oklch(0.72 0.150 190 / 0.7)) drop-shadow(-2px 0 oklch(0.88 0.260 130 / 0.5)); }
+          80% { opacity: 0.7; filter: none; }
+          84%, 100% { opacity: 1; filter: none; }
+        }
+        @keyframes nf-scan { 0% { background-position: 0 0; } 100% { background-position: 0 9px; } }
+      `}</style>
+
       <div
         aria-hidden="true"
         style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0 }}
@@ -43,34 +58,34 @@ export default function NotFoundSection() {
         }} />
       </div>
 
+      {/* Scanlines — sits above the content, like a CRT screen losing the signal */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none',
+          backgroundImage: 'repeating-linear-gradient(to bottom, oklch(1 0 0 / 0.04) 0px, oklch(1 0 0 / 0.04) 1px, transparent 1px, transparent 3px)',
+          mixBlendMode: 'overlay',
+          animation: reduce ? 'none' : 'nf-scan 0.25s linear infinite',
+        }}
+      />
+
       <div className="relative z-[1] mx-auto flex max-w-[var(--container)] flex-col items-center gap-[clamp(1.5rem,4vw,2.5rem)] px-[var(--container-pad)]">
         <h1 className="m-0 [font-family:var(--font-display)] font-black italic uppercase">
-          <div className="overflow-hidden">
+          <div>
             <motion.div
-              variants={lineReveal(0)}
+              variants={lineReveal(0.1)}
               initial="hidden"
               animate="visible"
               className="text-[clamp(3.5rem,12vw,7rem)] leading-[0.88] tracking-[-0.03em]"
-              style={{ color: 'var(--c-lime)' }}
+              style={{ color: 'var(--c-lime)', animation: reduce ? 'none' : 'nf-glitch 3.5s ease-in-out 0.6s infinite' }}
             >
               404
-            </motion.div>
-          </div>
-          <div className="overflow-hidden">
-            <motion.div
-              variants={lineReveal(0.14)}
-              initial="hidden"
-              animate="visible"
-              className="text-[clamp(1.5rem,4.5vw,2.75rem)] leading-[0.95] tracking-[-0.02em]"
-              style={HOLLOW_STYLE}
-            >
-              ESTE LINK SE PERDIÓ
             </motion.div>
           </div>
         </h1>
 
         <motion.div
-          variants={rise(0.32)}
+          variants={rise(0.42)}
           initial="hidden"
           animate="show"
           aria-hidden="true"
@@ -78,7 +93,7 @@ export default function NotFoundSection() {
         />
 
         <motion.p
-          variants={rise(0.4)}
+          variants={rise(0.5)}
           initial="hidden"
           animate="show"
           className="m-0 max-w-[42ch] [font-family:var(--font-body)] text-[clamp(1rem,1.6vw,1.15rem)] leading-[1.65]"
@@ -88,7 +103,7 @@ export default function NotFoundSection() {
         </motion.p>
 
         <motion.div
-          variants={rise(0.5)}
+          variants={rise(0.6)}
           initial="hidden"
           animate="show"
           className="flex flex-wrap items-center justify-center gap-4"
