@@ -94,11 +94,17 @@ export default function Navbar() {
         initial={{ y: -96, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-5 z-50 hidden md:block"
-        style={{ left: 'clamp(1.5rem, 4vw, 3rem)' }}
+        className="fixed top-5 z-50 hidden md:block rounded-full"
+        style={{
+          left: 'clamp(1.5rem, 4vw, 3rem)',
+          ...PILL_BASE,
+          ...(scrolled ? PILL_SCROLLED : PILL_DEFAULT),
+          transition: 'background 0.5s ease, box-shadow 0.5s ease',
+          padding: '5px',
+        }}
       >
-        <Link to="/" className="group relative block no-underline rounded-xl" style={{ padding: '0.2rem 0.35rem' }}>
-          <span aria-hidden="true" className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'oklch(0.88 0.26 130 / 0.07)', filter: 'blur(14px)' }} />
+        <Link to="/" className="group relative block no-underline rounded-full" style={{ padding: '0.35rem 0.85rem' }}>
+          <span aria-hidden="true" className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'oklch(0.88 0.26 130 / 0.07)', filter: 'blur(14px)' }} />
           <img
             src="/images/LOGO BUENO KUBBOX/Recurso 52.svg"
             alt="Kubbox"
