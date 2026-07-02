@@ -1,133 +1,150 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
-import { ChevronRight, ArrowUpRight } from 'lucide-react'
-import Button from '../../ui/Button'
-import { useScrollAnimation, fadeUp, staggerContainer } from '../../../hooks/useScrollAnimation'
+import { useState, useEffect, useRef, useCallback } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { ChevronRight, ArrowUpRight } from "lucide-react";
+import Button from "../../ui/Button";
+import {
+  useScrollAnimation,
+  fadeUp,
+  staggerContainer,
+} from "../../../hooks/useScrollAnimation";
 
-const ICON = (name) => encodeURI(`/images/HOME/WEB/iconos/${name}.svg`)
-const PERSON_IMG = '/images/HOME/WEB/Ruleta/senora.png'
+const ICON = (name) => encodeURI(`/images/HOME/WEB/iconos/${name}.svg`);
+const PERSON_IMG = "/images/HOME/WEB/Ruleta/senora.png";
 
 const SERVICES = [
   {
-    id: 'desarrollo',
-    title: 'Desarrollo Digital',
-    tagline: 'Diseñamos experiencias digitales que conectan marcas con personas.',
-    body: 'Creamos y gestionamos productos digitales centrados en el usuario: sitios web, e-commerce, plataformas interactivas, web apps y sistemas personalizados con enfoque en diseño, performance y analítica.',
-    icon: ICON('computador sin verde'),
+    id: "desarrollo",
+    title: "Desarrollo Digital",
+    tagline:
+      "Diseñamos experiencias digitales que conectan marcas con personas.",
+    body: "Creamos y gestionamos productos digitales centrados en el usuario: sitios web, e-commerce, plataformas interactivas, web apps y sistemas personalizados con enfoque en diseño, performance y analítica.",
+    icon: ICON("computador sin verde"),
     bullets: [
-      'Sitios web corporativos y de marca',
-      'Plataformas a medida y web apps',
-      'Sistemas de registro, concursos y activaciones',
+      "Sitios web corporativos y de marca",
+      "Plataformas a medida y web apps",
+      "Sistemas de registro, concursos y activaciones",
     ],
   },
   {
-    id: 'marketing',
-    title: 'Marketing Digital',
-    tagline: 'Estrategias que ponen tu marca frente a la audiencia correcta.',
-    body: 'Diseñamos y ejecutamos estrategias de comunicación que conectan con tu audiencia y generan resultados medibles, desde la creatividad hasta la pauta y la conversión.',
-    icon: ICON('redes sin vered'),
+    id: "marketing",
+    title: "Marketing Digital",
+    tagline: "Estrategias que ponen tu marca frente a la audiencia correcta.",
+    body: "Diseñamos y ejecutamos estrategias de comunicación que conectan con tu audiencia y generan resultados medibles, desde la creatividad hasta la pauta y la conversión.",
+    icon: ICON("redes sin vered"),
     bullets: [
-      'Estrategia y gestión de redes sociales',
-      'Campañas de pauta digital (Meta, Google)',
-      'Email marketing y automatización',
-      'Contenido y copywriting estratégico',
+      "Estrategia y gestión de redes sociales",
+      "Campañas de pauta digital (Meta, Google)",
+      "Email marketing y automatización",
+      "Contenido y copywriting estratégico",
     ],
   },
   {
-    id: 'performance',
-    title: 'Performance & Data',
-    tagline: 'Decisiones guiadas por datos para crecer de forma rentable.',
-    body: 'Medimos, analizamos y optimizamos cada punto del embudo para que cada peso invertido rinda más, con reportes claros y accionables.',
-    icon: ICON('escaleras sin verde'),
+    id: "performance",
+    title: "Performance & Data",
+    tagline: "Decisiones guiadas por datos para crecer de forma rentable.",
+    body: "Medimos, analizamos y optimizamos cada punto del embudo para que cada peso invertido rinda más, con reportes claros y accionables.",
+    icon: ICON("escaleras sin verde"),
     bullets: [
-      'Analítica web y reportes de ROI',
-      'Optimización de conversiones (CRO)',
-      'Auditorías y diagnósticos digitales',
-      'Reportes claros y accionables',
+      "Analítica web y reportes de ROI",
+      "Optimización de conversiones (CRO)",
+      "Auditorías y diagnósticos digitales",
+      "Reportes claros y accionables",
     ],
   },
   {
-    id: 'seo',
-    title: 'SEO & Posicionamiento',
-    tagline: 'Que te encuentren justo cuando te están buscando.',
-    body: 'Trabajamos el posicionamiento orgánico de tu marca para que aparezcas en los primeros resultados y atraigas tráfico de calidad de forma sostenible.',
-    icon: ICON('lupa sin verde'),
+    id: "seo",
+    title: "SEO & Posicionamiento",
+    tagline: "Que te encuentren justo cuando te están buscando.",
+    body: "Trabajamos el posicionamiento orgánico de tu marca para que aparezcas en los primeros resultados y atraigas tráfico de calidad de forma sostenible.",
+    icon: ICON("lupa sin verde"),
     bullets: [
-      'SEO técnico y de contenidos',
-      'Investigación de palabras clave',
-      'Posicionamiento en Google',
-      'Optimización on-page y off-page',
+      "SEO técnico y de contenidos",
+      "Investigación de palabras clave",
+      "Posicionamiento en Google",
+      "Optimización on-page y off-page",
     ],
   },
   {
-    id: 'ia',
-    title: 'IA & Automatización',
-    tagline: 'Inteligencia artificial al servicio de tus resultados.',
-    body: 'Integramos inteligencia artificial y automatización para acelerar procesos, personalizar experiencias y liberar tiempo de tu equipo.',
-    icon: ICON('bombillo sin verde'),
+    id: "ia",
+    title: "IA & Automatización",
+    tagline: "Inteligencia artificial al servicio de tus resultados.",
+    body: "Integramos inteligencia artificial y automatización para acelerar procesos, personalizar experiencias y liberar tiempo de tu equipo.",
+    icon: ICON("bombillo sin verde"),
     bullets: [
-      'Flujos automatizados con IA',
-      'Chatbots y asistentes digitales',
-      'Generación de contenido asistida',
-      'Integraciones y herramientas custom',
+      "Flujos automatizados con IA",
+      "Chatbots y asistentes digitales",
+      "Generación de contenido asistida",
+      "Integraciones y herramientas custom",
     ],
   },
-]
+];
 
-const N = SERVICES.length
-const STEP = 360 / N
-const AUTOPLAY_MS = 4200
+const N = SERVICES.length;
+const STEP = 360 / N;
+const AUTOPLAY_MS = 4200;
 
 const shortestDelta = (from, to) => {
-  let d = (to - from) % N
-  if (d >  N / 2) d -= N
-  if (d < -N / 2) d += N
-  return d
-}
+  let d = (to - from) % N;
+  if (d > N / 2) d -= N;
+  if (d < -N / 2) d += N;
+  return d;
+};
 
 export default function ServicesSection() {
-  const [turn, setTurn] = useState(0)
-  const [paused, setPaused] = useState(false)
-  const { ref: headRef, controls: headControls } = useScrollAnimation()
-  const reduce = useReducedMotion()
+  const [turn, setTurn] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const { ref: headRef, controls: headControls } = useScrollAnimation();
+  const reduce = useReducedMotion();
 
-  const active = ((turn % N) + N) % N
-  const service = SERVICES[active]
+  const active = ((turn % N) + N) % N;
+  const service = SERVICES[active];
 
   const goTo = useCallback((j) => {
-    setTurn((t) => t + shortestDelta(((t % N) + N) % N, j))
-  }, [])
-  const advance = useCallback(() => setTurn((t) => t + 1), [])
+    setTurn((t) => t + shortestDelta(((t % N) + N) % N, j));
+  }, []);
+  const advance = useCallback(() => setTurn((t) => t + 1), []);
 
-  const pausedRef = useRef(paused)
-  useEffect(() => { pausedRef.current = paused }, [paused])
+  const pausedRef = useRef(paused);
   useEffect(() => {
-    if (reduce) return
-    const id = setInterval(() => { if (!pausedRef.current) advance() }, AUTOPLAY_MS)
-    return () => clearInterval(id)
-  }, [reduce, advance])
+    pausedRef.current = paused;
+  }, [paused]);
+  useEffect(() => {
+    if (reduce) return;
+    const id = setInterval(() => {
+      if (!pausedRef.current) advance();
+    }, AUTOPLAY_MS);
+    return () => clearInterval(id);
+  }, [reduce, advance]);
 
-  const ringRot = reduce ? 0 : -turn * STEP
-  const spinTransition = reduce ? { duration: 0 } : { duration: 0.9, ease: [0.34, 1.2, 0.4, 1] }
+  const ringRot = reduce ? 0 : -turn * STEP;
+  const spinTransition = reduce
+    ? { duration: 0 }
+    : { duration: 0.9, ease: [0.34, 1.2, 0.4, 1] };
 
   return (
     <section
       id="servicios"
       style={{
-        position: 'relative',
-        paddingBlock: 'clamp(3.5rem, 7vw, 5.5rem)',
-        marginTop: '-1px',
+        position: "relative",
+        paddingBlock: "clamp(3.5rem, 7vw, 5.5rem)",
+        marginTop: "-1px",
       }}
     >
-      
-
-      <div style={{ maxWidth: 'var(--container)', marginInline: 'auto', paddingInline: 'var(--container-pad)', position: 'relative', zIndex: 1, width: '100%' }}>
-
+      <div
+        style={{
+          maxWidth: "var(--container)",
+          marginInline: "auto",
+          paddingInline: "var(--container-pad)",
+          position: "relative",
+          zIndex: 1,
+          width: "100%",
+        }}
+      >
         {/* ── Heading editorial exactamente como en ServicesHero ───────── */}
         <div className="svc-head">
           {/* Top-right kicker */}
           <div className="svc-kicker-top">
-            <span>Creados para ti</span>
+            <span>Nuestro enfoque combina</span>
             <span className="svc-kicker-line" />
           </div>
 
@@ -140,7 +157,10 @@ export default function ServicesSection() {
           {/* Lower-left label with vertical divider */}
           <div className="svc-years">
             <span className="svc-years-line" />
-            <span>10 años encontrando identidad</span>
+            <span>
+              creatividad, experiencia técnica y una profunda comprensión de los
+              objetivos de negocio
+            </span>
           </div>
         </div>
 
@@ -151,7 +171,8 @@ export default function ServicesSection() {
           viewport={{ once: true, amount: 0.6 }}
           transition={{ duration: 0.6 }}
         >
-          IMPULSA TU <b>MARCA</b> CON <b>NUESTRAS SOLUCIONES</b>
+          CREAMOS <b>SOLUCIONES </b>QUE NO SOLO SE VEN <b>BIEN,</b>SINO QUE{" "}
+          <b>PRODUCEN RESULTADOS</b>
         </motion.p>
 
         {/* ── Card con 2 columnas (texto izquierda | ruleta derecha) ───────── */}
@@ -163,7 +184,11 @@ export default function ServicesSection() {
           onMouseLeave={() => setPaused(false)}
         >
           {/* Columna izquierda - Detalle del servicio */}
-          <motion.div className="svc-card-left-new" layout transition={{ layout: { duration: 0.42, ease: [0.16, 1, 0.3, 1] } }}>
+          <motion.div
+            className="svc-card-left-new"
+            layout
+            transition={{ layout: { duration: 0.42, ease: [0.16, 1, 0.3, 1] } }}
+          >
             <AnimatePresence mode="popLayout" initial={false}>
               <motion.div
                 key={active}
@@ -172,32 +197,48 @@ export default function ServicesSection() {
                 exit={{ opacity: 0, x: -8 }}
                 transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
               >
-                  <span className="svc-card-kicker">
-                    {String(active + 1).padStart(2, '0')} / {String(N).padStart(2, '0')}
-                  </span>
-                  <h3 className="svc-card-title-new">{service.title}</h3>
-                  <p className="svc-card-tagline-new">{service.tagline}</p>
-                  <p className="svc-card-body-new">{service.body}</p>
-                  <motion.ul
-                    className="svc-card-bullets-new"
-                    initial="hidden"
-                    animate="visible"
-                    variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.09, delayChildren: 0.18 } } }}
-                  >
-                    {service.bullets.map(b => (
-                      <motion.li
-                        key={b}
-                        variants={{
-                          hidden: { opacity: 0, x: -12 },
-                          visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
-                        }}
-                      >
-                        <ChevronRight size={15} className="svc-bullet-ic" />
-                        <span>{b}</span>
-                      </motion.li>
-                    ))}
-                  </motion.ul>
-                </motion.div>
+                <span className="svc-card-kicker">
+                  {String(active + 1).padStart(2, "0")} /{" "}
+                  {String(N).padStart(2, "0")}
+                </span>
+                <h3 className="svc-card-title-new">{service.title}</h3>
+                <p className="svc-card-tagline-new">{service.tagline}</p>
+                <p className="svc-card-body-new">{service.body}</p>
+                <motion.ul
+                  className="svc-card-bullets-new"
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    hidden: {},
+                    visible: {
+                      transition: {
+                        staggerChildren: 0.09,
+                        delayChildren: 0.18,
+                      },
+                    },
+                  }}
+                >
+                  {service.bullets.map((b) => (
+                    <motion.li
+                      key={b}
+                      variants={{
+                        hidden: { opacity: 0, x: -12 },
+                        visible: {
+                          opacity: 1,
+                          x: 0,
+                          transition: {
+                            duration: 0.4,
+                            ease: [0.16, 1, 0.3, 1],
+                          },
+                        },
+                      }}
+                    >
+                      <ChevronRight size={15} className="svc-bullet-ic" />
+                      <span>{b}</span>
+                    </motion.li>
+                  ))}
+                </motion.ul>
+              </motion.div>
             </AnimatePresence>
 
             {/* Tabs */}
@@ -208,7 +249,7 @@ export default function ServicesSection() {
                   onClick={() => goTo(i)}
                   whileHover={reduce ? undefined : { scale: 1.04 }}
                   whileTap={reduce ? undefined : { scale: 0.97 }}
-                  className={`svc-tab-new ${i === active ? 'is-active' : ''}`}
+                  className={`svc-tab-new ${i === active ? "is-active" : ""}`}
                 >
                   {s.title}
                 </motion.button>
@@ -219,48 +260,68 @@ export default function ServicesSection() {
           {/* Columna derecha - Ruleta + Señora */}
           <div className="svc-card-right-new">
             {/* Ruleta container */}
-            <div className="wheel-stage-new" style={{
-              '--wheel-r': 'clamp(115px, 16vw, 165px)',
-              '--node': 'clamp(46px, 5.6vw, 58px)',
-            }}>
+            <div
+              className="wheel-stage-new"
+              style={{
+                "--wheel-r": "clamp(115px, 16vw, 165px)",
+                "--node": "clamp(46px, 5.6vw, 58px)",
+              }}
+            >
               {/* Anillo decorativo */}
               <div className="wheel-ring-bg" />
-              
+
               {/* Núcleo central con ícono activo */}
               <div className="wheel-core-new">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={active}
                     className="wheel-core-inner"
-                    initial={{ opacity: 0, scale: 0.8, rotate: reduce ? 0 : -10 }}
+                    initial={{
+                      opacity: 0,
+                      scale: 0.8,
+                      rotate: reduce ? 0 : -10,
+                    }}
                     animate={{ opacity: 1, scale: 1, rotate: 0 }}
                     exit={{ opacity: 0, scale: 0.8 }}
                     transition={{ duration: 0.35 }}
                   >
-                    <img src={service.icon} alt="" className="wheel-core-icon" draggable="false" />
+                    <img
+                      src={service.icon}
+                      alt=""
+                      className="wheel-core-icon"
+                      draggable="false"
+                    />
                     <span className="wheel-core-label">{service.title}</span>
                   </motion.div>
                 </AnimatePresence>
               </div>
 
               {/* Iconos giratorios */}
-              <motion.div className="wheel-spin-new" animate={{ rotate: ringRot }} transition={spinTransition}>
+              <motion.div
+                className="wheel-spin-new"
+                animate={{ rotate: ringRot }}
+                transition={spinTransition}
+              >
                 {SERVICES.map((s, i) => {
-                  const isActive = i === active
+                  const isActive = i === active;
                   return (
                     <div
                       key={s.id}
                       className="wheel-node-new"
-                      style={{ transform: `rotate(${i * STEP}deg) translateY(calc(-1 * var(--wheel-r)))` }}
+                      style={{
+                        transform: `rotate(${i * STEP}deg) translateY(calc(-1 * var(--wheel-r)))`,
+                      }}
                     >
                       <div className="wheel-icon-pos-new">
                         <motion.button
                           onClick={() => goTo(i)}
                           aria-label={s.title}
-                          className={`wheel-icon-new ${isActive ? 'is-active' : ''}`}
+                          className={`wheel-icon-new ${isActive ? "is-active" : ""}`}
                           animate={{ rotate: reduce ? 0 : (turn - i) * STEP }}
                           transition={spinTransition}
-                          whileHover={reduce ? undefined : { scale: isActive ? 1 : 1.1 }}
+                          whileHover={
+                            reduce ? undefined : { scale: isActive ? 1 : 1.1 }
+                          }
                           whileTap={reduce ? undefined : { scale: 0.94 }}
                         >
                           <span className="wheel-icon-inner-new">
@@ -269,7 +330,7 @@ export default function ServicesSection() {
                         </motion.button>
                       </div>
                     </div>
-                  )
+                  );
                 })}
               </motion.div>
 
@@ -295,7 +356,7 @@ export default function ServicesSection() {
                   key={s.id}
                   onClick={() => goTo(i)}
                   aria-label={`Ir a ${s.title}`}
-                  className={i === active ? 'is-active' : ''}
+                  className={i === active ? "is-active" : ""}
                 />
               ))}
             </div>
@@ -304,11 +365,19 @@ export default function ServicesSection() {
       </div>
 
       {/* Fade hacia AISection */}
-      <div aria-hidden="true" style={{
-        position: 'absolute', bottom: 0, left: 0, right: 0, height: '10%',
-        background: 'linear-gradient(to bottom, transparent, var(--c-bg))',
-        pointerEvents: 'none', zIndex: 2,
-      }} />
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: "10%",
+          background: "linear-gradient(to bottom, transparent, var(--c-bg))",
+          pointerEvents: "none",
+          zIndex: 2,
+        }}
+      />
 
       <style>{`
         /* ── Heading editorial estilo ServicesHero ── */
@@ -380,7 +449,7 @@ export default function ServicesSection() {
         .svc-years {
           position: absolute;
           left: 0;
-          bottom: clamp(0.25rem, 1.5vw, 1rem);
+          bottom: calc(clamp(0.25rem, 1.5vw, 1rem) - 60px);
           display: flex;
           align-items: center;
           gap: 0.85rem;
@@ -781,5 +850,5 @@ export default function ServicesSection() {
         }
       `}</style>
     </section>
-  )
+  );
 }
