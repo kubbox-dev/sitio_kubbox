@@ -1,0 +1,22 @@
+# Kubbox
+
+> Agencia de marketing digital y desarrollo web en Medellín, Colombia. Ayudamos a PYMEs, startups y marcas personales colombianas a crecer digitalmente con campañas de marketing efectivas y desarrollo web profesional.
+
+Kubbox combina la energía de un estudio creativo joven con la capacidad de una agencia senior: campañas digitales, desarrollo de plataformas y sitios web, y estrategia de marca para negocios que buscan más ventas, más alcance y mejor presencia digital.
+
+## Servicios
+
+- Campañas de marketing digital (retail, redes sociales, captura de datos de consumidor)
+- Desarrollo de plataformas y sitios web a la medida (ver /servicios/desarrollo-digital)
+- Estrategia de marca y contenido
+
+## Casos de éxito
+
+- Kellogg's — "Códigos Secretos": campaña retail en Costa Rica, Guatemala y El Salvador (ver /proyectos/kelloggs)
+
+## Contacto
+
+- Email: cfernandez@kubbox.com
+- Teléfono: +57 310 4255766
+- Ubicación: Envigado, Antioquia, Colombia (área metropolitana de Medellín)
+- Sitio: https://kubbox.com

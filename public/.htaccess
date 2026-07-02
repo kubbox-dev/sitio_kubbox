@@ -6,6 +6,11 @@ RewriteCond %{HTTPS} off
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 # ── SPA: redirige todo a index.html (excepto archivos físicos) ────────────────
+# SPA fallback: si el archivo/carpeta pedido no existe físicamente,
+# sirve index.html y deja que react-router-dom resuelva la ruta en el cliente.
+# Las rutas que el Task 8 (prerender) ya generó como carpetas reales
+# (ej. dist/contacto/index.html) se siguen sirviendo directo por Apache
+# ANTES de llegar a esta regla, porque Apache prioriza archivos/carpetas reales.
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.html [QSA,L]

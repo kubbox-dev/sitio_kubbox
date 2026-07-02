@@ -10,8 +10,15 @@ import ClientsSection    from '../../components/sections/landing/ClientsSection'
 import CTASection        from '../../components/sections/landing/CTASection'
 import CustomCursor      from '../../components/ui/CustomCursor'
 import MorphicBackground      from '../../components/layout/fondo'
+import { useDocumentMeta } from '../../hooks/useDocumentMeta'
 
 export default function LandingPage() {
+  useDocumentMeta({
+    title: 'Kubbox — Agencia de Marketing Digital y Desarrollo Web',
+    description: 'Kubbox es una agencia de marketing digital y desarrollo web en Medellín, Colombia. Creamos campañas digitales, plataformas y sitios web que convierten.',
+    path: '/',
+  })
+
   const darkZoneRef = useRef(null)
   const [spotPos, setSpotPos] = useState(null)
 

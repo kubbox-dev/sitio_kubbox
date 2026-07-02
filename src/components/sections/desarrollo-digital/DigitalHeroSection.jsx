@@ -134,7 +134,7 @@ export default function DigitalHeroSection() {
         </div>
 
         <div className="overflow-hidden">
-          <motion.h1
+          <motion.h2
             variants={lineReveal(0.12)}
             initial="hidden"
             animate="visible"
@@ -154,7 +154,7 @@ export default function DigitalHeroSection() {
             style={{ color: 'var(--c-ink)' }}
           >
             DIGITAL
-          </motion.h1>
+          </motion.h2>
         </div>
       </div>
     </section>
