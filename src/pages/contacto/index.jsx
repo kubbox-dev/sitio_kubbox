@@ -8,7 +8,7 @@ export default function ContactPage() {
   useDocumentMeta({
     title: 'Contacto',
     description: 'Escríbenos y hablemos de tu próximo proyecto digital. Kubbox, agencia de marketing en Envigado, Medellín.',
-    path: '/contacto',
+    path: '/contacto/',
   })
 
   return (

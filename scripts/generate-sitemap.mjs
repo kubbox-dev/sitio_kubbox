@@ -3,8 +3,8 @@ import { projectList } from '../src/data/proyectos/index.js'
 
 const DOMAIN = 'https://kubbox.com'
 
-const staticRoutes = ['/', '/contacto', '/servicios/desarrollo-digital']
-const projectRoutes = projectList.map((p) => `/proyectos/${p.slug}`)
+const staticRoutes = ['/', '/contacto/', '/servicios/desarrollo-digital/']
+const projectRoutes = projectList.map((p) => `/proyectos/${p.slug}/`)
 const routes = [...staticRoutes, ...projectRoutes]
 
 const urlEntries = routes
