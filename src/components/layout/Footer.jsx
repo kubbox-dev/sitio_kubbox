@@ -27,7 +27,7 @@ export default function Footer() {
             <img
               src="/images/LOGO BUENO KUBBOX/Recurso 52.svg"
               alt="Kubbox"
-              style={{ height: '2.5rem', width: 'auto', display: 'block' }}
+              style={{ height: '3.2rem', width: 'auto', display: 'block' }}
             />
           </Link>
           <span className="text-[0.78rem] tracking-[0.04em]" style={{ fontFamily: 'var(--font-body)', color: 'var(--c-muted)' }}>

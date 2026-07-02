@@ -102,7 +102,7 @@ export default function Navbar() {
             src="/images/LOGO BUENO KUBBOX/Recurso 52.svg"
             alt="Kubbox"
             className="block transition-transform duration-300 hover:scale-[1.03]"
-            style={{ height: '2.8rem', width: 'auto' }}
+            style={{ height: '3.4rem', width: 'auto' }}
           />
         </Link>
       </motion.div>
