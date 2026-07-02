@@ -23,17 +23,12 @@ export default function Footer() {
       <div className="mx-auto grid max-w-[var(--container)] grid-cols-1 items-center justify-center gap-10 px-[var(--container-pad)] py-[clamp(2.5rem,5vw,3.5rem)] text-center min-[700px]:grid-cols-3 min-[700px]:items-start min-[700px]:text-left">
         {/* Logo + tagline */}
         <div className="flex flex-col items-center gap-2 min-[700px]:items-start min-[700px]:justify-self-start">
-          <Link to="/" className="flex items-center gap-[0.4rem] no-underline">
-            <span className="relative block overflow-hidden" style={{ height: '1.45rem', aspectRatio: '106.88 / 75' }}>
-              <img
-                src="/images/LOGO BUENO KUBBOX/LOGO KUBBOX BUENO.svg"
-                alt=""
-                className="absolute inset-0 h-full w-full object-cover object-top"
-              />
-            </span>
-            <span className="[font-family:var(--font-display)] text-[1.5rem] font-black tracking-[-0.01em]" style={{ color: 'var(--c-ink)' }}>
-              kubbox
-            </span>
+          <Link to="/" className="block no-underline">
+            <img
+              src="/images/LOGO BUENO KUBBOX/Recurso 52.svg"
+              alt="Kubbox"
+              style={{ height: '2.5rem', width: 'auto', display: 'block' }}
+            />
           </Link>
           <span className="text-[0.78rem] tracking-[0.04em]" style={{ fontFamily: 'var(--font-body)', color: 'var(--c-muted)' }}>
             Agencia creativa · Medellín, Colombia

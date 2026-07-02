@@ -89,6 +89,25 @@ export default function Navbar() {
 
   return (
     <>
+      {/* ══════════ DESKTOP standalone logo (md+) ══════════ */}
+      <motion.div
+        initial={{ y: -96, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        className="fixed top-5 z-50 hidden md:block"
+        style={{ left: 'clamp(1.5rem, 4vw, 3rem)' }}
+      >
+        <Link to="/" className="group relative block no-underline rounded-xl" style={{ padding: '0.2rem 0.35rem' }}>
+          <span aria-hidden="true" className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'oklch(0.88 0.26 130 / 0.07)', filter: 'blur(14px)' }} />
+          <img
+            src="/images/LOGO BUENO KUBBOX/Recurso 52.svg"
+            alt="Kubbox"
+            className="relative block transition-transform duration-300 group-hover:scale-[1.04]"
+            style={{ height: '2.2rem', width: 'auto' }}
+          />
+        </Link>
+      </motion.div>
+
       <motion.div
         initial={{ y: -96, opacity: 0 }}
         animate={{ y: hidden ? -120 : 0, opacity: hidden ? 0 : 1 }}
@@ -105,12 +124,6 @@ export default function Navbar() {
           style={pillStyle}
         >
           <PillDecorations scrollProgress={scrollProgress} />
-
-          {/* Logo */}
-          <Logo />
-
-          {/* Divider */}
-          <Divider />
 
           {/* Links */}
           {NAV_LINKS.map(link =>
@@ -219,17 +232,12 @@ export default function Navbar() {
             width: '90vw',
           }}
         >
-          <Link to="/" className="flex items-center gap-[0.4rem] no-underline">
-            <span className="relative block overflow-hidden" style={{ height: '1.45rem', aspectRatio: '106.88 / 75' }}>
-              <img
-                src="/images/LOGO BUENO KUBBOX/LOGO KUBBOX BUENO.svg"
-                alt=""
-                className="absolute inset-0 h-full w-full object-cover object-top"
-              />
-            </span>
-            <span className="[font-family:var(--font-display)]" style={{ fontWeight: 900, fontSize: '1rem', color: 'var(--c-ink)', letterSpacing: '-0.01em' }}>
-              kubbox
-            </span>
+          <Link to="/" className="block no-underline" onClick={() => setMenuOpen(false)}>
+            <img
+              src="/images/LOGO BUENO KUBBOX/Recurso 52.svg"
+              alt="Kubbox"
+              style={{ height: '1.75rem', width: 'auto', display: 'block' }}
+            />
           </Link>
 
           <button
@@ -407,31 +415,6 @@ function PillDecorations({ scrollProgress }) {
       <div style={{ position:'absolute', bottom:0, left:0, height:'2px', width:`${scrollProgress * 100}%`, background:'linear-gradient(to right, oklch(0.88 0.26 130 / 0.5), oklch(0.88 0.26 130 / 0.95))', transition:'width 0.12s linear', borderRadius:'0 2px 0 0' }} />
     </div>
   )
-}
-
-function Logo() {
-  return (
-    <Link to="/" className="group relative flex items-center shrink-0 gap-[0.4rem] no-underline rounded-full" style={{ padding: '0.22rem 0.85rem 0.22rem 0.6rem' }}>
-      <span aria-hidden="true" className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background:'oklch(0.88 0.26 130 / 0.07)', filter:'blur(10px)' }} />
-      <span className="relative block overflow-hidden transition-transform duration-300 group-hover:scale-[1.06]" style={{ height: '1.55rem', aspectRatio: '106.88 / 75' }}>
-        <img
-          src="/images/LOGO BUENO KUBBOX/LOGO KUBBOX BUENO.svg"
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover object-top"
-        />
-      </span>
-      <span
-        className="relative [font-family:var(--font-display)]"
-        style={{ fontWeight: 900, fontSize: '1.05rem', color: 'var(--c-ink)', letterSpacing: '-0.01em' }}
-      >
-        kubbox
-      </span>
-    </Link>
-  )
-}
-
-function Divider() {
-  return <span aria-hidden="true" className="w-px shrink-0 mr-1" style={{ height:'1.1rem', background:'oklch(0.26 0.018 260 / 0.75)' }} />
 }
 
 function TubeLink({ href, children, active, chevron }) {
