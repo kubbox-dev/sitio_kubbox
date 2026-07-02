@@ -93,7 +93,12 @@ export default function Navbar() {
       <motion.div
         initial={{ y: -96, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        whileHover={{ scale: 1.015 }}
+        transition={{
+          duration: 0.55,
+          ease: [0.16, 1, 0.3, 1],
+          scale: { duration: 0.22, ease: [0.16, 1, 0.3, 1] },
+        }}
         className="fixed top-5 z-50 hidden md:block rounded-full"
         style={{
           left: 'clamp(1.5rem, 4vw, 3rem)',
@@ -103,12 +108,21 @@ export default function Navbar() {
           padding: '5px',
         }}
       >
-        <Link to="/" className="group relative block no-underline rounded-full" style={{ padding: '0.35rem 0.85rem' }}>
-          <span aria-hidden="true" className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'oklch(0.88 0.26 130 / 0.07)', filter: 'blur(14px)' }} />
+        <Link
+          to="/"
+          className="group relative flex items-center no-underline rounded-full overflow-hidden"
+          style={{ padding: '0.35rem 0.85rem' }}
+        >
+          {/* Top line – matches nav pill's PillDecorations */}
+          <span aria-hidden="true" style={{ position:'absolute', top:0, left:0, right:0, height:'1px', background:'linear-gradient(to right, transparent 8%, oklch(0.50 0.015 260 / 0.30) 40%, oklch(0.50 0.015 260 / 0.30) 60%, transparent 92%)' }} />
+          {/* Lime bottom accent – brand signature */}
+          <span aria-hidden="true" style={{ position:'absolute', bottom:0, left:'10%', right:'10%', height:'2px', background:'linear-gradient(to right, transparent, oklch(0.88 0.260 130 / 0.60) 50%, transparent)' }} />
+          {/* Hover lime ring */}
+          <span aria-hidden="true" className="absolute inset-0 rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-200" style={{ boxShadow:'inset 0 0 0 1px oklch(0.88 0.26 130 / 0.22)', background:'oklch(0.88 0.26 130 / 0.045)' }} />
           <img
             src="/images/LOGO BUENO KUBBOX/Recurso 52.svg"
             alt="Kubbox"
-            className="relative block transition-transform duration-300 group-hover:scale-[1.04]"
+            className="relative block transition-transform duration-300 group-hover:scale-[1.03]"
             style={{ height: '2.2rem', width: 'auto' }}
           />
         </Link>
