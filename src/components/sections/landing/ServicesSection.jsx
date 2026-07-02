@@ -158,8 +158,8 @@ export default function ServicesSection() {
           <div className="svc-years">
             <span className="svc-years-line" />
             <span>
-              creatividad, experiencia técnica y una profunda comprensión de los
-              objetivos de negocio
+              creatividad, experiencia técnica y una profunda
+              <br /> comprensión de los objetivos de negocio
             </span>
           </div>
         </div>
@@ -171,7 +171,7 @@ export default function ServicesSection() {
           viewport={{ once: true, amount: 0.6 }}
           transition={{ duration: 0.6 }}
         >
-          CREAMOS <b>SOLUCIONES </b>QUE NO SOLO SE VEN <b>BIEN,</b>SINO QUE{" "}
+          CREAMOS <b>SOLUCIONES </b>QUE NO SOLO SE VEN <b>BIEN,</b> SINO QUE{" "}
           <b>PRODUCEN RESULTADOS</b>
         </motion.p>
 
@@ -449,12 +449,13 @@ export default function ServicesSection() {
         .svc-years {
           position: absolute;
           left: 0;
-          bottom: calc(clamp(0.25rem, 1.5vw, 1rem) - 60px);
+          bottom: clamp(0.25rem, 1.5vw, 1rem);
           display: flex;
           align-items: center;
           gap: 0.85rem;
           z-index: 3;
         }
+          
         .svc-years-line {
           height: clamp(2rem, 6vh, 4rem);
           width: 1px;
