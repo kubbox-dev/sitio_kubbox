@@ -14,67 +14,108 @@ const PERSON_IMG = "/images/HOME/WEB/Ruleta/senora.png";
 const SERVICES = [
   {
     id: "desarrollo",
-    title: "Desarrollo Digital",
-    tagline:
-      "Diseñamos experiencias digitales que conectan marcas con personas.",
-    body: "Creamos y gestionamos productos digitales centrados en el usuario: sitios web, e-commerce, plataformas interactivas, web apps y sistemas personalizados con enfoque en diseño, performance y analítica.",
-    icon: ICON("computador sin verde"),
+    title: "Diseño y Desarrollo de Sitios Web",
+    body: "Creamos sitios web modernos, rápidos, seguros y completamente personalizados para empresas que buscan fortalecer su presencia digital.",
+    prefix: "Desarrollamos:",
+    icon: ICON("Diseño y Desarrollo de Sitios Web"),
     bullets: [
-      "Sitios web corporativos y de marca",
-      "Plataformas a medida y web apps",
-      "Sistemas de registro, concursos y activaciones",
+      "Sitios web corporativos",
+      "Landing Pages de alta conversión",
+      "Portales empresariales",
+      "Tiendas virtuales",
     ],
   },
   {
     id: "marketing",
-    title: "Marketing Digital",
-    tagline: "Estrategias que ponen tu marca frente a la audiencia correcta.",
-    body: "Diseñamos y ejecutamos estrategias de comunicación que conectan con tu audiencia y generan resultados medibles, desde la creatividad hasta la pauta y la conversión.",
-    icon: ICON("redes sin vered"),
+    title: "Desarrollo de Aplicaciones Móviles",
+    body: "Diseñamos y desarrollamos aplicaciones móviles para iPhone y Android con experiencias intuitivas, alto desempeño y tecnologías de última generación.",
+    prefix: "Creamos aplicaciones para:",
+    icon: ICON("Desarrollo de Aplicaciones Móviles"),
     bullets: [
-      "Estrategia y gestión de redes sociales",
-      "Campañas de pauta digital (Meta, Google)",
-      "Email marketing y automatización",
-      "Contenido y copywriting estratégico",
+      "Empresas",
+      "Comercio electrónico",
+      "Logística",
+      "Gestión interna",
     ],
   },
   {
     id: "performance",
-    title: "Performance & Data",
-    tagline: "Decisiones guiadas por datos para crecer de forma rentable.",
-    body: "Medimos, analizamos y optimizamos cada punto del embudo para que cada peso invertido rinda más, con reportes claros y accionables.",
-    icon: ICON("escaleras sin verde"),
+    title: "Campañas Digitales para Activación de Ventas en Retail",
+    body: "Uno de nuestros mayores diferenciales es la creación de campañas digitales enfocadas en generar tráfico hacia puntos de venta físicos.",
+    prefix: "Creamos campañas para:",
+    icon: ICON("Campañas Digitales para Activaciónde Ventas en Retail"),
     bullets: [
-      "Analítica web y reportes de ROI",
-      "Optimización de conversiones (CRO)",
-      "Auditorías y diagnósticos digitales",
-      "Reportes claros y accionables",
+      "Retail",
+      "Cadenas comerciales",
+      "Centros comerciales",
+      "Marcas de consumo masivo",
     ],
   },
   {
     id: "seo",
-    title: "SEO & Posicionamiento",
-    tagline: "Que te encuentren justo cuando te están buscando.",
-    body: "Trabajamos el posicionamiento orgánico de tu marca para que aparezcas en los primeros resultados y atraigas tráfico de calidad de forma sostenible.",
-    icon: ICON("lupa sin verde"),
+    title: "Google Ads y Meta Ads",
+    body: "Diseñamos campañas publicitarias enfocadas en resultados. Nuestro equipo optimiza permanentemente cada inversión para obtener el mayor retorno posible.",
+    prefix: "Gestionamos campañas en:",
+    icon: ICON("Google Ads y Meta Ads"),
     bullets: [
-      "SEO técnico y de contenidos",
-      "Investigación de palabras clave",
-      "Posicionamiento en Google",
-      "Optimización on-page y off-page",
+      "Meta Ads (Facebook e Instagram)",
+      "Google Search",
+      "Generación de leads",
+      "Retorno sobre la inversión (ROI)",
     ],
   },
   {
     id: "ia",
-    title: "IA & Automatización",
-    tagline: "Inteligencia artificial al servicio de tus resultados.",
-    body: "Integramos inteligencia artificial y automatización para acelerar procesos, personalizar experiencias y liberar tiempo de tu equipo.",
-    icon: ICON("bombillo sin verde"),
+    title: "Posicionamiento SEO",
+    body: "Ayudamos a que las empresas aparezcan cuando sus clientes buscan sus productos o servicios en Google.",
+    prefix: "Nuestros servicios incluyen:",
+    icon: ICON("Posicionamiento SEO"),
     bullets: [
-      "Flujos automatizados con IA",
-      "Chatbots y asistentes digitales",
-      "Generación de contenido asistida",
-      "Integraciones y herramientas custom",
+      "Auditoría SEO",
+      "SEO técnico",
+      "Optimización de velocidad",
+      "SEO local",
+      "Monitoreo de resultados",
+    ],
+  },
+  {
+    id: "whatsapp",
+    title: "Automatización y Campañas por WhatsApp",
+    body: "WhatsApp se ha convertido en uno de los canales comerciales más efectivos para las empresas.",
+    prefix: "Facilitamos procesos comerciales mediante:",
+    icon: ICON("Automatización y Campañas por WhatsApp"),
+    bullets: [
+      "Campañas masivas",
+      "Integración con CRM",
+      "Optimización de velocidad",
+      "Atención al cliente",
+      "Notificaciones automáticas",
+    ],
+  },
+  {
+    id: "hosting",
+    title: "Hosting Empresarial y Dominios",
+    body: "Ofrecemos infraestructura tecnológica confiable para alojar sitios web y aplicaciones empresariales, asegurando alta disponibilidad, seguridad y soporte continuo para tu negocio.",
+    prefix: "Nuestros servicios incluyen:",
+    icon: ICON("Hosting Empresarial y Registro de Dominios"),
+    bullets: [
+      "Hosting de alto rendimiento",
+      "Copias de seguridad",
+      "Monitoreo",
+      "Soporte técnico",
+    ],
+  },
+  {
+    id: "marca",
+    title: "Creación y Desarrollo de Marca",
+    body: "Una marca va mucho más allá de un logotipo. Es la manera en que una empresa se presenta al mundo, comunica su esencia y construye relaciones duraderas con sus clientes.",
+    prefix: "Garantizamos identidad y comunicación, incluyendo:",
+    icon: ICON("Creación y Desarrollo de Marca"),
+    bullets: [
+      "Diseño de logotipo",
+      "Sistema de identidad visual",
+      "Manual de identidad de marca",
+      "Lineamientos para el uso correcto de la marca",
     ],
   },
 ];
@@ -196,14 +237,17 @@ export default function ServicesSection() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -8 }}
                 transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+                style={{ minHeight: "410px" }} // ← Agregar aquí
               >
                 <span className="svc-card-kicker">
                   {String(active + 1).padStart(2, "0")} /{" "}
                   {String(N).padStart(2, "0")}
                 </span>
                 <h3 className="svc-card-title-new">{service.title}</h3>
-                <p className="svc-card-tagline-new">{service.tagline}</p>
                 <p className="svc-card-body-new">{service.body}</p>
+                {service.prefix && (
+                  <p className="svc-card-prefix-new">{service.prefix}</p>
+                )}
                 <motion.ul
                   className="svc-card-bullets-new"
                   initial="hidden"
@@ -500,6 +544,7 @@ export default function ServicesSection() {
           gap: clamp(1.5rem, 4vw, 3.5rem);
           padding: clamp(1.75rem, 4vw, 3.25rem);
           overflow: hidden;
+          min-height: 700px;
         }
 
         /* Columna izquierda - texto */
@@ -531,24 +576,23 @@ export default function ServicesSection() {
           margin: 0 0 0.6rem;
         }
 
-        .svc-card-tagline-new {
+        .svc-card-body-new {
+        font-family: var(--font-body);
+        font-size: clamp(0.85rem, 1vw, 0.95rem);
+        color: var(--c-ink); /* ← Cambio aquí */
+        line-height: 1.6;
+        margin: 0 0 1rem;
+        max-width: 44ch;
+      }
+
+        .svc-card-prefix-new {
           font-family: var(--font-body);
           font-style: italic;
           font-weight: 600;
           font-size: clamp(0.9rem, 1.3vw, 1.05rem);
           color: var(--c-lime);
           opacity: 0.85;
-          margin: 0 0 1rem;
-          max-width: 38ch;
-        }
-
-        .svc-card-body-new {
-          font-family: var(--font-body);
-          font-size: clamp(0.85rem, 1vw, 0.95rem);
-          color: var(--c-muted);
-          line-height: 1.6;
-          margin: 0 0 1.25rem;
-          max-width: 44ch;
+          margin: 0 0 0.75rem;
         }
 
         .svc-card-bullets-new {
@@ -575,7 +619,7 @@ export default function ServicesSection() {
         .svc-card-bullets-new span {
           font-family: var(--font-body);
           font-size: clamp(0.82rem, 1vw, 0.92rem);
-          color: oklch(0.82 0.010 260);
+          color: var(--c-ink);
           line-height: 1.45;
         }
 
