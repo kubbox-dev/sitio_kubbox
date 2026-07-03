@@ -24,10 +24,10 @@ export default function HeroSection() {
         minHeight: '100svh',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
         textAlign: 'center',
-        paddingTop: '5rem',
+        paddingTop: 'clamp(5.5rem, 18svh, 10rem)',
         paddingBottom: '5rem',
         paddingInline: 'clamp(1rem, 4vw, 3rem)',
       }}
