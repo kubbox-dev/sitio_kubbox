@@ -155,12 +155,12 @@ export default function HeroSection() {
               fontFamily: 'var(--font-display)',
               fontWeight: 900,
               fontStyle: 'italic',
-              fontSize: 'clamp(1rem, 2.8vw, 2.1rem)',
-              lineHeight: 1.1,
-              letterSpacing: '-0.01em',
+              fontSize: 'clamp(1.5rem, 4vw, 3.2rem)',
+              lineHeight: 1.0,
+              letterSpacing: '-0.02em',
               textTransform: 'uppercase',
               WebkitTextFillColor: 'transparent',
-              WebkitTextStroke: '1.5px oklch(0.98 0 0 / 0.55)',
+              WebkitTextStroke: '2px oklch(0.98 0 0 / 0.55)',
             }}
           >
             QUE GENERAN
