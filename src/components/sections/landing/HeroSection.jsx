@@ -145,7 +145,7 @@ export default function HeroSection() {
           </motion.div>
         </div>
 
-        {/* QUE GENERAN — sólido blanco */}
+        {/* QUE GENERAN — hollow blanco estilo "PROYECTOS" */}
         <div style={{ overflow: 'hidden' }}>
           <motion.div
             variants={lineReveal(0.22)}
@@ -155,11 +155,12 @@ export default function HeroSection() {
               fontFamily: 'var(--font-display)',
               fontWeight: 900,
               fontStyle: 'italic',
-              fontSize: 'clamp(1.4rem, 5vw, 4rem)',
-              lineHeight: 0.92,
-              letterSpacing: '-0.025em',
+              fontSize: 'clamp(1rem, 2.8vw, 2.1rem)',
+              lineHeight: 1.1,
+              letterSpacing: '-0.01em',
               textTransform: 'uppercase',
-              color: 'var(--c-ink)',
+              WebkitTextFillColor: 'transparent',
+              WebkitTextStroke: '1.5px oklch(0.98 0 0 / 0.55)',
             }}
           >
             QUE GENERAN
