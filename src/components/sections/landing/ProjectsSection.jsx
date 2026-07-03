@@ -1,72 +1,86 @@
-import { useState, useCallback } from 'react'
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
-import { Link } from 'react-router-dom'
-import { ArrowUpRight, ChevronUp, ChevronDown } from 'lucide-react'
-import GlowOrb from '../../ui/GlowOrb'
-import { useScrollAnimation, fadeUp, staggerContainer } from '../../../hooks/useScrollAnimation'
+import { useState, useCallback } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { ArrowUpRight, ChevronUp, ChevronDown } from "lucide-react";
+import GlowOrb from "../../ui/GlowOrb";
+import {
+  useScrollAnimation,
+  fadeUp,
+  staggerContainer,
+} from "../../../hooks/useScrollAnimation";
 
-const MotionLink = motion(Link)
+const MotionLink = motion(Link);
 
 const PROJECTS = [
   {
-    number: '01',
-    slug: 'kelloggs',
+    number: "01",
+    slug: "kelloggs",
     title: "Kellogg's",
-    subtitle: 'Códigos secretos',
-    category: 'Campaña Digital · Centroamérica',
-    description: 'Desarrollamos una campaña retail con presencia en Costa Rica, Guatemala y El Salvador, diseñada para revolucionar la categoría y aumentar el engagement en el punto de venta.',
-    tags: ['Estrategia', 'Pauta Digital', 'Contenido'],
-    imgBg: 'linear-gradient(135deg, oklch(0.55 0.18 30), oklch(0.35 0.12 20))',
-    logo: '/images/NUESTROS PROYECTOS/WEB/Logos/Kelloggs logo.svg',
+    subtitle: "Códigos secretos",
+    category: "Campaña Digital · Centroamérica",
+    description:
+      "Desarrollamos una campaña retail con presencia en Costa Rica, Guatemala y El Salvador, diseñada para revolucionar la categoría y aumentar el engagement en el punto de venta.",
+    tags: ["Estrategia", "Pauta Digital", "Contenido"],
+    imgBg: "linear-gradient(135deg, oklch(0.55 0.18 30), oklch(0.35 0.12 20))",
+    logo: "/images/NUESTROS PROYECTOS/WEB/Logos/Kelloggs logo.svg",
   },
   {
-    number: '02',
-    slug: 'pollocao',
-    title: 'Pollocao',
-    subtitle: 'Identidad Visual',
-    category: 'Identidad de Marca · Colombia',
-    description: 'Rediseño completo de identidad visual y estrategia digital para conectar con nuevas generaciones de consumidores colombianos, aumentando el reconocimiento de marca en un 40%.',
-    tags: ['Branding', 'Redes Sociales', 'Web Design'],
-    imgBg: 'linear-gradient(135deg, oklch(0.50 0.16 145), oklch(0.30 0.10 155))',
-    logo: '/images/HOME/WEB/Logos/pollocoa logo.svg',
+    number: "02",
+    slug: "pollocao",
+    title: "Pollocao",
+    subtitle: "Identidad Visual",
+    category: "Identidad de Marca · Colombia",
+    description:
+      "Rediseño completo de identidad visual y estrategia digital para conectar con nuevas generaciones de consumidores colombianos, aumentando el reconocimiento de marca en un 40%.",
+    tags: ["Branding", "Redes Sociales", "Web Design"],
+    imgBg:
+      "linear-gradient(135deg, oklch(0.50 0.16 145), oklch(0.30 0.10 155))",
+    logo: "/images/HOME/WEB/Logos/pollocoa logo.svg",
   },
   {
-    number: '03',
-    slug: 'frixo',
-    title: 'F-rixo',
-    subtitle: 'E-commerce',
-    category: 'Desarrollo Web · E-commerce',
-    description: 'Sitio web e-commerce de alto rendimiento con integración de pagos, sistema de inventario y experiencia de usuario optimizada que triplicó las ventas online en el primer trimestre.',
-    tags: ['E-commerce', 'UI/UX', 'SEO'],
-    imgBg: 'linear-gradient(135deg, oklch(0.45 0.15 270), oklch(0.28 0.12 255))',
-    logo: '/images/HOME/WEB/Logos/frixo logo.svg',
+    number: "03",
+    slug: "frixo",
+    title: "F-rixo",
+    subtitle: "E-commerce",
+    category: "Desarrollo Web · E-commerce",
+    description:
+      "Sitio web e-commerce de alto rendimiento con integración de pagos, sistema de inventario y experiencia de usuario optimizada que triplicó las ventas online en el primer trimestre.",
+    tags: ["E-commerce", "UI/UX", "SEO"],
+    imgBg:
+      "linear-gradient(135deg, oklch(0.45 0.15 270), oklch(0.28 0.12 255))",
+    logo: "/images/HOME/WEB/Logos/frixo logo.svg",
   },
   {
-    number: '04',
-    slug: 'cam',
-    title: 'CAM',
-    subtitle: 'Performance Marketing',
-    category: 'Performance Marketing',
-    description: 'Campaña de performance marketing que duplicó el ROI en menos de tres meses a través de segmentación estratégica, A/B testing y optimización continua de creativos.',
-    tags: ['Meta Ads', 'Google Ads', 'Analytics'],
-    imgBg: 'linear-gradient(135deg, oklch(0.42 0.14 200), oklch(0.25 0.10 210))',
-    logo: '/images/HOME/WEB/Logos/centro automotriz logo.svg',
+    number: "04",
+    slug: "cam",
+    title: "CAM",
+    subtitle: "Performance Marketing",
+    category: "Performance Marketing",
+    description:
+      "Campaña de performance marketing que duplicó el ROI en menos de tres meses a través de segmentación estratégica, A/B testing y optimización continua de creativos.",
+    tags: ["Meta Ads", "Google Ads", "Analytics"],
+    imgBg:
+      "linear-gradient(135deg, oklch(0.42 0.14 200), oklch(0.25 0.10 210))",
+    logo: "/images/HOME/WEB/Logos/centro automotriz logo.svg",
   },
-]
+];
 
-const DUR = 0.75
-const EASE = [0.76, 0, 0.24, 1]
+const DUR = 0.75;
+const EASE = [0.76, 0, 0.24, 1];
 
 export default function ProjectsSection() {
-  const [[idx, dir], setPage] = useState([0, 1])
-  const { ref: headRef, controls: headControls } = useScrollAnimation()
-  const reduce = useReducedMotion()
-  const project = PROJECTS[idx]
+  const [[idx, dir], setPage] = useState([0, 1]);
+  const { ref: headRef, controls: headControls } = useScrollAnimation();
+  const reduce = useReducedMotion();
+  const project = PROJECTS[idx];
 
   const paginate = useCallback((newDir) => {
-    setPage(([prev]) => [((prev + newDir) + PROJECTS.length) % PROJECTS.length, newDir])
-  }, [])
-  const goTo = (i) => setPage([i, i >= idx ? 1 : -1])
+    setPage(([prev]) => [
+      (prev + newDir + PROJECTS.length) % PROJECTS.length,
+      newDir,
+    ]);
+  }, []);
+  const goTo = (i) => setPage([i, i >= idx ? 1 : -1]);
 
   const imgV = reduce
     ? {
@@ -76,32 +90,63 @@ export default function ProjectsSection() {
       }
     : {
         enter: (d) => ({ rotateX: d > 0 ? 90 : -90, opacity: 0 }),
-        center: { rotateX: 0, opacity: 1, transition: { duration: DUR, ease: EASE } },
-        exit: (d) => ({ rotateX: d > 0 ? -90 : 90, opacity: 0, transition: { duration: DUR, ease: EASE } }),
-      }
+        center: {
+          rotateX: 0,
+          opacity: 1,
+          transition: { duration: DUR, ease: EASE },
+        },
+        exit: (d) => ({
+          rotateX: d > 0 ? -90 : 90,
+          opacity: 0,
+          transition: { duration: DUR, ease: EASE },
+        }),
+      };
 
   const infoV = reduce
     ? imgV
     : {
         enter: (d) => ({ rotateX: d > 0 ? -90 : 90, opacity: 0 }),
-        center: { rotateX: 0, opacity: 1, transition: { duration: DUR, ease: EASE } },
-        exit: (d) => ({ rotateX: d > 0 ? 90 : -90, opacity: 0, transition: { duration: DUR, ease: EASE } }),
-      }
+        center: {
+          rotateX: 0,
+          opacity: 1,
+          transition: { duration: DUR, ease: EASE },
+        },
+        exit: (d) => ({
+          rotateX: d > 0 ? 90 : -90,
+          opacity: 0,
+          transition: { duration: DUR, ease: EASE },
+        }),
+      };
 
   const contentStagger = {
     hidden: {},
-    show: { transition: { staggerChildren: 0.07, delayChildren: reduce ? 0 : 0.28 } },
-  }
+    show: {
+      transition: { staggerChildren: 0.07, delayChildren: reduce ? 0 : 0.28 },
+    },
+  };
   const contentItem = reduce
-    ? { hidden: { opacity: 0 }, show: { opacity: 1, transition: { duration: 0.3 } } }
+    ? {
+        hidden: { opacity: 0 },
+        show: { opacity: 1, transition: { duration: 0.3 } },
+      }
     : {
         hidden: { opacity: 0, y: 18 },
-        show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
-      }
+        show: {
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+        },
+      };
 
   return (
-    <section id="experiencia" style={{ position: 'relative', paddingBlock: 'clamp(3rem, 8vw, 6rem)', marginTop: '-1px' }}>
-
+    <section
+      id="experiencia"
+      style={{
+        position: "relative",
+        paddingBlock: "clamp(3rem, 8vw, 6rem)",
+        marginTop: "-1px",
+      }}
+    >
       <div className="proj-shell">
         {/* Heading / contador */}
         <div className="proj-head">
@@ -118,9 +163,14 @@ export default function ProjectsSection() {
                 {project.number}
               </motion.span>
             </AnimatePresence>
-            <span className="proj-counter-total">/ {String(PROJECTS.length).padStart(2, '0')}</span>
+            <span className="proj-counter-total">
+              / {String(PROJECTS.length).padStart(2, "0")}
+            </span>
           </div>
-          <p className="proj-head-label">Nuestros proyectos</p>
+          <p className="proj-head-label">
+            Más que una agencia digital. Somos un aliado estratégico para el
+            crecimiento de tu empresa en el mundo digital
+          </p>
         </div>
 
         {/* Card split */}
@@ -137,9 +187,13 @@ export default function ProjectsSection() {
                 exit="exit"
                 className="proj-anim-layer"
               >
-                <div className="proj-img-fill" style={{ background: project.imgBg }}>
-                  <img 
-                    src={project.logo} 
+                <div
+                  className="proj-img-fill"
+                  style={{ background: project.imgBg }}
+                >
+                  y
+                  <img
+                    src={project.logo}
                     alt={project.title}
                     className="proj-logo"
                   />
@@ -150,7 +204,7 @@ export default function ProjectsSection() {
 
             {/* HUD esquinas */}
             <div aria-hidden="true" className="proj-hud">
-              {['tl', 'tr', 'bl', 'br'].map((pos) => (
+              {["tl", "tr", "bl", "br"].map((pos) => (
                 <span key={pos} className={`proj-corner proj-corner--${pos}`} />
               ))}
             </div>
@@ -177,7 +231,12 @@ export default function ProjectsSection() {
                   {project.number}
                 </div>
 
-                <motion.div variants={contentStagger} initial="hidden" animate="show" className="proj-content">
+                <motion.div
+                  variants={contentStagger}
+                  initial="hidden"
+                  animate="show"
+                  className="proj-content"
+                >
                   <motion.p variants={contentItem} className="proj-category">
                     <span className="proj-category-dash" />
                     {project.category}
@@ -203,9 +262,17 @@ export default function ProjectsSection() {
                     ))}
                   </motion.div>
 
-                  <MotionLink variants={contentItem} to={`/proyectos/${project.slug}`} className="proj-cta">
+                  <MotionLink
+                    variants={contentItem}
+                    to={`/proyectos/${project.slug}`}
+                    className="proj-cta"
+                  >
                     Ver proyecto
-                    <ArrowUpRight size={16} strokeWidth={2.5} className="proj-cta-arrow" />
+                    <ArrowUpRight
+                      size={16}
+                      strokeWidth={2.5}
+                      className="proj-cta-arrow"
+                    />
                   </MotionLink>
                 </motion.div>
               </motion.div>
@@ -220,14 +287,14 @@ export default function ProjectsSection() {
                   key={i}
                   onClick={() => goTo(i)}
                   aria-label={`Proyecto ${i + 1}`}
-                  className={`proj-dot ${i === idx ? 'is-active' : ''}`}
+                  className={`proj-dot ${i === idx ? "is-active" : ""}`}
                 />
               ))}
             </div>
             <div className="proj-nav">
               {[
-                { Icon: ChevronUp, d: -1, label: 'Proyecto anterior' },
-                { Icon: ChevronDown, d: 1, label: 'Proyecto siguiente' },
+                { Icon: ChevronUp, d: -1, label: "Proyecto anterior" },
+                { Icon: ChevronDown, d: 1, label: "Proyecto siguiente" },
               ].map(({ Icon, d, label }) => (
                 <motion.button
                   key={label}
@@ -604,5 +671,5 @@ export default function ProjectsSection() {
         }
       `}</style>
     </section>
-  )
+  );
 }
