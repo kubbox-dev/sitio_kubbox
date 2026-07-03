@@ -188,42 +188,24 @@ export default function HeroSection() {
           </motion.div>
         </div>
 
-        {/* CONOCE NUESTROS / PROYECTOS */}
-        <motion.div
+        {/* Tagline */}
+        <motion.p
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.65, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontWeight: 500,
+            fontSize: 'clamp(0.92rem, 1.7vw, 1.15rem)',
+            lineHeight: 1.55,
+            letterSpacing: '0.005em',
+            color: 'oklch(0.72 0.014 260)',
+            maxWidth: '38ch',
+            marginInline: 'auto',
+          }}
         >
-          <a href="#experiencia" style={{ display: 'inline-block', textDecoration: 'none', cursor: 'pointer' }}>
-            <span style={{
-              fontFamily: 'var(--font-display)',
-              fontWeight: 900,
-              fontStyle: 'italic',
-              fontSize: 'clamp(1rem, 2.8vw, 2.1rem)',
-              letterSpacing: '-0.01em',
-              textTransform: 'uppercase',
-              color: 'var(--c-ink)',
-              lineHeight: 1.1,
-              display: 'block',
-            }}>
-              CONOCE NUESTROS
-            </span>
-            <span style={{
-              fontFamily: 'var(--font-display)',
-              fontWeight: 900,
-              fontStyle: 'italic',
-              fontSize: 'clamp(1rem, 2.8vw, 2.1rem)',
-              letterSpacing: '-0.01em',
-              textTransform: 'uppercase',
-              WebkitTextFillColor: 'transparent',
-              WebkitTextStroke: '1.5px oklch(0.98 0 0 / 0.55)',
-              lineHeight: 1.1,
-              display: 'block',
-            }}>
-              PROYECTOS
-            </span>
-          </a>
-        </motion.div>
+          Más que una agencia digital. Somos un aliado estratégico para el crecimiento de tu empresa en el mundo digital.
+        </motion.p>
       </div>
 
       {/* Scroll indicator */}
