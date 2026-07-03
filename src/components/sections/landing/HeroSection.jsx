@@ -102,7 +102,7 @@ export default function HeroSection() {
 {/* ── Contenido ───────────────────────────────────────────────── */}
       <div style={{ position: 'relative', zIndex: 2, width: '100%', maxWidth: '1200px' }}>
 
-        {/* TU MARCA EN */}
+        {/* TRANSFORMAMOS IDEAS EN */}
         <div style={{ overflow: 'hidden' }}>
           <motion.h1
             variants={lineReveal(0)}
@@ -112,7 +112,7 @@ export default function HeroSection() {
               fontFamily: 'var(--font-display)',
               fontWeight: 900,
               fontStyle: 'italic',
-              fontSize: 'clamp(2.5rem, 9vw, 7.5rem)',
+              fontSize: 'clamp(1.4rem, 4.8vw, 3.8rem)',
               lineHeight: 0.92,
               letterSpacing: '-0.025em',
               textTransform: 'uppercase',
@@ -120,49 +120,70 @@ export default function HeroSection() {
               margin: 0,
             }}
           >
-            TU MARCA EN
+            TRANSFORMAMOS IDEAS EN
           </motion.h1>
         </div>
 
-        {/* EL MUNDO — hollow outline */}
+        {/* SOLUCIONES DIGITALES — hollow outline */}
         <div style={{ overflow: 'hidden' }}>
           <motion.div
-            variants={lineReveal(0.14)}
+            variants={lineReveal(0.12)}
             initial="hidden"
             animate="visible"
             style={{
               fontFamily: 'var(--font-display)',
               fontWeight: 900,
               fontStyle: 'italic',
-              fontSize: 'clamp(3rem, 14vw, 11rem)',
+              fontSize: 'clamp(1.8rem, 6.8vw, 5.4rem)',
               lineHeight: 0.88,
               letterSpacing: '-0.03em',
               textTransform: 'uppercase',
               ...NEON_STYLE,
             }}
           >
-            EL MUNDO
+            SOLUCIONES DIGITALES
           </motion.div>
         </div>
 
-        {/* DIGITAL — hollow outline */}
-        <div style={{ overflow: 'hidden', marginBottom: 'clamp(2rem, 5vw, 4rem)' }}>
+        {/* QUE GENERAN — sólido blanco */}
+        <div style={{ overflow: 'hidden' }}>
           <motion.div
-            variants={lineReveal(0.26)}
+            variants={lineReveal(0.22)}
             initial="hidden"
             animate="visible"
             style={{
               fontFamily: 'var(--font-display)',
               fontWeight: 900,
               fontStyle: 'italic',
-              fontSize: 'clamp(3.5rem, 16vw, 13.5rem)',
+              fontSize: 'clamp(1.4rem, 5vw, 4rem)',
+              lineHeight: 0.92,
+              letterSpacing: '-0.025em',
+              textTransform: 'uppercase',
+              color: 'var(--c-ink)',
+            }}
+          >
+            QUE GENERAN
+          </motion.div>
+        </div>
+
+        {/* RESULTADOS — hollow outline, remate grande */}
+        <div style={{ overflow: 'hidden', marginBottom: 'clamp(2rem, 5vw, 4rem)' }}>
+          <motion.div
+            variants={lineReveal(0.32)}
+            initial="hidden"
+            animate="visible"
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontWeight: 900,
+              fontStyle: 'italic',
+              fontSize: 'clamp(2.8rem, 11vw, 8.5rem)',
               lineHeight: 0.88,
               letterSpacing: '-0.03em',
               textTransform: 'uppercase',
               ...NEON_STYLE,
             }}
           >
-            DIGITAL
+            RESULTADOS
           </motion.div>
         </div>
 
