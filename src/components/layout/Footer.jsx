@@ -6,10 +6,6 @@ const SECTIONS = [
     links: [
       { name: "Desarrollo Digital", href: "/servicios/desarrollo-digital" },
       { name: "Nuestros Proyectos", href: "/proyectos" },
-      { name: "Posicionamiento SEO", href: "/servicios/seo" },
-      { name: "Diseño de Marca", href: "/servicios/diseno-marca" },
-      { name: "Redes Sociales", href: "/servicios/redes-sociales" },
-      { name: "E-commerce", href: "/servicios/ecommerce" },
     ],
   },
   {
