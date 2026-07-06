@@ -1,9 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Barlow:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Barlow:wght@400;500;600&display=swap");
 @import "tailwindcss";
 @import "./styles/tokens.css";
 
 @layer base {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -11,7 +13,9 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  * { cursor: none !important; }
+  * {
+    cursor: none !important;
+  }
 }
 
 html {
@@ -24,7 +28,7 @@ body {
   overflow-x: hidden; /* previene scroll horizontal si algún glow sangra lateralmente */
   font-family: var(--font-body);
   background-color: var(--c-bg);
-  background-image: url('/images/HOME/WEB/Fondo/FONDOAZUL.png');
+  background-image: url("/images/HOME/WEB/Fondo/FONDOAZUL.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center top;
@@ -35,12 +39,115 @@ body {
 }
 
 @media (max-width: 768px) {
-  body { background-attachment: scroll; }
+  body {
+    background-attachment: scroll;
+  }
 }
 
 #root {
   min-height: 100vh;
   isolation: isolate;
+}
+
+.nosotros-team-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.nosotros-shuffle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.nosotros-shuffle-wrapper {
+  min-height: 24rem;
+}
+
+/* ── Trajectory Section styles ───────────────── */
+.trajectory-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.trajectory-box {
+  background: linear-gradient(
+    180deg,
+    rgba(10, 20, 30, 0.55),
+    rgba(8, 16, 24, 0.55)
+  );
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+}
+
+.trajectory-item {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.trajectory-item:last-child {
+  border-bottom: none;
+}
+
+.trajectory-icon {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 999px;
+  background: var(--c-lime);
+  display: block;
+  overflow: hidden;
+}
+
+.trajectory-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.trajectory-text {
+  font-family: var(--font-body);
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 600;
+  font-size: 0.98rem;
+}
+
+@media (max-width: 900px) {
+  .trajectory-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .nosotros-team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nosotros-shuffle-wrapper {
+    min-height: auto;
+  }
+
+  .nosotros-shuffle-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .nosotros-shuffle-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .nosotros-shuffle-wrapper {
+    min-height: 0;
+  }
 }
 
 /* ── Utility: container ───────────────────────── */
@@ -56,20 +163,32 @@ body {
 }
 
 /* ── Responsive nav helpers ───────────────────── */
-.hidden-mobile { display: flex; }
-.show-mobile   { display: none; }
+.hidden-mobile {
+  display: flex;
+}
+.show-mobile {
+  display: none;
+}
 
 @media (max-width: 700px) {
-  .hidden-mobile { display: none !important; }
-  .show-mobile   { display: flex !important; }
+  .hidden-mobile {
+    display: none !important;
+  }
+  .show-mobile {
+    display: flex !important;
+  }
 }
 
 /* ── Scrollbar hide for drag-scroll tracks ────── */
-.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
 
 /* ── Reduced motion: kill all transforms/opacity animations */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
