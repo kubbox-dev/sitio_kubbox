@@ -131,12 +131,18 @@ const demoIcons = [
 
 export default function ToolsSolutionSection() {
   return (
-    <div className="relative mt-20 shadow-[0_60px_100px_rgba(0,0,0,0.88),0_-60px_100px_rgba(0,0,0,0.88)]">
-      <div className="absolute inset-x-0 top-0 h-1 bg-black/90 pointer-events-none" />
-      <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-black/95 to-transparent pointer-events-none" />
-      <div className="absolute inset-x-0 bottom-0 h-1 bg-black/90 pointer-events-none" />
-      <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/95 to-transparent pointer-events-none" />
+    <div
+      className="relative"
+      style={{
+        background: "var(--c-bg)",
+        boxShadow:
+          "0 80px 120px rgba(0,0,0,0.95), 0 -80px 120px rgba(0,0,0,0.95)",
+      }}
+    >
       <FloatingIconsHero
+        disableFade
+        disableBg
+        className="overflow-visible"
         title={
           <>
             <div className="text-white uppercase">
@@ -172,6 +178,36 @@ export default function ToolsSolutionSection() {
           </>
         }
         icons={demoIcons}
+      />
+
+      {/* Fade superior con máscara para cubrir puntas */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: "-40px",
+          right: "-40px",
+          height: "clamp(4rem, 12vw, 8rem)",
+          background: "linear-gradient(to bottom, var(--c-bg), transparent)",
+          pointerEvents: "none",
+          zIndex: 20,
+          width: "calc(100% + 80px)",
+        }}
+      />
+
+      {/* Fade inferior con máscara para cubrir puntas */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: "-40px",
+          right: "-40px",
+          height: "clamp(4rem, 12vw, 8rem)",
+          background: "linear-gradient(to top, var(--c-bg), transparent)",
+          pointerEvents: "none",
+          zIndex: 20,
+          width: "calc(100% + 80px)",
+        }}
       />
     </div>
   );

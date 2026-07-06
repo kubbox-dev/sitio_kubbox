@@ -47,7 +47,7 @@ const Icon = ({ mouseX, mouseY, iconData, index }) => {
       className={cn("absolute", iconData.className)}
     >
       <motion.div
-        className="flex items-center justify-center w-12 h-12 md:w-20 md:h-20 p-1 md:p-3 rounded-3xl shadow-xl bg-card/80 backdrop-blur-md border border-border/10"
+        className="flex items-center justify-center w-12 h-12 md:w-20 md:h-20 p-1 md:p-3 rounded-3xl shadow-xl border-none bg-[#101010] backdrop-blur-md"
         animate={{
           y: [0, -8, 0, 8, 0],
           x: [0, 6, 0, -6, 0],
@@ -68,7 +68,17 @@ const Icon = ({ mouseX, mouseY, iconData, index }) => {
 
 const FloatingIconsHero = React.forwardRef(
   (
-    { className, title, subtitle, ctaText, ctaHref, icons = [], ...props },
+    {
+      className,
+      title,
+      subtitle,
+      ctaText,
+      ctaHref,
+      icons = [],
+      disableFade = false,
+      disableBg = false,
+      ...props
+    },
     ref,
   ) => {
     const mouseX = React.useRef(0);
@@ -83,14 +93,19 @@ const FloatingIconsHero = React.forwardRef(
         ref={ref}
         onMouseMove={handleMouseMove}
         className={cn(
-          "relative w-full flex items-center justify-center overflow-hidden bg-[#050708] py-24 md:py-32",
+          "relative w-full flex items-center justify-center overflow-hidden py-24 md:py-32",
+          !disableBg && "bg-[#050708]",
           className,
         )}
         {...props}
       >
-        <div className="absolute inset-0 bg-[#050708]" />
-        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/80 to-transparent pointer-events-none" />
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
+        {!disableBg && <div className="absolute inset-0 bg-[#050708]" />}
+        {!disableFade && (
+          <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/80 to-transparent pointer-events-none" />
+        )}
+        {!disableFade && (
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
+        )}
         <div className="absolute inset-0 w-full h-full">
           {icons.map((iconData, index) => (
             <Icon

@@ -1,4 +1,15 @@
+import React, { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+
 export default function TrajectorySection() {
+  const [yearCount, setYearCount] = useState(2008);
+  const [isVisible, setIsVisible] = useState(false);
+  const counterRef = useRef(null);
+  const targetYear = 2026;
+  const startYear = 2008;
+  const animationRef = useRef(null);
+  const timeoutRef = useRef(null);
+
   const left = [
     {
       id: 1,
@@ -55,6 +66,79 @@ export default function TrajectorySection() {
     },
   ];
 
+  const animateCounter = (from, to, duration, callback) => {
+    let startTime = null;
+
+    const step = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const currentValue = from + (to - from) * eased;
+      const rounded = Math.floor(currentValue);
+
+      if (rounded <= to) {
+        setYearCount(rounded);
+      }
+
+      if (progress < 1) {
+        animationRef.current = requestAnimationFrame(step);
+      } else {
+        setYearCount(to);
+        if (callback) callback();
+      }
+    };
+
+    animationRef.current = requestAnimationFrame(step);
+  };
+
+  const startLoop = () => {
+    // Subir de 2008 a 2026 en 3 segundos
+    animateCounter(startYear, targetYear, 3000, () => {
+      // Esperar 1 segundo en 2026
+      timeoutRef.current = setTimeout(() => {
+        // Bajar a 2008 en 0.5 segundos (cambio rápido)
+        animateCounter(targetYear, startYear, 500, () => {
+          // Esperar 4 segundos en 2008
+          timeoutRef.current = setTimeout(() => {
+            startLoop(); // Repetir
+          }, 4000);
+        });
+      }, 1000);
+    });
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.3 },
+    );
+
+    if (counterRef.current) {
+      observer.observe(counterRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (isVisible) {
+      startLoop();
+    }
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [isVisible]);
+
   return (
     <section
       id="trajectory"
@@ -67,19 +151,39 @@ export default function TrajectorySection() {
           paddingInline: "var(--container-pad)",
         }}
       >
-        <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-          <h2
+        <div
+          ref={counterRef}
+          style={{ textAlign: "center", marginBottom: "2rem" }}
+        >
+          <motion.h2
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={isVisible ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.6 }}
             style={{
               fontFamily: "var(--font-display)",
               fontWeight: 900,
-              fontSize: "clamp(2rem,4.5vw,3rem)",
+              fontSize: "clamp(3rem,8vw,6rem)",
               textTransform: "uppercase",
               color: "var(--c-lime)",
               margin: 0,
+              lineHeight: 1,
+            }}
+          >
+            {yearCount}
+          </motion.h2>
+          <p
+            style={{
+              marginTop: "0.25rem",
+              fontFamily: "var(--font-display)",
+              fontWeight: 700,
+              fontSize: "clamp(1rem,1.8vw,1.4rem)",
+              color: "rgba(255,255,255,0.6)",
+              textTransform: "uppercase",
+              letterSpacing: "0.15em",
             }}
           >
             DESDE 2008
-          </h2>
+          </p>
           <p
             style={{
               marginTop: "0.75rem",
