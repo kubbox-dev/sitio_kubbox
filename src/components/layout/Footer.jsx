@@ -6,20 +6,30 @@ const SECTIONS = [
     links: [
       { name: "Desarrollo Digital", href: "/servicios/desarrollo-digital" },
       { name: "Nuestros Proyectos", href: "/proyectos" },
+      { name: "Posicionamiento SEO", href: "/servicios/seo" },
+      { name: "Diseño de Marca", href: "/servicios/diseno-marca" },
+      { name: "Redes Sociales", href: "/servicios/redes-sociales" },
+      { name: "E-commerce", href: "/servicios/ecommerce" },
     ],
   },
   {
     title: "Empresa",
     links: [
+      { name: "Nosotros", href: "/nosotros" },
       { name: "Experiencia", href: "/" },
-      { name: "Blog", href: "#" },
+      { name: "Blog", href: "/blog" },
+      { name: "Clientes", href: "/clientes" },
     ],
   },
   {
     title: "Contacto",
     links: [
-      { name: "sellerup@kubbox.com", href: "/privacidad" },
-      { name: "3104255766", href: "/terminos" },
+      { name: "sellerup@kubbox.com", href: "mailto:sellerup@kubbox.com" },
+      { name: "3104255766", href: "tel:3104255766" },
+      {
+        name: "Cra 48 # 25B Sur 12, Oficina 202, Envigado – Antioquia",
+        href: "https://maps.google.com/?q=Cra+48+%23+25B+Sur+12+Envigado+Antioquia",
+      },
     ],
   },
 ];
@@ -44,14 +54,14 @@ export default function Footer() {
       />
 
       <div className="mx-auto w-[80%] px-[var(--container-pad)] py-32">
-        <div className="flex w-full flex-col justify-between gap-10 lg:flex-row lg:items-center lg:text-left">
+        <div className="flex w-full flex-col justify-between gap-10 lg:flex-row lg:items-start lg:text-left">
           {/* Left: logo + tagline + social */}
           <div className="flex w-full flex-col justify-between gap-6 lg:items-start lg:max-w-[35%]">
             <Link to="/" className="block no-underline">
               <img
                 src="/images/LOGO BUENO KUBBOX/Recurso 52.svg"
                 alt="Kubbox"
-                style={{ height: "3.2rem", width: "auto", display: "block" }}
+                style={{ height: "4rem", width: "auto", display: "block" }}
               />
             </Link>
             <p
@@ -88,7 +98,7 @@ export default function Footer() {
                         "oklch(0.22 0.020 260)";
                     }}
                   >
-                    <Icon size={16} />
+                    <Icon size={24} />
                   </a>
                 </li>
               ))}
@@ -96,7 +106,7 @@ export default function Footer() {
           </div>
 
           {/* Right: link sections - alineado perfectamente con el logo */}
-          <div className="grid w-full gap-6 md:grid-cols-3 lg:max-w-[55%] lg:gap-16">
+          <div className="grid w-full gap-6 md:grid-cols-3 lg:max-w-[55%] lg:gap-16 lg:pt-4">
             {SECTIONS.map((section, sectionIdx) => (
               <div key={sectionIdx}>
                 <h3
@@ -107,6 +117,7 @@ export default function Footer() {
                     marginTop: 0,
                     paddingTop: 0,
                     lineHeight: 1.2,
+                    fontSize: "1.1rem",
                   }}
                 >
                   {section.title}
