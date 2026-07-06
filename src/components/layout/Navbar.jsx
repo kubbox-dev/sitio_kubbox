@@ -89,6 +89,20 @@ export default function Navbar() {
 
   return (
     <>
+      {/* Scrim: keeps tall headings from bleeding through the gap between the bare logo and the nav pill */}
+      <div
+        aria-hidden="true"
+        className="fixed inset-x-0 top-0 z-40 pointer-events-none"
+        style={{
+          height: '6.5rem',
+          background: 'linear-gradient(to bottom, oklch(0.06 0.018 260 / 0.62) 0%, oklch(0.06 0.018 260 / 0.30) 55%, transparent 100%)',
+          backdropFilter: 'blur(6px)',
+          WebkitBackdropFilter: 'blur(6px)',
+          maskImage: 'linear-gradient(to bottom, black 0%, black 55%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 55%, transparent 100%)',
+        }}
+      />
+
       {/* ══════════ DESKTOP standalone logo (md+) ══════════ */}
       <motion.div
         initial={{ y: -96, opacity: 0 }}

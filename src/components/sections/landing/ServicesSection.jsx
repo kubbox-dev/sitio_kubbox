@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ChevronRight, ArrowUpRight } from "lucide-react";
 import Button from "../../ui/Button";
@@ -134,13 +135,16 @@ const shortestDelta = (from, to) => {
 export default function ServicesSection() {
   const [turn, setTurn] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [interacted, setInteracted] = useState(false);
   const { ref: headRef, controls: headControls } = useScrollAnimation();
   const reduce = useReducedMotion();
+  const navigate = useNavigate();
 
   const active = ((turn % N) + N) % N;
   const service = SERVICES[active];
 
   const goTo = useCallback((j) => {
+    setInteracted(true);
     setTurn((t) => t + shortestDelta(((t % N) + N) % N, j));
   }, []);
   const advance = useCallback(() => setTurn((t) => t + 1), []);
@@ -149,10 +153,14 @@ export default function ServicesSection() {
   useEffect(() => {
     pausedRef.current = paused;
   }, [paused]);
+  const interactedRef = useRef(interacted);
+  useEffect(() => {
+    interactedRef.current = interacted;
+  }, [interacted]);
   useEffect(() => {
     if (reduce) return;
     const id = setInterval(() => {
-      if (!pausedRef.current) advance();
+      if (!pausedRef.current && !interactedRef.current) advance();
     }, AUTOPLAY_MS);
     return () => clearInterval(id);
   }, [reduce, advance]);
@@ -237,7 +245,7 @@ export default function ServicesSection() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -8 }}
                 transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-                style={{ minHeight: "410px" }} // ← Agregar aquí
+                style={{ minHeight: "210px" }} // ← Agregar aquí
               >
                 <span className="svc-card-kicker">
                   {String(active + 1).padStart(2, "0")} /{" "}
@@ -285,19 +293,16 @@ export default function ServicesSection() {
               </motion.div>
             </AnimatePresence>
 
-            {/* Tabs */}
-            <div className="svc-tabs-new">
-              {SERVICES.map((s, i) => (
-                <motion.button
-                  key={s.id}
-                  onClick={() => goTo(i)}
-                  whileHover={reduce ? undefined : { scale: 1.04 }}
-                  whileTap={reduce ? undefined : { scale: 0.97 }}
-                  className={`svc-tab-new ${i === active ? "is-active" : ""}`}
-                >
-                  {s.title}
-                </motion.button>
-              ))}
+            {/* Ver más */}
+            <div className="svc-more-link">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate("/servicios/desarrollo-digital")}
+              >
+                Ver todos los servicios
+                <ArrowUpRight size={16} />
+              </Button>
             </div>
           </motion.div>
 
@@ -371,6 +376,9 @@ export default function ServicesSection() {
                           <span className="wheel-icon-inner-new">
                             <img src={s.icon} alt="" draggable="false" />
                           </span>
+                          {!isActive && (
+                            <span className="wheel-icon-tooltip">{s.title}</span>
+                          )}
                         </motion.button>
                       </div>
                     </div>
@@ -630,36 +638,9 @@ export default function ServicesSection() {
           width: fit-content;
         }
 
-        .svc-tabs-new {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.5rem;
+        .svc-more-link {
           margin-top: auto;
           padding-top: 1.75rem;
-        }
-
-        .svc-tab-new {
-          background: var(--c-surface);
-          border: 1px solid oklch(0.28 0.022 260);
-          border-radius: 0.5rem;
-          padding: 0.4rem 0.75rem;
-          cursor: pointer;
-          color: var(--c-muted);
-          font-family: var(--font-body);
-          font-size: 0.74rem;
-          font-weight: 500;
-          transition: all 0.25s ease;
-        }
-
-        .svc-tab-new:hover {
-          border-color: oklch(0.45 0.08 140);
-          color: var(--c-ink);
-        }
-
-        .svc-tab-new.is-active {
-          background: oklch(0.88 0.22 130 / 0.12);
-          border-color: var(--c-lime);
-          color: var(--c-lime);
         }
 
         /* Columna derecha - Ruleta */
@@ -763,6 +744,7 @@ export default function ServicesSection() {
         }
 
         .wheel-icon-new {
+          position: relative;
           width: 100%;
           height: 100%;
           border: none;
@@ -812,6 +794,35 @@ export default function ServicesSection() {
 
         .wheel-icon-new:not(.is-active):hover .wheel-icon-inner-new img {
           opacity: 1;
+        }
+
+        .wheel-icon-tooltip {
+          position: absolute;
+          top: calc(100% + 0.5rem);
+          left: 50%;
+          transform: translateX(-50%) translateY(4px);
+          width: 7.5rem;
+          line-height: 1.25;
+          text-align: center;
+          font-family: var(--font-body);
+          font-size: 0.64rem;
+          font-weight: 600;
+          letter-spacing: 0.01em;
+          color: var(--c-ink);
+          background: oklch(0.10 0.026 260 / 0.97);
+          border: 1px solid oklch(0.28 0.022 260);
+          border-radius: 0.4rem;
+          padding: 0.35rem 0.5rem;
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.2s ease, transform 0.2s ease;
+          z-index: 20;
+        }
+
+        .wheel-icon-new:hover .wheel-icon-tooltip,
+        .wheel-icon-new:focus-visible .wheel-icon-tooltip {
+          opacity: 1;
+          transform: translateX(-50%) translateY(0);
         }
 
         .wheel-person-wrap-new {
