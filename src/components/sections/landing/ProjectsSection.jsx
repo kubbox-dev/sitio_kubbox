@@ -168,8 +168,9 @@ export default function ProjectsSection() {
             </span>
           </div>
           <p className="proj-head-label">
-            Más que una agencia digital. Somos un aliado estratégico para el
-            crecimiento de tu empresa en el mundo digital
+            <span className="proj-head-label-highlight">SINCE - 2008</span>{" "}
+            apoyando a marcas a crecer mediante tecnología, estrategia digital y
+            desarrollo de soluciones a la medida
           </p>
         </div>
 
@@ -352,6 +353,9 @@ export default function ProjectsSection() {
           letter-spacing: 0.16em;
           text-transform: uppercase;
           color: oklch(0.70 0.02 260);
+        }
+        .proj-head-label-highlight {
+          color: #a3e635;
         }
 
         .proj-card {
