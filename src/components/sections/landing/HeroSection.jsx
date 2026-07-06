@@ -225,7 +225,7 @@ export default function HeroSection() {
           </motion.div>
         </div>
 
-        {/* CONOCE NUESTROS / PROYECTOS */}
+        {/* Texto mejorado con más filas y palabras clave resaltadas */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -239,37 +239,45 @@ export default function HeroSection() {
               cursor: "pointer",
             }}
           >
-            <span
+            <div
               style={{
                 fontFamily: "var(--font-display)",
                 fontWeight: 900,
                 fontStyle: "italic",
-                fontSize: "clamp(1rem, 1.8vw, 2.1rem)",
+                fontSize: "clamp(0.85rem, 1.6vw, 1.8rem)",
                 letterSpacing: "-0.01em",
                 textTransform: "uppercase",
-                color: "var(--c-ink)",
-                lineHeight: 1.1,
-                display: "block",
+                lineHeight: 1.2,
               }}
             >
-              Más que una agencia digital. Somos un aliado estratégico
-            </span>
-            <span
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 900,
-                fontStyle: "italic",
-                fontSize: "clamp(1rem, 1.8vw, 2.1rem)",
-                letterSpacing: "-0.01em",
-                textTransform: "uppercase",
-                WebkitTextFillColor: "transparent",
-                WebkitTextStroke: "1.5px oklch(0.98 0 0 / 0.55)",
-                lineHeight: 1.1,
-                display: "block",
-              }}
-            >
-              para el crecimiento de tu empresa en el mundo digital
-            </span>
+              <span style={{ color: "var(--c-ink)", display: "block" }}>
+                Más que una{" "}
+                <span style={{ color: "#a3e635" }}>agencia digital</span>.
+              </span>
+              <span style={{ color: "var(--c-ink)", display: "block" }}>
+                Somos un{" "}
+                <span style={{ color: "#a3e635" }}>aliado estratégico</span>
+              </span>
+              <span
+                style={{
+                  WebkitTextFillColor: "transparent",
+                  WebkitTextStroke: "1.5px oklch(0.98 0 0 / 0.55)",
+                  display: "block",
+                }}
+              >
+                para el <span style={{ color: "#a3e635" }}>crecimiento</span> de
+                tu empresa
+              </span>
+              <span
+                style={{
+                  WebkitTextFillColor: "transparent",
+                  WebkitTextStroke: "1.5px oklch(0.98 0 0 / 0.55)",
+                  display: "block",
+                }}
+              >
+                en el <span style={{ color: "#a3e635" }}>mundo digital</span>
+              </span>
+            </div>
           </a>
         </motion.div>
       </div>
