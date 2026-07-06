@@ -300,7 +300,7 @@ export default function ServicesSection() {
                 size="sm"
                 onClick={() => navigate("/servicios/desarrollo-digital")}
               >
-                Ver todos los servicios
+                Ver más
                 <ArrowUpRight size={16} />
               </Button>
             </div>
