@@ -17,6 +17,11 @@ const SERVICES = [
     desc: "Descubre todos nuestros servicios",
   },
   {
+    label: "Desarrollo Digital",
+    href: "/servicios/desarrollo-digital",
+    desc: "Sitios web, e-commerce y apps a medida",
+  },
+  {
     label: "Nuestros Proyectos",
     href: "/proyectos",
     desc: "Casos de éxito y trabajos realizados",
