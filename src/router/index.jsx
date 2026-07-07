@@ -10,6 +10,7 @@ import {
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import { defaultSlug } from "../data/proyectos";
+import ServiciosPage from "../pages/servicios";
 
 const LandingPage = lazy(() => import("../pages/landing"));
 const ContactPage = lazy(() => import("../pages/contacto"));
@@ -72,9 +73,8 @@ export default function AppRouter() {
             path="/proyectos"
             element={<Navigate to={`/proyectos/${defaultSlug}`} replace />}
           />
-          {/* Agregar páginas futuras aquí:
-          <Route path="/servicios" element={<ServicesPage />} />
-          */}
+          {/* Agregar páginas futuras aquí: */}
+          <Route path="/servicios" element={<ServiciosPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>

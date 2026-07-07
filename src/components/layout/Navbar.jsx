@@ -5,16 +5,16 @@ import { Menu, X, ChevronDown } from "lucide-react";
 
 const NAV_LINKS = [
   { label: "Experiencia", href: "/", section: "experiencia" },
-  { label: "Servicios", href: null, section: "servicios", dropdown: true },
+  { label: "Servicios", href: "/servicios", section: "servicios" },
   { label: "Nosotros", href: "/nosotros", section: "nosotros" },
   { label: "Contacto", href: "/contacto", section: "contacto" },
 ];
 
 const SERVICES = [
   {
-    label: "Desarrollo Digital",
-    href: "/servicios/desarrollo-digital",
-    desc: "Sitios web, e-commerce y apps a medida",
+    label: "Servicios",
+    href: "/servicios",
+    desc: "Descubre todos nuestros servicios",
   },
   {
     label: "Nuestros Proyectos",

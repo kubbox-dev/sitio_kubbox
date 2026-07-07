@@ -1,0 +1,197 @@
+import { motion } from "framer-motion";
+import { ArrowDown } from "lucide-react";
+
+const BG_DARK = "oklch(0.06 0.018 260)";
+const transparent = "transparent";
+const lineReveal = (delay = 0) => ({
+  hidden: { y: "110%", opacity: 0, skewY: 1 },
+  visible: {
+    y: "0%",
+    opacity: 1,
+    skewY: 0,
+    transition: { delay, duration: 1.0, ease: [0.16, 1, 0.3, 1] },
+  },
+});
+
+const NEON_STYLE = {
+  color: "var(--c-lime)",
+  WebkitTextFillColor: transparent,
+  WebkitTextStroke: "2px var(--c-lime)",
+};
+
+export default function AboutUsHeroSection() {
+  return (
+    <section
+      id="nosotros"
+      style={{
+        position: "relative",
+        minHeight: "100svh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        textAlign: "center",
+        paddingTop: "clamp(12rem, 30svh, 22rem)",
+        paddingBottom: "5rem",
+        paddingInline: "clamp(1rem, 4vw, 3rem)",
+      }}
+    >
+      <style>{`
+        @media (max-width: 767px) {
+          .hero-bg-layers {
+            mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 75%) !important;
+            -webkit-mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 85%) !important;
+          }
+          #inicio {
+            min-height: 90svh !important;
+          }
+          .hero-title {
+            font-size: clamp(4rem, 13vw, 8.8rem) !important;
+            line-height: 1.02 !important;
+            text-align: center !important;
+            margin-inline: auto !important;
+          }
+          .hero-title-white {
+            font-size: clamp(4rem, 13vw, 8.8rem) !important;
+            margin-bottom: clamp(1.2rem, 4.5vw, 2rem) !important;
+            text-align: center !important;
+            margin-inline: auto !important;
+          }
+        }
+      `}</style>
+
+      <div
+        aria-hidden="true"
+        className="hero-bg-layers"
+        style={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          zIndex: 0,
+          maskImage:
+            "linear-gradient(to bottom, black 0%, black 58%, transparent 88%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, black 0%, black 58%, transparent 88%)",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "radial-gradient(ellipse 100% 95% at 50% 10%, oklch(0.14 0.032 250 / 0.97) 0%, oklch(0.11 0.028 250 / 0.92) 45%, oklch(0.08 0.022 250 / 0.55) 100%)",
+            clipPath: "polygon(-20% -5%, 120% -5%, 50% 100%)",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "oklch(0.18 0.036 245 / 0.50)",
+            clipPath: "polygon(-15.1% -5%, 115.1% -5%, 50% 92.65%)",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "oklch(0.16 0.032 245 / 0.40)",
+            clipPath: "polygon(-10.2% -5%, 110.2% -5%, 50% 85.3%)",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "oklch(0.14 0.028 245 / 0.30)",
+            clipPath: "polygon(-5.3% -5%, 105.3% -5%, 50% 77.95%)",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage:
+              "radial-gradient(oklch(0.40 0.015 260 / 0.18) 1px, transparent 1px)",
+            backgroundSize: "28px 28px",
+            maskImage:
+              "radial-gradient(ellipse 65% 65% at 50% 35%, black 25%, transparent 75%)",
+            WebkitMaskImage:
+              "radial-gradient(ellipse 65% 65% at 50% 35%, black 25%, transparent 75%)",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E\")",
+            backgroundSize: "300px 300px",
+            opacity: 0.032,
+            mixBlendMode: "overlay",
+          }}
+        />
+      </div>
+
+      <div
+        style={{
+          position: "relative",
+          zIndex: 2,
+          width: "100%",
+          maxWidth: "1200px",
+        }}
+      >
+        <div style={{ overflow: "hidden" }}>
+          <motion.div
+            variants={lineReveal(0.12)}
+            initial="hidden"
+            animate="visible"
+            className="hero-title hero-title-neon"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 900,
+              fontStyle: "italic",
+              fontSize: "clamp(3rem, 10.8vw, 8.8rem)",
+              lineHeight: 1.12,
+              letterSpacing: "-0.03em",
+              textTransform: "uppercase",
+              ...NEON_STYLE,
+              margin: 0,
+            }}
+          >
+            Servicios
+          </motion.div>
+        </div>
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.4, duration: 0.6 }}
+        style={{
+          position: "absolute",
+          bottom: "2rem",
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          style={{
+            color: "var(--c-muted)",
+            background: "oklch(0.12 0.020 260 / 0.55)",
+            border: "1px solid oklch(0.28 0.020 260)",
+            borderRadius: "50%",
+            padding: "0.45rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <ArrowDown size={18} />
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
