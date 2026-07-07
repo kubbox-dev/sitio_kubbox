@@ -9,6 +9,7 @@ export default function TrajectorySection() {
   const startYear = 2008;
   const animationRef = useRef(null);
   const timeoutRef = useRef(null);
+  const initialDelayRef = useRef(null);
 
   const left = [
     {
@@ -126,7 +127,10 @@ export default function TrajectorySection() {
 
   useEffect(() => {
     if (isVisible) {
-      startLoop();
+      // Esperar 4 segundos antes de iniciar el contador por primera vez
+      initialDelayRef.current = setTimeout(() => {
+        startLoop();
+      }, 4000);
     }
 
     return () => {
@@ -135,6 +139,9 @@ export default function TrajectorySection() {
       }
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
+      }
+      if (initialDelayRef.current) {
+        clearTimeout(initialDelayRef.current);
       }
     };
   }, [isVisible]);
@@ -170,21 +177,9 @@ export default function TrajectorySection() {
               lineHeight: 1,
             }}
           >
+            <span style={{ fontSize: "clamp(2rem,5vw,4rem)" }}>DESDE</span>{" "}
             {yearCount}
           </motion.h2>
-          <p
-            style={{
-              marginTop: "0.25rem",
-              fontFamily: "var(--font-display)",
-              fontWeight: 700,
-              fontSize: "clamp(1rem,1.8vw,1.4rem)",
-              color: "rgba(255,255,255,0.6)",
-              textTransform: "uppercase",
-              letterSpacing: "0.15em",
-            }}
-          >
-            DESDE 2008
-          </p>
           <p
             style={{
               marginTop: "0.75rem",
