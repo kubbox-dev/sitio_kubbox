@@ -4,6 +4,19 @@ import { InteractiveFolderGallery } from "../../ui/interactive-folder-gallery";
 const serviciosData = [
   {
     id: 1,
+    title: "Desarrollo de Software a la Medida",
+    description:
+      "Cada empresa tiene procesos únicos. Por eso desarrollamos software completamente personalizado que se adapta a las necesidades específicas de cada organización.",
+    icon: "/images/Servicios/Desarrollo de software a la medida.svg",
+    bullets: [
+      "Sistemas administrativos",
+      "CRM personalizados",
+      "Plataformas para fuerza comercial",
+      "Automatización de procesos",
+    ],
+  },
+  {
+    id: 2,
     title: "Diseño y Desarrollo de Sitios Web",
     description:
       "Creamos sitios web modernos, rápidos, seguros y completamente personalizados para empresas que buscan fortalecer su presencia digital.",
@@ -16,7 +29,7 @@ const serviciosData = [
     ],
   },
   {
-    id: 2,
+    id: 3,
     title: "Desarrollo de Aplicaciones Móviles",
     description:
       "Diseñamos y desarrollamos aplicaciones móviles para iPhone y Android con experiencias intuitivas y alto desempeño.",
@@ -29,7 +42,7 @@ const serviciosData = [
     ],
   },
   {
-    id: 3,
+    id: 4,
     title: "Campañas Digitales para Activación de Ventas en Retail",
     description:
       "Creamos campañas digitales enfocadas en generar tráfico hacia puntos de venta físicos.",
@@ -42,7 +55,7 @@ const serviciosData = [
     ],
   },
   {
-    id: 4,
+    id: 5,
     title: "Google Ads y Meta Ads",
     description:
       "Diseñamos campañas publicitarias enfocadas en resultados con optimización permanente para el mayor retorno posible.",
@@ -55,7 +68,7 @@ const serviciosData = [
     ],
   },
   {
-    id: 5,
+    id: 6,
     title: "Posicionamiento SEO",
     description:
       "Ayudamos a que las empresas aparezcan cuando sus clientes buscan sus productos o servicios en Google.",
@@ -69,7 +82,7 @@ const serviciosData = [
     ],
   },
   {
-    id: 6,
+    id: 7,
     title: "Automatización y Campañas por WhatsApp",
     description:
       "Facilitamos procesos comerciales mediante campañas masivas, integración con CRM y automatización de comunicación.",
@@ -83,7 +96,7 @@ const serviciosData = [
     ],
   },
   {
-    id: 7,
+    id: 8,
     title: "Hosting Empresarial y Dominios",
     description:
       "Ofrecemos infraestructura tecnológica confiable para alojar sitios web y aplicaciones empresariales.",
@@ -96,7 +109,7 @@ const serviciosData = [
     ],
   },
   {
-    id: 8,
+    id: 9,
     title: "Creación y Desarrollo de Marca",
     description:
       "Construimos identidades que conectan, inspiran y perduran en el tiempo, con sistemas de identidad coherentes.",
@@ -106,19 +119,6 @@ const serviciosData = [
       "Sistema de identidad visual",
       "Manual de identidad de marca",
       "Lineamientos para el uso correcto de la marca",
-    ],
-  },
-  {
-    id: 9,
-    title: "Desarrollo de Software a la Medida",
-    description:
-      "Cada empresa tiene procesos únicos. Por eso desarrollamos software completamente personalizado que se adapta a las necesidades específicas de cada organización.",
-    icon: "/images/Servicios/Desarrollo de software a la medida.svg",
-    bullets: [
-      "Sistemas administrativos",
-      "CRM personalizados",
-      "Plataformas para fuerza comercial",
-      "Automatización de procesos",
     ],
   },
 ];

@@ -114,15 +114,19 @@ export function InteractiveFolderGallery({
     return offset * spacing;
   };
 
+  const getColorById = (id: number) => {
+    return id % 2 !== 0 ? "#4974A0" : "#90B20A";
+  };
+
   return (
     <div className={`w-full py-32 relative ${className || ""}`}>
       <div className="relative w-full min-h-[500px] flex flex-col items-center justify-center">
         <div
-          className="relative h-[500px] flex justify-center pointer-events-none z-0 transition-all duration-500"
+          className={`relative h-[500px] flex justify-center pointer-events-none z-0 transition-all duration-500`}
           style={{
             width: isFolderOpen ? maxOpenWidth : "400px",
             maxWidth: isFolderOpen ? maxOpenWidth : "400px",
-            margin: "0 auto",
+            margin: isFolderOpen ? "0 auto" : "-180px auto 0 auto",
           }}
         >
           <div
@@ -145,6 +149,7 @@ export function InteractiveFolderGallery({
             >
               {displayPhotos.map((photo, i) => {
                 const offset = i - activeCenterIndex;
+                const color = getColorById(photo.id as number);
 
                 const stackY = hoverFolder ? offset * -10 - 40 : offset * -5;
                 const stackX = hoverFolder ? offset * 30 : offset * 3;
@@ -167,13 +172,14 @@ export function InteractiveFolderGallery({
                         setHoverFolder(false);
                       }
                     }}
-                    className={`absolute bottom-0 w-56 h-72 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.5)] overflow-hidden origin-bottom border-t-[2px] border-t-[#90B20A] ${
+                    className={`absolute bottom-0 w-56 h-72 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.5)] overflow-hidden origin-bottom border-t-[3px] ${
                       isFolderOpen
                         ? "cursor-grab active:cursor-grabbing pointer-events-auto"
                         : "pointer-events-none"
                     }`}
                     style={{
                       background: "#1F1F1F",
+                      borderTopColor: color,
                     }}
                     animate={
                       !isFolderOpen
@@ -205,15 +211,24 @@ export function InteractiveFolderGallery({
                     transition={{ type: "spring", stiffness: 350, damping: 30 }}
                   >
                     <div className="w-full h-full p-4 flex flex-col justify-center items-start text-left overflow-hidden">
-                      {photo.icon && (
-                        <div className="w-10 h-10 mb-2 flex-shrink-0">
-                          <img
-                            src={photo.icon}
-                            alt={photo.title || "Icono de servicio"}
-                            className="w-full h-full object-contain"
-                          />
-                        </div>
-                      )}
+                      <div className="flex items-center gap-3 w-full mb-2">
+                        {photo.icon && (
+                          <div className="w-10 h-10 flex-shrink-0">
+                            <img
+                              src={photo.icon}
+                              alt={photo.title || "Icono de servicio"}
+                              className="w-full h-full object-contain"
+                            />
+                          </div>
+                        )}
+                        <div
+                          className="h-[2px] rounded-full min-w-[40px] flex-1"
+                          style={{
+                            background: color,
+                            boxShadow: `0 0 4px ${color}40`,
+                          }}
+                        />
+                      </div>
                       {photo.title && (
                         <h3 className="text-white text-sm font-bold leading-tight mb-1">
                           {photo.title}
@@ -231,7 +246,13 @@ export function InteractiveFolderGallery({
                               key={idx}
                               className="flex items-start gap-1.5 text-[10px] text-white/50"
                             >
-                              <span className="w-1.5 h-1.5 rounded-full bg-[#90B20A] flex-shrink-0 mt-1" />
+                              <span
+                                className="w-1.5 h-1.5 rounded-full flex-shrink-0 mt-1"
+                                style={{
+                                  background: color,
+                                  boxShadow: `0 0 4px ${color}40`,
+                                }}
+                              />
                               <span className="leading-tight">{bullet}</span>
                             </li>
                           ))}
