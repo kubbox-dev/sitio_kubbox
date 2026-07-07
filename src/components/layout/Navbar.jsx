@@ -5,7 +5,7 @@ import { Menu, X, ChevronDown } from "lucide-react";
 
 const NAV_LINKS = [
   { label: "Experiencia", href: "/", section: "experiencia" },
-  { label: "Servicios", href: "/servicios", section: "servicios" },
+  { label: "Servicios", href: null, section: "servicios", dropdown: true },
   { label: "Nosotros", href: "/nosotros", section: "nosotros" },
   { label: "Contacto", href: "/contacto", section: "contacto" },
 ];
