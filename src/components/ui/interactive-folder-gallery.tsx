@@ -5,33 +5,77 @@ import { motion } from "framer-motion";
 export interface GalleryPhoto {
   id: string | number;
   image: string;
+  title?: string;
+  description?: string;
+  icon?: string;
+  bullets?: string[];
+  color?: string;
 }
 
 const defaultPhotos: GalleryPhoto[] = [
   {
     id: 1,
-    image:
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop",
+    image: "",
+    title: "Diseño y Desarrollo de Sitios Web",
+    description:
+      "Creamos sitios web modernos, rápidos, seguros y completamente personalizados.",
+    icon: "/images/Servicios/Diseño y Desarrollo de Sitios Web.svg",
+    bullets: [
+      "Sitios web corporativos",
+      "Landing Pages",
+      "Portales empresariales",
+      "Tiendas virtuales",
+    ],
   },
   {
     id: 2,
-    image:
-      "https://images.unsplash.com/photo-1604871000636-074fa5117945?q=80&w=800&auto=format&fit=crop",
+    image: "",
+    title: "Desarrollo de Aplicaciones Móviles",
+    description:
+      "Diseñamos y desarrollamos aplicaciones móviles para iPhone y Android.",
+    icon: "/images/Servicios/Desarrollo de Aplicaciones Móviles.svg",
+    bullets: [
+      "Empresas",
+      "Comercio electrónico",
+      "Logística",
+      "Gestión interna",
+    ],
   },
   {
     id: 3,
-    image:
-      "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=800&auto=format&fit=crop",
+    image: "",
+    title: "Campañas Digitales para Retail",
+    description:
+      "Creamos campañas digitales enfocadas en generar tráfico hacia puntos de venta físicos.",
+    icon: "/images/Servicios/Campañas Digitales para Activaciónde Ventas en Retail.svg",
+    bullets: [
+      "Retail",
+      "Cadenas comerciales",
+      "Centros comerciales",
+      "Marcas de consumo masivo",
+    ],
   },
   {
     id: 4,
-    image:
-      "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?q=80&w=800&auto=format&fit=crop",
+    image: "",
+    title: "Google Ads y Meta Ads",
+    description: "Diseñamos campañas publicitarias enfocadas en resultados.",
+    icon: "/images/Servicios/Google Ads y Meta Ads.svg",
+    bullets: ["Meta Ads", "Google Search", "Generación de leads", "ROI"],
   },
   {
     id: 5,
-    image:
-      "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?q=80&w=800&auto=format&fit=crop",
+    image: "",
+    title: "Posicionamiento SEO",
+    description:
+      "Ayudamos a que las empresas aparezcan cuando sus clientes buscan en Google.",
+    icon: "/images/Servicios/Posicionamiento SEO.svg",
+    bullets: [
+      "Auditoría SEO",
+      "SEO técnico",
+      "Optimización de velocidad",
+      "SEO local",
+    ],
   },
 ];
 
@@ -47,10 +91,10 @@ export interface InteractiveFolderGalleryProps {
 export function InteractiveFolderGallery({
   photos = defaultPhotos,
   folderName = "Photography.gallery",
-  dragHintText = "Drag any photo down to close",
+  dragHintText = "Arrastra cualquier servicio hacia abajo para cerrar",
   className,
   visibleStack = 5,
-  maxOpenWidth = "80%",
+  maxOpenWidth = "90%",
 }: InteractiveFolderGalleryProps) {
   const [isFolderOpen, setIsFolderOpen] = useState(false);
   const [hoverFolder, setHoverFolder] = useState(false);
@@ -73,7 +117,6 @@ export function InteractiveFolderGallery({
   return (
     <div className={`w-full py-32 relative ${className || ""}`}>
       <div className="relative w-full min-h-[500px] flex flex-col items-center justify-center">
-        {/* Contenedor principal con ancho dinámico */}
         <div
           className="relative h-[500px] flex justify-center pointer-events-none z-0 transition-all duration-500"
           style={{
@@ -85,7 +128,6 @@ export function InteractiveFolderGallery({
           <div
             className={`relative w-full h-full flex justify-center ${isFolderOpen ? "overflow-visible" : ""}`}
           >
-            {/* Sombra del folder */}
             <motion.div
               className="absolute bottom-6 w-80 h-56 drop-shadow-2xl left-1/2 -translate-x-1/2"
               animate={{
@@ -93,12 +135,11 @@ export function InteractiveFolderGallery({
                 scale: isFolderOpen ? 0.9 : 1,
               }}
             >
-              <div className="absolute top-0 left-0 w-32 h-10 bg-linear-to-t from-[#1e1e1e] to-[#2a2a2a] rounded-t-xl border-t border-l border-r border-white/10" />
-              <div className="absolute top-8 left-0 right-0 bottom-0 bg-linear-to-b from-[#1e1e1e] to-[#0a0a0a] rounded-b-xl rounded-tr-xl border border-white/10 shadow-[inset_0_0_40px_rgba(0,0,0,0.8)]" />
-              <div className="absolute top-10 left-2 right-2 bottom-2 bg-black rounded-lg shadow-inner pointer-events-none" />
+              <div className="absolute top-0 left-0 w-32 h-10 bg-[#1e1e1e] rounded-t-xl border-t border-l border-r border-white/10" />
+              <div className="absolute top-8 left-0 right-0 bottom-0 bg-black rounded-b-xl rounded-tr-xl border border-[#1e1e1e] shadow-[inset_0_0_40px_rgba(0,0,0,0.8)]" />
+              <div className="absolute top-10 left-2 right-2 bottom-2 bg-black/80 rounded-lg shadow-inner pointer-events-none" />
             </motion.div>
 
-            {/* Cards */}
             <div
               className={`absolute bottom-10 z-10 flex justify-center ${isFolderOpen ? "w-full" : ""}`}
             >
@@ -126,7 +167,14 @@ export function InteractiveFolderGallery({
                         setHoverFolder(false);
                       }
                     }}
-                    className={`absolute bottom-0 w-56 h-72 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.5)] overflow-hidden border border-white/20 origin-bottom ${isFolderOpen ? "cursor-grab active:cursor-grabbing pointer-events-auto" : "pointer-events-none"}`}
+                    className={`absolute bottom-0 w-56 h-72 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.5)] overflow-hidden origin-bottom border-t-[2px] border-t-[#90B20A] ${
+                      isFolderOpen
+                        ? "cursor-grab active:cursor-grabbing pointer-events-auto"
+                        : "pointer-events-none"
+                    }`}
+                    style={{
+                      background: "#1F1F1F",
+                    }}
                     animate={
                       !isFolderOpen
                         ? {
@@ -156,17 +204,45 @@ export function InteractiveFolderGallery({
                     }
                     transition={{ type: "spring", stiffness: 350, damping: 30 }}
                   >
-                    <img
-                      src={photo.image}
-                      alt="Gallery item"
-                      className="w-full h-full object-cover pointer-events-none"
-                    />
+                    <div className="w-full h-full p-4 flex flex-col justify-center items-start text-left overflow-hidden">
+                      {photo.icon && (
+                        <div className="w-10 h-10 mb-2 flex-shrink-0">
+                          <img
+                            src={photo.icon}
+                            alt={photo.title || "Icono de servicio"}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                      )}
+                      {photo.title && (
+                        <h3 className="text-white text-sm font-bold leading-tight mb-1">
+                          {photo.title}
+                        </h3>
+                      )}
+                      {photo.description && (
+                        <p className="text-white/50 text-[11px] leading-relaxed text-left mb-2 line-clamp-2">
+                          {photo.description}
+                        </p>
+                      )}
+                      {photo.bullets && photo.bullets.length > 0 && (
+                        <ul className="space-y-0.5 w-full">
+                          {photo.bullets.slice(0, 4).map((bullet, idx) => (
+                            <li
+                              key={idx}
+                              className="flex items-start gap-1.5 text-[10px] text-white/50"
+                            >
+                              <span className="w-1.5 h-1.5 rounded-full bg-[#90B20A] flex-shrink-0 mt-1" />
+                              <span className="leading-tight">{bullet}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
                   </motion.div>
                 );
               })}
             </div>
 
-            {/* Folder */}
             <motion.div
               className="absolute bottom-0 w-[340px] h-44 drop-shadow-[0_-20px_40px_rgba(0,0,0,0.8)] cursor-pointer z-20 pointer-events-auto left-1/2 -translate-x-1/2"
               style={{ transformOrigin: "bottom" }}
@@ -180,10 +256,10 @@ export function InteractiveFolderGallery({
               onMouseLeave={() => setHoverFolder(false)}
               onClick={() => setIsFolderOpen(true)}
             >
-              <div className="w-full h-full bg-linear-to-b from-[#2a2a2a] to-[#111] rounded-2xl border border-white/20 shadow-[inset_0_2px_10px_rgba(255,255,255,0.1)] relative overflow-hidden flex items-end justify-center pb-8">
+              <div className="w-full h-full bg-black rounded-2xl border border-[#1e1e1e] shadow-[inset_0_2px_10px_rgba(255,255,255,0.05)] relative overflow-hidden flex items-end justify-center pb-8">
                 <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-white/40 to-transparent" />
 
-                <div className="px-5 py-2.5 bg-black rounded-lg border border-black/80 shadow-inner flex items-center justify-center backdrop-blur-md">
+                <div className="px-5 py-2.5 bg-[#1e1e1e] rounded-lg border border-[#2a2a2a] shadow-inner flex items-center justify-center backdrop-blur-md">
                   <span className="text-white/90 text-sm font-medium tracking-wide">
                     {folderName}
                   </span>
@@ -193,10 +269,9 @@ export function InteractiveFolderGallery({
           </div>
         </div>
 
-        {/* Hint text */}
         <motion.div
           animate={{ opacity: isFolderOpen ? 1 : 0, y: isFolderOpen ? 0 : 50 }}
-          className="absolute bottom-10 px-6 py-3 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 backdrop-blur-md text-black/50 dark:text-white/50 text-sm font-medium uppercase tracking-widest pointer-events-none"
+          className="absolute bottom-10 px-6 py-3 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 backdrop-blur-md text-[var(--c-lime)] text-sm font-medium uppercase tracking-widest pointer-events-none"
         >
           {dragHintText}
         </motion.div>
