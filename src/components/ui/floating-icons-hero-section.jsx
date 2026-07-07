@@ -77,6 +77,7 @@ const FloatingIconsHero = React.forwardRef(
       icons = [],
       disableFade = false,
       disableBg = false,
+      withShadow = false,
       ...props
     },
     ref,
@@ -93,8 +94,10 @@ const FloatingIconsHero = React.forwardRef(
         ref={ref}
         onMouseMove={handleMouseMove}
         className={cn(
-          "relative w-full flex items-center justify-center overflow-hidden py-24 md:py-32",
+          "relative w-full flex items-center justify-center py-24 md:py-32",
           !disableBg && "bg-[#050708]",
+          withShadow &&
+            "shadow-[0_80px_120px_rgba(0,0,0,0.95),0_-80px_120px_rgba(0,0,0,0.95)]",
           className,
         )}
         {...props}

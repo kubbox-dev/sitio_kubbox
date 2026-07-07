@@ -132,16 +132,49 @@ const demoIcons = [
 export default function ToolsSolutionSection() {
   return (
     <div
-      className="relative"
+      className="relative w-full"
       style={{
         background: "var(--c-bg)",
-        boxShadow:
-          "0 80px 120px rgba(0,0,0,0.95), 0 -80px 120px rgba(0,0,0,0.95)",
+        boxShadow: `
+          0 100px 150px rgba(0,0,0,0.98),
+          0 -100px 150px rgba(0,0,0,0.98),
+          50px 0 100px rgba(0,0,0,0.8),
+          -50px 0 100px rgba(0,0,0,0.8)
+        `,
       }}
     >
+      {/* Fade superior - cubriendo todo el ancho */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "clamp(6rem, 15vw, 10rem)",
+          background: "linear-gradient(to bottom, var(--c-bg), transparent)",
+          pointerEvents: "none",
+          zIndex: 30,
+        }}
+      />
+
+      {/* Fade inferior - cubriendo todo el ancho */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: "clamp(6rem, 15vw, 10rem)",
+          background: "linear-gradient(to top, var(--c-bg), transparent)",
+          pointerEvents: "none",
+          zIndex: 30,
+        }}
+      />
+
       <FloatingIconsHero
         disableFade
         disableBg
+        withShadow
         className="overflow-visible"
         title={
           <>
@@ -178,36 +211,6 @@ export default function ToolsSolutionSection() {
           </>
         }
         icons={demoIcons}
-      />
-
-      {/* Fade superior con máscara para cubrir puntas */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: "-40px",
-          right: "-40px",
-          height: "clamp(4rem, 12vw, 8rem)",
-          background: "linear-gradient(to bottom, var(--c-bg), transparent)",
-          pointerEvents: "none",
-          zIndex: 20,
-          width: "calc(100% + 80px)",
-        }}
-      />
-
-      {/* Fade inferior con máscara para cubrir puntas */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: "-40px",
-          right: "-40px",
-          height: "clamp(4rem, 12vw, 8rem)",
-          background: "linear-gradient(to top, var(--c-bg), transparent)",
-          pointerEvents: "none",
-          zIndex: 20,
-          width: "calc(100% + 80px)",
-        }}
       />
     </div>
   );

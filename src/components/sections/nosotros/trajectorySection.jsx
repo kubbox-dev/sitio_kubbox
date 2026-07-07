@@ -149,7 +149,7 @@ export default function TrajectorySection() {
           maxWidth: "var(--container)",
           marginInline: "auto",
           paddingInline: "var(--container-pad)",
-          marginBottom: "80px",
+          marginBottom: "120px",
         }}
       >
         <div
