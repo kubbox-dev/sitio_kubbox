@@ -209,8 +209,6 @@ export default function TeamWorkSection() {
                   fontStyle: "normal",
                   letterSpacing: "-0.03em",
                   color: "var(--c-lime)",
-                  WebkitTextFillColor: "transparent",
-                  WebkitTextStroke: "1.8px var(--c-lime)",
                   textShadow: "0 0 24px rgba(140, 255, 95, 0.24)",
                 }}
               >
