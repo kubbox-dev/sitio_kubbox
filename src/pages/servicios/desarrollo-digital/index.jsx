@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 import DigitalHeroSection     from '../../../components/sections/desarrollo-digital/DigitalHeroSection'
 import DigitalServicesSection from '../../../components/sections/desarrollo-digital/DigitalServicesSection'
-import DigitalPlatformsSection from '../../../components/sections/desarrollo-digital/DigitalPlatformsSection'
 import CustomCursor      from '../../../components/ui/CustomCursor'
 import MorphicBackground from '../../../components/layout/fondo'
 import { useDocumentMeta } from '../../../hooks/useDocumentMeta'
@@ -28,7 +27,6 @@ export default function DesarrolloDigitalPage() {
       <main>
         <DigitalHeroSection />
         <DigitalServicesSection />
-        <DigitalPlatformsSection />
       </main>
     </>
   )

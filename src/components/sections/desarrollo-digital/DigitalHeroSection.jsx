@@ -31,7 +31,13 @@ const BACKDROP_STYLE = {
     'linear-gradient(to bottom, black 0%, black 50%, transparent 100%)',
 }
 
-export default function DigitalHeroSection() {
+export default function DigitalHeroSection({ title }) {
+  // Si se pasa un título dinámico, dividirlo en dos líneas balanceadas
+  const words = title ? title.toUpperCase().split(' ') : null
+  const mid = words ? Math.ceil(words.length / 2) : 0
+  const line1 = words ? words.slice(0, mid).join(' ') : 'DESARROLLO'
+  const line2 = words ? words.slice(mid).join(' ') : 'DIGITAL'
+
   return (
     <section
       className="
@@ -55,7 +61,7 @@ export default function DigitalHeroSection() {
         style={BACKDROP_STYLE}
       />
 
-      {/* IMÁGENES */}
+      {/* IMÁGENES — siempre las mismas */}
       <div
         aria-hidden="true"
         className="absolute inset-0 z-[1] pointer-events-none"
@@ -129,7 +135,7 @@ export default function DigitalHeroSection() {
             "
             style={NEON_STYLE}
           >
-            DESARROLLO
+            {line1}
           </motion.h1>
         </div>
 
@@ -153,7 +159,7 @@ export default function DigitalHeroSection() {
             "
             style={{ color: 'var(--c-ink)' }}
           >
-            DIGITAL
+            {line2}
           </motion.h2>
         </div>
       </div>

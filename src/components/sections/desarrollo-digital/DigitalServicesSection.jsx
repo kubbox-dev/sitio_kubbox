@@ -1,18 +1,31 @@
 import { motion } from 'framer-motion'
 import { useScrollAnimation, fadeUp, staggerContainer } from '../../../hooks/useScrollAnimation'
 
-const ICON = (name) => encodeURI(`/images/DESARROLLO DIGITAL/WEB/Iconos/${name}.svg`)
 const PHOTO = '/images/DESARROLLO DIGITAL/WEB/Fotos/Foto para slide.png'
 
-const CARDS = [
-  { icon: ICON('www'),       label: 'Sitios web corporativos y de marca' },
-  { icon: ICON('celular'),   label: 'Plataformas a medida y web apps' },
-  { icon: ICON('ecomerce'),  label: 'Ecomerce' },
-  { icon: ICON('premio'),    label: 'Sistemas de registro, concursos y activaciones' },
+// Valores por defecto (fallback para la página estática original)
+const DEFAULT_TAGLINE = 'Diseñamos experiencias digitales que conectan marcas con personas.'
+const DEFAULT_INTRO = 'Creamos y gestionamos productos digitales centrados en el usuario: sitios web, e-commerce, plataformas interactivas, web apps y sistemas personalizados con enfoque en diseño, performance y analítica.'
+const DEFAULT_STATEMENT = 'En Kubbox combinamos diseño, código y estrategia para construir productos digitales que conviertan. Cada proyecto pasa por un proceso de validación constante — prototipos, pruebas con usuarios reales y mejora continua — hasta lograr una experiencia que realmente funcione para tu negocio.'
+const DEFAULT_BULLETS = [
+  { icon: encodeURI('/images/DESARROLLO DIGITAL/WEB/Iconos/www.svg'),     label: 'Sitios web corporativos y de marca' },
+  { icon: encodeURI('/images/DESARROLLO DIGITAL/WEB/Iconos/celular.svg'), label: 'Plataformas a medida y web apps' },
+  { icon: encodeURI('/images/DESARROLLO DIGITAL/WEB/Iconos/ecomerce.svg'),label: 'Ecomerce' },
+  { icon: encodeURI('/images/DESARROLLO DIGITAL/WEB/Iconos/premio.svg'),  label: 'Sistemas de registro, concursos y activaciones' },
 ]
 
-export default function DigitalServicesSection() {
+
+export default function DigitalServicesSection({
+  tagline,
+  introText,
+  bullets,
+  statement,
+}) {
   const { ref, controls } = useScrollAnimation(0.15)
+  const cards   = bullets  || DEFAULT_BULLETS
+  const tLine   = tagline  || DEFAULT_TAGLINE
+  const intro   = introText || DEFAULT_INTRO
+  const closing = statement || DEFAULT_STATEMENT
 
   return (
     <section
@@ -43,17 +56,13 @@ export default function DigitalServicesSection() {
           {/* Columna derecha: intro + grid de iconos */}
           <motion.div variants={fadeUp}>
             <div className="dd-intro">
-              <p className="dd-tagline">Diseñamos experiencias digitales que conectan marcas con personas.</p>
+              <p className="dd-tagline">{tLine}</p>
               <span className="dd-intro-line" />
-              <p className="dd-body">
-                Creamos y gestionamos productos digitales centrados en el usuario: sitios web, e-commerce,
-                plataformas interactivas, web apps y sistemas personalizados con enfoque en diseño,
-                performance y analítica.
-              </p>
+              <p className="dd-body">{intro}</p>
             </div>
 
             <div className="dd-icon-grid">
-              {CARDS.map((card) => (
+              {cards.map((card) => (
                 <div key={card.label} className="dd-icon-card">
                   <img src={card.icon} alt="" aria-hidden="true" />
                   <span>{card.label}</span>
@@ -73,12 +82,7 @@ export default function DigitalServicesSection() {
           <span className="dd-corner dd-corner--tl" aria-hidden="true" />
           <span className="dd-corner dd-corner--br" aria-hidden="true" />
 
-          <p className="dd-statement-text">
-            En Kubbox combinamos diseño, código y estrategia para construir{' '}
-            <span className="dd-statement-highlight">productos digitales que conviertan</span>.
-            Cada proyecto pasa por un proceso de validación constante — prototipos, pruebas con usuarios
-            reales y mejora continua — hasta lograr una experiencia que realmente funcione para tu negocio.
-          </p>
+          <p className="dd-statement-text">{closing}</p>
         </motion.div>
       </div>
 

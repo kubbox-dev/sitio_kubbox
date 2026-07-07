@@ -17,6 +17,9 @@ const ContactPage = lazy(() => import("../pages/contacto"));
 const DesarrolloDigitalPage = lazy(
   () => import("../pages/servicios/desarrollo-digital"),
 );
+const ServicioDinamicoPage = lazy(
+  () => import("../pages/servicios/detalle"),
+);
 const ProyectoPage = lazy(() => import("../pages/proyectos"));
 const NosotrosPage = lazy(() => import("../pages/nosotros"));
 const NotFoundPage = lazy(() => import("../pages/not-found"));
@@ -67,6 +70,10 @@ export default function AppRouter() {
           <Route
             path="/servicios/desarrollo-digital"
             element={<DesarrolloDigitalPage />}
+          />
+          <Route
+            path="/servicios/:slug"
+            element={<ServicioDinamicoPage />}
           />
           <Route path="/proyectos/:slug" element={<ProyectoPage />} />
           <Route

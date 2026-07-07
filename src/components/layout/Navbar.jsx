@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 
 const NAV_LINKS = [
   { label: "Experiencia", href: "/", section: "experiencia" },
@@ -10,16 +10,28 @@ const NAV_LINKS = [
   { label: "Contacto", href: "/contacto", section: "contacto" },
 ];
 
-const SERVICES = [
+const SERVICES_MENU = [
   {
     label: "Servicios",
-    href: "/servicios",
-    desc: "Descubre todos nuestros servicios",
-  },
-  {
-    label: "Desarrollo Digital",
-    href: "/servicios/desarrollo-digital",
-    desc: "Sitios web, e-commerce y apps a medida",
+    desc: "Soluciones de marketing y desarrollo web",
+    isSubmenu: true,
+    items: [
+      {
+        label: "Desarrollo de Software a la Medida",
+        href: "/servicios/desarrollo-software-medida",
+        desc: "Software personalizado para tu organización",
+      },
+      {
+        label: "Desarrollo Digital",
+        href: "/servicios/desarrollo-digital",
+        desc: "Sitios web, e-commerce y apps a medida",
+      },
+      {
+        label: "Todos los Servicios",
+        href: "/servicios",
+        desc: "Explora todo nuestro portafolio de servicios",
+      },
+    ],
   },
   {
     label: "Nuestros Proyectos",
@@ -63,8 +75,11 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [svcExpanded, setSvcExpanded] = useState(false);
+  const [subDropdownOpen, setSubDropdownOpen] = useState(false);
+  const [subSvcExpanded, setSubSvcExpanded] = useState(false);
   const lastScrollY = useRef(0);
   const dropdownTimer = useRef(null);
+  const subDropdownTimer = useRef(null);
 
   /* ── Scroll ── */
   useEffect(() => {
@@ -91,7 +106,11 @@ export default function Navbar() {
   /* ── Close menu on resize to desktop ── */
   useEffect(() => {
     const onResize = () => {
-      if (window.innerWidth >= 768) setMenuOpen(false);
+      if (window.innerWidth >= 768) {
+        setMenuOpen(false);
+        setSvcExpanded(false);
+        setSubSvcExpanded(false);
+      }
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
@@ -103,7 +122,19 @@ export default function Navbar() {
     setDropdownOpen(true);
   };
   const closeDropdown = () => {
-    dropdownTimer.current = setTimeout(() => setDropdownOpen(false), 150);
+    dropdownTimer.current = setTimeout(() => {
+      setDropdownOpen(false);
+      setSubDropdownOpen(false);
+    }, 150);
+  };
+
+  const openSubDropdown = () => {
+    clearTimeout(dropdownTimer.current);
+    clearTimeout(subDropdownTimer.current);
+    setSubDropdownOpen(true);
+  };
+  const closeSubDropdown = () => {
+    subDropdownTimer.current = setTimeout(() => setSubDropdownOpen(false), 150);
   };
 
   const pillStyle = {
@@ -203,7 +234,6 @@ export default function Navbar() {
                         border: "1px solid oklch(0.22 0.020 260)",
                         borderRadius: "1rem",
                         backdropFilter: "blur(24px)",
-                        overflow: "hidden",
                         zIndex: 100,
                       }}
                     >
@@ -216,7 +246,144 @@ export default function Navbar() {
                         }}
                       />
                       <div style={{ padding: "0.4rem" }}>
-                        {SERVICES.map((svc, i) => {
+                        {SERVICES_MENU.map((svc, i) => {
+                          if (svc.isSubmenu) {
+                            return (
+                              <div
+                                key={svc.label}
+                                className="relative"
+                                onMouseEnter={openSubDropdown}
+                                onMouseLeave={closeSubDropdown}
+                              >
+                                <div
+                                  className="flex items-center justify-between rounded-lg no-underline cursor-pointer"
+                                  style={{
+                                    padding: "0.55rem 0.75rem",
+                                    transition: "background 0.15s ease",
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    e.currentTarget.style.background =
+                                      "oklch(0.16 0.024 260 / 0.8)";
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    e.currentTarget.style.background =
+                                      "transparent";
+                                  }}
+                                >
+                                  <div className="flex flex-col">
+                                    <span
+                                      style={{
+                                        fontFamily: "var(--font-display)",
+                                        fontWeight: 700,
+                                        fontSize: "0.82rem",
+                                        textTransform: "uppercase",
+                                        letterSpacing: "0.05em",
+                                        color: "var(--c-ink)",
+                                      }}
+                                    >
+                                      {svc.label}
+                                    </span>
+                                    <span
+                                      style={{
+                                        fontFamily: "var(--font-body)",
+                                        fontSize: "0.71rem",
+                                        color: "oklch(0.46 0.014 260)",
+                                        marginTop: "0.1rem",
+                                      }}
+                                    >
+                                      {svc.desc}
+                                    </span>
+                                  </div>
+                                  <ChevronRight
+                                    size={13}
+                                    style={{
+                                      color: "oklch(0.46 0.014 260)",
+                                      opacity: 0.8,
+                                      marginLeft: "0.5rem",
+                                    }}
+                                  />
+                                </div>
+
+                                <AnimatePresence>
+                                  {subDropdownOpen && (
+                                    <motion.div
+                                      initial={{ opacity: 0, x: 8, scale: 0.97 }}
+                                      animate={{ opacity: 1, x: 0, scale: 1 }}
+                                      exit={{ opacity: 0, x: 6, scale: 0.98 }}
+                                      transition={{
+                                        duration: 0.2,
+                                        ease: [0.16, 1, 0.3, 1],
+                                      }}
+                                      onMouseEnter={openSubDropdown}
+                                      onMouseLeave={closeSubDropdown}
+                                      style={{
+                                        position: "absolute",
+                                        top: 0,
+                                        left: "100%",
+                                        minWidth: "250px",
+                                        background: "oklch(0.10 0.026 260 / 0.98)",
+                                        border: "1px solid oklch(0.22 0.020 260)",
+                                        borderRadius: "1rem",
+                                        backdropFilter: "blur(24px)",
+                                        padding: "0.4rem",
+                                        zIndex: 110,
+                                        boxShadow: "0 8px 32px oklch(0.04 0.02 260 / 0.5)",
+                                      }}
+                                    >
+                                      {svc.items.map((subSvc) => (
+                                        <Link
+                                          key={subSvc.label}
+                                          to={subSvc.href}
+                                          onClick={() => {
+                                            setDropdownOpen(false);
+                                            setSubDropdownOpen(false);
+                                          }}
+                                          className="flex flex-col rounded-lg no-underline"
+                                          style={{
+                                            padding: "0.55rem 0.75rem",
+                                            transition: "background 0.15s ease",
+                                            cursor: "pointer",
+                                          }}
+                                          onMouseEnter={(e) => {
+                                            e.currentTarget.style.background =
+                                              "oklch(0.16 0.024 260 / 0.8)";
+                                          }}
+                                          onMouseLeave={(e) => {
+                                            e.currentTarget.style.background =
+                                              "transparent";
+                                          }}
+                                        >
+                                          <span
+                                            style={{
+                                              fontFamily: "var(--font-display)",
+                                              fontWeight: 700,
+                                              fontSize: "0.82rem",
+                                              textTransform: "uppercase",
+                                              letterSpacing: "0.05em",
+                                              color: "var(--c-ink)",
+                                            }}
+                                          >
+                                            {subSvc.label}
+                                          </span>
+                                          <span
+                                            style={{
+                                              fontFamily: "var(--font-body)",
+                                              fontSize: "0.71rem",
+                                              color: "oklch(0.46 0.014 260)",
+                                              marginTop: "0.1rem",
+                                            }}
+                                          >
+                                            {subSvc.desc}
+                                          </span>
+                                        </Link>
+                                      ))}
+                                    </motion.div>
+                                  )}
+                                </AnimatePresence>
+                              </div>
+                            );
+                          }
+
                           const SvcComp = svc.href ? Link : "a";
                           const svcNavProps = svc.href
                             ? {
@@ -366,7 +533,11 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
-              onClick={() => setMenuOpen(false)}
+              onClick={() => {
+                setMenuOpen(false);
+                setSvcExpanded(false);
+                setSubSvcExpanded(false);
+              }}
               className="fixed inset-0 md:hidden"
               style={{
                 zIndex: 40,
@@ -484,12 +655,141 @@ export default function Navbar() {
                                 gap: "0.1rem",
                               }}
                             >
-                              {SERVICES.map((svc, si) => {
+                              {SERVICES_MENU.map((svc, si) => {
+                                if (svc.isSubmenu) {
+                                  return (
+                                    <div
+                                      key={svc.label}
+                                      style={{
+                                        display: "flex",
+                                        flexDirection: "column",
+                                      }}
+                                    >
+                                      <button
+                                        onClick={() => setSubSvcExpanded((v) => !v)}
+                                        className="flex items-center justify-between w-full border-none cursor-pointer"
+                                        style={{
+                                          padding: "0.6rem 0.5rem",
+                                          background: "transparent",
+                                          textAlign: "left",
+                                        }}
+                                      >
+                                        <div className="flex items-center gap-2">
+                                          <span
+                                            style={{
+                                              width: "4px",
+                                              height: "4px",
+                                              borderRadius: "50%",
+                                              background: "var(--c-lime)",
+                                              flexShrink: 0,
+                                              boxShadow: "0 0 5px var(--c-lime)",
+                                            }}
+                                          />
+                                          <span
+                                            style={{
+                                              fontFamily: "var(--font-body)",
+                                              fontSize: "0.9rem",
+                                              fontWeight: 500,
+                                              color: "oklch(0.72 0.010 260)",
+                                            }}
+                                          >
+                                            {svc.label}
+                                          </span>
+                                        </div>
+                                        <motion.span
+                                          animate={{ rotate: subSvcExpanded ? 180 : 0 }}
+                                          transition={{ duration: 0.25 }}
+                                          style={{
+                                            color: subSvcExpanded
+                                              ? "var(--c-lime)"
+                                              : "oklch(0.30 0.016 260)",
+                                            display: "flex",
+                                          }}
+                                        >
+                                          <ChevronDown size={14} />
+                                        </motion.span>
+                                      </button>
+
+                                      <AnimatePresence>
+                                        {subSvcExpanded && (
+                                          <motion.div
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: "auto", opacity: 1 }}
+                                            exit={{ height: 0, opacity: 0 }}
+                                            transition={{
+                                              duration: 0.28,
+                                              ease: [0.16, 1, 0.3, 1],
+                                            }}
+                                            style={{ overflow: "hidden" }}
+                                          >
+                                            <div
+                                              style={{
+                                                padding: "0.2rem 0 0.5rem 1.5rem",
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                gap: "0.1rem",
+                                              }}
+                                            >
+                                              {svc.items.map((subSvc) => (
+                                                <Link
+                                                  key={subSvc.label}
+                                                  to={subSvc.href}
+                                                  onClick={() => {
+                                                    setMenuOpen(false);
+                                                    setSvcExpanded(false);
+                                                    setSubSvcExpanded(false);
+                                                  }}
+                                                  className="flex items-center gap-2 no-underline rounded-lg"
+                                                  style={{
+                                                    padding: "0.45rem 0.5rem",
+                                                    transition: "background 0.15s ease",
+                                                  }}
+                                                  onMouseEnter={(e) =>
+                                                    (e.currentTarget.style.background =
+                                                      "oklch(0.16 0.024 260 / 0.7)")
+                                                  }
+                                                  onMouseLeave={(e) =>
+                                                    (e.currentTarget.style.background =
+                                                      "transparent")
+                                                  }
+                                                >
+                                                  <span
+                                                    style={{
+                                                      width: "3px",
+                                                      height: "3px",
+                                                      borderRadius: "50%",
+                                                      background: "var(--c-lime)",
+                                                      flexShrink: 0,
+                                                    }}
+                                                  />
+                                                  <span
+                                                    style={{
+                                                      fontFamily: "var(--font-body)",
+                                                      fontSize: "0.85rem",
+                                                      fontWeight: 500,
+                                                      color: "oklch(0.60 0.010 260)",
+                                                    }}
+                                                  >
+                                                    {subSvc.label}
+                                                  </span>
+                                                </Link>
+                                              ))}
+                                            </div>
+                                          </motion.div>
+                                        )}
+                                      </AnimatePresence>
+                                    </div>
+                                  );
+                                }
+
                                 const SvcMobComp = svc.href ? Link : "a";
                                 const svcMobNavProps = svc.href
                                   ? {
                                       to: svc.href,
-                                      onClick: () => setMenuOpen(false),
+                                      onClick: () => {
+                                        setMenuOpen(false);
+                                        setSvcExpanded(false);
+                                      },
                                     }
                                   : {
                                       onClick: (e) => {
