@@ -5,7 +5,7 @@ import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 
 const NAV_LINKS = [
   { label: "Experiencia", href: "/", section: "experiencia" },
-  { label: "Servicios", href: null, section: "servicios", dropdown: true },
+  { label: "Servicios", href: "/servicios", section: "servicios", dropdown: true },
   { label: "Nosotros", href: "/nosotros", section: "nosotros" },
   { label: "Contacto", href: "/contacto", section: "contacto" },
 ];
@@ -22,14 +22,14 @@ const SERVICES_MENU = [
         desc: "Software personalizado para tu organización",
       },
       {
-        label: "Desarrollo Digital",
-        href: "/servicios/desarrollo-digital",
-        desc: "Sitios web, e-commerce y apps a medida",
+        label: "Posicionamiento SEO",
+        href: "/servicios/posicionamiento-seo",
+        desc: "Aumentamos la visibilidad de tu empresa en Google",
       },
       {
-        label: "Todos los Servicios",
-        href: "/servicios",
-        desc: "Explora todo nuestro portafolio de servicios",
+        label: "Hosting Empresarial y Registro de Dominios",
+        href: "/servicios/hosting-empresarial-registro-dominios",
+        desc: "Infraestructura tecnológica confiable para tu negocio.",
       },
     ],
   },
@@ -146,7 +146,7 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Scrim: keeps tall headings from bleeding through the gap between the bare logo and the nav pill */}
+      {/* Scrim */}
       <div
         aria-hidden="true"
         className="fixed inset-x-0 top-0 z-40 pointer-events-none"
@@ -207,13 +207,102 @@ export default function Navbar() {
                 onMouseEnter={openDropdown}
                 onMouseLeave={closeDropdown}
               >
-                <TubeLink
-                  href={link.href}
-                  active={CURRENT_PAGE === link.section}
-                  chevron
+                <Link
+                  to={link.href}
+                  className="group relative rounded-full no-underline flex items-center gap-1"
+                  style={{
+                    padding: "0.48rem 1.1rem",
+                    fontFamily: "var(--font-body)",
+                    fontWeight: 600,
+                    fontSize: "0.78rem",
+                    letterSpacing: "0.10em",
+                    textTransform: "uppercase",
+                    color: CURRENT_PAGE === link.section ? "var(--c-ink)" : "oklch(0.46 0.014 260)",
+                    transition: "color 0.2s ease",
+                    zIndex: 1,
+                    whiteSpace: "nowrap",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (CURRENT_PAGE !== link.section) {
+                      e.currentTarget.style.color = "oklch(0.82 0.008 260)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (CURRENT_PAGE !== link.section) {
+                      e.currentTarget.style.color = "oklch(0.46 0.014 260)";
+                    }
+                  }}
                 >
+                  {CURRENT_PAGE !== link.section && (
+                    <span
+                      className="absolute inset-0 rounded-full -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                      style={{ background: "oklch(0.16 0.024 260 / 0.7)" }}
+                    />
+                  )}
+
+                  {CURRENT_PAGE === link.section && (
+                    <motion.span
+                      layoutId="tube-pill"
+                      className="absolute inset-0 rounded-full -z-10"
+                      style={{ background: "oklch(0.17 0.030 260 / 0.95)" }}
+                      transition={{ type: "spring", stiffness: 400, damping: 34 }}
+                    >
+                      <span
+                        aria-hidden="true"
+                        style={{
+                          position: "absolute",
+                          top: -3,
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                          width: "1.5rem",
+                          height: "3px",
+                          background: "var(--c-lime)",
+                          borderRadius: "0 0 3px 3px",
+                          boxShadow: "0 0 10px var(--c-lime)",
+                        }}
+                      />
+                      <span
+                        aria-hidden="true"
+                        style={{
+                          position: "absolute",
+                          top: -22,
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                          width: "4rem",
+                          height: "2rem",
+                          background: "oklch(0.88 0.26 130 / 0.13)",
+                          borderRadius: "50%",
+                          filter: "blur(12px)",
+                        }}
+                      />
+                      <span
+                        aria-hidden="true"
+                        style={{
+                          position: "absolute",
+                          top: -11,
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                          width: "2rem",
+                          height: "1rem",
+                          background: "oklch(0.88 0.26 130 / 0.28)",
+                          borderRadius: "50%",
+                          filter: "blur(5px)",
+                        }}
+                      />
+                    </motion.span>
+                  )}
+
                   {link.label}
-                </TubeLink>
+                  <ChevronDown 
+                    size={11} 
+                    style={{ 
+                      opacity: 0.55, 
+                      flexShrink: 0,
+                      transition: "transform 0.25s ease",
+                      transform: dropdownOpen ? "rotate(180deg)" : "rotate(0deg)",
+                    }} 
+                  />
+                </Link>
 
                 <AnimatePresence>
                   {dropdownOpen && (
@@ -447,13 +536,94 @@ export default function Navbar() {
                 </AnimatePresence>
               </div>
             ) : (
-              <TubeLink
+              <Link
                 key={link.section}
-                href={link.href}
-                active={CURRENT_PAGE === link.section}
+                to={link.href}
+                className="group relative rounded-full no-underline flex items-center gap-1"
+                style={{
+                  padding: "0.48rem 1.1rem",
+                  fontFamily: "var(--font-body)",
+                  fontWeight: 600,
+                  fontSize: "0.78rem",
+                  letterSpacing: "0.10em",
+                  textTransform: "uppercase",
+                  color: CURRENT_PAGE === link.section ? "var(--c-ink)" : "oklch(0.46 0.014 260)",
+                  transition: "color 0.2s ease",
+                  zIndex: 1,
+                  whiteSpace: "nowrap",
+                }}
+                onMouseEnter={(e) => {
+                  if (CURRENT_PAGE !== link.section) {
+                    e.currentTarget.style.color = "oklch(0.82 0.008 260)";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (CURRENT_PAGE !== link.section) {
+                    e.currentTarget.style.color = "oklch(0.46 0.014 260)";
+                  }
+                }}
               >
+                {CURRENT_PAGE !== link.section && (
+                  <span
+                    className="absolute inset-0 rounded-full -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                    style={{ background: "oklch(0.16 0.024 260 / 0.7)" }}
+                  />
+                )}
+
+                {CURRENT_PAGE === link.section && (
+                  <motion.span
+                    layoutId="tube-pill"
+                    className="absolute inset-0 rounded-full -z-10"
+                    style={{ background: "oklch(0.17 0.030 260 / 0.95)" }}
+                    transition={{ type: "spring", stiffness: 400, damping: 34 }}
+                  >
+                    <span
+                      aria-hidden="true"
+                      style={{
+                        position: "absolute",
+                        top: -3,
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        width: "1.5rem",
+                        height: "3px",
+                        background: "var(--c-lime)",
+                        borderRadius: "0 0 3px 3px",
+                        boxShadow: "0 0 10px var(--c-lime)",
+                      }}
+                    />
+                    <span
+                      aria-hidden="true"
+                      style={{
+                        position: "absolute",
+                        top: -22,
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        width: "4rem",
+                        height: "2rem",
+                        background: "oklch(0.88 0.26 130 / 0.13)",
+                        borderRadius: "50%",
+                        filter: "blur(12px)",
+                      }}
+                    />
+                    <span
+                      aria-hidden="true"
+                      style={{
+                        position: "absolute",
+                        top: -11,
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        width: "2rem",
+                        height: "1rem",
+                        background: "oklch(0.88 0.26 130 / 0.28)",
+                        borderRadius: "50%",
+                        filter: "blur(5px)",
+                      }}
+                    />
+                  </motion.span>
+                )}
+
                 {link.label}
-              </TubeLink>
+              </Link>
             ),
           )}
         </div>
@@ -575,7 +745,6 @@ export default function Navbar() {
               <div style={{ padding: "0.5rem 1.5rem 1.5rem" }}>
                 {NAV_LINKS.map((link, i) =>
                   link.dropdown ? (
-                    /* ── Servicios: accordion ── */
                     <motion.div
                       key={link.section}
                       initial={{ opacity: 0, x: -18 }}
@@ -853,7 +1022,6 @@ export default function Navbar() {
                       </AnimatePresence>
                     </motion.div>
                   ) : (
-                    /* ── Link normal ── */
                     <motion.div
                       key={link.section}
                       initial={{ opacity: 0, x: -18 }}
@@ -864,72 +1032,60 @@ export default function Navbar() {
                         ease: [0.16, 1, 0.3, 1],
                       }}
                     >
-                      {(() => {
-                        const NavComp = link.href ? Link : "a";
-                        const navProps = link.href
-                          ? { to: link.href, onClick: () => setMenuOpen(false) }
-                          : {
-                              onClick: (e) => {
-                                e.preventDefault();
-                                setMenuOpen(false);
-                              },
-                            };
-                        return (
-                          <NavComp
-                            {...navProps}
-                            className="group flex items-center justify-between no-underline"
+                      <Link
+                        to={link.href}
+                        onClick={() => setMenuOpen(false)}
+                        className="group flex items-center justify-between no-underline"
+                        style={{
+                          padding: "1.1rem 0",
+                          borderBottom:
+                            i < NAV_LINKS.length - 1
+                              ? "1px solid oklch(0.20 0.018 260)"
+                              : "none",
+                        }}
+                      >
+                        <div className="flex items-baseline gap-4">
+                          <span
                             style={{
-                              padding: "1.1rem 0",
-                              borderBottom:
-                                i < NAV_LINKS.length - 1
-                                  ? "1px solid oklch(0.20 0.018 260)"
-                                  : "none",
+                              fontFamily: "var(--font-body)",
+                              fontSize: "0.68rem",
+                              fontWeight: 600,
+                              letterSpacing: "0.14em",
+                              color: "oklch(0.35 0.014 260)",
                             }}
                           >
-                            <div className="flex items-baseline gap-4">
-                              <span
-                                style={{
-                                  fontFamily: "var(--font-body)",
-                                  fontSize: "0.68rem",
-                                  fontWeight: 600,
-                                  letterSpacing: "0.14em",
-                                  color: "oklch(0.35 0.014 260)",
-                                }}
-                              >
-                                0{i + 1}
-                              </span>
-                              <span
-                                style={{
-                                  fontFamily: "var(--font-display)",
-                                  fontWeight: 800,
-                                  fontSize: "clamp(1.5rem, 6vw, 1.85rem)",
-                                  textTransform: "uppercase",
-                                  color:
-                                    CURRENT_PAGE === link.section
-                                      ? "var(--c-lime)"
-                                      : "var(--c-ink)",
-                                  letterSpacing: "-0.01em",
-                                  transition: "color 0.2s ease",
-                                }}
-                              >
-                                {link.label}
-                              </span>
-                            </div>
-                            <span
-                              className="transition-transform duration-200 group-hover:translate-x-1.5"
-                              style={{
-                                color:
-                                  CURRENT_PAGE === link.section
-                                    ? "var(--c-lime)"
-                                    : "oklch(0.30 0.016 260)",
-                                fontSize: "1.1rem",
-                              }}
-                            >
-                              →
-                            </span>
-                          </NavComp>
-                        );
-                      })()}
+                            0{i + 1}
+                          </span>
+                          <span
+                            style={{
+                              fontFamily: "var(--font-display)",
+                              fontWeight: 800,
+                              fontSize: "clamp(1.5rem, 6vw, 1.85rem)",
+                              textTransform: "uppercase",
+                              color:
+                                CURRENT_PAGE === link.section
+                                  ? "var(--c-lime)"
+                                  : "var(--c-ink)",
+                              letterSpacing: "-0.01em",
+                              transition: "color 0.2s ease",
+                            }}
+                          >
+                            {link.label}
+                          </span>
+                        </div>
+                        <span
+                          className="transition-transform duration-200 group-hover:translate-x-1.5"
+                          style={{
+                            color:
+                              CURRENT_PAGE === link.section
+                                ? "var(--c-lime)"
+                                : "oklch(0.30 0.016 260)",
+                            fontSize: "1.1rem",
+                          }}
+                        >
+                          →
+                        </span>
+                      </Link>
                     </motion.div>
                   ),
                 )}
@@ -1007,99 +1163,5 @@ function PillDecorations({ scrollProgress }) {
         }}
       />
     </div>
-  );
-}
-
-function TubeLink({ href, children, active, chevron }) {
-  const Comp = href ? Link : "a";
-  const navProps = href ? { to: href } : { onClick: (e) => e.preventDefault() };
-
-  return (
-    <Comp
-      {...navProps}
-      className="group relative rounded-full no-underline flex items-center gap-1"
-      style={{
-        padding: "0.48rem 1.1rem",
-        fontFamily: "var(--font-body)",
-        fontWeight: 600,
-        fontSize: "0.78rem",
-        letterSpacing: "0.10em",
-        textTransform: "uppercase",
-        color: active ? "var(--c-ink)" : "oklch(0.46 0.014 260)",
-        transition: "color 0.2s ease",
-        zIndex: 1,
-        whiteSpace: "nowrap",
-      }}
-      onMouseEnter={(e) => {
-        if (!active) e.currentTarget.style.color = "oklch(0.82 0.008 260)";
-      }}
-      onMouseLeave={(e) => {
-        if (!active) e.currentTarget.style.color = "oklch(0.46 0.014 260)";
-      }}
-    >
-      {!active && (
-        <span
-          className="absolute inset-0 rounded-full -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-          style={{ background: "oklch(0.16 0.024 260 / 0.7)" }}
-        />
-      )}
-
-      {active && (
-        <motion.span
-          layoutId="tube-pill"
-          className="absolute inset-0 rounded-full -z-10"
-          style={{ background: "oklch(0.17 0.030 260 / 0.95)" }}
-          transition={{ type: "spring", stiffness: 400, damping: 34 }}
-        >
-          <span
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              top: -3,
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: "1.5rem",
-              height: "3px",
-              background: "var(--c-lime)",
-              borderRadius: "0 0 3px 3px",
-              boxShadow: "0 0 10px var(--c-lime)",
-            }}
-          />
-          <span
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              top: -22,
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: "4rem",
-              height: "2rem",
-              background: "oklch(0.88 0.26 130 / 0.13)",
-              borderRadius: "50%",
-              filter: "blur(12px)",
-            }}
-          />
-          <span
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              top: -11,
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: "2rem",
-              height: "1rem",
-              background: "oklch(0.88 0.26 130 / 0.28)",
-              borderRadius: "50%",
-              filter: "blur(5px)",
-            }}
-          />
-        </motion.span>
-      )}
-
-      {children}
-      {chevron && (
-        <ChevronDown size={11} style={{ opacity: 0.55, flexShrink: 0 }} />
-      )}
-    </Comp>
   );
 }
