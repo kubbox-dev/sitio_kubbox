@@ -17,9 +17,29 @@ const ContactPage = lazy(() => import("../pages/contacto"));
 const DesarrolloDigitalPage = lazy(
   () => import("../pages/servicios/desarrollo-digital"),
 );
-const ServicioDinamicoPage = lazy(
-  () => import("../pages/servicios/detalle"),
+const PosicionamientoSeoPage = lazy(
+  () => import("../pages/servicios/posicionamiento-seo"),
 );
+const DesarrolloSoftwareMedidaPage = lazy(
+  () => import("../pages/servicios/desarrollo-a-la-medida"),
+);
+const HostingEmpresarialPage = lazy(
+  () => import("../pages/servicios/hosting-empresarial-registro-dominios"),
+);
+const DesarrolloAppsMovilesPage = lazy(
+  () => import("../pages/servicios/desarrollo-aplicaciones-moviles"),
+);
+const CampanasDigitalesPage = lazy(
+  () =>
+    import("../pages/servicios/campanas-digitales-activacion-ventas-retail"),
+);
+const DisenoDesarrolloSitiosWebPage = lazy(
+  () => import("../pages/servicios/diseno-desarrollo-sitios-web"),
+);
+const AutomatizacionWhatsAppPage = lazy(
+  () => import("../pages/servicios/automatizacion-campanas-whatsapp"),
+);
+const ServicioDinamicoPage = lazy(() => import("../pages/servicios/detalle"));
 const ProyectoPage = lazy(() => import("../pages/proyectos"));
 const NosotrosPage = lazy(() => import("../pages/nosotros"));
 const NotFoundPage = lazy(() => import("../pages/not-found"));
@@ -72,15 +92,39 @@ export default function AppRouter() {
             element={<DesarrolloDigitalPage />}
           />
           <Route
-            path="/servicios/:slug"
-            element={<ServicioDinamicoPage />}
+            path="/servicios/posicionamiento-seo"
+            element={<PosicionamientoSeoPage />}
           />
+          <Route
+            path="/servicios/desarrollo-a-la-medida"
+            element={<DesarrolloSoftwareMedidaPage />}
+          />
+          <Route
+            path="/servicios/hosting-empresarial-registro-dominios"
+            element={<HostingEmpresarialPage />}
+          />
+          <Route
+            path="/servicios/desarrollo-aplicaciones-moviles"
+            element={<DesarrolloAppsMovilesPage />}
+          />
+          <Route
+            path="/servicios/campanas-digitales-activacion-ventas-retail"
+            element={<CampanasDigitalesPage />}
+          />
+          <Route
+            path="/servicios/diseno-desarrollo-sitios-web"
+            element={<DisenoDesarrolloSitiosWebPage />}
+          />
+          <Route
+            path="/servicios/automatizacion-campanas-whatsapp"
+            element={<AutomatizacionWhatsAppPage />}
+          />
+          <Route path="/servicios/:slug" element={<ServicioDinamicoPage />} />
           <Route path="/proyectos/:slug" element={<ProyectoPage />} />
           <Route
             path="/proyectos"
             element={<Navigate to={`/proyectos/${defaultSlug}`} replace />}
           />
-          {/* Agregar páginas futuras aquí: */}
           <Route path="/servicios" element={<ServiciosPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

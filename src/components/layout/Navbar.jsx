@@ -5,7 +5,12 @@ import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 
 const NAV_LINKS = [
   { label: "Experiencia", href: "/", section: "experiencia" },
-  { label: "Servicios", href: "/servicios", section: "servicios", dropdown: true },
+  {
+    label: "Servicios",
+    href: "/servicios",
+    section: "servicios",
+    dropdown: true,
+  },
   { label: "Nosotros", href: "/nosotros", section: "nosotros" },
   { label: "Contacto", href: "/contacto", section: "contacto" },
 ];
@@ -16,21 +21,62 @@ const SERVICES_MENU = [
     desc: "Soluciones de marketing y desarrollo web",
     isSubmenu: true,
     items: [
-      {
-        label: "Desarrollo de Software a la Medida",
-        href: "/servicios/desarrollo-software-medida",
-        desc: "Software personalizado para tu organización",
-      },
+      // {
+      //   label: "Desarrollo digital",
+      //   href: "/servicios/desarrollo-digital",
+      //   desc: "Software personalizado para tu organización",
+      // },
       {
         label: "Posicionamiento SEO",
         href: "/servicios/posicionamiento-seo",
         desc: "Aumentamos la visibilidad de tu empresa en Google",
+      },
+
+      {
+        label: "Desarrollo de Software a la Medida",
+        href: "/servicios/desarrollo-a-la-medida",
+        desc: "Software personalizado para tu organización",
       },
       {
         label: "Hosting Empresarial y Registro de Dominios",
         href: "/servicios/hosting-empresarial-registro-dominios",
         desc: "Infraestructura tecnológica confiable para tu negocio.",
       },
+      {
+        label: "Desarrollo de Aplicaciones Móviles",
+        href: "/servicios/desarrollo-aplicaciones-moviles",
+        desc: "Apps nativas y multiplataforma para iOS y Android",
+      },
+      {
+        label: "Campañas Digitales para Activación de Ventas en Retail",
+        href: "/servicios/campanas-digitales-activacion-ventas-retail",
+        desc: "Convertimos el interés digital en ventas reales",
+      },
+      {
+        label: "Diseño y Desarrollo de Sitios Web",
+        href: "/servicios/diseno-desarrollo-sitios-web",
+        desc: "Sitios web modernos, rápidos y personalizados",
+      },
+      {
+        label: "Automatización y Campañas por WhatsApp",
+        href: "/servicios/automatizacion-campanas-whatsapp",
+        desc: "Automatiza la comunicación con tus clientes",
+      },
+      // {
+      //   label: "Posicionamiento SEO",
+      //   href: "/servicios/posicionamiento-seo",
+      //   desc: "Aumentamos la visibilidad de tu empresa en Google",
+      // },
+      // {
+      //   label: "Hosting Empresarial y Registro de Dominios",
+      //   href: "/servicios/hosting-empresarial-registro-dominios",
+      //   desc: "Infraestructura tecnológica confiable para tu negocio.",
+      // },
+      // {
+      //   label: "Desarrollo de Aplicaciones Móviles", // ← NUEVO
+      //   href: "/servicios/desarrollo-aplicaciones-moviles",
+      //   desc: "Apps nativas y multiplataforma para iOS y Android",
+      // },
     ],
   },
   {
@@ -217,7 +263,10 @@ export default function Navbar() {
                     fontSize: "0.78rem",
                     letterSpacing: "0.10em",
                     textTransform: "uppercase",
-                    color: CURRENT_PAGE === link.section ? "var(--c-ink)" : "oklch(0.46 0.014 260)",
+                    color:
+                      CURRENT_PAGE === link.section
+                        ? "var(--c-ink)"
+                        : "oklch(0.46 0.014 260)",
                     transition: "color 0.2s ease",
                     zIndex: 1,
                     whiteSpace: "nowrap",
@@ -245,7 +294,11 @@ export default function Navbar() {
                       layoutId="tube-pill"
                       className="absolute inset-0 rounded-full -z-10"
                       style={{ background: "oklch(0.17 0.030 260 / 0.95)" }}
-                      transition={{ type: "spring", stiffness: 400, damping: 34 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 34,
+                      }}
                     >
                       <span
                         aria-hidden="true"
@@ -293,14 +346,16 @@ export default function Navbar() {
                   )}
 
                   {link.label}
-                  <ChevronDown 
-                    size={11} 
-                    style={{ 
-                      opacity: 0.55, 
+                  <ChevronDown
+                    size={11}
+                    style={{
+                      opacity: 0.55,
                       flexShrink: 0,
                       transition: "transform 0.25s ease",
-                      transform: dropdownOpen ? "rotate(180deg)" : "rotate(0deg)",
-                    }} 
+                      transform: dropdownOpen
+                        ? "rotate(180deg)"
+                        : "rotate(0deg)",
+                    }}
                   />
                 </Link>
 
@@ -396,7 +451,11 @@ export default function Navbar() {
                                 <AnimatePresence>
                                   {subDropdownOpen && (
                                     <motion.div
-                                      initial={{ opacity: 0, x: 8, scale: 0.97 }}
+                                      initial={{
+                                        opacity: 0,
+                                        x: 8,
+                                        scale: 0.97,
+                                      }}
                                       animate={{ opacity: 1, x: 0, scale: 1 }}
                                       exit={{ opacity: 0, x: 6, scale: 0.98 }}
                                       transition={{
@@ -410,13 +469,16 @@ export default function Navbar() {
                                         top: 0,
                                         left: "100%",
                                         minWidth: "250px",
-                                        background: "oklch(0.10 0.026 260 / 0.98)",
-                                        border: "1px solid oklch(0.22 0.020 260)",
+                                        background:
+                                          "oklch(0.10 0.026 260 / 0.98)",
+                                        border:
+                                          "1px solid oklch(0.22 0.020 260)",
                                         borderRadius: "1rem",
                                         backdropFilter: "blur(24px)",
                                         padding: "0.4rem",
                                         zIndex: 110,
-                                        boxShadow: "0 8px 32px oklch(0.04 0.02 260 / 0.5)",
+                                        boxShadow:
+                                          "0 8px 32px oklch(0.04 0.02 260 / 0.5)",
                                       }}
                                     >
                                       {svc.items.map((subSvc) => (
@@ -547,7 +609,10 @@ export default function Navbar() {
                   fontSize: "0.78rem",
                   letterSpacing: "0.10em",
                   textTransform: "uppercase",
-                  color: CURRENT_PAGE === link.section ? "var(--c-ink)" : "oklch(0.46 0.014 260)",
+                  color:
+                    CURRENT_PAGE === link.section
+                      ? "var(--c-ink)"
+                      : "oklch(0.46 0.014 260)",
                   transition: "color 0.2s ease",
                   zIndex: 1,
                   whiteSpace: "nowrap",
@@ -835,7 +900,9 @@ export default function Navbar() {
                                       }}
                                     >
                                       <button
-                                        onClick={() => setSubSvcExpanded((v) => !v)}
+                                        onClick={() =>
+                                          setSubSvcExpanded((v) => !v)
+                                        }
                                         className="flex items-center justify-between w-full border-none cursor-pointer"
                                         style={{
                                           padding: "0.6rem 0.5rem",
@@ -851,7 +918,8 @@ export default function Navbar() {
                                               borderRadius: "50%",
                                               background: "var(--c-lime)",
                                               flexShrink: 0,
-                                              boxShadow: "0 0 5px var(--c-lime)",
+                                              boxShadow:
+                                                "0 0 5px var(--c-lime)",
                                             }}
                                           />
                                           <span
@@ -866,7 +934,9 @@ export default function Navbar() {
                                           </span>
                                         </div>
                                         <motion.span
-                                          animate={{ rotate: subSvcExpanded ? 180 : 0 }}
+                                          animate={{
+                                            rotate: subSvcExpanded ? 180 : 0,
+                                          }}
                                           transition={{ duration: 0.25 }}
                                           style={{
                                             color: subSvcExpanded
@@ -883,7 +953,10 @@ export default function Navbar() {
                                         {subSvcExpanded && (
                                           <motion.div
                                             initial={{ height: 0, opacity: 0 }}
-                                            animate={{ height: "auto", opacity: 1 }}
+                                            animate={{
+                                              height: "auto",
+                                              opacity: 1,
+                                            }}
                                             exit={{ height: 0, opacity: 0 }}
                                             transition={{
                                               duration: 0.28,
@@ -893,7 +966,8 @@ export default function Navbar() {
                                           >
                                             <div
                                               style={{
-                                                padding: "0.2rem 0 0.5rem 1.5rem",
+                                                padding:
+                                                  "0.2rem 0 0.5rem 1.5rem",
                                                 display: "flex",
                                                 flexDirection: "column",
                                                 gap: "0.1rem",
@@ -911,7 +985,8 @@ export default function Navbar() {
                                                   className="flex items-center gap-2 no-underline rounded-lg"
                                                   style={{
                                                     padding: "0.45rem 0.5rem",
-                                                    transition: "background 0.15s ease",
+                                                    transition:
+                                                      "background 0.15s ease",
                                                   }}
                                                   onMouseEnter={(e) =>
                                                     (e.currentTarget.style.background =
@@ -927,16 +1002,19 @@ export default function Navbar() {
                                                       width: "3px",
                                                       height: "3px",
                                                       borderRadius: "50%",
-                                                      background: "var(--c-lime)",
+                                                      background:
+                                                        "var(--c-lime)",
                                                       flexShrink: 0,
                                                     }}
                                                   />
                                                   <span
                                                     style={{
-                                                      fontFamily: "var(--font-body)",
+                                                      fontFamily:
+                                                        "var(--font-body)",
                                                       fontSize: "0.85rem",
                                                       fontWeight: 500,
-                                                      color: "oklch(0.60 0.010 260)",
+                                                      color:
+                                                        "oklch(0.60 0.010 260)",
                                                     }}
                                                   >
                                                     {subSvc.label}
