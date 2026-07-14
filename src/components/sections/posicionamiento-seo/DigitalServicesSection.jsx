@@ -7,13 +7,13 @@ import {
 
 const PHOTO = "/images/DESARROLLO DIGITAL/WEB/Fotos/Foto para slide.png";
 
-// Valores por defecto para Posicionamiento SEO
 const DEFAULT_TAGLINE =
   "Ayudamos a que las empresas aparezcan cuando sus clientes buscan sus productos o servicios en Google.";
 const DEFAULT_INTRO =
   "Nuestro servicio de SEO combina estrategia, contenido, optimización técnica y análisis permanente para mejorar el posicionamiento orgánico y aumentar el tráfico de calidad.";
 const DEFAULT_STATEMENT =
   "El objetivo es aumentar la visibilidad de la empresa y generar oportunidades comerciales de forma sostenida.";
+
 const DEFAULT_BULLETS = [
   {
     icon: encodeURI(
@@ -37,6 +37,15 @@ const DEFAULT_BULLETS = [
     ),
     label: "Monitoreo de resultados",
   },
+];
+
+// Solo los que NO están en los principales
+const SUB_BULLETS = [
+  "SEO técnico",
+  "Optimización On Page",
+  "Arquitectura web",
+  "SEO local",
+  "Creación de contenido optimizado",
 ];
 
 export default function DigitalServicesSection({
@@ -72,7 +81,6 @@ export default function DigitalServicesSection({
           variants={staggerContainer(0.12)}
           className="dd-grid"
         >
-          {/* Columna izquierda: foto */}
           <motion.div variants={fadeUp} className="dd-photo-card">
             <img
               src={PHOTO}
@@ -80,7 +88,6 @@ export default function DigitalServicesSection({
             />
           </motion.div>
 
-          {/* Columna derecha: intro + grid de iconos */}
           <motion.div variants={fadeUp}>
             <div className="dd-intro">
               <p className="dd-tagline">{tLine}</p>
@@ -99,6 +106,29 @@ export default function DigitalServicesSection({
           </motion.div>
         </motion.div>
 
+        {/* Sub-bullets section - servicios adicionales */}
+        <motion.div
+          className="dd-sub-section"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="dd-sub-header">
+            <span className="dd-sub-line" />
+            <span className="dd-sub-title">Servicios Adicionales</span>
+            <span className="dd-sub-line" />
+          </div>
+          <ul className="dd-sub-grid">
+            {SUB_BULLETS.map((item, idx) => (
+              <li key={idx} className="dd-sub-item">
+                <span className="dd-sub-dot" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+
         <motion.div
           className="dd-statement"
           initial={{ opacity: 0, y: 28 }}
@@ -108,7 +138,6 @@ export default function DigitalServicesSection({
         >
           <span className="dd-corner dd-corner--tl" aria-hidden="true" />
           <span className="dd-corner dd-corner--br" aria-hidden="true" />
-
           <p className="dd-statement-text">{closing}</p>
         </motion.div>
       </div>
@@ -207,6 +236,63 @@ export default function DigitalServicesSection({
           line-height: 1.32;
         }
 
+        /* Sub-bullets section */
+        .dd-sub-section {
+          margin: clamp(2rem, 4vw, 3rem) 0;
+          padding: clamp(1.5rem, 3vw, 2.5rem);
+          background: oklch(0.13 0.020 260 / 0.5);
+          border: 1px solid oklch(0.26 0.022 260);
+          border-radius: 1rem;
+          backdrop-filter: blur(8px);
+        }
+        .dd-sub-header {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 1.25rem;
+        }
+        .dd-sub-line {
+          flex: 1;
+          height: 1px;
+          background: linear-gradient(to right, transparent, oklch(0.88 0.26 130 / 0.3), transparent);
+        }
+        .dd-sub-title {
+          font-family: var(--font-display);
+          font-weight: 800;
+          font-style: italic;
+          font-size: clamp(0.9rem, 1.6vw, 1.2rem);
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          color: var(--c-lime);
+          white-space: nowrap;
+        }
+        .dd-sub-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 0.5rem 1.5rem;
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+        .dd-sub-item {
+          display: flex;
+          align-items: center;
+          gap: 0.6rem;
+          font-family: var(--font-body);
+          font-size: clamp(0.8rem, 1vw, 0.9rem);
+          color: oklch(0.82 0.010 260);
+          padding: 0.3rem 0;
+        }
+        .dd-sub-dot {
+          display: inline-block;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: var(--c-lime);
+          flex-shrink: 0;
+          box-shadow: 0 0 6px var(--c-lime);
+        }
+
         .dd-statement {
           position: relative;
           background: oklch(0.13 0.020 260 / 0.85);
@@ -249,11 +335,6 @@ export default function DigitalServicesSection({
           text-align: center;
           text-wrap: pretty;
         }
-        .dd-statement-highlight {
-          color: var(--c-lime);
-          font-style: normal;
-          font-weight: 600;
-        }
 
         @media (max-width: 880px) {
           .dd-grid {
@@ -272,6 +353,9 @@ export default function DigitalServicesSection({
           }
           .dd-statement {
             padding: clamp(2rem, 8vw, 2.5rem);
+          }
+          .dd-sub-grid {
+            grid-template-columns: 1fr;
           }
         }
       `}</style>

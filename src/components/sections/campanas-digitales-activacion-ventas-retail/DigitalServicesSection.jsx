@@ -40,6 +40,13 @@ const DEFAULT_BULLETS = [
   },
 ];
 
+const SUB_BULLETS = [
+  "Retail",
+  "Distribuidores",
+  "Franquicias",
+  "Puntos de venta",
+];
+
 export default function DigitalServicesSection({
   tagline,
   introText,
@@ -96,6 +103,29 @@ export default function DigitalServicesSection({
               ))}
             </div>
           </motion.div>
+        </motion.div>
+
+        {/* Sub-bullets section - servicios adicionales */}
+        <motion.div
+          className="dd-sub-section"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="dd-sub-header">
+            <span className="dd-sub-line" />
+            <span className="dd-sub-title">Servicios Adicionales</span>
+            <span className="dd-sub-line" />
+          </div>
+          <ul className="dd-sub-grid">
+            {SUB_BULLETS.map((item, idx) => (
+              <li key={idx} className="dd-sub-item">
+                <span className="dd-sub-dot" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
         </motion.div>
 
         <motion.div
@@ -201,6 +231,64 @@ export default function DigitalServicesSection({
           color: var(--c-lime);
           line-height: 1.32;
         }
+
+        /* Sub-bullets section */
+        .dd-sub-section {
+          margin: clamp(2rem, 4vw, 3rem) 0;
+          padding: clamp(1.5rem, 3vw, 2.5rem);
+          background: oklch(0.13 0.020 260 / 0.5);
+          border: 1px solid oklch(0.26 0.022 260);
+          border-radius: 1rem;
+          backdrop-filter: blur(8px);
+        }
+        .dd-sub-header {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 1.25rem;
+        }
+        .dd-sub-line {
+          flex: 1;
+          height: 1px;
+          background: linear-gradient(to right, transparent, oklch(0.88 0.26 130 / 0.3), transparent);
+        }
+        .dd-sub-title {
+          font-family: var(--font-display);
+          font-weight: 800;
+          font-style: italic;
+          font-size: clamp(0.9rem, 1.6vw, 1.2rem);
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          color: var(--c-lime);
+          white-space: nowrap;
+        }
+        .dd-sub-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 0.5rem 1.5rem;
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+        .dd-sub-item {
+          display: flex;
+          align-items: center;
+          gap: 0.6rem;
+          font-family: var(--font-body);
+          font-size: clamp(0.8rem, 1vw, 0.9rem);
+          color: oklch(0.82 0.010 260);
+          padding: 0.3rem 0;
+        }
+        .dd-sub-dot {
+          display: inline-block;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: var(--c-lime);
+          flex-shrink: 0;
+          box-shadow: 0 0 6px var(--c-lime);
+        }
+
         .dd-statement {
           position: relative;
           background: oklch(0.13 0.020 260 / 0.85);
@@ -243,6 +331,7 @@ export default function DigitalServicesSection({
           text-align: center;
           text-wrap: pretty;
         }
+
         @media (max-width: 880px) {
           .dd-grid {
             grid-template-columns: 1fr;
@@ -253,12 +342,16 @@ export default function DigitalServicesSection({
             min-height: 0;
           }
         }
+
         @media (max-width: 520px) {
           .dd-icon-grid {
             grid-template-columns: 1fr;
           }
           .dd-statement {
             padding: clamp(2rem, 8vw, 2.5rem);
+          }
+          .dd-sub-grid {
+            grid-template-columns: 1fr;
           }
         }
       `}</style>
