@@ -121,8 +121,8 @@ export default function DigitalHeroSection({ title }) {
               m-0
               leading-[0.92]
               tracking-[-0.025em]
-              text-[clamp(1.8rem,7vw,5rem)]
-              min-[1280px]:text-[clamp(2.8rem,5vw,5.5rem)]
+              text-[clamp(2.2rem,9vw,6.5rem)]
+              min-[1280px]:text-[clamp(3.5rem,6vw,7rem)]
               px-[0.08em]
             "
             style={NEON_STYLE}
@@ -144,8 +144,8 @@ export default function DigitalHeroSection({ title }) {
               m-0
               leading-[0.92]
               tracking-[-0.025em]
-              text-[clamp(1.8rem,5vw,3.5rem)]
-              min-[1280px]:text-[clamp(2.8rem,5vw,5.5rem)]
+              text-[clamp(2.2rem,7vw,4.5rem)]
+              min-[1280px]:text-[clamp(3.5rem,6vw,7rem)]
               ml-[0.6em]
               min-[1280px]:ml-[0.85em]
             "
