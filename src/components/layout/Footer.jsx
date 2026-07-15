@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import React, { useRef, useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 // ============ COMPONENTES DEL HOVER ============
 function cn(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const TextHoverEffect = ({ text, className }) => {
+const TextHoverEffect = ({ text, duration = 0, className }) => {
   const svgRef = useRef(null);
   const [cursor, setCursor] = useState({ x: 0, y: 0 });
   const [hovered, setHovered] = useState(false);
@@ -24,6 +25,18 @@ const TextHoverEffect = ({ text, className }) => {
     }
   }, [cursor]);
 
+  const updateMask = (e) => {
+    if (svgRef.current) {
+      const svgRect = svgRef.current.getBoundingClientRect();
+      const cxPercentage = ((e.clientX - svgRect.left) / svgRect.width) * 100;
+      const cyPercentage = ((e.clientY - svgRect.top) / svgRect.height) * 100;
+      setMaskPosition({
+        cx: `${Math.min(Math.max(cxPercentage, 0), 100)}%`,
+        cy: `${Math.min(Math.max(cyPercentage, 0), 100)}%`,
+      });
+    }
+  };
+
   return (
     <svg
       ref={svgRef}
@@ -33,8 +46,8 @@ const TextHoverEffect = ({ text, className }) => {
       xmlns="http://www.w3.org/2000/svg"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      onMouseMove={(e) => setCursor({ x: e.clientX, y: e.clientY })}
-      className={cn("select-none cursor-pointer", className)}
+      onMouseMove={updateMask}
+      className={cn("select-none uppercase cursor-pointer", className)}
     >
       <defs>
         <linearGradient
@@ -44,13 +57,11 @@ const TextHoverEffect = ({ text, className }) => {
           cy="50%"
           r="25%"
         >
-          {hovered && (
-            <>
-              <stop offset="0%" stopColor="#a3e635" />
-              <stop offset="50%" stopColor="#84cc16" />
-              <stop offset="100%" stopColor="#65a30d" />
-            </>
-          )}
+          <stop offset="0%" stopColor="#a3e635" />
+          <stop offset="25%" stopColor="#84cc16" />
+          <stop offset="50%" stopColor="#65a30d" />
+          <stop offset="75%" stopColor="#84cc16" />
+          <stop offset="100%" stopColor="#a3e635" />
         </linearGradient>
 
         <radialGradient
@@ -74,48 +85,34 @@ const TextHoverEffect = ({ text, className }) => {
         </mask>
       </defs>
 
-      <text
-        x="50%"
-        y="50%"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        strokeWidth="0.3"
-        className="fill-transparent stroke-neutral-800 font-bold text-9xl"
-        style={{
-          fontFamily: "var(--font-display)",
-          opacity: hovered ? 0.7 : 0,
-        }}
-      >
-        {text}
-      </text>
-
+      {/* Texto base con borde verde fijo */}
       <text
         x="50%"
         y="50%"
         textAnchor="middle"
         dominantBaseline="middle"
         strokeWidth="0.8"
-        className="fill-transparent font-bold text-9xl"
+        className="fill-transparent stroke-[#a3e635] font-bold text-9xl"
         style={{
           fontFamily: "var(--font-display)",
-          stroke: "var(--c-lime)",
-          WebkitTextStroke: "0.9px var(--c-lime)",
           opacity: 0.6,
         }}
       >
         {text}
       </text>
 
+      {/* Texto con gradiente que sigue el cursor - EFECTO HOVER */}
       <text
         x="50%"
         y="50%"
         textAnchor="middle"
         dominantBaseline="middle"
+        stroke="url(#textGradient)"
+        strokeWidth="1.2"
         mask="url(#textMask)"
         className="fill-transparent font-bold text-9xl"
         style={{
           fontFamily: "var(--font-display)",
-          fill: "url(#textGradient)",
         }}
       >
         {text}
@@ -252,9 +249,9 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Text hover effect - brillo que sigue al cursor */}
-      <div className="lg:flex hidden h-[22rem] -mt-16 -mb-16 relative z-10">
-        <TextHoverEffect text="KUBBOX" />
+      {/* Text hover effect */}
+      <div className="lg:flex hidden h-[22rem] -mt-16 -mb-16">
+        <TextHoverEffect text="KUBBOX" className="z-50" />
       </div>
     </footer>
   );
