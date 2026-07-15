@@ -47,7 +47,7 @@ const TextHoverEffect = ({ text, duration = 0, className }) => {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onMouseMove={updateMask}
-      className={cn("select-none uppercase cursor-pointer", className)}
+      className={cn("select-none cursor-pointer", className)}
     >
       <defs>
         <linearGradient
@@ -252,9 +252,9 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Text hover effect - 100% ANCHO */}
-      <div className="lg:flex hidden w-full h-[28rem] -mt-20 -mb-20">
-        <TextHoverEffect text="KUBBOX" className="z-50 w-full" />
+      {/* Text hover effect - con margin-top negativo para tocar la línea */}
+      <div className="lg:flex hidden h-[22rem] -mt-45 -mb-16">
+        <TextHoverEffect text="kubbox" className="z-50" />
       </div>
     </footer>
   );
