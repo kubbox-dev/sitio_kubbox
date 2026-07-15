@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import React, { useRef, useEffect, useState } from "react";
 
 const SECTIONS = [
   {
@@ -36,23 +37,30 @@ const SOCIAL = [
   { Icon: IconLinkedin, href: "#", label: "LinkedIn" },
 ];
 
-const LEGAL_LINKS = [
-  { name: "Términos y Condiciones", href: "/terminos" },
-  { name: "Política de Privacidad", href: "/privacidad" },
-];
-
 export default function Footer() {
-  return (
-    <footer className="relative w-full [background:oklch(0.07_0.020_260)]">
-      <span
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 block h-px opacity-70 [background:linear-gradient(to_right,transparent_5%,var(--c-lime)_40%,var(--c-lime)_60%,transparent_95%)]"
-      />
+  const svgRef = useRef(null);
+  const [cursor, setCursor] = useState({ x: 0, y: 0 });
+  const [hovered, setHovered] = useState(false);
+  const [maskPosition, setMaskPosition] = useState({ cx: "50%", cy: "50%" });
 
-      <div className="mx-auto w-[80%] px-[var(--container-pad)] py-32">
-        <div className="flex w-full flex-col justify-between gap-10 lg:flex-row lg:items-start lg:text-left">
+  useEffect(() => {
+    if (svgRef.current && cursor.x !== null && cursor.y !== null) {
+      const svgRect = svgRef.current.getBoundingClientRect();
+      const cxPercentage = ((cursor.x - svgRect.left) / svgRect.width) * 100;
+      const cyPercentage = ((cursor.y - svgRect.top) / svgRect.height) * 100;
+      setMaskPosition({
+        cx: `${cxPercentage}%`,
+        cy: `${cyPercentage}%`,
+      });
+    }
+  }, [cursor]);
+
+  return (
+    <footer className="relative w-full bg-black">
+      <div className="relative z-10 mx-auto w-[80%] px-[var(--container-pad)] py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8 lg:gap-16 pb-12">
           {/* Left: logo + tagline + social */}
-          <div className="flex w-full flex-col justify-between gap-6 lg:items-start lg:max-w-[35%]">
+          <div className="flex flex-col space-y-4">
             <Link to="/" className="block no-underline">
               <img
                 src="/images/LOGO BUENO KUBBOX/Recurso 52.svg"
@@ -61,7 +69,7 @@ export default function Footer() {
               />
             </Link>
             <p
-              className="max-w-[80%] text-sm"
+              className="text-sm leading-relaxed"
               style={{
                 fontFamily: "var(--font-body)",
                 color: "var(--c-muted)",
@@ -70,102 +78,62 @@ export default function Footer() {
               Agencia de marketing digital y desarrollo web para marcas
               colombianas que quieren crecer en serio.
             </p>
-            <ul
-              className="flex items-center space-x-6"
-              style={{ color: "var(--c-muted)" }}
-            >
-              {SOCIAL.map(({ Icon, href, label }, idx) => (
-                <li
-                  key={idx}
-                  className="font-medium transition-colors duration-200 hover:text-primary"
-                >
+            <ul className="flex space-x-6 text-gray-400">
+              {SOCIAL.map(({ Icon, href, label }) => (
+                <li key={label}>
                   <a
                     href={href}
                     aria-label={label}
-                    className="flex h-9 w-9 items-center justify-center rounded-full border transition-colors duration-200"
-                    style={{ borderColor: "oklch(0.22 0.020 260)" }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.color = "var(--c-lime)";
-                      e.currentTarget.style.borderColor = "var(--c-lime)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.color = "var(--c-muted)";
-                      e.currentTarget.style.borderColor =
-                        "oklch(0.22 0.020 260)";
-                    }}
+                    className="hover:text-[#a3e635] transition-colors"
                   >
-                    <Icon size={24} />
+                    <Icon size={20} />
                   </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Right: link sections - alineado perfectamente con el logo */}
-          <div className="grid w-full gap-6 md:grid-cols-3 lg:max-w-[55%] lg:gap-16 lg:pt-4">
-            {SECTIONS.map((section, sectionIdx) => (
-              <div key={sectionIdx}>
-                <h3
-                  className="mb-4 font-bold"
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    color: "var(--c-ink)",
-                    marginTop: 0,
-                    paddingTop: 0,
-                    lineHeight: 1.2,
-                    fontSize: "1.1rem",
-                  }}
-                >
-                  {section.title}
-                </h3>
-                <ul
-                  className="space-y-3 text-sm"
-                  style={{ color: "var(--c-muted)" }}
-                >
-                  {section.links.map((link, linkIdx) => (
-                    <li
-                      key={linkIdx}
-                      className="font-medium transition-colors duration-200 hover:text-primary"
+          {/* Footer link sections */}
+          {SECTIONS.map((section) => (
+            <div key={section.title}>
+              <h4
+                className="text-white text-lg font-semibold mb-6"
+                style={{ fontFamily: "var(--font-body)" }}
+              >
+                {section.title}
+              </h4>
+              <ul className="space-y-3">
+                {section.links.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      to={link.href}
+                      className="hover:text-[#a3e635] transition-colors"
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        color: "var(--c-muted)",
+                      }}
                     >
-                      <Link
-                        to={link.href}
-                        className="no-underline transition-colors duration-200"
-                        style={{
-                          fontFamily: "var(--font-body)",
-                          color: "var(--c-muted)",
-                        }}
-                        onMouseEnter={(e) =>
-                          (e.currentTarget.style.color = "var(--c-ink)")
-                        }
-                        onMouseLeave={(e) =>
-                          (e.currentTarget.style.color = "var(--c-muted)")
-                        }
-                      >
-                        {link.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        <div
-          className="mt-8 flex flex-col justify-between gap-4 border-t py-8 text-xs font-medium md:flex-row md:items-center md:text-left"
-          style={{
-            borderColor: "oklch(0.14 0.022 260)",
-            color: "var(--c-muted)",
-          }}
-        >
+        <hr className="border-t border-gray-700 my-8" />
+
+        {/* Footer bottom */}
+        <div className="flex flex-col md:flex-row justify-between items-center text-sm space-y-4 md:space-y-0">
           <p
-            className="order-2 lg:order-1"
-            style={{ fontFamily: "var(--font-body)" }}
+            className="text-center md:text-left"
+            style={{ fontFamily: "var(--font-body)", color: "var(--c-muted)" }}
           >
             © {new Date().getFullYear()} Kubbox. Todos los derechos reservados.
           </p>
           <p
-            className="order-1 text-xs tracking-[0.04em] md:order-2"
+            className="text-center md:text-left tracking-[0.04em]"
             style={{
               fontFamily: "var(--font-body)",
               color: "oklch(0.38 0.014 260)",
@@ -175,13 +143,116 @@ export default function Footer() {
           </p>
         </div>
       </div>
+
+      {/* Text hover effect - brillo que sigue al cursor */}
+      <div className="lg:flex hidden h-[22rem] -mt-16 -mb-16">
+        <svg
+          ref={svgRef}
+          width="100%"
+          height="100%"
+          viewBox="0 0 500 140"
+          xmlns="http://www.w3.org/2000/svg"
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          onMouseMove={(e) => setCursor({ x: e.clientX, y: e.clientY })}
+          className="select-none cursor-pointer"
+        >
+          <defs>
+            <linearGradient
+              id="textGradient"
+              gradientUnits="userSpaceOnUse"
+              cx="50%"
+              cy="50%"
+              r="25%"
+            >
+              {hovered && (
+                <>
+                  <stop offset="0%" stopColor="#a3e635" />
+                  <stop offset="50%" stopColor="#84cc16" />
+                  <stop offset="100%" stopColor="#65a30d" />
+                </>
+              )}
+            </linearGradient>
+
+            <radialGradient
+              id="revealMask"
+              gradientUnits="userSpaceOnUse"
+              r="20%"
+              cx={maskPosition.cx}
+              cy={maskPosition.cy}
+            >
+              <stop offset="0%" stopColor="white" />
+              <stop offset="100%" stopColor="black" />
+            </radialGradient>
+            <mask id="textMask">
+              <rect
+                x="0"
+                y="0"
+                width="100%"
+                height="100%"
+                fill="url(#revealMask)"
+              />
+            </mask>
+          </defs>
+
+          {/* Texto base (sombra) */}
+          <text
+            x="50%"
+            y="50%"
+            textAnchor="middle"
+            dominantBaseline="middle"
+            strokeWidth="0.3"
+            className="fill-transparent stroke-neutral-800 font-bold text-9xl"
+            style={{
+              fontFamily: "var(--font-display)",
+              opacity: hovered ? 0.7 : 0,
+            }}
+          >
+            KUBBOX
+          </text>
+
+          {/* Texto con borde verde - un poquititio más grueso */}
+          <text
+            x="50%"
+            y="50%"
+            textAnchor="middle"
+            dominantBaseline="middle"
+            strokeWidth="0.8"
+            className="fill-transparent font-bold text-9xl"
+            style={{
+              fontFamily: "var(--font-display)",
+              stroke: "var(--c-lime)",
+              WebkitTextStroke: "0.9px var(--c-lime)",
+              opacity: 0.6,
+            }}
+          >
+            KUBBOX
+          </text>
+
+          {/* Texto con gradiente - SOLO LA ZONA DEL HOVER */}
+          <text
+            x="50%"
+            y="50%"
+            textAnchor="middle"
+            dominantBaseline="middle"
+            mask="url(#textMask)"
+            className="fill-transparent font-bold text-9xl"
+            style={{
+              fontFamily: "var(--font-display)",
+              fill: "url(#textGradient)",
+            }}
+          >
+            KUBBOX
+          </text>
+        </svg>
+      </div>
     </footer>
   );
 }
 
 /* ── Inline brand icons ────────────────────────────────────────── */
 
-function IconInstagram({ size = 16 }) {
+function IconInstagram({ size = 20 }) {
   return (
     <svg
       width={size}
@@ -200,7 +271,7 @@ function IconInstagram({ size = 16 }) {
   );
 }
 
-function IconFacebook({ size = 16 }) {
+function IconFacebook({ size = 20 }) {
   return (
     <svg
       width={size}
@@ -217,7 +288,7 @@ function IconFacebook({ size = 16 }) {
   );
 }
 
-function IconLinkedin({ size = 16 }) {
+function IconLinkedin({ size = 20 }) {
   return (
     <svg
       width={size}
