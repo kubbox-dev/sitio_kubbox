@@ -85,14 +85,14 @@ const TextHoverEffect = ({ text, duration = 0, className }) => {
         </mask>
       </defs>
 
-      {/* Texto base con borde verde fijo */}
+      {/* Texto base con borde blanco fijo */}
       <text
         x="50%"
         y="50%"
         textAnchor="middle"
         dominantBaseline="middle"
         strokeWidth="0.8"
-        className="fill-transparent stroke-[#a3e635] font-bold text-9xl"
+        className="fill-transparent stroke-white font-bold text-9xl"
         style={{
           fontFamily: "var(--font-display)",
           opacity: 0.6,
@@ -101,7 +101,7 @@ const TextHoverEffect = ({ text, duration = 0, className }) => {
         {text}
       </text>
 
-      {/* Texto con gradiente que sigue el cursor - EFECTO HOVER */}
+      {/* Texto con gradiente que sigue el cursor - EFECTO HOVER (verde) */}
       <text
         x="50%"
         y="50%"
@@ -177,7 +177,7 @@ export default function Footer() {
               className="text-sm leading-relaxed mt-6"
               style={{
                 fontFamily: "var(--font-body)",
-                color: "var(--c-muted)",
+                color: "rgba(255, 255, 255, 0.7)",
               }}
             >
               Agencia de marketing digital y desarrollo web para marcas
@@ -215,7 +215,7 @@ export default function Footer() {
                       className="hover:text-[#a3e635] transition-colors"
                       style={{
                         fontFamily: "var(--font-body)",
-                        color: "var(--c-muted)",
+                        color: "rgba(255, 255, 255, 0.7)",
                       }}
                     >
                       {link.name}
@@ -233,7 +233,10 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center text-sm space-y-4 md:space-y-0">
           <p
             className="text-center md:text-left"
-            style={{ fontFamily: "var(--font-body)", color: "var(--c-muted)" }}
+            style={{
+              fontFamily: "var(--font-body)",
+              color: "rgba(255, 255, 255, 0.6)",
+            }}
           >
             © {new Date().getFullYear()} Kubbox. Todos los derechos reservados.
           </p>
@@ -241,7 +244,7 @@ export default function Footer() {
             className="text-center md:text-left tracking-[0.04em]"
             style={{
               fontFamily: "var(--font-body)",
-              color: "oklch(0.38 0.014 260)",
+              color: "rgba(255, 255, 255, 0.6)",
             }}
           >
             Agencia creativa · Medellín, Colombia
