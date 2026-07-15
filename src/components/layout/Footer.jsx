@@ -252,9 +252,9 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Text hover effect */}
-      <div className="lg:flex hidden h-[22rem] -mt-16 -mb-16">
-        <TextHoverEffect text="KUBBOX" className="z-50" />
+      {/* Text hover effect - 100% ANCHO */}
+      <div className="lg:flex hidden w-full h-[28rem] -mt-20 -mb-20">
+        <TextHoverEffect text="KUBBOX" className="z-50 w-full" />
       </div>
     </footer>
   );
