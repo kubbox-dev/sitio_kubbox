@@ -100,7 +100,7 @@ export default function DigitalHeroSection({ title }) {
       <div
         className="
           relative
-          z-[2]
+          z-[10]
           max-w-[760px]
           px-[clamp(1.5rem,6vw,5rem)]
           pt-10
