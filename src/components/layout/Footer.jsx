@@ -165,16 +165,16 @@ export default function Footer() {
       <div className="relative z-10 mx-auto w-[80%] px-[var(--container-pad)] py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8 lg:gap-16 pb-12">
           {/* Left: logo + tagline + social */}
-          <div className="flex flex-col space-y-4">
-            <Link to="/" className="block no-underline">
+          <div className="flex flex-col">
+            <Link to="/" className="block no-underline -mt-5">
               <img
                 src="/images/LOGO BUENO KUBBOX/Recurso 52.svg"
                 alt="Kubbox"
-                style={{ height: "4rem", width: "auto", display: "block" }}
+                style={{ height: "3.5rem", width: "auto", display: "block" }}
               />
             </Link>
             <p
-              className="text-sm leading-relaxed"
+              className="text-sm leading-relaxed mt-6"
               style={{
                 fontFamily: "var(--font-body)",
                 color: "var(--c-muted)",
@@ -183,7 +183,7 @@ export default function Footer() {
               Agencia de marketing digital y desarrollo web para marcas
               colombianas que quieren crecer en serio.
             </p>
-            <ul className="flex space-x-6 text-gray-400">
+            <ul className="flex space-x-6 text-gray-400 mt-4">
               {SOCIAL.map(({ Icon, href, label }) => (
                 <li key={label}>
                   <a
