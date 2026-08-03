@@ -8,7 +8,7 @@ import {
 const PHOTO = "/images/DESARROLLO DIGITAL/WEB/Fotos/Foto para slide.png";
 
 const DEFAULT_TAGLINE =
-  "Infraestructura tecnológica confiable para tu negocio.";
+  "Impulsamos tu negocio con infraestructura web segura, estable y de alto rendimiento.";
 const DEFAULT_INTRO =
   "Ofrecemos infraestructura tecnológica confiable para alojar sitios web y aplicaciones empresariales.";
 const DEFAULT_STATEMENT =
