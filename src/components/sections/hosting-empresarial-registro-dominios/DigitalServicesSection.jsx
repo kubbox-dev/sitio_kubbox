@@ -10,7 +10,7 @@ const PHOTO = "/images/DESARROLLO DIGITAL/WEB/Fotos/Foto para slide.png";
 const DEFAULT_TAGLINE =
   "Infraestructura tecnológica confiable para tu negocio.";
 const DEFAULT_INTRO =
-  "Ofrecemos infraestructura tecnológica confiable para alojar sitios web y aplicaciones empresariales. Nos aseguramos de que la infraestructura tecnológica de nuestros clientes sea estable, segura y disponible.";
+  "Ofrecemos infraestructura tecnológica confiable para alojar sitios web y aplicaciones empresariales.";
 const DEFAULT_STATEMENT =
   "Nos aseguramos de que la infraestructura tecnológica de nuestros clientes sea estable, segura y disponible.";
 const DEFAULT_BULLETS = [

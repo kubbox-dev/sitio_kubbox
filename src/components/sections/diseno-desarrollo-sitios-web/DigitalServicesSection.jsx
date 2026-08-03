@@ -8,9 +8,9 @@ import {
 const PHOTO = "/images/DESARROLLO DIGITAL/WEB/Fotos/Foto para slide.png";
 
 const DEFAULT_TAGLINE =
-  "Creamos sitios web modernos, rápidos, seguros y completamente personalizados para empresas que buscan fortalecer su presencia digital.";
+  "Creamos sitios web innovadores, rápidos, seguros y completamente personalizados para empresas que buscan fortalecer su presencia digital.";
 const DEFAULT_INTRO =
-  "Cada desarrollo está pensado para ofrecer una excelente experiencia de usuario, adaptarse perfectamente a dispositivos móviles y cumplir con los estándares actuales de posicionamiento en buscadores (SEO). Nuestro objetivo no es únicamente diseñar una página web; construimos herramientas comerciales capaces de atraer clientes y convertir visitas en oportunidades de negocio.";
+  "Cada desarrollo está pensado para ofrecer una excelente experiencia de usuario, adaptarse perfectamente a dispositivos móviles y cumplir con los estándares actuales de posicionamiento en buscadores (SEO).";
 const DEFAULT_STATEMENT =
   "Nuestro objetivo no es únicamente diseñar una página web; construimos herramientas comerciales capaces de atraer clientes y convertir visitas en oportunidades de negocio.";
 const DEFAULT_BULLETS = [

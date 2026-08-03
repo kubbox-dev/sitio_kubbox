@@ -10,7 +10,7 @@ const PHOTO = "/images/DESARROLLO DIGITAL/WEB/Fotos/Foto para slide.png";
 const DEFAULT_TAGLINE =
   "WhatsApp se ha convertido en uno de los canales comerciales más efectivos para las empresas.";
 const DEFAULT_INTRO =
-  "Desarrollamos estrategias para automatizar la comunicación con clientes y facilitar procesos comerciales. Creamos experiencias que acercan las marcas a sus clientes de manera rápida y eficiente.";
+  "Desarrollamos estrategias para automatizar la comunicación con clientes y facilitar procesos comerciales.";
 const DEFAULT_STATEMENT =
   "Creamos experiencias que acercan las marcas a sus clientes de manera rápida y eficiente.";
 const DEFAULT_BULLETS = [

@@ -10,9 +10,9 @@ const PHOTO = "/images/DESARROLLO DIGITAL/WEB/Fotos/Foto para slide.png";
 const DEFAULT_TAGLINE =
   "Apps nativas y multiplataforma con experiencias intuitivas y alto desempeño.";
 const DEFAULT_INTRO =
-  "Diseñamos y desarrollamos aplicaciones móviles para iPhone y Android con experiencias intuitivas, alto desempeño y tecnologías de última generación. Cada aplicación es desarrollada pensando en la experiencia del usuario, la seguridad y la escalabilidad del negocio.";
+  "Diseñamos y desarrollamos aplicaciones móviles para iPhone y Android con experiencias intuitivas, alto desempeño y tecnologías de última generación.";
 const DEFAULT_STATEMENT =
-  "Cada aplicación es desarrollada pensando en la experiencia del usuario, la seguridad y la escalabilidad del negocio.";
+  "Cada aplicación es desarrollada pensando en la experiencia del usuario, la seguridad y la escalabilidad del negocio. Pregunta por nuestra solución. SellerUp y lleva tu equipo de ventas a otro nivel.";
 const DEFAULT_BULLETS = [
   {
     icon: encodeURI(
