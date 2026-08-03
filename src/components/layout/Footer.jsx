@@ -133,9 +133,23 @@ export default function Footer() {
                       <img
                         src={link.icon}
                         alt={link.name}
-                        className={`h-6 w-auto object-contain hover:opacity-80 transition-opacity ${
-                          link.name === "Kommo" ? "h-5" : ""
-                        }`}
+                        className="w-auto object-contain hover:opacity-80 transition-opacity"
+                        style={{
+                          height:
+                            link.name === "Wordpress"
+                              ? "24px"
+                              : link.name === "Kommo"
+                                ? "15px"
+                                : link.name === "WhatsApp"
+                                  ? "24px"
+                                  : link.name === "Shopify"
+                                    ? "22px"
+                                    : link.name === "Woo Commerce"
+                                      ? "22px"
+                                      : link.name === "Elementor"
+                                        ? "26px"
+                                        : "24px",
+                        }}
                       />
                     ) : (
                       <Link
