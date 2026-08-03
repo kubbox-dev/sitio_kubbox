@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function TrajectorySection() {
   const [yearCount, setYearCount] = useState(2008);
@@ -67,18 +67,30 @@ export default function TrajectorySection() {
     },
   ];
 
+  const isGoingUp = yearCount > startYear;
+
   const animateCounter = (from, to, duration, callback) => {
     let startTime = null;
+    const startValue = from;
 
     const step = (timestamp) => {
       if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const currentValue = from + (to - from) * eased;
-      const rounded = Math.floor(currentValue);
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
 
-      if (rounded <= to) {
-        setYearCount(rounded);
+      // Easing: suave al inicio, rápido en el medio, suave al final
+      const eased =
+        progress < 0.5
+          ? 4 * progress * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+      const currentValue = startValue + (to - startValue) * eased;
+      const rounded = Math.round(currentValue);
+
+      if (to > from) {
+        setYearCount(Math.min(rounded, to));
+      } else {
+        setYearCount(Math.max(rounded, to));
       }
 
       if (progress < 1) {
@@ -93,18 +105,14 @@ export default function TrajectorySection() {
   };
 
   const startLoop = () => {
-    // Subir de 2008 a 2026 en 3 segundos
-    animateCounter(startYear, targetYear, 3000, () => {
-      // Esperar 1 segundo en 2026
+    animateCounter(startYear, targetYear, 5000, () => {
       timeoutRef.current = setTimeout(() => {
-        // Bajar a 2008 en 0.5 segundos (cambio rápido)
-        animateCounter(targetYear, startYear, 500, () => {
-          // Esperar 4 segundos en 2008
+        animateCounter(targetYear, startYear, 1000, () => {
           timeoutRef.current = setTimeout(() => {
-            startLoop(); // Repetir
-          }, 4000);
+            startLoop();
+          }, 3000);
         });
-      }, 1000);
+      }, 1500);
     });
   };
 
@@ -127,7 +135,6 @@ export default function TrajectorySection() {
 
   useEffect(() => {
     if (isVisible) {
-      // Esperar 4 segundos antes de iniciar el contador por primera vez
       initialDelayRef.current = setTimeout(() => {
         startLoop();
       }, 4000);
@@ -175,11 +182,42 @@ export default function TrajectorySection() {
               color: "var(--c-lime)",
               margin: 0,
               lineHeight: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "1rem",
+              flexWrap: "wrap",
             }}
           >
-            <span style={{ fontSize: "clamp(2rem,5vw,4rem)" }}>DESDE</span>{" "}
-            {yearCount}
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={isGoingUp ? "hasta" : "desde"}
+                initial={{ opacity: 0, x: isGoingUp ? 40 : -40 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: isGoingUp ? -40 : 40 }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+                style={{
+                  fontSize: "clamp(2rem,5vw,4rem)",
+                  display: "inline-block",
+                  minWidth: "clamp(4rem,8vw,6rem)",
+                  textAlign: "right",
+                }}
+              >
+                {isGoingUp ? "Hasta" : "Desde"}
+              </motion.span>
+            </AnimatePresence>
+
+            <span
+              style={{
+                display: "inline-block",
+                minWidth: "clamp(4rem,8vw,6rem)",
+                textAlign: "left",
+              }}
+            >
+              {yearCount}
+            </span>
           </motion.h2>
+
           <p
             style={{
               marginTop: "0.75rem",
