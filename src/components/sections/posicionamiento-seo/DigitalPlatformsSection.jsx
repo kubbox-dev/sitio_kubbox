@@ -1,21 +1,24 @@
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion";
 
 const LOGOS = [
-  { src: '/images/DESARROLLO DIGITAL/WEB/logos/laravel.svg', alt: 'Laravel' },
-  { src: '/images/DESARROLLO DIGITAL/WEB/logos/php.svg', alt: 'PHP' },
-  { src: '/images/DESARROLLO DIGITAL/WEB/logos/wordpress.svg', alt: 'WordPress' },
-  { src: '/images/DESARROLLO DIGITAL/WEB/logos/react.svg', alt: 'React' },
-]
+  { src: "/images/DESARROLLO DIGITAL/WEB/logos/laravel.svg", alt: "Laravel" },
+  { src: "/images/DESARROLLO DIGITAL/WEB/logos/php.svg", alt: "PHP" },
+  {
+    src: "/images/DESARROLLO DIGITAL/WEB/logos/wordpress.svg",
+    alt: "WordPress",
+  },
+  { src: "/images/DESARROLLO DIGITAL/WEB/logos/react.svg", alt: "React" },
+];
 
 const SOLID_STYLE = {
-  color: 'var(--c-lime)',
-  WebkitTextStroke: '1.5px var(--c-lime)',
-}
+  color: "var(--c-lime)",
+  WebkitTextStroke: "1.5px var(--c-lime)",
+};
 
 const OUTLINE_STYLE = {
-  color: 'transparent',
-  WebkitTextStroke: '1.5px oklch(0.98 0 0 / 0.85)',
-}
+  color: "transparent",
+  WebkitTextStroke: "1.5px oklch(0.98 0 0 / 0.85)",
+};
 
 export default function DigitalPlatformsSection() {
   return (
@@ -42,7 +45,12 @@ export default function DigitalPlatformsSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
-          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1, delayChildren: 0.15 } } }}
+          variants={{
+            hidden: {},
+            visible: {
+              transition: { staggerChildren: 0.1, delayChildren: 0.15 },
+            },
+          }}
           className="grid w-full grid-cols-2 items-center justify-items-center gap-x-[clamp(2rem,6vw,3.5rem)] gap-y-[clamp(1.75rem,4vw,2.5rem)] min-[900px]:flex min-[900px]:w-auto min-[900px]:flex-nowrap min-[900px]:justify-end min-[900px]:gap-[clamp(1.75rem,3vw,2.75rem)]"
         >
           {LOGOS.map((logo) => (
@@ -52,7 +60,11 @@ export default function DigitalPlatformsSection() {
               alt={logo.alt}
               variants={{
                 hidden: { opacity: 0, y: 16 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+                },
               }}
               whileHover={{ y: -4, scale: 1.08 }}
               transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
@@ -62,5 +74,5 @@ export default function DigitalPlatformsSection() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

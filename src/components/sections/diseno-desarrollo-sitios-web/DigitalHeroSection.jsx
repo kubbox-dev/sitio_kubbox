@@ -64,7 +64,7 @@ export default function DigitalHeroSection({ title }) {
         className="absolute inset-0 z-[1] pointer-events-none"
       >
         <img
-          src="/images/DESARROLLO DIGITAL/WEB/Fotos/foto arriba.png"
+          src="/images/Servicios/diseno-desarrollo-sitios-web/arriba.png"
           alt=""
           className="
             absolute
@@ -80,7 +80,7 @@ export default function DigitalHeroSection({ title }) {
         />
 
         <img
-          src="/images/DESARROLLO DIGITAL/WEB/Fotos/foto abajo.png"
+          src="/images/Servicios/diseno-desarrollo-sitios-web/abajo_1.png"
           alt=""
           className="
             absolute

@@ -1,11 +1,15 @@
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import {
   useScrollAnimation,
   fadeUp,
   staggerContainer,
 } from "../../../hooks/useScrollAnimation";
 
-const PHOTO = "/images/DESARROLLO DIGITAL/WEB/Fotos/Foto para slide.png";
+const PHOTOS = [
+  "/images/Servicios/diseno-desarrollo-sitios-web/slider 1.png",
+  "/images/Servicios/diseno-desarrollo-sitios-web/slider 2.png",
+];
 
 const DEFAULT_TAGLINE =
   "Creamos sitios web innovadores, rápidos, seguros y completamente personalizados para empresas que buscan fortalecer su presencia digital.";
@@ -59,6 +63,23 @@ export default function DigitalServicesSection({
   const intro = introText || DEFAULT_INTRO;
   const closing = statement || DEFAULT_STATEMENT;
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % PHOTOS.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const goToNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % PHOTOS.length);
+  };
+
+  const goToPrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + PHOTOS.length) % PHOTOS.length);
+  };
+
   return (
     <section
       className="mt-[clamp(-328px,-58vw,-248px)] min-[1280px]:mt-0"
@@ -81,10 +102,61 @@ export default function DigitalServicesSection({
           className="dd-grid"
         >
           <motion.div variants={fadeUp} className="dd-photo-card">
-            <img
-              src={PHOTO}
-              alt="Equipo de Kubbox desarrollando un proyecto digital"
-            />
+            <div className="slider-container">
+              <img
+                src={PHOTOS[currentIndex]}
+                alt="Desarrollo digital"
+                className="slider-image"
+              />
+
+              <button
+                onClick={goToPrev}
+                className="slider-arrow slider-arrow--prev"
+                aria-label="Imagen anterior"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
+              <button
+                onClick={goToNext}
+                className="slider-arrow slider-arrow--next"
+                aria-label="Siguiente imagen"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
+
+              <div className="slider-dots">
+                {PHOTOS.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentIndex(index)}
+                    className={`slider-dot ${index === currentIndex ? "is-active" : ""}`}
+                    aria-label={`Ir a imagen ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
           </motion.div>
 
           <motion.div variants={fadeUp}>
@@ -155,13 +227,93 @@ export default function DigitalServicesSection({
           border: 1px solid oklch(0.26 0.022 260);
           box-shadow: 0 30px 80px -30px oklch(0.03 0.02 260 / 0.85);
           min-height: 360px;
+          position: relative;
+          background: #0a0a0a;
         }
-        .dd-photo-card img {
+
+        .slider-container {
+          position: relative;
           width: 100%;
           height: 100%;
+          min-height: 360px;
+        }
+
+        .slider-image {
+          width: 100%;
+          height: 100%;
+          min-height: 360px;
           object-fit: cover;
           display: block;
         }
+
+        .slider-arrow {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 10;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: rgba(0, 0, 0, 0.6);
+          backdrop-filter: blur(8px);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          color: white;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.3s ease;
+          padding: 0;
+        }
+
+        .slider-arrow:hover {
+          background: rgba(163, 230, 53, 0.3);
+        }
+
+        .slider-arrow--prev {
+          left: 12px;
+        }
+
+        .slider-arrow--next {
+          right: 12px;
+        }
+
+        .slider-dots {
+          position: absolute;
+          bottom: 16px;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 10;
+          display: flex;
+          gap: 8px;
+        }
+
+        .slider-dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          border: none;
+          background: rgba(255, 255, 255, 0.3);
+          cursor: pointer;
+          transition: all 0.3s ease;
+          padding: 0;
+        }
+
+        .slider-dot.is-active {
+          background: var(--c-lime);
+          box-shadow: 0 0 12px var(--c-lime);
+          width: 28px;
+          border-radius: 5px;
+        }
+
+        .slider-dot:hover {
+          background: rgba(255, 255, 255, 0.6);
+        }
+
+        .slider-dot.is-active:hover {
+          background: var(--c-lime);
+        }
+
         .dd-intro {
           text-align: center;
           margin-bottom: clamp(2rem, 4.5vw, 3rem);
@@ -232,7 +384,6 @@ export default function DigitalServicesSection({
           line-height: 1.32;
         }
 
-        /* Sub-bullets section */
         .dd-sub-section {
           margin: clamp(2rem, 4vw, 3rem) 0;
           padding: clamp(1.5rem, 3vw, 2.5rem);
@@ -341,6 +492,12 @@ export default function DigitalServicesSection({
             max-height: 360px;
             min-height: 0;
           }
+          .slider-container {
+            min-height: 300px;
+          }
+          .slider-image {
+            min-height: 300px;
+          }
         }
 
         @media (max-width: 520px) {
@@ -352,6 +509,20 @@ export default function DigitalServicesSection({
           }
           .dd-sub-grid {
             grid-template-columns: 1fr;
+          }
+          .slider-arrow {
+            width: 32px;
+            height: 32px;
+          }
+          .slider-arrow svg {
+            width: 18px;
+            height: 18px;
+          }
+          .slider-container {
+            min-height: 250px;
+          }
+          .slider-image {
+            min-height: 250px;
           }
         }
       `}</style>

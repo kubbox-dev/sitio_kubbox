@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import React from "react";
+import { useForm, ValidationError } from "@formspree/react";
 
 // ============ DATOS DEL FOOTER ============
 const SECTIONS = [
@@ -28,6 +29,75 @@ const SECTIONS = [
     ],
   },
 ];
+
+// ============ COMPONENTE DE CONTACTO CON FORMSPREE ============
+function ContactForm() {
+  const [state, handleSubmit] = useForm("xgoggjqr");
+
+  if (state.succeeded) {
+    return (
+      <div className="text-[#a3e635] text-sm font-medium text-center py-4">
+        ✅ ¡Mensaje enviado con éxito! Nos pondremos en contacto.
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <input type="hidden" name="_captcha" value="true" />
+
+      <div>
+        <input
+          type="text"
+          name="nombre"
+          placeholder="Nombre"
+          required
+          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#a3e635] transition-colors text-sm"
+          style={{ fontFamily: "var(--font-body)" }}
+        />
+        <ValidationError
+          prefix="Nombre"
+          field="nombre"
+          errors={state.errors}
+          className="text-red-400 text-xs mt-1 block"
+        />
+      </div>
+      <div>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          required
+          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#a3e635] transition-colors text-sm"
+          style={{ fontFamily: "var(--font-body)" }}
+        />
+        <ValidationError
+          prefix="Email"
+          field="email"
+          errors={state.errors}
+          className="text-red-400 text-xs mt-1 block"
+        />
+      </div>
+      <div>
+        <input
+          type="tel"
+          name="telefono"
+          placeholder="Teléfono"
+          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#a3e635] transition-colors text-sm"
+          style={{ fontFamily: "var(--font-body)" }}
+        />
+      </div>
+      <button
+        type="submit"
+        disabled={state.submitting}
+        className="w-full px-4 py-3 bg-[#a3e635] hover:bg-[#84cc16] text-black font-semibold rounded-lg transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+        style={{ fontFamily: "var(--font-body)" }}
+      >
+        {state.submitting ? "Enviando..." : "Enviar"}
+      </button>
+    </form>
+  );
+}
 
 // ============ FOOTER PRINCIPAL ============
 export default function Footer() {
@@ -169,7 +239,7 @@ export default function Footer() {
             </div>
           ))}
 
-          {/* ¡Pongámonos en contacto! - Formulario */}
+          {/* ¡Pongámonos en contacto! - Formulario con Formspree */}
           <div>
             <h4
               className="text-white text-lg font-semibold mb-6"
@@ -177,39 +247,7 @@ export default function Footer() {
             >
               ¡Pongámonos en contacto!
             </h4>
-            <form className="space-y-4">
-              <div>
-                <input
-                  type="text"
-                  placeholder="Nombre"
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#a3e635] transition-colors text-sm"
-                  style={{ fontFamily: "var(--font-body)" }}
-                />
-              </div>
-              <div>
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#a3e635] transition-colors text-sm"
-                  style={{ fontFamily: "var(--font-body)" }}
-                />
-              </div>
-              <div>
-                <input
-                  type="tel"
-                  placeholder="Teléfono"
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#a3e635] transition-colors text-sm"
-                  style={{ fontFamily: "var(--font-body)" }}
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full px-4 py-3 bg-[#a3e635] hover:bg-[#84cc16] text-black font-semibold rounded-lg transition-colors text-sm"
-                style={{ fontFamily: "var(--font-body)" }}
-              >
-                Enviar
-              </button>
-            </form>
+            <ContactForm />
           </div>
         </div>
       </div>

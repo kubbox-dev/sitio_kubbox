@@ -1,43 +1,108 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Users, Camera, Send, Check, User, Mail, MessageSquare } from 'lucide-react'
+import { useState } from "react";
+import { motion } from "framer-motion";
+import {
+  Users,
+  Camera,
+  Send,
+  Check,
+  User,
+  Mail,
+  MessageSquare,
+} from "lucide-react";
+import { useForm, ValidationError } from "@formspree/react";
 
-import Button from '../../ui/Button'
-import { Input } from '../../ui/Input'
-import { Textarea } from '../../ui/Textarea'
-import { useScrollAnimation, fadeUp, staggerContainer } from '../../../hooks/useScrollAnimation'
+import Button from "../../ui/Button";
+import { Input } from "../../ui/Input";
+import { Textarea } from "../../ui/Textarea";
+import {
+  useScrollAnimation,
+  fadeUp,
+  staggerContainer,
+} from "../../../hooks/useScrollAnimation";
 
-const ADDRESS = 'Cra. 48 #25B Sur 12, Zona 1, Envigado, Antioquia'
-const MAP_SRC = `https://www.google.com/maps?q=${encodeURIComponent(ADDRESS + ', Colombia')}&output=embed`
+const ADDRESS = "Cra. 48 #25B Sur 12, Zona 1, Envigado, Antioquia";
+const MAP_SRC = `https://www.google.com/maps?q=${encodeURIComponent(ADDRESS + ", Colombia")}&output=embed`;
 
 const SOCIAL = [
-  { Icon: Users,  href: '#', label: 'Facebook' },
-  { Icon: Camera, href: '#', label: 'Instagram' },
-]
+  { Icon: Users, href: "#", label: "Facebook" },
+  { Icon: Camera, href: "#", label: "Instagram" },
+];
 
 export default function ContactFormSection() {
-  const { ref, controls } = useScrollAnimation(0.15)
-  const [form, setForm] = useState({ nombre: '', correo: '', mensaje: '' })
-  const [sent, setSent] = useState(false)
+  const { ref, controls } = useScrollAnimation(0.15);
+  const [state, handleSubmit] = useForm("xgoggjqr");
+
+  // Mantenemos el estado local para los inputs
+  const [form, setForm] = useState({ nombre: "", correo: "", mensaje: "" });
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setForm((f) => ({ ...f, [name]: value }))
-  }
+    const { name, value } = e.target;
+    setForm((f) => ({ ...f, [name]: value }));
+  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setSent(true)
+  if (state.succeeded) {
+    return (
+      <section
+        style={{
+          position: "relative",
+          paddingBlock: "clamp(2.5rem, 6vw, 5rem)",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: "var(--container)",
+            marginInline: "auto",
+            paddingInline: "var(--container-pad)",
+            position: "relative",
+            zIndex: 1,
+          }}
+        >
+          <div className="contact-grid">
+            <div
+              className="contact-panel contact-panel--form"
+              style={{ gridColumn: "1 / -1" }}
+            >
+              <span
+                className="contact-corner contact-corner--tl"
+                aria-hidden="true"
+              />
+              <span
+                className="contact-corner contact-corner--br"
+                aria-hidden="true"
+              />
+
+              <div className="text-center py-12">
+                <div className="text-[#a3e635] text-5xl mb-4">✅</div>
+                <h3
+                  className="text-white text-2xl font-bold mb-2"
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
+                  ¡Mensaje enviado!
+                </h3>
+                <p
+                  className="text-white/70"
+                  style={{ fontFamily: "var(--font-body)" }}
+                >
+                  En breve nos pondremos en contacto contigo. 📩
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
   }
 
   return (
-    <section style={{ position: 'relative', paddingBlock: 'clamp(2.5rem, 6vw, 5rem)' }}>
+    <section
+      style={{ position: "relative", paddingBlock: "clamp(2.5rem, 6vw, 5rem)" }}
+    >
       <div
         style={{
-          maxWidth: 'var(--container)',
-          marginInline: 'auto',
-          paddingInline: 'var(--container-pad)',
-          position: 'relative',
+          maxWidth: "var(--container)",
+          marginInline: "auto",
+          paddingInline: "var(--container-pad)",
+          position: "relative",
           zIndex: 1,
         }}
       >
@@ -50,11 +115,19 @@ export default function ContactFormSection() {
         >
           {/* ── Panel izquierdo: datos + mapa ── */}
           <motion.div variants={fadeUp} className="contact-panel">
-            <span className="contact-corner contact-corner--tl" aria-hidden="true" />
-            <span className="contact-corner contact-corner--br" aria-hidden="true" />
+            <span
+              className="contact-corner contact-corner--tl"
+              aria-hidden="true"
+            />
+            <span
+              className="contact-corner contact-corner--br"
+              aria-hidden="true"
+            />
 
             <h3 className="contact-panel-heading">Encuéntranos</h3>
-            <p className="contact-panel-sub">Así nos puedes ubicar y seguir de cerca.</p>
+            <p className="contact-panel-sub">
+              Así nos puedes ubicar y seguir de cerca.
+            </p>
 
             <div className="contact-info-block">
               <p className="contact-info-line">
@@ -70,7 +143,12 @@ export default function ContactFormSection() {
 
             <div className="contact-social-row">
               {SOCIAL.map(({ Icon, href, label }) => (
-                <a key={label} href={href} aria-label={label} className="contact-social-ic">
+                <a
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  className="contact-social-ic"
+                >
                   <Icon size={17} />
                 </a>
               ))}
@@ -82,57 +160,106 @@ export default function ContactFormSection() {
                 title="Ubicación Kubbox"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                style={{ width: '100%', height: '100%', border: 0, display: 'block' }}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  border: 0,
+                  display: "block",
+                }}
               />
             </div>
           </motion.div>
 
           {/* ── Panel derecho: formulario ── */}
-          <motion.div variants={fadeUp} className="contact-panel contact-panel--form">
-            <span className="contact-corner contact-corner--tl" aria-hidden="true" />
-            <span className="contact-corner contact-corner--br" aria-hidden="true" />
+          <motion.div
+            variants={fadeUp}
+            className="contact-panel contact-panel--form"
+          >
+            <span
+              className="contact-corner contact-corner--tl"
+              aria-hidden="true"
+            />
+            <span
+              className="contact-corner contact-corner--br"
+              aria-hidden="true"
+            />
 
             <h2 className="contact-heading-outline">Contáctanos</h2>
-            <p className="contact-panel-sub">Cuéntanos en qué podemos ayudarte, te respondemos rápido.</p>
+            <p className="contact-panel-sub">
+              Cuéntanos en qué podemos ayudarte, te respondemos rápido.
+            </p>
 
+            {/* Mantenemos el onSubmit de Formspree */}
             <form onSubmit={handleSubmit} className="contact-form">
-              <Input
-                icon={User}
-                label="Nombre"
-                type="text"
-                name="nombre"
-                value={form.nombre}
-                onChange={handleChange}
-                required
-                autoComplete="name"
-              />
+              <input type="hidden" name="_captcha" value="true" />
 
-              <Input
-                icon={Mail}
-                label="Correo"
-                type="email"
-                name="correo"
-                value={form.correo}
-                onChange={handleChange}
-                required
-                autoComplete="email"
-              />
+              <div>
+                <Input
+                  icon={User}
+                  label="Nombre"
+                  type="text"
+                  name="nombre"
+                  value={form.nombre}
+                  onChange={handleChange}
+                  required
+                  autoComplete="name"
+                />
+                <ValidationError
+                  prefix="Nombre"
+                  field="nombre"
+                  errors={state.errors}
+                  className="text-red-400 text-xs mt-1 block"
+                />
+              </div>
 
-              <Textarea
-                icon={MessageSquare}
-                label="Mensaje"
-                name="mensaje"
-                rows={5}
-                value={form.mensaje}
-                onChange={handleChange}
-                required
-              />
+              <div>
+                <Input
+                  icon={Mail}
+                  label="Correo"
+                  type="email"
+                  name="correo"
+                  value={form.correo}
+                  onChange={handleChange}
+                  required
+                  autoComplete="email"
+                />
+                <ValidationError
+                  prefix="Correo"
+                  field="correo"
+                  errors={state.errors}
+                  className="text-red-400 text-xs mt-1 block"
+                />
+              </div>
+
+              <div>
+                <Textarea
+                  icon={MessageSquare}
+                  label="Mensaje"
+                  name="mensaje"
+                  rows={5}
+                  value={form.mensaje}
+                  onChange={handleChange}
+                  required
+                />
+                <ValidationError
+                  prefix="Mensaje"
+                  field="mensaje"
+                  errors={state.errors}
+                  className="text-red-400 text-xs mt-1 block"
+                />
+              </div>
 
               <div className="contact-form-footer">
-                <Button type="submit" size="md" variant="primary" className="gap-2 w-full" disabled={sent}>
-                  {sent ? (
+                <Button
+                  type="submit"
+                  size="md"
+                  variant="primary"
+                  className="gap-2 w-full"
+                  disabled={state.submitting}
+                >
+                  {state.submitting ? (
                     <>
-                      ¡Mensaje enviado! <Check size={16} />
+                      Enviando... <Send size={16} className="animate-spin" />
                     </>
                   ) : (
                     <>
@@ -293,7 +420,7 @@ export default function ContactFormSection() {
         .contact-form {
           display: flex;
           flex-direction: column;
-          gap: 2rem;
+          gap: 1.5rem;
           position: relative;
           z-index: 1;
           flex: 1;
@@ -351,5 +478,5 @@ export default function ContactFormSection() {
         }
       `}</style>
     </section>
-  )
+  );
 }

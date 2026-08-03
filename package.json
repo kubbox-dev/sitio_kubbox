@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@formspree/react": "^3.0.0",
     "@splinetool/react-spline": "^4.1.0",
     "@splinetool/runtime": "^1.12.97",
     "clsx": "^2.1.1",
