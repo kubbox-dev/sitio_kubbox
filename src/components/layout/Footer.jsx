@@ -13,7 +13,7 @@ const SECTIONS = [
     ],
   },
   {
-    title: "Trabajamos con",
+    title: "Trabajamos con:",
     links: [
       { name: "Wordpress", href: "#", icon: "/images/Footer/Wordpress.svg" },
       { name: "Kommo", href: "#", icon: "/images/Footer/kommo.svg" },
@@ -129,7 +129,7 @@ export default function Footer() {
                         </svg>
                       </span>
                     )}
-                    {section.title === "Trabajamos con" && link.icon ? (
+                    {section.title === "Trabajamos con:" && link.icon ? (
                       <img
                         src={link.icon}
                         alt={link.name}
