@@ -16,7 +16,7 @@ const DEFAULT_TAGLINE =
 const DEFAULT_INTRO =
   "Diseñamos y desarrollamos aplicaciones móviles para iPhone y Android con experiencias intuitivas, alto desempeño y tecnologías de última generación.";
 const DEFAULT_STATEMENT =
-  "Cada aplicación es desarrollada pensando en la experiencia del usuario, la seguridad y la escalabilidad del negocio. Pregunta por nuestra solución. SellerUp y lleva tu equipo de ventas a otro nivel.";
+  "Cada aplicación es desarrollada pensando en la experiencia del usuario, la seguridad y la escalabilidad del negocio. Pregunta por nuestra solución SellerUp y lleva tu equipo de ventas a otro nivel.";
 const DEFAULT_BULLETS = [
   {
     icon: encodeURI(
