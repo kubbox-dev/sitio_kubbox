@@ -8,6 +8,7 @@ const serviciosData = [
     description:
       "Cada empresa tiene procesos únicos. Por eso desarrollamos software completamente personalizado que se adapta a las necesidades específicas de cada organización.",
     icon: "/images/Servicios/Desarrollo de software a la medida.svg",
+    url: "/servicios/desarrollo-software-medida",
     bullets: [
       "Sistemas administrativos",
       "CRM personalizados",
@@ -21,6 +22,7 @@ const serviciosData = [
     description:
       "Creamos sitios web modernos, rápidos, seguros y completamente personalizados para empresas que buscan fortalecer su presencia digital.",
     icon: "/images/Servicios/Diseño y Desarrollo de Sitios Web.svg",
+    url: "/servicios/diseno-desarrollo-sitios-web",
     bullets: [
       "Sitios web corporativos",
       "Landing Pages de alta conversión",
@@ -34,6 +36,7 @@ const serviciosData = [
     description:
       "Diseñamos y desarrollamos aplicaciones móviles para iPhone y Android con experiencias intuitivas y alto desempeño.",
     icon: "/images/Servicios/Desarrollo de Aplicaciones Móviles.svg",
+    url: "/servicios/desarrollo-aplicaciones-moviles",
     bullets: [
       "Empresas",
       "Comercio electrónico",
@@ -47,6 +50,7 @@ const serviciosData = [
     description:
       "Creamos campañas digitales enfocadas en generar tráfico hacia puntos de venta físicos.",
     icon: "/images/Servicios/Campañas Digitales para Activaciónde Ventas en Retail.svg",
+    url: "/servicios/campanas-digitales-activacion-ventas-retail",
     bullets: [
       "Retail",
       "Cadenas comerciales",
@@ -60,6 +64,7 @@ const serviciosData = [
     description:
       "Diseñamos campañas publicitarias enfocadas en resultados con optimización permanente para el mayor retorno posible.",
     icon: "/images/Servicios/Google Ads y Meta Ads.svg",
+    url: "/servicios/google-ads-meta-ads",
     bullets: [
       "Meta Ads (Facebook e Instagram)",
       "Google Search",
@@ -73,6 +78,7 @@ const serviciosData = [
     description:
       "Ayudamos a que las empresas aparezcan cuando sus clientes buscan sus productos o servicios en Google.",
     icon: "/images/Servicios/Posicionamiento SEO.svg",
+    url: "/servicios/posicionamiento-seo",
     bullets: [
       "Auditoría SEO",
       "SEO técnico",
@@ -87,6 +93,7 @@ const serviciosData = [
     description:
       "Facilitamos procesos comerciales mediante campañas masivas, integración con CRM y automatización de comunicación.",
     icon: "/images/Servicios/Automatización y Campañas por WhatsApp.svg",
+    url: "/servicios/automatizacion-campanas-whatsapp",
     bullets: [
       "Campañas masivas",
       "Integración con CRM",
@@ -101,6 +108,7 @@ const serviciosData = [
     description:
       "Ofrecemos infraestructura tecnológica confiable para alojar sitios web y aplicaciones empresariales.",
     icon: "/images/Servicios/Hosting Empresarial y Registro de Dominios.svg",
+    url: "/servicios/hosting-empresarial-registro-dominios",
     bullets: [
       "Hosting de alto rendimiento",
       "Copias de seguridad",
@@ -114,6 +122,7 @@ const serviciosData = [
     description:
       "Construimos identidades que conectan, inspiran y perduran en el tiempo, con sistemas de identidad coherentes.",
     icon: "/images/Servicios/Creación y Desarrollo de Marca.svg",
+    url: "/servicios/creacion-desarrollo-marca",
     bullets: [
       "Diseño de logotipo",
       "Sistema de identidad visual",
@@ -130,6 +139,7 @@ const serviciosPhotos = serviciosData.map((servicio) => ({
   description: servicio.description,
   icon: servicio.icon,
   bullets: servicio.bullets,
+  url: servicio.url,
 }));
 
 export default function GalleryServicesSection() {
@@ -159,6 +169,7 @@ export default function GalleryServicesSection() {
           className="scale-160 [&>div]:min-h-[600px]"
           visibleStack={5}
           maxOpenWidth="90%"
+          buttonText="Ver más"
         />
       </div>
     </section>

@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { ArrowUpRight } from "lucide-react";
 
 export interface GalleryPhoto {
   id: string | number;
@@ -10,6 +12,7 @@ export interface GalleryPhoto {
   icon?: string;
   bullets?: string[];
   color?: string;
+  url?: string;
 }
 
 const defaultPhotos: GalleryPhoto[] = [
@@ -20,6 +23,7 @@ const defaultPhotos: GalleryPhoto[] = [
     description:
       "Creamos sitios web modernos, rápidos, seguros y completamente personalizados.",
     icon: "/images/Servicios/Diseño y Desarrollo de Sitios Web.svg",
+    url: "/servicios/diseno-desarrollo-sitios-web",
     bullets: [
       "Sitios web corporativos",
       "Landing Pages",
@@ -34,6 +38,7 @@ const defaultPhotos: GalleryPhoto[] = [
     description:
       "Diseñamos y desarrollamos aplicaciones móviles para iPhone y Android.",
     icon: "/images/Servicios/Desarrollo de Aplicaciones Móviles.svg",
+    url: "/servicios/desarrollo-aplicaciones-moviles",
     bullets: [
       "Empresas",
       "Comercio electrónico",
@@ -48,6 +53,7 @@ const defaultPhotos: GalleryPhoto[] = [
     description:
       "Creamos campañas digitales enfocadas en generar tráfico hacia puntos de venta físicos.",
     icon: "/images/Servicios/Campañas Digitales para Activaciónde Ventas en Retail.svg",
+    url: "/servicios/campanas-digitales-activacion-ventas-retail",
     bullets: [
       "Retail",
       "Cadenas comerciales",
@@ -61,6 +67,7 @@ const defaultPhotos: GalleryPhoto[] = [
     title: "Google Ads y Meta Ads",
     description: "Diseñamos campañas publicitarias enfocadas en resultados.",
     icon: "/images/Servicios/Google Ads y Meta Ads.svg",
+    url: "/servicios/google-ads-meta-ads",
     bullets: ["Meta Ads", "Google Search", "Generación de leads", "ROI"],
   },
   {
@@ -70,6 +77,7 @@ const defaultPhotos: GalleryPhoto[] = [
     description:
       "Ayudamos a que las empresas aparezcan cuando sus clientes buscan en Google.",
     icon: "/images/Servicios/Posicionamiento SEO.svg",
+    url: "/servicios/posicionamiento-seo",
     bullets: [
       "Auditoría SEO",
       "SEO técnico",
@@ -86,6 +94,7 @@ export interface InteractiveFolderGalleryProps {
   className?: string;
   visibleStack?: number;
   maxOpenWidth?: string;
+  buttonText?: string;
 }
 
 export function InteractiveFolderGallery({
@@ -95,6 +104,7 @@ export function InteractiveFolderGallery({
   className,
   visibleStack = 5,
   maxOpenWidth = "90%",
+  buttonText = "Ver más",
 }: InteractiveFolderGalleryProps) {
   const [isFolderOpen, setIsFolderOpen] = useState(false);
   const [hoverFolder, setHoverFolder] = useState(false);
@@ -210,53 +220,66 @@ export function InteractiveFolderGallery({
                     }
                     transition={{ type: "spring", stiffness: 350, damping: 30 }}
                   >
-                    <div className="w-full h-full p-4 flex flex-col justify-center items-start text-left overflow-hidden">
-                      <div className="flex items-center gap-3 w-full mb-2">
-                        {photo.icon && (
-                          <div className="w-10 h-10 flex-shrink-0">
-                            <img
-                              src={photo.icon}
-                              alt={photo.title || "Icono de servicio"}
-                              className="w-full h-full object-contain"
-                            />
-                          </div>
-                        )}
-                        <div
-                          className="h-[2px] rounded-full min-w-[40px] flex-1"
-                          style={{
-                            background: color,
-                            boxShadow: `0 0 4px ${color}40`,
-                          }}
-                        />
-                      </div>
-                      {photo.title && (
-                        <h3 className="text-white text-sm font-bold leading-tight mb-1">
-                          {photo.title}
-                        </h3>
-                      )}
-                      {photo.description && (
-                        <p className="text-white/50 text-[11px] leading-relaxed text-left mb-2 line-clamp-2">
-                          {photo.description}
-                        </p>
-                      )}
-                      {photo.bullets && photo.bullets.length > 0 && (
-                        <ul className="space-y-0.5 w-full">
-                          {photo.bullets.slice(0, 4).map((bullet, idx) => (
-                            <li
-                              key={idx}
-                              className="flex items-start gap-1.5 text-[10px] text-white/50"
-                            >
-                              <span
-                                className="w-1.5 h-1.5 rounded-full flex-shrink-0 mt-1"
-                                style={{
-                                  background: color,
-                                  boxShadow: `0 0 4px ${color}40`,
-                                }}
+                    <div className="w-full h-full p-4 flex flex-col justify-between items-start text-left overflow-hidden">
+                      <div className="w-full">
+                        <div className="flex items-center gap-3 w-full mb-2">
+                          {photo.icon && (
+                            <div className="w-10 h-10 flex-shrink-0">
+                              <img
+                                src={photo.icon}
+                                alt={photo.title || "Icono de servicio"}
+                                className="w-full h-full object-contain"
                               />
-                              <span className="leading-tight">{bullet}</span>
-                            </li>
-                          ))}
-                        </ul>
+                            </div>
+                          )}
+                          <div
+                            className="h-[2px] rounded-full min-w-[40px] flex-1"
+                            style={{
+                              background: color,
+                              boxShadow: `0 0 4px ${color}40`,
+                            }}
+                          />
+                        </div>
+                        {photo.title && (
+                          <h3 className="text-white text-sm font-bold leading-tight mb-1">
+                            {photo.title}
+                          </h3>
+                        )}
+                        {photo.description && (
+                          <p className="text-white/50 text-[11px] leading-relaxed text-left mb-2 line-clamp-2">
+                            {photo.description}
+                          </p>
+                        )}
+                        {photo.bullets && photo.bullets.length > 0 && (
+                          <ul className="space-y-0.5 w-full">
+                            {photo.bullets.slice(0, 4).map((bullet, idx) => (
+                              <li
+                                key={idx}
+                                className="flex items-start gap-1.5 text-[10px] text-white/50"
+                              >
+                                <span
+                                  className="w-1.5 h-1.5 rounded-full flex-shrink-0 mt-1"
+                                  style={{
+                                    background: color,
+                                    boxShadow: `0 0 4px ${color}40`,
+                                  }}
+                                />
+                                <span className="leading-tight">{bullet}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+
+                      {/* Botón Ver más - más pequeño y centrado */}
+                      {isFolderOpen && photo.url && (
+                        <Link
+                          to={photo.url}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 mt-3 text-xs font-semibold text-black transition-colors rounded-lg bg-[#a3e635] hover:bg-[#84cc16] mx-auto"
+                        >
+                          {buttonText}
+                          <ArrowUpRight size={14} />
+                        </Link>
                       )}
                     </div>
                   </motion.div>
