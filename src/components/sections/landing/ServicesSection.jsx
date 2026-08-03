@@ -19,6 +19,7 @@ const SERVICES = [
     body: "Creamos sitios web modernos, rápidos, seguros y completamente personalizados para empresas que buscan fortalecer su presencia digital.",
     prefix: "Desarrollamos:",
     icon: ICON("Diseño y Desarrollo de Sitios Web"),
+    url: "/servicios/diseno-desarrollo-sitios-web",
     bullets: [
       "Sitios web corporativos",
       "Landing Pages de alta conversión",
@@ -32,6 +33,7 @@ const SERVICES = [
     body: "Diseñamos y desarrollamos aplicaciones móviles para iPhone y Android con experiencias intuitivas, alto desempeño y tecnologías de última generación.",
     prefix: "Creamos aplicaciones para:",
     icon: ICON("Desarrollo de Aplicaciones Móviles"),
+    url: "/servicios/desarrollo-aplicaciones-moviles",
     bullets: [
       "Empresas",
       "Comercio electrónico",
@@ -45,6 +47,7 @@ const SERVICES = [
     body: "Uno de nuestros mayores diferenciales es la creación de campañas digitales enfocadas en generar tráfico hacia puntos de venta físicos.",
     prefix: "Creamos campañas para:",
     icon: ICON("Campañas Digitales para Activaciónde Ventas en Retail"),
+    url: "/servicios/campanas-digitales-activacion-ventas-retail",
     bullets: [
       "Retail",
       "Cadenas comerciales",
@@ -54,23 +57,11 @@ const SERVICES = [
   },
   {
     id: "seo",
-    title: "Google Ads y Meta Ads",
-    body: "Diseñamos campañas publicitarias enfocadas en resultados. Nuestro equipo optimiza permanentemente cada inversión para obtener el mayor retorno posible.",
-    prefix: "Gestionamos campañas en:",
-    icon: ICON("Google Ads y Meta Ads"),
-    bullets: [
-      "Meta Ads (Facebook e Instagram)",
-      "Google Search",
-      "Generación de leads",
-      "Retorno sobre la inversión (ROI)",
-    ],
-  },
-  {
-    id: "ia",
     title: "Posicionamiento SEO",
     body: "Ayudamos a que las empresas aparezcan cuando sus clientes buscan sus productos o servicios en Google.",
     prefix: "Nuestros servicios incluyen:",
     icon: ICON("Posicionamiento SEO"),
+    url: "/servicios/posicionamiento-seo",
     bullets: [
       "Auditoría SEO",
       "SEO técnico",
@@ -80,11 +71,12 @@ const SERVICES = [
     ],
   },
   {
-    id: "whatsapp",
+    id: "ia",
     title: "Automatización y Campañas por WhatsApp",
     body: "WhatsApp se ha convertido en uno de los canales comerciales más efectivos para las empresas.",
     prefix: "Facilitamos procesos comerciales mediante:",
     icon: ICON("Automatización y Campañas por WhatsApp"),
+    url: "/servicios/automatizacion-campanas-whatsapp",
     bullets: [
       "Campañas masivas",
       "Integración con CRM",
@@ -99,6 +91,7 @@ const SERVICES = [
     body: "Ofrecemos infraestructura tecnológica confiable para alojar sitios web y aplicaciones empresariales, asegurando alta disponibilidad, seguridad y soporte continuo para tu negocio.",
     prefix: "Nuestros servicios incluyen:",
     icon: ICON("Hosting Empresarial y Registro de Dominios"),
+    url: "/servicios/hosting-empresarial-registro-dominios",
     bullets: [
       "Hosting de alto rendimiento",
       "Copias de seguridad",
@@ -112,6 +105,7 @@ const SERVICES = [
     body: "Una marca va mucho más allá de un logotipo. Es la manera en que una empresa se presenta al mundo, comunica su esencia y construye relaciones duraderas con sus clientes.",
     prefix: "Garantizamos identidad y comunicación, incluyendo:",
     icon: ICON("Creación y Desarrollo de Marca"),
+    url: "/servicios/desarrollo-digital",
     bullets: [
       "Diseño de logotipo",
       "Sistema de identidad visual",
@@ -293,12 +287,12 @@ export default function ServicesSection() {
               </motion.div>
             </AnimatePresence>
 
-            {/* Ver más */}
+            {/* Ver más - Dinámico */}
             <div className="svc-more-link">
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => navigate("/servicios/desarrollo-digital")}
+                onClick={() => navigate(service.url)}
               >
                 Ver más
                 <ArrowUpRight size={16} />
@@ -377,7 +371,9 @@ export default function ServicesSection() {
                             <img src={s.icon} alt="" draggable="false" />
                           </span>
                           {!isActive && (
-                            <span className="wheel-icon-tooltip">{s.title}</span>
+                            <span className="wheel-icon-tooltip">
+                              {s.title}
+                            </span>
                           )}
                         </motion.button>
                       </div>
