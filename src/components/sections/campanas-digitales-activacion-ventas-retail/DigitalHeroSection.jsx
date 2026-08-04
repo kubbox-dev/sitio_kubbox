@@ -78,6 +78,7 @@ export default function DigitalHeroSection({ title }) {
       <div
         aria-hidden="true"
         className="absolute inset-0 z-[1] pointer-events-none"
+        style={{ minHeight: "clamp(620px, 145vw, 920px)" }}
       >
         <img
           src="/images/Servicios/campanas-digitales-activacion-ventas-retail/arriba_1.png"
@@ -112,6 +113,26 @@ export default function DigitalHeroSection({ title }) {
           "
         />
       </div>
+
+      <style>{`
+        @media (min-width: 600px) and (max-width: 1279px) {
+          .absolute.inset-0.z-\\[1\\] img:first-child {
+            right: 0px !important;
+            top: 0px !important;
+            height: 50% !important;
+          }
+          .absolute.inset-0.z-\\[1\\] img:last-child {
+            left: auto !important;
+            right: 0px !important;
+            bottom: 40% !important;
+            height: 35% !important;
+          }
+          section {
+            padding-bottom: 12rem !important;
+            margin-bottom: 4rem !important;
+          }
+        }
+      `}</style>
 
       <div
         className="
