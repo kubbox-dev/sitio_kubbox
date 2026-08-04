@@ -252,7 +252,7 @@ export default function HeroSection() {
             >
               <span style={{ color: "var(--c-ink)", display: "block" }}>
                 Más que una{" "}
-                <span style={{ color: "#a3e635" }}>agencia digital</span>.
+                <span style={{ color: "#a3e635" }}>agencia digital</span>
               </span>
               <span style={{ color: "var(--c-ink)", display: "block" }}>
                 Somos un{" "}
