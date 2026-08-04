@@ -1,34 +1,57 @@
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
-import Button from '../../ui/Button'
-import { useScrollAnimation, fadeUp, staggerContainer } from '../../../hooks/useScrollAnimation'
+import Button from "../../ui/Button";
+import {
+  useScrollAnimation,
+  fadeUp,
+  staggerContainer,
+} from "../../../hooks/useScrollAnimation";
 
-const BARS = [40, 60, 50, 80, 65, 90, 100, 75, 85]
+const BARS = [40, 60, 50, 80, 65, 90, 100, 75, 85];
 
 export default function CTASection() {
-  const { ref, controls } = useScrollAnimation(0.15)
+  const { ref, controls } = useScrollAnimation(0.15);
+  const navigate = useNavigate();
+
+  const goToContact = () => {
+    navigate("/contacto");
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }, 0);
+  };
+
+  const goToServices = () => {
+    navigate("/servicios");
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }, 0);
+  };
 
   return (
     <section
       id="contacto"
       style={{
-        position: 'relative',
-        paddingBlock: 'clamp(5rem, 12vw, 9rem)',
-        textAlign: 'center',
-        marginTop: '-1px',
+        position: "relative",
+        paddingBlock: "clamp(5rem, 12vw, 9rem)",
+        textAlign: "center",
+        marginTop: "-1px",
       }}
     >
       {/* Fade from dark ClientsSection above */}
       <div
         aria-hidden="true"
         style={{
-          position: 'absolute', top: 0, left: 0, right: 0, height: '10%',
-          background: 'linear-gradient(to bottom, var(--c-bg), transparent)',
-          pointerEvents: 'none', zIndex: 2,
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "10%",
+          background: "linear-gradient(to bottom, var(--c-bg), transparent)",
+          pointerEvents: "none",
+          zIndex: 2,
         }}
       />
-
-    
 
       {/* Subtle grid texture */}
       <div aria-hidden="true" className="cta-grid-bg" />
@@ -39,29 +62,33 @@ export default function CTASection() {
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
         style={{
-          position: 'relative',
+          position: "relative",
           zIndex: 1,
-          maxWidth: 'var(--container)',
-          marginInline: 'auto',
-          paddingInline: 'var(--container-pad)',
+          maxWidth: "var(--container)",
+          marginInline: "auto",
+          paddingInline: "var(--container-pad)",
         }}
       >
         {/* Animated bar chart */}
         <div className="cta-bars-wrap" aria-hidden="true">
           {BARS.map((h, i) => {
-            const isLime = i >= 6 && h === 100
-            const isAccent = i >= 5
+            const isLime = i >= 6 && h === 100;
+            const isAccent = i >= 5;
             return (
               <motion.div
                 key={i}
-                className={`cta-bar ${isLime ? 'cta-bar--peak' : isAccent ? 'cta-bar--accent' : ''}`}
+                className={`cta-bar ${isLime ? "cta-bar--peak" : isAccent ? "cta-bar--accent" : ""}`}
                 initial={{ scaleY: 0 }}
                 whileInView={{ scaleY: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.07, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+                transition={{
+                  delay: i * 0.07,
+                  duration: 0.65,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
                 style={{ height: `${h}%` }}
               />
-            )
+            );
           })}
         </div>
 
@@ -84,15 +111,15 @@ export default function CTASection() {
           <motion.h2
             variants={fadeUp}
             style={{
-              fontFamily: 'var(--font-display)',
+              fontFamily: "var(--font-display)",
               fontWeight: 900,
-              fontSize: 'clamp(2.5rem, 7vw, 5.5rem)',
-              letterSpacing: '-0.02em',
-              textTransform: 'uppercase',
-              color: 'var(--c-ink)',
+              fontSize: "clamp(2.5rem, 7vw, 5.5rem)",
+              letterSpacing: "-0.02em",
+              textTransform: "uppercase",
+              color: "var(--c-ink)",
               lineHeight: 1,
-              textWrap: 'balance',
-              marginBottom: '0.25em',
+              textWrap: "balance",
+              marginBottom: "0.25em",
             }}
           >
             LLEVAMOS TU ESTRATEGIA
@@ -101,15 +128,15 @@ export default function CTASection() {
           <motion.h2
             variants={fadeUp}
             style={{
-              fontFamily: 'var(--font-display)',
+              fontFamily: "var(--font-display)",
               fontWeight: 900,
-              fontSize: 'clamp(2.5rem, 7vw, 5.5rem)',
-              letterSpacing: '-0.02em',
-              textTransform: 'uppercase',
-              color: 'var(--c-lime)',
+              fontSize: "clamp(2.5rem, 7vw, 5.5rem)",
+              letterSpacing: "-0.02em",
+              textTransform: "uppercase",
+              color: "var(--c-lime)",
               lineHeight: 1,
-              textWrap: 'balance',
-              marginBottom: 'clamp(1.5rem, 4vw, 3rem)',
+              textWrap: "balance",
+              marginBottom: "clamp(1.5rem, 4vw, 3rem)",
             }}
           >
             DIGITAL A OTRO NIVEL
@@ -118,25 +145,35 @@ export default function CTASection() {
           <motion.p
             variants={fadeUp}
             style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: 'clamp(1rem, 2vw, 1.15rem)',
-              color: 'var(--c-muted)',
+              fontFamily: "var(--font-body)",
+              fontSize: "clamp(1rem, 2vw, 1.15rem)",
+              color: "var(--c-muted)",
               lineHeight: 1.7,
-              maxWidth: '52ch',
-              marginInline: 'auto',
-              marginBottom: 'clamp(2rem, 4vw, 3rem)',
-              textWrap: 'pretty',
+              maxWidth: "52ch",
+              marginInline: "auto",
+              marginBottom: "clamp(2rem, 4vw, 3rem)",
+              textWrap: "pretty",
             }}
           >
-            Estamos listos para potenciar tu marca. Cuéntanos en qué etapa estás y construimos juntos la estrategia que te lleve al siguiente nivel.
+            Estamos listos para potenciar tu marca. Cuéntanos en qué etapa estás
+            y construimos juntos la estrategia que te lleve al siguiente nivel.
           </motion.p>
 
           <motion.div
             variants={fadeUp}
-            style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}
+            style={{
+              display: "flex",
+              gap: "1rem",
+              justifyContent: "center",
+              flexWrap: "wrap",
+            }}
           >
-            <Button size="lg" variant="primary">Hablemos de tu proyecto</Button>
-            <Button size="lg" variant="outline">Ver todos los servicios</Button>
+            <Button size="lg" variant="primary" onClick={goToContact}>
+              Hablemos de tu proyecto
+            </Button>
+            <Button size="lg" variant="outline" onClick={goToServices}>
+              Ver todos los servicios
+            </Button>
           </motion.div>
         </motion.div>
       </motion.div>
@@ -213,5 +250,5 @@ export default function CTASection() {
         }
       `}</style>
     </section>
-  )
+  );
 }
