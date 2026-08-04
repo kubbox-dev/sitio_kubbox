@@ -27,6 +27,11 @@ const SERVICES_MENU = [
       //   desc: "Software personalizado para tu organización",
       // },
       {
+        label: "Creación y Desarrollo de Marca",
+        href: "/servicios/creacion-desarrollo-marca",
+        desc: "Construimos marcas que conectan, diferencian y generan confianza",
+      },
+      {
         label: "Posicionamiento SEO",
         href: "/servicios/posicionamiento-seo",
         desc: "Aumentamos la visibilidad de tu empresa en Google",
