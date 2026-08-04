@@ -53,7 +53,11 @@ export default function DigitalServicesSection({
           variants={staggerContainer(0.12)}
           className="dd-grid"
         >
-          <motion.div variants={fadeUp} className="dd-photo-card">
+          <motion.div
+            variants={fadeUp}
+            className="dd-photo-card"
+            style={{ alignSelf: "center" }}
+          >
             <GalleryGrid>
               {PHOTOS.map((imageUrl, index) => (
                 <GalleryGridCell index={index} key={index}>
@@ -95,7 +99,7 @@ export default function DigitalServicesSection({
               </div>
             </div>
 
-            {/* SECCIÓN IMAGEN CORPORATIVA */}
+            {/* SECCIÓN IMAGEN CORPORATIVA - Solo título centrado */}
             <div className="dd-brand-section">
               <h3 className="dd-brand-title">Imagen Corporativa</h3>
               <div className="dd-brand-text-wrapper">
@@ -126,21 +130,23 @@ export default function DigitalServicesSection({
           overflow: hidden;
           border: none;
           box-shadow: none;
-          min-height: 360px;
+          min-height: 550px;
           position: relative;
           padding: 0;
           background: transparent !important;
+          align-self: center;
         }
         .dd-photo-card .grid {
-          gap: 0.5rem;
+          gap: 0.75rem;
         }
         .dd-photo-card .grid > div {
           border: none !important;
           background: transparent !important;
           box-shadow: none !important;
+          border-radius: 1rem;
         }
         .dd-photo-card .grid > div img {
-          border-radius: 0.75rem;
+          border-radius: 1rem;
         }
 
         .dd-intro {
@@ -200,7 +206,7 @@ export default function DigitalServicesSection({
           text-transform: uppercase;
           color: var(--c-lime);
           margin: 0 0 0.75rem 0;
-          text-align: left;
+          text-align: center;
         }
         .dd-brand-text-wrapper {
           width: 100%;
@@ -222,8 +228,9 @@ export default function DigitalServicesSection({
             gap: 2rem;
           }
           .dd-photo-card {
-            max-height: 360px;
-            min-height: 0;
+            min-height: 400px;
+            max-height: 450px;
+            align-self: center;
           }
           .dd-intro {
             text-align: center;
@@ -245,7 +252,8 @@ export default function DigitalServicesSection({
 
         @media (max-width: 520px) {
           .dd-photo-card {
-            min-height: 250px;
+            min-height: 300px;
+            max-height: 350px;
           }
         }
       `}</style>
