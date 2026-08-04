@@ -34,8 +34,8 @@ const BACKDROP_STYLE = {
 export default function DigitalHeroSection({ title }) {
   const words = title ? title.toUpperCase().split(" ") : null;
   const mid = words ? Math.ceil(words.length / 2) : 0;
-  const line1 = words ? words.slice(0, mid).join(" ") : "DESARROLLO";
-  const line2 = words ? words.slice(mid).join(" ") : "WEB";
+  const line1 = words ? words.slice(0, mid).join(" ") : "DISEÑO Y DESARROLLO";
+  const line2 = words ? words.slice(mid).join(" ") : "DE SITIOS WEB";
 
   return (
     <section
@@ -121,8 +121,8 @@ export default function DigitalHeroSection({ title }) {
               m-0
               leading-[0.92]
               tracking-[-0.025em]
-              text-[clamp(2.2rem,9vw,6.5rem)]
-              min-[1280px]:text-[clamp(3.5rem,6vw,7rem)]
+              text-[clamp(2rem,7vw,5rem)]
+              min-[1280px]:text-[clamp(2.8rem,4.5vw,5.5rem)]
               px-[0.08em]
             "
             style={NEON_STYLE}
@@ -144,8 +144,8 @@ export default function DigitalHeroSection({ title }) {
               m-0
               leading-[0.92]
               tracking-[-0.025em]
-              text-[clamp(2.2rem,7vw,4.5rem)]
-              min-[1280px]:text-[clamp(3.5rem,6vw,7rem)]
+              text-[clamp(2rem,7vw,5rem)]
+              min-[1280px]:text-[clamp(2.8rem,4.5vw,5.5rem)]
               ml-[0.6em]
               min-[1280px]:ml-[0.85em]
             "

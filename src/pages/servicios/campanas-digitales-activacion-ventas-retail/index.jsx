@@ -34,7 +34,7 @@ export default function CampanasDigitalesPage() {
       <CustomCursor />
       <MorphicBackground />
       <main>
-        <DigitalHeroSection title="Campañas Retail" />
+        <DigitalHeroSection title="Campañas Digitales para Activación de Ventas en Retail" />
         <DigitalServicesSection />
       </main>
     </>

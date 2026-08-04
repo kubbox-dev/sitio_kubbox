@@ -34,7 +34,7 @@ export default function AutomatizacionWhatsAppPage() {
       <CustomCursor />
       <MorphicBackground />
       <main>
-        <DigitalHeroSection title="Automatización WhatsApp" />
+        <DigitalHeroSection />
         <DigitalServicesSection />
       </main>
     </>

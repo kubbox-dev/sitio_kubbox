@@ -34,8 +34,8 @@ const BACKDROP_STYLE = {
 export default function DigitalHeroSection({ title }) {
   const words = title ? title.toUpperCase().split(" ") : null;
   const mid = words ? Math.ceil(words.length / 2) : 0;
-  const line1 = words ? words.slice(0, mid).join(" ") : "APPS";
-  const line2 = words ? words.slice(mid).join(" ") : "MÓVILES";
+  const line1 = words ? words.slice(0, mid).join(" ") : "DESARROLLO DE";
+  const line2 = words ? words.slice(mid).join(" ") : "APLICACIONES MÓVILES";
 
   return (
     <section
@@ -47,8 +47,8 @@ export default function DigitalHeroSection({ title }) {
         min-[1280px]:items-center
         min-h-[clamp(620px,145vw,820px)]
         min-[1280px]:min-h-[920px]
-        pt-[5.5rem]
-        min-[1280px]:pt-[clamp(6.5rem,9vw,8.5rem)]
+        pt-[6rem]
+        min-[1280px]:pt-0
         pb-8
         min-[1280px]:pb-0
       "
@@ -64,7 +64,7 @@ export default function DigitalHeroSection({ title }) {
         className="absolute inset-0 z-[1] pointer-events-none"
       >
         <img
-          src="/images/Servicios/aplicaciones-moviles/arriba_2.png"
+          src="/images/DESARROLLO DIGITAL/WEB/Fotos/foto arriba.png"
           alt=""
           className="
             absolute
@@ -80,7 +80,7 @@ export default function DigitalHeroSection({ title }) {
         />
 
         <img
-          src="/images/Servicios/aplicaciones-moviles/abajo_2.png"
+          src="/images/DESARROLLO DIGITAL/WEB/Fotos/foto abajo.png"
           alt=""
           className="
             absolute
@@ -101,11 +101,12 @@ export default function DigitalHeroSection({ title }) {
         className="
           relative
           z-[10]
-          max-w-[760px]
+          max-w-[950px]
           px-[clamp(1.5rem,6vw,5rem)]
-          pt-10
-          min-[1280px]:mt-[-25rem]
           ml-0 min-[1280px]:ml-50
+          pt-2
+          min-[1280px]:pt-10
+          min-[1280px]:mt-[-25rem]
         "
       >
         <div className="overflow-hidden">
@@ -119,10 +120,10 @@ export default function DigitalHeroSection({ title }) {
               italic
               uppercase
               m-0
-              leading-[0.92]
+              leading-[0.95]
               tracking-[-0.025em]
-              text-[clamp(2.2rem,9vw,6.5rem)]
-              min-[1280px]:text-[clamp(3.5rem,6vw,7rem)]
+              text-[clamp(1.8rem,5vw,3.8rem)]
+              min-[1280px]:text-[clamp(2.5rem,4.5vw,4.8rem)]
               px-[0.08em]
             "
             style={NEON_STYLE}
@@ -131,7 +132,7 @@ export default function DigitalHeroSection({ title }) {
           </motion.h1>
         </div>
 
-        <div className="overflow-hidden">
+        <div className="overflow-hidden mt-1">
           <motion.h2
             variants={lineReveal(0.12)}
             initial="hidden"
@@ -142,12 +143,12 @@ export default function DigitalHeroSection({ title }) {
               italic
               uppercase
               m-0
-              leading-[0.92]
+              leading-[0.95]
               tracking-[-0.025em]
-              text-[clamp(2.2rem,7vw,4.5rem)]
-              min-[1280px]:text-[clamp(3.5rem,6vw,7rem)]
-              ml-[0.6em]
-              min-[1280px]:ml-[0.85em]
+              text-[clamp(1.8rem,5vw,3.8rem)]
+              min-[1280px]:text-[clamp(2.5rem,4.5vw,4.8rem)]
+              ml-[0.15em]
+              min-[1280px]:ml-[0.2em]
             "
             style={{ color: "var(--c-ink)" }}
           >

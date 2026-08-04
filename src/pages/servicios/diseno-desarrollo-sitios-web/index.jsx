@@ -34,7 +34,7 @@ export default function DisenoDesarrolloSitiosWebPage() {
       <CustomCursor />
       <MorphicBackground />
       <main>
-        <DigitalHeroSection title="Desarrollo Web" />
+        <DigitalHeroSection />
         <DigitalServicesSection />
       </main>
     </>

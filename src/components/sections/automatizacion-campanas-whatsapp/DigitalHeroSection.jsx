@@ -34,8 +34,8 @@ const BACKDROP_STYLE = {
 export default function DigitalHeroSection({ title }) {
   const words = title ? title.toUpperCase().split(" ") : null;
   const mid = words ? Math.ceil(words.length / 2) : 0;
-  const line1 = words ? words.slice(0, mid).join(" ") : "WHATSAPP";
-  const line2 = words ? words.slice(mid).join(" ") : "AUTOMATIZACIÓN";
+  const line1 = words ? words.slice(0, mid).join(" ") : "AUTOMATIZACIÓN Y";
+  const line2 = words ? words.slice(mid).join(" ") : "CAMPAÑAS POR WHATSAPP";
 
   return (
     <section
@@ -121,8 +121,8 @@ export default function DigitalHeroSection({ title }) {
               m-0
               leading-[0.92]
               tracking-[-0.025em]
-              text-[clamp(1.8rem,7vw,5rem)]
-              min-[1280px]:text-[clamp(2.8rem,5vw,5.5rem)]
+              text-[clamp(1.6rem,6vw,4.2rem)]
+              min-[1280px]:text-[clamp(2.4rem,4.5vw,4.8rem)]
               px-[0.08em]
             "
             style={NEON_STYLE}
@@ -144,8 +144,8 @@ export default function DigitalHeroSection({ title }) {
               m-0
               leading-[0.92]
               tracking-[-0.025em]
-              text-[clamp(1.8rem,5vw,3.5rem)]
-              min-[1280px]:text-[clamp(2.8rem,5vw,5.5rem)]
+              text-[clamp(1.6rem,4vw,3rem)]
+              min-[1280px]:text-[clamp(2.4rem,4.5vw,4.8rem)]
               ml-[0.6em]
               min-[1280px]:ml-[0.85em]
             "

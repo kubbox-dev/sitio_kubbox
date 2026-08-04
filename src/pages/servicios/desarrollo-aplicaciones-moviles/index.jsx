@@ -34,7 +34,7 @@ export default function DesarrolloAppsMovilesPage() {
       <CustomCursor />
       <MorphicBackground />
       <main>
-        <DigitalHeroSection title="Apps Móviles" />
+        <DigitalHeroSection title="Desarrollo de Aplicaciones Móviles" />
         <DigitalServicesSection />
       </main>
     </>

@@ -34,7 +34,7 @@ export default function HostingEmpresarialPage() {
       <CustomCursor />
       <MorphicBackground />
       <main>
-        <DigitalHeroSection title="Hosting Empresarial" />
+        <DigitalHeroSection title="Hosting Empresarial y Registro de Dominios" />
         <DigitalServicesSection />
       </main>
     </>

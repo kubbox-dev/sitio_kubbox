@@ -32,10 +32,27 @@ const BACKDROP_STYLE = {
 };
 
 export default function DigitalHeroSection({ title }) {
-  const words = title ? title.toUpperCase().split(" ") : null;
-  const mid = words ? Math.ceil(words.length / 2) : 0;
-  const line1 = words ? words.slice(0, mid).join(" ") : "CAMPAÑAS";
-  const line2 = words ? words.slice(mid).join(" ") : "RETAIL";
+  let line1 = "CAMPAÑAS DIGITALES PARA";
+  let line2 = "ACTIVACIÓN DE";
+  let line3 = "VENTAS EN RETAIL";
+
+  if (title) {
+    const upperTitle = title.toUpperCase();
+    if (
+      upperTitle.includes("ACTIVACIÓN") &&
+      upperTitle.includes("VENTAS EN RETAIL")
+    ) {
+      line1 = "CAMPAÑAS DIGITALES PARA";
+      line2 = "ACTIVACIÓN DE";
+      line3 = "VENTAS EN RETAIL";
+    } else {
+      const words = upperTitle.split(" ");
+      const mid = Math.ceil(words.length / 2);
+      line1 = words.slice(0, mid).join(" ");
+      line2 = words.slice(mid).join(" ");
+      line3 = "";
+    }
+  }
 
   return (
     <section
@@ -43,13 +60,12 @@ export default function DigitalHeroSection({ title }) {
         relative
         overflow-hidden
         flex
-        items-start
-        min-[1280px]:items-center
+        items-center
+        min-[1280px]:items-start
         min-h-[clamp(620px,145vw,820px)]
         min-[1280px]:min-h-[920px]
-        pt-[5.5rem]
-        min-[1280px]:pt-[clamp(6.5rem,9vw,8.5rem)]
-        pb-8
+        py-12
+        min-[1280px]:pt-[10rem]
         min-[1280px]:pb-0
       "
     >
@@ -101,11 +117,11 @@ export default function DigitalHeroSection({ title }) {
         className="
           relative
           z-[10]
-          max-w-[760px]
+          max-w-[950px]
           px-[clamp(1.5rem,6vw,5rem)]
-          pt-10
-          min-[1280px]:mt-[-25rem]
           ml-0 min-[1280px]:ml-50
+          -mt-72
+          min-[1280px]:mt-0
         "
       >
         <div className="overflow-hidden">
@@ -119,11 +135,12 @@ export default function DigitalHeroSection({ title }) {
               italic
               uppercase
               m-0
-              leading-[0.92]
+              leading-[0.95]
               tracking-[-0.025em]
-              text-[clamp(2.2rem,9vw,6.5rem)]
-              min-[1280px]:text-[clamp(3.5rem,6vw,7rem)]
+              text-[clamp(1.8rem,5vw,3.8rem)]
+              min-[1280px]:text-[clamp(2.5rem,4.5vw,4.8rem)]
               px-[0.08em]
+              whitespace-nowrap
             "
             style={NEON_STYLE}
           >
@@ -131,7 +148,7 @@ export default function DigitalHeroSection({ title }) {
           </motion.h1>
         </div>
 
-        <div className="overflow-hidden">
+        <div className="overflow-hidden mt-1">
           <motion.h2
             variants={lineReveal(0.12)}
             initial="hidden"
@@ -142,18 +159,46 @@ export default function DigitalHeroSection({ title }) {
               italic
               uppercase
               m-0
-              leading-[0.92]
+              leading-[0.95]
               tracking-[-0.025em]
-              text-[clamp(2.2rem,7vw,4.5rem)]
-              min-[1280px]:text-[clamp(3.5rem,6vw,7rem)]
-              ml-[0.6em]
-              min-[1280px]:ml-[0.85em]
+              text-[clamp(1.8rem,5vw,3.8rem)]
+              min-[1280px]:text-[clamp(2.5rem,4.5vw,4.8rem)]
+              ml-[0.15em]
+              min-[1280px]:ml-[0.2em]
+              whitespace-nowrap
             "
             style={{ color: "var(--c-ink)" }}
           >
             {line2}
           </motion.h2>
         </div>
+
+        {line3 && (
+          <div className="overflow-hidden mt-1">
+            <motion.h3
+              variants={lineReveal(0.24)}
+              initial="hidden"
+              animate="visible"
+              className="
+                [font-family:var(--font-display)]
+                font-black
+                italic
+                uppercase
+                m-0
+                leading-[0.95]
+                tracking-[-0.025em]
+                text-[clamp(1.8rem,5vw,3.8rem)]
+                min-[1280px]:text-[clamp(2.5rem,4.5vw,4.8rem)]
+                ml-[0.3em]
+                min-[1280px]:ml-[0.4em]
+                whitespace-nowrap
+              "
+              style={{ color: "var(--c-ink)" }}
+            >
+              {line3}
+            </motion.h3>
+          </div>
+        )}
       </div>
     </section>
   );
