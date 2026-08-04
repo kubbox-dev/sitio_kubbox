@@ -37,7 +37,7 @@ function ContactForm() {
   if (state.succeeded) {
     return (
       <div className="text-[#a3e635] text-sm font-medium text-center py-4">
-        ✅ ¡Mensaje enviado con éxito! Nos pondremos en contacto.
+        ✅ ¡Mensaje enviado con éxito! En breve nos pondremos en contacto.
       </div>
     );
   }
@@ -65,15 +65,15 @@ function ContactForm() {
       <div>
         <input
           type="email"
-          name="email"
-          placeholder="Email"
+          name="correo"
+          placeholder="Correo"
           required
           className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#a3e635] transition-colors text-sm"
           style={{ fontFamily: "var(--font-body)" }}
         />
         <ValidationError
-          prefix="Email"
-          field="email"
+          prefix="Correo"
+          field="correo"
           errors={state.errors}
           className="text-red-400 text-xs mt-1 block"
         />

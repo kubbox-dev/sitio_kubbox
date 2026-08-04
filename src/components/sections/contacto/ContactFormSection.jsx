@@ -192,7 +192,7 @@ export default function ContactFormSection() {
 
             <h2 className="contact-heading-outline">Contáctanos</h2>
             <p className="contact-panel-sub">
-              Cuéntanos en qué podemos ayudarte, te respondemos rápido.
+              Cuéntanos en qué podemos ayudarte.
             </p>
 
             {/* Mantenemos el onSubmit de Formspree */}
