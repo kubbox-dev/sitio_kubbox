@@ -8,6 +8,7 @@ import {
   User,
   Mail,
   MessageSquare,
+  Phone,
 } from "lucide-react";
 import { useForm, ValidationError } from "@formspree/react";
 
@@ -33,7 +34,12 @@ export default function ContactFormSection() {
   const [state, handleSubmit] = useForm("xgoggjqr");
 
   // Mantenemos el estado local para los inputs
-  const [form, setForm] = useState({ nombre: "", correo: "", mensaje: "" });
+  const [form, setForm] = useState({
+    nombre: "",
+    correo: "",
+    telefono: "",
+    mensaje: "",
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -226,6 +232,24 @@ export default function ContactFormSection() {
                 <ValidationError
                   prefix="Correo"
                   field="correo"
+                  errors={state.errors}
+                  className="text-red-400 text-xs mt-1 block"
+                />
+              </div>
+
+              <div>
+                <Input
+                  icon={Phone}
+                  label="Teléfono"
+                  type="tel"
+                  name="telefono"
+                  value={form.telefono}
+                  onChange={handleChange}
+                  autoComplete="tel"
+                />
+                <ValidationError
+                  prefix="Teléfono"
+                  field="telefono"
                   errors={state.errors}
                   className="text-red-400 text-xs mt-1 block"
                 />
