@@ -116,7 +116,11 @@ export default function TeamWorkSection() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.24 }}
             variants={fadeUp}
-            style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+            }}
           >
             <div
               style={{
@@ -234,6 +238,48 @@ export default function TeamWorkSection() {
           </motion.div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .nosotros-team-grid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+          }
+
+          .nosotros-team-grid > div:first-child {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+          }
+
+          .nosotros-team-grid > div:first-child > div:first-child {
+            justify-content: center !important;
+            align-self: center !important;
+          }
+
+          .nosotros-team-grid > div:first-child h2 {
+            text-align: center;
+          }
+
+          .nosotros-team-grid > div:first-child p {
+            text-align: center;
+            margin: 0 auto;
+          }
+
+          .nosotros-team-grid > div:first-child > div:nth-child(4) {
+            justify-content: center;
+          }
+
+          .nosotros-team-grid > div:first-child > p:last-child {
+            white-space: normal !important;
+            text-align: center;
+            max-width: 100%;
+          }
+        }
+      `}</style>
     </section>
   );
 }
