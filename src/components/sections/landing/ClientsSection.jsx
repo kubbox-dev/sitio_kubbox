@@ -22,12 +22,21 @@ const CLIENTS = [
   { name: "Suimagen", src: "/images/HOME/WEB/Logos/suimagen logo.svg" },
   { name: "Biorgánicos", src: "/images/HOME/WEB/Logos/biorganicos logo.svg" },
   { name: "Única Fem", src: "/images/HOME/WEB/Logos/unica fem logo.svg" },
-  { name: "Pastas Doria", src: "/images/HOME/WEB/Logos/pastas doria logo.svg" },
-  { name: "Ranchera", src: "/images/HOME/WEB/Logos/ranchera logo.svg" },
+  {
+    name: "Pastas Doria",
+    src: "/images/HOME/WEB/Logos/pastas doria logo.svg",
+    noFilter: true,
+    size: "3rem",
+  },
+  {
+    name: "Ranchera",
+    src: "/images/HOME/WEB/Logos/ranchera logo.svg",
+    noFilter: true,
+  },
   { name: "Duracell", src: "/images/HOME/WEB/Logos/Duracell logo.svg" },
   { name: "Sello Rojo", src: "/images/HOME/WEB/Logos/sello rojo logo.svg" },
   {
-    name: "Pringles logo.svg",
+    name: "Pringles",
     src: "/images/HOME/WEB/Logos/Pringles logo.svg",
   },
   { name: "Kelloggs", src: "/images/HOME/WEB/Logos/kelloggs logo.svg" },
@@ -123,43 +132,52 @@ function MarqueeTrack({ offset = 0 }) {
         paddingInline: "2rem",
       }}
     >
-      {doubled.map((client, i) => (
-        <div
-          key={`${client.name}-${i}`}
-          style={{
-            flexShrink: 0,
-            display: "flex",
-            alignItems: "center",
-            gap: "3.5rem",
-          }}
-        >
-          <img
-            src={client.src}
-            alt={client.name}
+      {doubled.map((client, i) => {
+        const noFilter = client.noFilter || false;
+        return (
+          <div
+            key={`${client.name}-${i}`}
             style={{
-              height: "2.25rem",
-              width: "auto",
-              maxWidth: "120px",
-              objectFit: "contain",
-              filter: client.filter ?? "brightness(0) invert(1)",
-              opacity: 0.65,
-              transition: "opacity 0.2s ease",
+              flexShrink: 0,
+              display: "flex",
+              alignItems: "center",
+              gap: "3.5rem",
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.opacity = "1";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.opacity = "0.65";
-            }}
-          />
-          <span
-            aria-hidden="true"
-            style={{ color: "var(--c-lime)", fontSize: "0.4rem", opacity: 0.4 }}
           >
-            ◆
-          </span>
-        </div>
-      ))}
+            <img
+              src={client.src}
+              alt={client.name}
+              style={{
+                height: client.size || "2.25rem",
+                width: "auto",
+                maxWidth: "120px",
+                objectFit: "contain",
+                filter: noFilter
+                  ? "none"
+                  : (client.filter ?? "brightness(0) invert(1)"),
+                opacity: noFilter ? 1 : 0.65,
+                transition: "opacity 0.2s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.opacity = "1";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.opacity = noFilter ? "1" : "0.65";
+              }}
+            />
+            <span
+              aria-hidden="true"
+              style={{
+                color: "var(--c-lime)",
+                fontSize: "0.4rem",
+                opacity: 0.4,
+              }}
+            >
+              ◆
+            </span>
+          </div>
+        );
+      })}
     </motion.div>
   );
 }
