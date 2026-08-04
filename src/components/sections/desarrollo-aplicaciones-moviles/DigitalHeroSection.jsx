@@ -64,7 +64,7 @@ export default function DigitalHeroSection({ title }) {
         className="absolute inset-0 z-[1] pointer-events-none"
       >
         <img
-          src="/images/Servicios/aplicaciones-moviles/arriba_2.png"
+          src="/images/Servicios/aplicaciones-moviles/Recurso 40.png"
           alt=""
           className="
             absolute
