@@ -62,6 +62,11 @@ const SERVICES_MENU = [
         href: "/servicios/automatizacion-campanas-whatsapp",
         desc: "Automatiza la comunicación con tus clientes",
       },
+      {
+        label: "Google Ads y Meta Ads",
+        href: "/servicios/google-ads-meta-ads",
+        desc: "Campañas publicitarias enfocadas en resultados",
+      },
       // {
       //   label: "Posicionamiento SEO",
       //   href: "/servicios/posicionamiento-seo",

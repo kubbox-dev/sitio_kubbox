@@ -39,6 +39,9 @@ const DisenoDesarrolloSitiosWebPage = lazy(
 const AutomatizacionWhatsAppPage = lazy(
   () => import("../pages/servicios/automatizacion-campanas-whatsapp"),
 );
+const GoogleAdsMetaAdsPage = lazy(
+  () => import("../pages/servicios/google-ads-meta-ads"),
+);
 const ServicioDinamicoPage = lazy(() => import("../pages/servicios/detalle"));
 const ProyectoPage = lazy(() => import("../pages/proyectos"));
 const NosotrosPage = lazy(() => import("../pages/nosotros"));
@@ -118,6 +121,10 @@ export default function AppRouter() {
           <Route
             path="/servicios/automatizacion-campanas-whatsapp"
             element={<AutomatizacionWhatsAppPage />}
+          />
+          <Route
+            path="/servicios/google-ads-meta-ads"
+            element={<GoogleAdsMetaAdsPage />}
           />
           <Route path="/servicios/:slug" element={<ServicioDinamicoPage />} />
           <Route path="/proyectos/:slug" element={<ProyectoPage />} />

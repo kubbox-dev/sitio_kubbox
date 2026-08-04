@@ -1,0 +1,563 @@
+import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import {
+  useScrollAnimation,
+  fadeUp,
+  staggerContainer,
+} from "../../../hooks/useScrollAnimation";
+
+const PHOTOS = [
+  "/images/Servicios/google-ads-meta-ads/slider 1_4.png",
+  "/images/Servicios/google-ads-meta-ads/slider 2_4.png",
+];
+
+const DEFAULT_TAGLINE =
+  "Diseñamos campañas publicitarias enfocadas en resultados.";
+const DEFAULT_INTRO =
+  "Nuestro equipo optimiza permanentemente cada inversión para obtener el mayor retorno posible.";
+const DEFAULT_STATEMENT =
+  "No administramos campañas; construimos estrategias de crecimiento.";
+const DEFAULT_BULLETS = [
+  {
+    icon: encodeURI("/images/Servicios/campanas-whatsapp/Campanas masivas.svg"),
+    label: "Google Search",
+  },
+  {
+    icon: encodeURI(
+      "/images/Servicios/campanas-whatsapp/Automatizacion de respuestas.svg",
+    ),
+    label: "Google Display",
+  },
+  {
+    icon: encodeURI(
+      "/images/Servicios/campanas-whatsapp/Atencion al cliente.svg",
+    ),
+    label: "Meta Ads (Facebook e Instagram)",
+  },
+  {
+    icon: encodeURI(
+      "/images/Servicios/campanas-whatsapp/Notificaciones automaticas.svg",
+    ),
+    label: "YouTube Ads",
+  },
+];
+
+// Servicios adicionales
+const ADDITIONAL_SERVICES = [
+  "Google Search - Red de búsqueda",
+  "Google Display",
+  "Meta Ads (Facebook e Instagram)",
+  "YouTube Ads",
+];
+
+// Indicadores clave
+const SUB_BULLETS = [
+  "Generación de leads",
+  "Ventas",
+  "Conversiones",
+  "Tráfico calificado",
+  "Costo por adquisición",
+  "Retorno sobre la inversión (ROI)",
+];
+
+export default function DigitalServicesSection({
+  tagline,
+  introText,
+  bullets,
+  statement,
+}) {
+  const { ref, controls } = useScrollAnimation(0.15);
+  const cards = bullets || DEFAULT_BULLETS;
+  const tLine = tagline || DEFAULT_TAGLINE;
+  const intro = introText || DEFAULT_INTRO;
+  const closing = statement || DEFAULT_STATEMENT;
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % PHOTOS.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const goToNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % PHOTOS.length);
+  };
+
+  const goToPrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + PHOTOS.length) % PHOTOS.length);
+  };
+
+  return (
+    <section
+      className="mt-[clamp(-328px,-58vw,-248px)] min-[1280px]:mt-0"
+      style={{ position: "relative", paddingBlock: "clamp(3rem, 7vw, 6.5rem)" }}
+    >
+      <div
+        style={{
+          maxWidth: "var(--container)",
+          marginInline: "auto",
+          paddingInline: "var(--container-pad)",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        <motion.div
+          ref={ref}
+          initial="hidden"
+          animate={controls}
+          variants={staggerContainer(0.12)}
+          className="dd-grid"
+        >
+          <motion.div variants={fadeUp} className="dd-photo-card">
+            <div className="slider-container">
+              <img
+                src={PHOTOS[currentIndex]}
+                alt="Desarrollo digital"
+                className="slider-image"
+              />
+
+              <button
+                onClick={goToPrev}
+                className="slider-arrow slider-arrow--prev"
+                aria-label="Imagen anterior"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
+              <button
+                onClick={goToNext}
+                className="slider-arrow slider-arrow--next"
+                aria-label="Siguiente imagen"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
+
+              <div className="slider-dots">
+                {PHOTOS.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentIndex(index)}
+                    className={`slider-dot ${index === currentIndex ? "is-active" : ""}`}
+                    aria-label={`Ir a imagen ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div variants={fadeUp}>
+            <div className="dd-intro">
+              <p className="dd-tagline">{tLine}</p>
+              <span className="dd-intro-line" />
+              <p className="dd-body">{intro}</p>
+            </div>
+
+            <div className="dd-icon-grid">
+              {cards.map((card) => (
+                <div key={card.label} className="dd-icon-card">
+                  <img src={card.icon} alt="" aria-hidden="true" />
+                  <span>{card.label}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </motion.div>
+
+        {/* Servicios Adicionales */}
+        <motion.div
+          className="dd-sub-section"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="dd-sub-header">
+            <span className="dd-sub-line" />
+            <span className="dd-sub-title">Servicios Adicionales</span>
+            <span className="dd-sub-line" />
+          </div>
+          <ul className="dd-sub-grid">
+            {ADDITIONAL_SERVICES.map((item, idx) => (
+              <li key={idx} className="dd-sub-item">
+                <span className="dd-sub-dot" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+
+        {/* Indicadores Clave */}
+        <motion.div
+          className="dd-sub-section"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="dd-sub-header">
+            <span className="dd-sub-line" />
+            <span className="dd-sub-title">Indicadores Clave</span>
+            <span className="dd-sub-line" />
+          </div>
+          <ul className="dd-sub-grid">
+            {SUB_BULLETS.map((item, idx) => (
+              <li key={idx} className="dd-sub-item">
+                <span className="dd-sub-dot" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+
+        <motion.div
+          className="dd-statement"
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <span className="dd-corner dd-corner--tl" aria-hidden="true" />
+          <span className="dd-corner dd-corner--br" aria-hidden="true" />
+          <p className="dd-statement-text">{closing}</p>
+        </motion.div>
+      </div>
+
+      <style>{`
+        .dd-grid {
+          display: grid;
+          grid-template-columns: 0.9fr 1.1fr;
+          gap: clamp(2.5rem, 6vw, 4.5rem);
+          align-items: start;
+          margin-bottom: clamp(2.5rem, 6vw, 4rem);
+        }
+        .dd-photo-card {
+          border-radius: 1.25rem;
+          overflow: hidden;
+          border: 1px solid oklch(0.26 0.022 260);
+          box-shadow: 0 30px 80px -30px oklch(0.03 0.02 260 / 0.85);
+          min-height: 360px;
+          position: relative;
+          background: #0a0a0a;
+        }
+
+        .slider-container {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          min-height: 360px;
+        }
+
+        .slider-image {
+          width: 100%;
+          height: 100%;
+          min-height: 360px;
+          object-fit: cover;
+          display: block;
+        }
+
+        .slider-arrow {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 10;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: rgba(0, 0, 0, 0.6);
+          backdrop-filter: blur(8px);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          color: white;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.3s ease;
+          padding: 0;
+        }
+
+        .slider-arrow:hover {
+          background: rgba(163, 230, 53, 0.3);
+        }
+
+        .slider-arrow--prev {
+          left: 12px;
+        }
+
+        .slider-arrow--next {
+          right: 12px;
+        }
+
+        .slider-dots {
+          position: absolute;
+          bottom: 16px;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 10;
+          display: flex;
+          gap: 8px;
+        }
+
+        .slider-dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          border: none;
+          background: rgba(255, 255, 255, 0.3);
+          cursor: pointer;
+          transition: all 0.3s ease;
+          padding: 0;
+        }
+
+        .slider-dot.is-active {
+          background: var(--c-lime);
+          box-shadow: 0 0 12px var(--c-lime);
+          width: 28px;
+          border-radius: 5px;
+        }
+
+        .slider-dot:hover {
+          background: rgba(255, 255, 255, 0.6);
+        }
+
+        .slider-dot.is-active:hover {
+          background: var(--c-lime);
+        }
+
+        .dd-intro {
+          text-align: center;
+          margin-bottom: clamp(2rem, 4.5vw, 3rem);
+        }
+        .dd-tagline {
+          font-family: var(--font-display);
+          font-weight: 800;
+          font-style: italic;
+          font-size: clamp(1.4rem, 2.8vw, 1.85rem);
+          text-transform: uppercase;
+          letter-spacing: -0.01em;
+          color: var(--c-lime);
+          line-height: 1.22;
+          margin: 0 0 1.1rem;
+        }
+        .dd-intro-line {
+          display: block;
+          width: clamp(70px, 11vw, 110px);
+          height: 1.5px;
+          background: linear-gradient(to right, transparent, var(--c-lime), transparent);
+          margin: 0 auto 1.1rem;
+        }
+        .dd-body {
+          font-family: var(--font-body);
+          font-style: italic;
+          font-size: clamp(1rem, 1.3vw, 1.15rem);
+          color: var(--c-ink);
+          opacity: 0.9;
+          line-height: 1.7;
+          max-width: 54ch;
+          margin: 0 auto;
+        }
+        .dd-icon-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1.25rem;
+        }
+        .dd-icon-card {
+          background: var(--c-surface);
+          border: 1px solid oklch(0.26 0.022 260);
+          border-radius: 1.1rem;
+          padding: clamp(1.6rem, 2.6vw, 2.1rem) 1.4rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          gap: 1rem;
+          transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .dd-icon-card:hover {
+          border-color: var(--c-lime);
+          transform: translateY(-3px);
+          box-shadow: 0 14px 36px -14px oklch(0.88 0.26 130 / 0.28);
+        }
+        .dd-icon-card img {
+          width: 46px;
+          height: 46px;
+          object-fit: contain;
+        }
+        .dd-icon-card span {
+          font-family: var(--font-display);
+          font-weight: 800;
+          font-style: italic;
+          text-transform: uppercase;
+          font-size: 0.98rem;
+          letter-spacing: -0.005em;
+          color: var(--c-lime);
+          line-height: 1.32;
+        }
+
+        .dd-sub-section {
+          margin: clamp(2rem, 4vw, 3rem) 0;
+          padding: clamp(1.5rem, 3vw, 2.5rem);
+          background: oklch(0.13 0.020 260 / 0.5);
+          border: 1px solid oklch(0.26 0.022 260);
+          border-radius: 1rem;
+          backdrop-filter: blur(8px);
+        }
+        .dd-sub-header {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 1.25rem;
+        }
+        .dd-sub-line {
+          flex: 1;
+          height: 1px;
+          background: linear-gradient(to right, transparent, oklch(0.88 0.26 130 / 0.3), transparent);
+        }
+        .dd-sub-title {
+          font-family: var(--font-display);
+          font-weight: 800;
+          font-style: italic;
+          font-size: clamp(0.9rem, 1.6vw, 1.2rem);
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          color: var(--c-lime);
+          white-space: nowrap;
+        }
+        .dd-sub-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 0.5rem 1.5rem;
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+        .dd-sub-item {
+          display: flex;
+          align-items: center;
+          gap: 0.6rem;
+          font-family: var(--font-body);
+          font-size: clamp(0.8rem, 1vw, 0.9rem);
+          color: oklch(0.82 0.010 260);
+          padding: 0.3rem 0;
+        }
+        .dd-sub-dot {
+          display: inline-block;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: var(--c-lime);
+          flex-shrink: 0;
+          box-shadow: 0 0 6px var(--c-lime);
+        }
+
+        .dd-statement {
+          position: relative;
+          background: oklch(0.13 0.020 260 / 0.85);
+          border: 1px solid oklch(0.26 0.022 260);
+          border-radius: 1.5rem;
+          backdrop-filter: blur(14px);
+          box-shadow: 0 40px 110px -40px oklch(0.03 0.02 260 / 0.9);
+          padding: clamp(2.5rem, 6vw, 4rem);
+          overflow: hidden;
+        }
+        .dd-statement::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          height: 2px;
+          background: linear-gradient(to right, transparent 5%, var(--c-lime) 40%, var(--c-lime) 60%, transparent 95%);
+          opacity: 0.6;
+        }
+        .dd-corner {
+          position: absolute;
+          width: 18px;
+          height: 18px;
+          border: 1.5px solid oklch(0.88 0.26 130 / 0.4);
+          pointer-events: none;
+          z-index: 2;
+        }
+        .dd-corner--tl { top: 16px; left: 16px; border-right: 0; border-bottom: 0; }
+        .dd-corner--br { bottom: 16px; right: 16px; border-left: 0; border-top: 0; }
+        .dd-statement-text {
+          position: relative;
+          z-index: 1;
+          font-family: var(--font-body);
+          font-style: italic;
+          font-size: clamp(1.15rem, 2.1vw, 1.5rem);
+          line-height: 1.62;
+          color: var(--c-ink);
+          opacity: 0.95;
+          max-width: 66ch;
+          margin: 0 auto;
+          text-align: center;
+          text-wrap: pretty;
+        }
+
+        @media (max-width: 880px) {
+          .dd-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+          }
+          .dd-photo-card {
+            max-height: 360px;
+            min-height: 0;
+          }
+          .slider-container {
+            min-height: 300px;
+          }
+          .slider-image {
+            min-height: 300px;
+          }
+        }
+
+        @media (max-width: 520px) {
+          .dd-icon-grid {
+            grid-template-columns: 1fr;
+          }
+          .dd-statement {
+            padding: clamp(2rem, 8vw, 2.5rem);
+          }
+          .dd-sub-grid {
+            grid-template-columns: 1fr;
+          }
+          .slider-arrow {
+            width: 32px;
+            height: 32px;
+          }
+          .slider-arrow svg {
+            width: 18px;
+            height: 18px;
+          }
+          .slider-container {
+            min-height: 250px;
+          }
+          .slider-image {
+            min-height: 250px;
+          }
+        }
+      `}</style>
+    </section>
+  );
+}
