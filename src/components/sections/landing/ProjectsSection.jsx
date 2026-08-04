@@ -26,8 +26,8 @@ const PROJECTS = [
   },
   {
     number: "02",
-    slug: "pollocao",
-    title: "Pollocao",
+    slug: "pollocoa",
+    title: "Pollocoa",
     subtitle: "Identidad Visual",
     category: "Identidad de Marca · Colombia",
     description:

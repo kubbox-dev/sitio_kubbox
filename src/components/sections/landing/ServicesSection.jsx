@@ -137,6 +137,14 @@ export default function ServicesSection() {
   const active = ((turn % N) + N) % N;
   const service = SERVICES[active];
 
+  // Tooltip state
+  const [tooltip, setTooltip] = useState({
+    visible: false,
+    text: "",
+    x: 0,
+    y: 0,
+  });
+
   const goTo = useCallback((j) => {
     setInteracted(true);
     setTurn((t) => t + shortestDelta(((t % N) + N) % N, j));
@@ -163,6 +171,20 @@ export default function ServicesSection() {
   const spinTransition = reduce
     ? { duration: 0 }
     : { duration: 0.9, ease: [0.34, 1.2, 0.4, 1] };
+
+  const handleMouseEnter = (e, title) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setTooltip({
+      visible: true,
+      text: title,
+      x: rect.left + rect.width / 2,
+      y: rect.top - 10,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setTooltip({ visible: false, text: "", x: 0, y: 0 });
+  };
 
   return (
     <section
@@ -222,7 +244,7 @@ export default function ServicesSection() {
         <motion.div
           className="svc-card-new"
           layout
-          transition={{ layout: { duration: 0.45, ease: [0.16, 1, 0.3, 1] } }}
+          transition={{ layout: { duration: 0.45, ease: [0.34, 1.2, 0.4, 1] } }}
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
@@ -230,7 +252,9 @@ export default function ServicesSection() {
           <motion.div
             className="svc-card-left-new"
             layout
-            transition={{ layout: { duration: 0.42, ease: [0.16, 1, 0.3, 1] } }}
+            transition={{
+              layout: { duration: 0.42, ease: [0.34, 1.2, 0.4, 1] },
+            }}
           >
             <AnimatePresence mode="popLayout" initial={false}>
               <motion.div
@@ -239,7 +263,7 @@ export default function ServicesSection() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -8 }}
                 transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-                style={{ minHeight: "210px" }} // ← Agregar aquí
+                style={{ minHeight: "210px" }}
               >
                 <span className="svc-card-kicker">
                   {String(active + 1).padStart(2, "0")} /{" "}
@@ -313,7 +337,7 @@ export default function ServicesSection() {
               {/* Anillo decorativo */}
               <div className="wheel-ring-bg" />
 
-              {/* Núcleo central con ícono activo */}
+              {/* Núcleo central con ícono activo - SIN TEXTO */}
               <div className="wheel-core-new">
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -334,7 +358,6 @@ export default function ServicesSection() {
                       className="wheel-core-icon"
                       draggable="false"
                     />
-                    <span className="wheel-core-label">{service.title}</span>
                   </motion.div>
                 </AnimatePresence>
               </div>
@@ -366,15 +389,12 @@ export default function ServicesSection() {
                             reduce ? undefined : { scale: isActive ? 1 : 1.1 }
                           }
                           whileTap={reduce ? undefined : { scale: 0.94 }}
+                          onMouseEnter={(e) => handleMouseEnter(e, s.title)}
+                          onMouseLeave={handleMouseLeave}
                         >
                           <span className="wheel-icon-inner-new">
                             <img src={s.icon} alt="" draggable="false" />
                           </span>
-                          {!isActive && (
-                            <span className="wheel-icon-tooltip">
-                              {s.title}
-                            </span>
-                          )}
                         </motion.button>
                       </div>
                     </div>
@@ -411,6 +431,48 @@ export default function ServicesSection() {
           </div>
         </motion.div>
       </div>
+
+      {/* Tooltip flotante - Siempre por encima de todo */}
+      {tooltip.visible && (
+        <div
+          style={{
+            position: "fixed",
+            top: tooltip.y,
+            left: tooltip.x,
+            transform: "translateX(-50%) translateY(-100%)",
+            padding: "0.5rem 1rem",
+            background: "oklch(0.10 0.026 260 / 0.97)",
+            border: "1px solid oklch(0.28 0.022 260)",
+            borderRadius: "0.4rem",
+            color: "var(--c-ink)",
+            fontFamily: "var(--font-body)",
+            fontSize: "0.7rem",
+            fontWeight: 600,
+            letterSpacing: "0.01em",
+            textAlign: "center",
+            maxWidth: "12rem",
+            zIndex: 999999,
+            pointerEvents: "none",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.6)",
+            backdropFilter: "blur(8px)",
+          }}
+        >
+          {tooltip.text}
+          <div
+            style={{
+              position: "absolute",
+              bottom: "-6px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: 0,
+              height: 0,
+              borderLeft: "6px solid transparent",
+              borderRight: "6px solid transparent",
+              borderTop: "6px solid oklch(0.10 0.026 260 / 0.97)",
+            }}
+          />
+        </div>
+      )}
 
       {/* Fade hacia AISection */}
       <div
@@ -583,7 +645,7 @@ export default function ServicesSection() {
         .svc-card-body-new {
         font-family: var(--font-body);
         font-size: clamp(0.85rem, 1vw, 0.95rem);
-        color: var(--c-ink); /* ← Cambio aquí */
+        color: var(--c-ink);
         line-height: 1.6;
         margin: 0 0 1rem;
         max-width: 44ch;
@@ -703,16 +765,6 @@ export default function ServicesSection() {
           filter: brightness(0) invert(0);
         }
 
-        .wheel-core-label {
-          font-family: var(--font-display);
-          font-weight: 900;
-          font-style: italic;
-          font-size: clamp(0.8rem, 1.4vw, 1rem);
-          text-transform: uppercase;
-          line-height: 1;
-          letter-spacing: -0.01em;
-        }
-
         .wheel-spin-new {
           position: absolute;
           left: 50%;
@@ -748,6 +800,11 @@ export default function ServicesSection() {
           padding: 0;
           cursor: pointer;
           display: block;
+          z-index: 1;
+        }
+
+        .wheel-icon-new:hover {
+          z-index: 9999;
         }
 
         .wheel-icon-inner-new {
@@ -790,35 +847,6 @@ export default function ServicesSection() {
 
         .wheel-icon-new:not(.is-active):hover .wheel-icon-inner-new img {
           opacity: 1;
-        }
-
-        .wheel-icon-tooltip {
-          position: absolute;
-          top: calc(100% + 0.5rem);
-          left: 50%;
-          transform: translateX(-50%) translateY(4px);
-          width: 7.5rem;
-          line-height: 1.25;
-          text-align: center;
-          font-family: var(--font-body);
-          font-size: 0.64rem;
-          font-weight: 600;
-          letter-spacing: 0.01em;
-          color: var(--c-ink);
-          background: oklch(0.10 0.026 260 / 0.97);
-          border: 1px solid oklch(0.28 0.022 260);
-          border-radius: 0.4rem;
-          padding: 0.35rem 0.5rem;
-          opacity: 0;
-          pointer-events: none;
-          transition: opacity 0.2s ease, transform 0.2s ease;
-          z-index: 20;
-        }
-
-        .wheel-icon-new:hover .wheel-icon-tooltip,
-        .wheel-icon-new:focus-visible .wheel-icon-tooltip {
-          opacity: 1;
-          transform: translateX(-50%) translateY(0);
         }
 
         .wheel-person-wrap-new {
