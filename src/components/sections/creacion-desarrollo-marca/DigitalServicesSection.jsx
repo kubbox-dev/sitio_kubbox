@@ -53,11 +53,7 @@ export default function DigitalServicesSection({
           variants={staggerContainer(0.12)}
           className="dd-grid"
         >
-          <motion.div
-            variants={fadeUp}
-            className="dd-photo-card"
-            style={{ alignSelf: "center" }}
-          >
+          <motion.div variants={fadeUp} className="dd-photo-card">
             <GalleryGrid>
               {PHOTOS.map((imageUrl, index) => (
                 <GalleryGridCell index={index} key={index}>
@@ -134,7 +130,6 @@ export default function DigitalServicesSection({
           position: relative;
           padding: 0;
           background: transparent !important;
-          align-self: center;
         }
         .dd-photo-card .grid {
           gap: 0.5rem;
@@ -229,7 +224,6 @@ export default function DigitalServicesSection({
           .dd-photo-card {
             max-height: 360px;
             min-height: 0;
-            align-self: center;
           }
           .dd-intro {
             text-align: center;
