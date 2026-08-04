@@ -68,7 +68,7 @@ export default function DigitalHeroSection({ title }) {
       >
         {/* TRIÁNGULO SUPERIOR */}
         <img
-          src="/images/DESARROLLO DIGITAL/WEB/Fotos/foto arriba.png"
+          src="/images/Servicios/software-a-la-medida/arriba_3.png"
           alt=""
           className="
             absolute
@@ -86,7 +86,7 @@ export default function DigitalHeroSection({ title }) {
 
         {/* TRIÁNGULO INFERIOR */}
         <img
-          src="/images/DESARROLLO DIGITAL/WEB/Fotos/foto abajo.png"
+          src="/images/Servicios/software-a-la-medida/abajo_3.png"
           alt=""
           className="
             absolute
