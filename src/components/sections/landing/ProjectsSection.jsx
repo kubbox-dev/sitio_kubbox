@@ -21,47 +21,18 @@ const PROJECTS = [
     description:
       "Desarrollamos una campaña retail con presencia en Costa Rica, Guatemala y El Salvador, diseñada para revolucionar la categoría y aumentar el engagement en el punto de venta.",
     tags: ["Estrategia", "Pauta Digital", "Contenido"],
-    imgBg: "linear-gradient(135deg, oklch(0.55 0.18 30), oklch(0.35 0.12 20))",
-    logo: "/images/NUESTROS PROYECTOS/WEB/Logos/Kelloggs logo.svg",
+    image: "/images/HOME/WEB/Clientes/kelloggs.jpg",
   },
   {
     number: "02",
-    slug: "pollocoa",
-    title: "Pollocoa",
-    subtitle: "Identidad Visual",
-    category: "Identidad de Marca · Colombia",
+    slug: "armor-all",
+    title: "Armor All",
+    subtitle: "Limpia y Gana",
+    category: "Campaña Digital · Centroamérica y Caribe",
     description:
-      "Rediseño completo de identidad visual y estrategia digital para conectar con nuevas generaciones de consumidores colombianos, aumentando el reconocimiento de marca en un 40%.",
-    tags: ["Branding", "Redes Sociales", "Web Design"],
-    imgBg:
-      "linear-gradient(135deg, oklch(0.50 0.16 145), oklch(0.30 0.10 155))",
-    logo: "/images/HOME/WEB/Logos/pollocoa logo.svg",
-  },
-  {
-    number: "03",
-    slug: "frixo",
-    title: "F-rixo",
-    subtitle: "E-commerce",
-    category: "Desarrollo Web · E-commerce",
-    description:
-      "Sitio web e-commerce de alto rendimiento con integración de pagos, sistema de inventario y experiencia de usuario optimizada que triplicó las ventas online en el primer trimestre.",
-    tags: ["E-commerce", "UI/UX", "SEO"],
-    imgBg:
-      "linear-gradient(135deg, oklch(0.45 0.15 270), oklch(0.28 0.12 255))",
-    logo: "/images/HOME/WEB/Logos/frixo logo.svg",
-  },
-  {
-    number: "04",
-    slug: "cam",
-    title: "CAM",
-    subtitle: "Performance Marketing",
-    category: "Performance Marketing",
-    description:
-      "Campaña de performance marketing que duplicó el ROI en menos de tres meses a través de segmentación estratégica, A/B testing y optimización continua de creativos.",
-    tags: ["Meta Ads", "Google Ads", "Analytics"],
-    imgBg:
-      "linear-gradient(135deg, oklch(0.42 0.14 200), oklch(0.25 0.10 210))",
-    logo: "/images/HOME/WEB/Logos/centro automotriz logo.svg",
+      "Creamos 'Limpia y Gana', una activación con registro de facturas en 5 países que premia la compra al instante y le enseña a los consumidores a usar cada producto Armor All.",
+    tags: ["Gamificación", "Activación Retail", "Implementación Técnica"],
+    image: "/images/HOME/WEB/Clientes/armorall.jpg",
   },
 ];
 
@@ -188,15 +159,11 @@ export default function ProjectsSection() {
                 exit="exit"
                 className="proj-anim-layer"
               >
-                <div
-                  className="proj-img-fill"
-                  style={{ background: project.imgBg }}
-                >
-                  y
+                <div className="proj-img-fill">
                   <img
-                    src={project.logo}
+                    src={project.image}
                     alt={project.title}
-                    className="proj-logo"
+                    className="proj-photo"
                   />
                 </div>
                 <div aria-hidden="true" className="proj-img-blend" />
@@ -392,12 +359,10 @@ export default function ProjectsSection() {
           align-items: center;
           justify-content: center;
         }
-        .proj-logo {
-          max-width: 55%;
-          max-height: 45%;
-          object-fit: contain;
-          filter: brightness(0) invert(1);
-          opacity: 0.88;
+        .proj-photo {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
         .proj-img-blend {
           position: absolute;
