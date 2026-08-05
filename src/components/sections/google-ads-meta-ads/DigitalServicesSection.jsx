@@ -19,25 +19,19 @@ const DEFAULT_STATEMENT =
   "No administramos campañas; construimos estrategias de crecimiento.";
 const DEFAULT_BULLETS = [
   {
-    icon: encodeURI("/images/Servicios/campanas-whatsapp/Campanas masivas.svg"),
+    icon: encodeURI("/images/Servicios/google-ads-meta-ads/google search.svg"),
     label: "Google Search",
   },
   {
-    icon: encodeURI(
-      "/images/Servicios/campanas-whatsapp/Automatizacion de respuestas.svg",
-    ),
+    icon: encodeURI("/images/Servicios/google-ads-meta-ads/google display.svg"),
     label: "Google Display",
   },
   {
-    icon: encodeURI(
-      "/images/Servicios/campanas-whatsapp/Atencion al cliente.svg",
-    ),
+    icon: encodeURI("/images/Servicios/google-ads-meta-ads/meta ads.svg"),
     label: "Meta Ads (Facebook e Instagram)",
   },
   {
-    icon: encodeURI(
-      "/images/Servicios/campanas-whatsapp/Notificaciones automaticas.svg",
-    ),
+    icon: encodeURI("/images/Servicios/google-ads-meta-ads/yt ads.svg"),
     label: "YouTube Ads",
   },
 ];
