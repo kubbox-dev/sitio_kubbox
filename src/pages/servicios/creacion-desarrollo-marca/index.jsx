@@ -2,6 +2,7 @@
 import { useMemo } from "react";
 import DigitalHeroSection from "../../../components/sections/creacion-desarrollo-marca/DigitalHeroSection";
 import DigitalServicesSection from "../../../components/sections/creacion-desarrollo-marca/DigitalServicesSection";
+import DesignElements from "../../../components/sections/creacion-desarrollo-marca/DesignElements";
 import CustomCursor from "../../../components/ui/CustomCursor";
 import MorphicBackground from "../../../components/layout/fondo";
 import { useDocumentMeta } from "../../../hooks/useDocumentMeta";
@@ -36,6 +37,7 @@ export default function CreacionDesarrolloMarcaPage() {
       <main>
         <DigitalHeroSection />
         <DigitalServicesSection />
+        <DesignElements />
       </main>
     </>
   );
