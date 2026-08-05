@@ -13,15 +13,18 @@ const fadeUp = {
 };
 
 const squareData = [
-  { id: 1, src: "" },
-  { id: 2, src: "" },
-  { id: 3, src: "" },
-  { id: 4, src: "" },
-  { id: 5, src: "" },
-  { id: 6, src: "" },
-  { id: 7, src: "" },
-  { id: 8, src: "" },
-  { id: 9, src: "" },
+  { id: 1, src: "/images/Nosotros/proyectos/armorall.png" },
+  { id: 2, src: "/images/Nosotros/proyectos/comida-saludable.png" },
+  { id: 3, src: "/images/Nosotros/proyectos/cooper-tires.png" },
+  { id: 4, src: "/images/Nosotros/proyectos/10-mandamientos.png" },
+  { id: 5, src: "/images/Nosotros/proyectos/duracell.png" },
+  {
+    id: 6,
+    src: "/images/Nosotros/proyectos/el-otro-video-de-cooper-tires.png",
+  },
+  { id: 7, src: "/images/Nosotros/proyectos/el-perrito.png" },
+  { id: 8, src: "/images/Nosotros/proyectos/llantin.png" },
+  { id: 9, src: "/images/Nosotros/proyectos/tiros-de-arrastre.png" },
 ];
 
 const shuffle = (array) => {
