@@ -21,11 +21,6 @@ const SERVICES_MENU = [
     desc: "Soluciones de marketing y desarrollo web",
     isSubmenu: true,
     items: [
-      // {
-      //   label: "Desarrollo digital",
-      //   href: "/servicios/desarrollo-digital",
-      //   desc: "Software personalizado para tu organización",
-      // },
       {
         label: "Creación y Desarrollo de Marca",
         href: "/servicios/creacion-desarrollo-marca",
@@ -36,7 +31,6 @@ const SERVICES_MENU = [
         href: "/servicios/posicionamiento-seo",
         desc: "Aumentamos la visibilidad de tu empresa en Google",
       },
-
       {
         label: "Desarrollo de Software a la Medida",
         href: "/servicios/desarrollo-a-la-medida",
@@ -77,21 +71,6 @@ const SERVICES_MENU = [
         href: "/servicios/carnes-digitales-tarjetas-contacto-inteligente",
         desc: "Modernizamos la presentación empresarial con soluciones digitales",
       },
-      // {
-      //   label: "Posicionamiento SEO",
-      //   href: "/servicios/posicionamiento-seo",
-      //   desc: "Aumentamos la visibilidad de tu empresa en Google",
-      // },
-      // {
-      //   label: "Hosting Empresarial y Registro de Dominios",
-      //   href: "/servicios/hosting-empresarial-registro-dominios",
-      //   desc: "Infraestructura tecnológica confiable para tu negocio.",
-      // },
-      // {
-      //   label: "Desarrollo de Aplicaciones Móviles", // ← NUEVO
-      //   href: "/servicios/desarrollo-aplicaciones-moviles",
-      //   desc: "Apps nativas y multiplataforma para iOS y Android",
-      // },
     ],
   },
   {
@@ -484,6 +463,8 @@ export default function Navbar() {
                                         top: 0,
                                         left: "100%",
                                         minWidth: "250px",
+                                        maxHeight: "400px",
+                                        overflowY: "auto",
                                         background:
                                           "oklch(0.10 0.026 260 / 0.98)",
                                         border:
@@ -494,7 +475,11 @@ export default function Navbar() {
                                         zIndex: 110,
                                         boxShadow:
                                           "0 8px 32px oklch(0.04 0.02 260 / 0.5)",
+                                        scrollbarWidth: "thin",
+                                        scrollbarColor:
+                                          "oklch(0.88 0.26 130 / 0.3) transparent",
                                       }}
+                                      className="custom-scrollbar-sub"
                                     >
                                       {svc.items.map((subSvc) => (
                                         <Link
@@ -1257,4 +1242,28 @@ function PillDecorations({ scrollProgress }) {
       />
     </div>
   );
+}
+
+/* ── Estilos para scrollbar ─────────────────────────────── */
+const subScrollStyles = `
+  .custom-scrollbar-sub::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar-sub::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 4px;
+  }
+  .custom-scrollbar-sub::-webkit-scrollbar-thumb {
+    background: oklch(0.88 0.26 130 / 0.3);
+    border-radius: 4px;
+  }
+  .custom-scrollbar-sub::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.88 0.26 130 / 0.5);
+  }
+`;
+
+if (typeof document !== "undefined") {
+  const styleSheet = document.createElement("style");
+  styleSheet.textContent = subScrollStyles;
+  document.head.appendChild(styleSheet);
 }
