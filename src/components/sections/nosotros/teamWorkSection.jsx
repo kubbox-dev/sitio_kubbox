@@ -44,12 +44,18 @@ const shuffle = (array) => {
   return copy;
 };
 
-const generateSquares = () =>
+const generateSquares = (onHoverStart, onHoverEnd) =>
   shuffle(squareData).map((sq) => (
     <motion.div
       key={sq.id}
       layout
       transition={{ duration: 1.2, type: "spring", bounce: 0.28 }}
+      whileHover={{
+        scale: 1.05,
+        boxShadow: "0 8px 32px rgba(163, 230, 53, 0.4)",
+        borderColor: "#a3e635",
+        transition: { duration: 0.2, ease: "easeOut" },
+      }}
       style={{
         aspectRatio: "1 / 1",
         minHeight: "7rem",
@@ -57,32 +63,62 @@ const generateSquares = () =>
         background: sq.src
           ? `url(${sq.src}) center/cover no-repeat`
           : "#ffffff",
-        border: "1px solid rgba(255, 255, 255, 0.18)",
+        border: "2px solid rgba(255, 255, 255, 0.18)",
         boxShadow: "0 20px 60px rgba(0, 0, 0, 0.08)",
+        cursor: "pointer",
       }}
     />
   ));
 
 const ShuffleBoard = () => {
   const timeoutRef = useRef(null);
-  const [squares, setSquares] = useState(generateSquares());
+  const [isHovering, setIsHovering] = useState(false);
+  const [squares, setSquares] = useState(() => generateSquares());
 
+  // Función para barajar y programar el próximo barajado
+  const scheduleShuffle = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (!isHovering) {
+      timeoutRef.current = setTimeout(() => {
+        setSquares(generateSquares());
+        scheduleShuffle(); // Programar el siguiente
+      }, 3000);
+    }
+  };
+
+  // Efecto para iniciar el ciclo
   useEffect(() => {
-    const shuffleSquares = () => {
-      setSquares(generateSquares());
-      timeoutRef.current = setTimeout(shuffleSquares, 3000);
-    };
-
-    shuffleSquares();
-
+    scheduleShuffle();
     return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isHovering]);
 
-  return <div className="nosotros-shuffle-grid">{squares}</div>;
+  // Cuando el mouse entra al grid, pausamos el barajado
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+  };
+
+  // Cuando el mouse sale, reanudamos el barajado
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+    // No programamos inmediatamente, el efecto lo hará al cambiar isHovering
+  };
+
+  return (
+    <div
+      className="nosotros-shuffle-grid"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {squares}
+    </div>
+  );
 };
 
 export default function TeamWorkSection() {
@@ -243,6 +279,22 @@ export default function TeamWorkSection() {
       </div>
 
       <style>{`
+        .nosotros-shuffle-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 0.75rem;
+          width: 100%;
+          max-width: 550px;
+          margin: 0 auto;
+        }
+
+        .nosotros-shuffle-wrapper {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+        }
+
         @media (max-width: 768px) {
           .nosotros-team-grid {
             display: flex;
@@ -280,6 +332,17 @@ export default function TeamWorkSection() {
             white-space: normal !important;
             text-align: center;
             max-width: 100%;
+          }
+
+          .nosotros-shuffle-grid {
+            max-width: 100%;
+            gap: 0.5rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .nosotros-shuffle-grid {
+            gap: 0.3rem;
           }
         }
       `}</style>
