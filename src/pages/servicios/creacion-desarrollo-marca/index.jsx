@@ -3,7 +3,9 @@ import { useMemo } from "react";
 import DigitalHeroSection from "../../../components/sections/creacion-desarrollo-marca/DigitalHeroSection";
 import DigitalServicesSection from "../../../components/sections/creacion-desarrollo-marca/DigitalServicesSection";
 import DesignElements from "../../../components/sections/creacion-desarrollo-marca/DesignElements";
+import OurFeatures from "../../../components/sections/creacion-desarrollo-marca/OurFeatures";
 import SentenseValue from "../../../components/sections/creacion-desarrollo-marca/SentenseValue";
+import SouvenirsCorporative from "../../../components/sections/creacion-desarrollo-marca/SouvenirsCorporative"; // 👈 Importa el nuevo componente
 import CustomCursor from "../../../components/ui/CustomCursor";
 import MorphicBackground from "../../../components/layout/fondo";
 import { useDocumentMeta } from "../../../hooks/useDocumentMeta";
@@ -40,6 +42,8 @@ export default function CreacionDesarrolloMarcaPage() {
         <DigitalServicesSection />
         <DesignElements />
         <SentenseValue />
+        <OurFeatures />
+        <SouvenirsCorporative /> {/* 👈 Agregado como último componente */}
       </main>
     </>
   );
