@@ -5,7 +5,8 @@ import DigitalServicesSection from "../../../components/sections/creacion-desarr
 import DesignElements from "../../../components/sections/creacion-desarrollo-marca/DesignElements";
 import OurFeatures from "../../../components/sections/creacion-desarrollo-marca/OurFeatures";
 import SentenseValue from "../../../components/sections/creacion-desarrollo-marca/SentenseValue";
-import SouvenirsCorporative from "../../../components/sections/creacion-desarrollo-marca/SouvenirsCorporative"; // 👈 Importa el nuevo componente
+import SouvenirsCorporative from "../../../components/sections/creacion-desarrollo-marca/SouvenirsCorporative";
+import SouvenirCarrouselProducts from "../../../components/sections/creacion-desarrollo-marca/SouvenirCarrouselProducts"; // 👈 Importa el nuevo componente
 import CustomCursor from "../../../components/ui/CustomCursor";
 import MorphicBackground from "../../../components/layout/fondo";
 import { useDocumentMeta } from "../../../hooks/useDocumentMeta";
@@ -43,7 +44,8 @@ export default function CreacionDesarrolloMarcaPage() {
         <DesignElements />
         <SentenseValue />
         <OurFeatures />
-        <SouvenirsCorporative /> {/* 👈 Agregado como último componente */}
+        <SouvenirsCorporative />
+        <SouvenirCarrouselProducts /> {/* 👈 Agregado como último componente */}
       </main>
     </>
   );
