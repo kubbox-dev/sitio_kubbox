@@ -11,59 +11,49 @@ const PHOTOS = [
   "/images/Servicios/software-a-la-medida/slider 2_2.png",
 ];
 
-// Valores por defecto para Desarrollo de Software a la Medida
-const DEFAULT_TAGLINE =
-  "Cada empresa tiene procesos únicos. Por eso desarrollamos software completamente personalizado que se adapta a las necesidades específicas de cada organización.";
+const DEFAULT_TAGLINE = "Cada empresa tiene procesos únicos";
 const DEFAULT_INTRO =
-  "Diseñamos soluciones escalables que optimizan procesos, automatizan tareas y mejoran la productividad de los equipos. Nuestro equipo participa desde la definición del proyecto hasta su implementación y evolución.";
-const DEFAULT_STATEMENT =
-  "Nuestro equipo participa desde la definición del proyecto hasta su implementación y evolución.";
+  "Por eso desarrollamos software completamente personalizado que se adapta a las necesidades específicas de cada organización para las campañas comerciales, activaciones de marca en canales externos, activaciones en punto de venta, contacto con clientes de sus productos y servicios, y sistemas de acumulación por compras. Diseñamos soluciones escalables que optimizan procesos, automatizan tareas y mejoran la productividad de los equipos.";
 const DEFAULT_BULLETS = [
   {
     icon: encodeURI(
-      "/images/Servicios/software-a-la-medida/Sistemas administrativos.svg",
+      "/images/Servicios/software-a-la-medida/plataformas para fidelizar icono.svg",
     ),
-    label: "Sistemas administrativos",
+    label: "Plataformas para fidelizar por compras",
   },
   {
     icon: encodeURI(
-      "/images/Servicios/software-a-la-medida/Automatización de procesos.svg",
+      "/images/Servicios/software-a-la-medida/plataformas para fuerza comercial.svg",
     ),
-    label: "Automatización de procesos",
+    label: "Plataformas para fuerza comercial",
   },
   {
     icon: encodeURI(
       "/images/Servicios/software-a-la-medida/CRM personalizados.svg",
     ),
-    label: "CRM personalizados",
+    label: "Integraciones mediante API",
   },
   {
     icon: encodeURI(
-      "/images/Servicios/software-a-la-medida/Plataformas para fuerza comercial.svg",
+      "/images/Servicios/software-a-la-medida/integraciones mediante API.svg",
     ),
-    label: "Plataformas para fuerza comercial",
+    label: "CRM personalizados",
   },
 ];
 
-// Solo los que NO están en los principales
 const SUB_BULLETS = [
-  "Plataformas empresariales",
-  "ERP a la medida",
-  "Sistemas de gestión",
-  "Integraciones mediante API",
+  "Campañas y plataformas que integran la data con estrategias comerciales y de comunicación.",
 ];
 
 export default function DigitalServicesSection({
   tagline,
   introText,
   bullets,
-  statement,
 }) {
   const { ref, controls } = useScrollAnimation(0.15);
   const cards = bullets || DEFAULT_BULLETS;
   const tLine = tagline || DEFAULT_TAGLINE;
   const intro = introText || DEFAULT_INTRO;
-  const closing = statement || DEFAULT_STATEMENT;
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -103,7 +93,6 @@ export default function DigitalServicesSection({
           variants={staggerContainer(0.12)}
           className="dd-grid"
         >
-          {/* Columna izquierda: foto con slider */}
           <motion.div variants={fadeUp} className="dd-photo-card">
             <div className="slider-container">
               <img
@@ -162,7 +151,6 @@ export default function DigitalServicesSection({
             </div>
           </motion.div>
 
-          {/* Columna derecha: intro + grid de iconos */}
           <motion.div variants={fadeUp}>
             <div className="dd-intro">
               <p className="dd-tagline">{tLine}</p>
@@ -181,7 +169,6 @@ export default function DigitalServicesSection({
           </motion.div>
         </motion.div>
 
-        {/* Sub-bullets section - servicios adicionales */}
         <motion.div
           className="dd-sub-section"
           initial={{ opacity: 0, y: 20 }}
@@ -203,27 +190,33 @@ export default function DigitalServicesSection({
             ))}
           </ul>
         </motion.div>
-
-        <motion.div
-          className="dd-statement"
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <span className="dd-corner dd-corner--tl" aria-hidden="true" />
-          <span className="dd-corner dd-corner--br" aria-hidden="true" />
-
-          <p className="dd-statement-text">{closing}</p>
-        </motion.div>
       </div>
+
+      {/* Nueva sección - estilo letra hueco con texto en mayúsculas */}
+      <motion.div
+        className="dd-full-section"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <div className="dd-full-content">
+          <p className="dd-full-title">
+            <span className="hollow-white">
+              NUESTRO EQUIPO PARTICIPA DESDE LA DEFINICIÓN DEL PROYECTO HASTA
+              SU{" "}
+            </span>
+            <span className="hollow-green">IMPLEMENTACIÓN Y EVOLUCIÓN.</span>
+          </p>
+        </div>
+      </motion.div>
 
       <style>{`
         .dd-grid {
           display: grid;
           grid-template-columns: 0.9fr 1.1fr;
           gap: clamp(2.5rem, 6vw, 4.5rem);
-          align-items: start;
+          align-items: center;
           margin-bottom: clamp(2.5rem, 6vw, 4rem);
         }
 
@@ -235,6 +228,9 @@ export default function DigitalServicesSection({
           min-height: 360px;
           position: relative;
           background: #0a0a0a;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .slider-container {
@@ -242,13 +238,18 @@ export default function DigitalServicesSection({
           width: 100%;
           height: 100%;
           min-height: 360px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
         }
 
         .slider-image {
           width: 100%;
           height: 100%;
           min-height: 360px;
-          object-fit: cover;
+          object-fit: contain;
+          object-position: center;
           display: block;
         }
 
@@ -391,7 +392,6 @@ export default function DigitalServicesSection({
           line-height: 1.32;
         }
 
-        /* Sub-bullets section */
         .dd-sub-section {
           margin: clamp(2rem, 4vw, 3rem) 0;
           padding: clamp(1.5rem, 3vw, 2.5rem);
@@ -448,52 +448,46 @@ export default function DigitalServicesSection({
           box-shadow: 0 0 6px var(--c-lime);
         }
 
-        .dd-statement {
-          position: relative;
-          background: oklch(0.13 0.020 260 / 0.85);
-          border: 1px solid oklch(0.26 0.022 260);
-          border-radius: 1.5rem;
-          backdrop-filter: blur(14px);
-          box-shadow: 0 40px 110px -40px oklch(0.03 0.02 260 / 0.9);
-          padding: clamp(2.5rem, 6vw, 4rem);
-          overflow: hidden;
+        /* Sección de ancho completo - mismo fondo que Soluciones Adicionales */
+        .dd-full-section {
+          width: 100%;
+          background: oklch(0.13 0.020 260 / 0.5);
+          backdrop-filter: blur(8px);
+          padding: clamp(2.5rem, 5vw, 4rem) 0;
+          margin-top: clamp(2rem, 4vw, 3rem);
         }
-        .dd-statement::before {
-          content: '';
-          position: absolute;
-          top: 0; left: 0; right: 0;
-          height: 2px;
-          background: linear-gradient(to right, transparent 5%, var(--c-lime) 40%, var(--c-lime) 60%, transparent 95%);
-          opacity: 0.6;
-        }
-        .dd-corner {
-          position: absolute;
-          width: 18px;
-          height: 18px;
-          border: 1.5px solid oklch(0.88 0.26 130 / 0.4);
-          pointer-events: none;
-          z-index: 2;
-        }
-        .dd-corner--tl { top: 16px; left: 16px; border-right: 0; border-bottom: 0; }
-        .dd-corner--br { bottom: 16px; right: 16px; border-left: 0; border-top: 0; }
-        .dd-statement-text {
-          position: relative;
-          z-index: 1;
-          font-family: var(--font-body);
-          font-style: italic;
-          font-size: clamp(1.15rem, 2.1vw, 1.5rem);
-          line-height: 1.62;
-          color: var(--c-ink);
-          opacity: 0.95;
-          max-width: 66ch;
+
+        .dd-full-content {
+          max-width: var(--container);
           margin: 0 auto;
-          text-align: center;
-          text-wrap: pretty;
+          padding: 0 var(--container-pad);
         }
-        .dd-statement-highlight {
-          color: var(--c-lime);
-          font-style: normal;
-          font-weight: 600;
+
+        .dd-full-title {
+          font-family: var(--font-display);
+          font-weight: 700;
+          font-style: italic;
+          font-size: clamp(1.8rem, 3.5vw, 3.5rem);
+          text-align: center;
+          line-height: 1.2;
+          margin: 0;
+          letter-spacing: -0.02em;
+          word-wrap: break-word;
+          overflow-wrap: break-word;
+          min-height: 60px;
+        }
+
+        /* Estilo de letra hueco exactamente como el hero */
+        .hollow-white {
+          color: transparent;
+          -webkit-text-stroke: 2px var(--c-ink);
+          text-stroke: 2px var(--c-ink);
+        }
+
+        .hollow-green {
+          color: transparent;
+          -webkit-text-stroke: 2px var(--c-lime);
+          text-stroke: 2px var(--c-lime);
         }
 
         @media (max-width: 880px) {
@@ -511,14 +505,20 @@ export default function DigitalServicesSection({
           .slider-image {
             min-height: 300px;
           }
+          .dd-full-title {
+            font-size: clamp(1.4rem, 4vw, 2.2rem);
+            min-height: 50px;
+          }
+          .hollow-white,
+          .hollow-green {
+            -webkit-text-stroke: 1.8px;
+            text-stroke: 1.8px;
+          }
         }
 
         @media (max-width: 520px) {
           .dd-icon-grid {
             grid-template-columns: 1fr;
-          }
-          .dd-statement {
-            padding: clamp(2rem, 8vw, 2.5rem);
           }
           .dd-sub-grid {
             grid-template-columns: 1fr;
@@ -536,6 +536,22 @@ export default function DigitalServicesSection({
           }
           .slider-image {
             min-height: 250px;
+          }
+          .dd-full-title {
+            font-size: clamp(1.2rem, 5vw, 1.8rem);
+            min-height: 40px;
+            line-height: 1.3;
+          }
+          /* Texto sólido en móvil para garantizar visibilidad */
+          .hollow-white {
+            color: #ffffff !important;
+            -webkit-text-stroke: 0 !important;
+            text-stroke: 0 !important;
+          }
+          .hollow-green {
+            color: var(--c-lime) !important;
+            -webkit-text-stroke: 0 !important;
+            text-stroke: 0 !important;
           }
         }
       `}</style>
