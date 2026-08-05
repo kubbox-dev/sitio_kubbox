@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import DigitalHeroSection from "../../../components/sections/desarrollo-a-la-medida/DigitalHeroSection";
 import DigitalServicesSection from "../../../components/sections/desarrollo-a-la-medida/DigitalServicesSection";
+import ReadyModules from "../../../components/sections/desarrollo-a-la-medida/ReadyModules";
 import CustomCursor from "../../../components/ui/CustomCursor";
 import MorphicBackground from "../../../components/layout/fondo";
 import { useDocumentMeta } from "../../../hooks/useDocumentMeta";
@@ -35,6 +36,7 @@ export default function DesarrolloSoftwareMedidaPage() {
       <main>
         <DigitalHeroSection title="Desarrollo de Software a la Medida" />
         <DigitalServicesSection />
+        <ReadyModules />
       </main>
     </>
   );

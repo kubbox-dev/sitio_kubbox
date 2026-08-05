@@ -274,14 +274,14 @@ export function CoverflowCarousel({
         >
           <p
             style={{
-              fontSize: "clamp(0.9rem, 1.5vw, 1.6rem)",
+              fontSize: "clamp(0.75rem, 1.2vw, 1.3rem)",
               fontFamily: "var(--font-display)",
               fontWeight: 700,
               fontStyle: "italic",
               color: "var(--c-ink)",
               letterSpacing: "-0.02em",
               textTransform: "uppercase",
-              marginTop: "0.3rem",
+              marginTop: "0.2rem",
               lineHeight: "1.2",
               textAlign: "center",
             }}

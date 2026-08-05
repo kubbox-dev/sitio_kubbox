@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { CoverflowCarousel } from "../../ui/coverflow-carousel";
 import { useScrollAnimation, fadeUp } from "../../../hooks/useScrollAnimation";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 // Usando la misma imagen de Unsplash que sí funciona
 const IMAGE_URL =
@@ -8,44 +9,86 @@ const IMAGE_URL =
 
 const SOUVENIR_SLIDES = [
   {
-    src: IMAGE_URL,
-    alt: "Bolígrafos personalizados con logo de la marca",
-    title: "Bolígrafos Personalizados",
+    src: "/images/Servicios/creacion-desarrollo-marca/productos/Botellas de plástico.png",
+    alt: "",
+    title: "Botellas de plástico",
     subtitle: "",
     meta: [],
   },
   {
-    src: IMAGE_URL,
-    alt: "Tazas corporativas con diseño exclusivo",
-    title: "Tazas Corporativas",
+    src: "/images/Servicios/creacion-desarrollo-marca/productos/calendario 1.png",
+    alt: "",
+    title: "Calendario",
     subtitle: "",
     meta: [],
   },
   {
-    src: IMAGE_URL,
-    alt: "Cuadernos personalizados para eventos",
-    title: "Cuadernos Personalizados",
+    src: "/images/Servicios/creacion-desarrollo-marca/productos/cuadernos .png",
+    alt: "",
+    title: "Cuadernos",
     subtitle: "",
     meta: [],
   },
   {
-    src: IMAGE_URL,
-    alt: "Bolsas ecológicas con branding",
-    title: "Bolsas Ecológicas",
+    src: "/images/Servicios/creacion-desarrollo-marca/productos/Calendario.png",
+    alt: "",
+    title: "Calendario",
     subtitle: "",
     meta: [],
   },
   {
-    src: IMAGE_URL,
-    alt: "Memorias USB personalizadas",
-    title: "Memorias USB",
+    src: "/images/Servicios/creacion-desarrollo-marca/productos/Destapador.png",
+    alt: "",
+    title: "Destapador",
     subtitle: "",
     meta: [],
   },
   {
-    src: IMAGE_URL,
-    alt: "Termos personalizados para promociones",
-    title: "Termos Personalizados",
+    src: "/images/Servicios/creacion-desarrollo-marca/productos/imanes 1.png",
+    alt: "",
+    title: "Imanes",
+    subtitle: "",
+    meta: [],
+  },
+  {
+    src: "/images/Servicios/creacion-desarrollo-marca/productos/imanes 2.png",
+    alt: "",
+    title: "Imanes",
+    subtitle: "",
+    meta: [],
+  },
+  {
+    src: "/images/Servicios/creacion-desarrollo-marca/productos/lapiceros de colores.png",
+    alt: "",
+    title: "Lapiceros de colores",
+    subtitle: "",
+    meta: [],
+  },
+  {
+    src: "/images/Servicios/creacion-desarrollo-marca/productos/lapiceros.png",
+    alt: "",
+    title: "Lapiceros",
+    subtitle: "",
+    meta: [],
+  },
+  {
+    src: "/images/Servicios/creacion-desarrollo-marca/productos/Mugs.png",
+    alt: "",
+    title: "Posillos",
+    subtitle: "",
+    meta: [],
+  },
+  {
+    src: "/images/Servicios/creacion-desarrollo-marca/productos/Termos metálicos.png",
+    alt: "",
+    title: "Termos metálicos",
+    subtitle: "",
+    meta: [],
+  },
+  {
+    src: "/images/Servicios/creacion-desarrollo-marca/productos/Tula deportiva.png",
+    alt: "",
+    title: "Tula deportiva",
     subtitle: "",
     meta: [],
   },
@@ -53,6 +96,67 @@ const SOUVENIR_SLIDES = [
 
 export default function SouvenirCarrouselProducts() {
   const { ref, controls } = useScrollAnimation(0.15);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const intervalRef = useRef(null);
+  const timeoutRef = useRef(null);
+  const isInteractingRef = useRef(false);
+  const lastIndexRef = useRef(0);
+
+  const goToNext = useCallback(() => {
+    if (!isInteractingRef.current) {
+      setCurrentIndex((prev) => (prev + 1) % SOUVENIR_SLIDES.length);
+    }
+  }, []);
+
+  // Auto-play cada 3 segundos
+  useEffect(() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+
+    intervalRef.current = setInterval(goToNext, 3000);
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, [goToNext]);
+
+  // Cuando el usuario interactúa manualmente
+  const handleIndexChange = useCallback((newIndex) => {
+    // Solo actualizar si el índice realmente cambió y es diferente al último registrado
+    if (newIndex !== lastIndexRef.current) {
+      lastIndexRef.current = newIndex;
+
+      // Marcar que el usuario está interactuando
+      isInteractingRef.current = true;
+
+      // Actualizar el índice
+      setCurrentIndex(newIndex);
+
+      // Limpiar timeout anterior
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
+      // Después de 3 segundos sin interacción, permitir auto-play de nuevo
+      timeoutRef.current = setTimeout(() => {
+        isInteractingRef.current = false;
+      }, 3000);
+    }
+  }, []);
+
+  // Limpiar al desmontar
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <section
@@ -84,10 +188,11 @@ export default function SouvenirCarrouselProducts() {
           label="Souvenirs corporativos"
           className="w-full py-4"
           cardClassName="border-2 border-[#90B20A]/20"
+          currentIndex={currentIndex}
+          onIndexChange={handleIndexChange}
         />
       </div>
 
-      {/* Estilos personalizados para el título un poco más pequeño */}
       <style jsx>{`
         :global(.text-\\[15px\\]) {
           font-size: clamp(0.75rem, 1.2vw, 1.3rem) !important;

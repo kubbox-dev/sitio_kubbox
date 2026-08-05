@@ -221,6 +221,9 @@ export default function DigitalServicesSection({
         }
 
         @media (max-width: 880px) {
+          section {
+            margin-top: -4rem !important;
+          }
           .dd-grid {
             grid-template-columns: 1fr;
             gap: 2rem;
@@ -229,6 +232,7 @@ export default function DigitalServicesSection({
             min-height: 400px;
             max-height: 600px;
             align-self: center;
+            margin-bottom: 0;
           }
           .dd-intro {
             text-align: center;
@@ -249,9 +253,13 @@ export default function DigitalServicesSection({
         }
 
         @media (max-width: 520px) {
+          section {
+            margin-top: -2rem !important;
+          }
           .dd-photo-card {
             min-height: 400px;
             max-height: 500px;
+            margin-bottom: 6rem;
           }
         }
       `}</style>

@@ -46,6 +46,10 @@ const GoogleAdsMetaAdsPage = lazy(
 const CreacionDesarrolloMarcaPage = lazy(
   () => import("../pages/servicios/creacion-desarrollo-marca"),
 );
+const CarnesDigitalesPage = lazy(
+  () =>
+    import("../pages/servicios/carnes-digitales-tarjetas-contacto-inteligente"),
+);
 const ServicioDinamicoPage = lazy(() => import("../pages/servicios/detalle"));
 const ProyectoPage = lazy(() => import("../pages/proyectos"));
 const NosotrosPage = lazy(() => import("../pages/nosotros"));
@@ -133,6 +137,10 @@ export default function AppRouter() {
           <Route
             path="/servicios/creacion-desarrollo-marca"
             element={<CreacionDesarrolloMarcaPage />}
+          />
+          <Route
+            path="/servicios/carnes-digitales-tarjetas-contacto-inteligente"
+            element={<CarnesDigitalesPage />}
           />
           <Route path="/servicios/:slug" element={<ServicioDinamicoPage />} />
           <Route path="/proyectos/:slug" element={<ProyectoPage />} />
