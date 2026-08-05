@@ -1,9 +1,6 @@
 Options -MultiViews
 
-# ── Forzar HTTPS ──────────────────────────────────────────────────────────────
 RewriteEngine On
-RewriteCond %{HTTPS} off
-RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 # ── SPA: redirige todo a index.html (excepto archivos físicos) ────────────────
 # SPA fallback: si el archivo/carpeta pedido no existe físicamente,
