@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import DigitalHeroSection from "../../../components/sections/creacion-desarrollo-marca/DigitalHeroSection";
 import DigitalServicesSection from "../../../components/sections/creacion-desarrollo-marca/DigitalServicesSection";
 import DesignElements from "../../../components/sections/creacion-desarrollo-marca/DesignElements";
+import SentenseValue from "../../../components/sections/creacion-desarrollo-marca/SentenseValue";
 import CustomCursor from "../../../components/ui/CustomCursor";
 import MorphicBackground from "../../../components/layout/fondo";
 import { useDocumentMeta } from "../../../hooks/useDocumentMeta";
@@ -38,6 +39,7 @@ export default function CreacionDesarrolloMarcaPage() {
         <DigitalHeroSection />
         <DigitalServicesSection />
         <DesignElements />
+        <SentenseValue />
       </main>
     </>
   );

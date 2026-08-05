@@ -74,7 +74,6 @@ export default function DigitalServicesSection({
           </motion.div>
 
           <motion.div variants={fadeUp}>
-            {/* CUADRO PRINCIPAL - Padding reducido al mínimo */}
             <div
               style={{
                 backgroundColor: "rgba(17, 28, 34, 0.85)",
@@ -99,7 +98,6 @@ export default function DigitalServicesSection({
               </div>
             </div>
 
-            {/* SECCIÓN IMAGEN CORPORATIVA - Solo título centrado */}
             <div className="dd-brand-section">
               <h3 className="dd-brand-title">Imagen Corporativa</h3>
               <div className="dd-brand-text-wrapper">
@@ -229,7 +227,7 @@ export default function DigitalServicesSection({
           }
           .dd-photo-card {
             min-height: 400px;
-            max-height: 450px;
+            max-height: 600px;
             align-self: center;
           }
           .dd-intro {
@@ -252,8 +250,8 @@ export default function DigitalServicesSection({
 
         @media (max-width: 520px) {
           .dd-photo-card {
-            min-height: 300px;
-            max-height: 350px;
+            min-height: 400px;
+            max-height: 500px;
           }
         }
       `}</style>

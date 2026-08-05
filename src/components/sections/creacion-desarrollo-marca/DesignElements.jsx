@@ -40,7 +40,7 @@ const itemVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      delay: i * 0.1,
+      delay: i * 0.08,
       duration: 0.6,
       ease: [0.16, 1, 0.3, 1],
     },
@@ -58,12 +58,13 @@ export default function DesignElements() {
         paddingBlock: "clamp(0.25rem, 0.5vw, 0.5rem)",
         marginTop: "-10rem",
       }}
+      className="design-elements-section"
     >
       <div
         style={{
           maxWidth: "1400px",
           marginInline: "auto",
-          paddingInline: "var(--container-pad)",
+          paddingInline: "clamp(1rem, 4vw, 2rem)",
           position: "relative",
           zIndex: 1,
         }}
@@ -72,12 +73,13 @@ export default function DesignElements() {
           ref={ref}
           initial="hidden"
           animate={controls}
-          variants={staggerContainer(0.1)}
+          variants={staggerContainer(0.08)}
+          className="design-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(5, 1fr)",
             gap: "0",
-            borderRadius: "1.5rem",
+            borderRadius: "clamp(1rem, 1.5vw, 1.5rem)",
             overflow: "hidden",
           }}
         >
@@ -92,15 +94,17 @@ export default function DesignElements() {
                 y: -8,
                 transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] },
               }}
+              className="design-item"
               style={{
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                padding: "clamp(2rem, 3vw, 3.5rem) clamp(1rem, 2vw, 2rem)",
+                padding:
+                  "clamp(1.5rem, 2.5vw, 3.5rem) clamp(0.8rem, 1.5vw, 2rem)",
                 textAlign: "center",
                 position: "relative",
-                minHeight: "240px",
+                minHeight: "clamp(200px, 25vw, 240px)",
                 cursor: "default",
                 transition: "background 0.3s ease",
               }}
@@ -111,30 +115,31 @@ export default function DesignElements() {
                 e.currentTarget.style.background = "transparent";
               }}
             >
-              {/* Línea vertical separadora */}
+              {/* Línea vertical separadora - desktop */}
               {index < LOGOS.length - 1 && (
                 <div
+                  className="linea-separadora"
                   style={{
                     position: "absolute",
                     right: 0,
                     top: "15%",
                     height: "70%",
-                    width: "3px",
-                    background: "rgba(255, 255, 255, 0.25)",
+                    width: "2px",
+                    background: "rgba(255, 255, 255, 0.2)",
                     borderRadius: "2px",
                   }}
                 />
               )}
 
-              {/* Contenedor del icono con tamaño fijo */}
+              {/* Contenedor del icono */}
               <motion.div
                 style={{
-                  width: "clamp(70px, 8vw, 100px)",
-                  height: "clamp(70px, 8vw, 100px)",
+                  width: "clamp(55px, 7vw, 100px)",
+                  height: "clamp(55px, 7vw, 100px)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  marginBottom: "1.25rem",
+                  marginBottom: "clamp(0.75rem, 1.2vw, 1.25rem)",
                   flexShrink: 0,
                 }}
                 whileHover={{
@@ -163,23 +168,23 @@ export default function DesignElements() {
                 />
               </motion.div>
 
-              {/* Contenedor del texto con altura fija para alineación */}
+              {/* Contenedor del texto */}
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  minHeight: "clamp(60px, 8vh, 80px)",
+                  minHeight: "clamp(50px, 6vh, 80px)",
                   width: "100%",
                 }}
               >
                 <motion.p
                   style={{
                     fontFamily: "var(--font-body)",
-                    fontSize: "clamp(0.85rem, 1.1vw, 1.05rem)",
+                    fontSize: "clamp(0.7rem, 1vw, 1.05rem)",
                     color: "rgba(255, 255, 255, 0.85)",
-                    lineHeight: 1.5,
-                    maxWidth: "28ch",
+                    lineHeight: 1.4,
+                    maxWidth: "clamp(20ch, 25ch, 28ch)",
                     margin: 0,
                     transition: "color 0.3s ease",
                   }}
@@ -197,30 +202,82 @@ export default function DesignElements() {
       </div>
 
       <style>{`
-        @media (max-width: 768px) {
+        /* Desktop - 5 columnas */
+        .design-grid {
+          grid-template-columns: repeat(5, 1fr) !important;
+        }
+
+        /* Tablet - 3 columnas */
+        @media (max-width: 1024px) {
           .design-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            border-radius: 1rem !important;
           }
-          .design-grid > div:nth-child(2) .linea-separadora {
+          .design-grid .design-item:nth-child(3) .linea-separadora {
             display: none !important;
           }
-          .design-grid > div:nth-child(4) .linea-separadora {
-            display: none !important;
+          .design-grid .design-item:nth-child(4) {
+            border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+          }
+          .design-grid .design-item:nth-child(5) {
+            border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
           }
         }
 
-        @media (max-width: 480px) {
-          .design-grid {
-            grid-template-columns: 1fr !important;
+        /* Móvil - 2 columnas con espacio y texto más grande */
+        @media (max-width: 768px) {
+          .design-elements-section {
+            margin-top: -4rem !important;
+            padding-block: clamp(0.5rem, 1vw, 1rem) !important;
           }
-          .design-grid > div .linea-separadora {
+          
+          .design-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            border-radius: 0.75rem !important;
+          }
+          .design-grid .design-item .linea-separadora {
             display: none !important;
           }
-          .design-grid > div {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+          .design-grid .design-item:nth-child(2) {
+            border-right: none !important;
           }
-          .design-grid > div:last-child {
-            border-bottom: none !important;
+          .design-grid .design-item:nth-child(4) {
+            border-right: none !important;
+          }
+          .design-grid .design-item:nth-child(3) {
+            border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+          }
+          .design-grid .design-item:nth-child(4) {
+            border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+          }
+          .design-grid .design-item:nth-child(5) {
+            border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+            grid-column: span 2 !important;
+          }
+          .design-grid .design-item {
+            min-height: 190px !important;
+            padding: 1.5rem 1rem !important;
+          }
+          .design-grid .design-item p {
+            font-size: clamp(0.8rem, 2.5vw, 0.95rem) !important;
+          }
+        }
+
+        /* Móvil pequeño - 2 columnas más compacto */
+        @media (max-width: 400px) {
+          .design-elements-section {
+            margin-top: -3rem !important;
+          }
+          .design-grid .design-item {
+            min-height: 160px !important;
+            padding: 1rem 0.5rem !important;
+          }
+          .design-grid .design-item img {
+            width: 40px !important;
+            height: 40px !important;
+          }
+          .design-grid .design-item p {
+            font-size: clamp(0.7rem, 2vw, 0.8rem) !important;
           }
         }
       `}</style>
