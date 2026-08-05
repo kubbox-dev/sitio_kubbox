@@ -40,6 +40,8 @@ const CLIENTS = [
     src: "/images/HOME/WEB/Logos/Pringles logo.svg",
   },
   { name: "Kelloggs", src: "/images/HOME/WEB/Logos/kelloggs logo.svg" },
+  { name: "Gaica", src: "/images/HOME/WEB/Logos/gaica logo .svg" },
+  { name: "Brainon24", src: "/images/HOME/WEB/Logos/Brainon24 logo.svg" },
 ];
 
 export default function ClientsSection() {
