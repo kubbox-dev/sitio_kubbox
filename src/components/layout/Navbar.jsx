@@ -72,6 +72,11 @@ const SERVICES_MENU = [
         href: "/servicios/google-ads-meta-ads",
         desc: "Campañas publicitarias enfocadas en resultados",
       },
+      {
+        label: "Carnés Digitales y Tarjetas de Contacto Inteligentes",
+        href: "/servicios/carnes-digitales-tarjetas-contacto-inteligente",
+        desc: "Modernizamos la presentación empresarial con soluciones digitales",
+      },
       // {
       //   label: "Posicionamiento SEO",
       //   href: "/servicios/posicionamiento-seo",
