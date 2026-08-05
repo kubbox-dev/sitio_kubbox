@@ -1,6 +1,7 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Play, X } from "lucide-react";
 import Button from "../../ui/Button";
 
 const fadeUp = {
@@ -13,25 +14,58 @@ const fadeUp = {
 };
 
 const squareData = [
-  { id: 1, src: "/images/Nosotros/proyectos/armorall.png" },
-  { id: 2, src: "/images/Nosotros/proyectos/comida-saludable.png" },
-  { id: 3, src: "/images/Nosotros/proyectos/cooper-tires.png" },
-  { id: 4, src: "/images/Nosotros/proyectos/10-mandamientos.png" },
-  { id: 5, src: "/images/Nosotros/proyectos/duracell.png" },
+  {
+    id: 1,
+    src: "/images/Nosotros/proyectos/armorall.png",
+    videoUrl: "/images/Nosotros/proyectos/Videos/armorall.webm",
+  },
+  {
+    id: 2,
+    src: "/images/Nosotros/proyectos/comida-saludable.png",
+    videoUrl: "/images/Nosotros/proyectos/Videos/el de comida saludable.webm",
+  },
+  {
+    id: 3,
+    src: "/images/Nosotros/proyectos/cooper-tires.png",
+    videoUrl: "/images/Nosotros/proyectos/Videos/cooper.webm",
+  },
+  {
+    id: 4,
+    src: "/images/Nosotros/proyectos/10-mandamientos.png",
+    videoUrl: "/images/Nosotros/proyectos/Videos/10 mandamientos -1 (2).webm",
+  },
+  {
+    id: 5,
+    src: "/images/Nosotros/proyectos/duracell.png",
+    videoUrl: "/images/Nosotros/proyectos/Videos/duracell.webm",
+  },
   {
     id: 6,
     src: "/images/Nosotros/proyectos/el-otro-video-de-cooper-tires.png",
+    videoUrl:
+      "/images/Nosotros/proyectos/Videos/el otro video de cooper tires.webm",
   },
-  { id: 7, src: "/images/Nosotros/proyectos/el-perrito.png" },
-  { id: 8, src: "/images/Nosotros/proyectos/llantin.png" },
-  { id: 9, src: "/images/Nosotros/proyectos/tiros-de-arrastre.png" },
+  {
+    id: 7,
+    src: "/images/Nosotros/proyectos/el-perrito.png",
+    videoUrl: "/images/Nosotros/proyectos/Videos/El video del perrito.webm",
+  },
+  {
+    id: 8,
+    src: "/images/Nosotros/proyectos/llantin.png",
+    videoUrl: "/images/Nosotros/proyectos/Videos/video llantin.gif",
+  },
+  {
+    id: 9,
+    src: "/images/Nosotros/proyectos/tiros-de-arrastre.png",
+    videoUrl: "/images/Nosotros/proyectos/Videos/Tiros de arrastre.webm",
+  },
 ];
 
 const shuffle = (array) => {
   const copy = [...array];
   let currentIndex = copy.length;
   let randomIndex;
-
   while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;
@@ -40,62 +74,65 @@ const shuffle = (array) => {
       copy[currentIndex],
     ];
   }
-
   return copy;
 };
 
-const generateSquares = (onHoverStart, onHoverEnd) =>
+// Función para detectar si la URL es un GIF
+const isGif = (url) => {
+  return url && url.toLowerCase().includes(".gif");
+};
+
+const generateSquares = (onCardClick) =>
   shuffle(squareData).map((sq) => (
     <motion.div
       key={sq.id}
       layout
       transition={{ duration: 1.2, type: "spring", bounce: 0.28 }}
-      whileHover={{
-        scale: 1.05,
-        boxShadow: "0 8px 32px rgba(163, 230, 53, 0.4)",
-        borderColor: "#a3e635",
-        transition: { duration: 0.2, ease: "easeOut" },
-      }}
-      style={{
-        aspectRatio: "1 / 1",
-        minHeight: "7rem",
-        borderRadius: "1rem",
-        background: sq.src
-          ? `url(${sq.src}) center/cover no-repeat`
-          : "#ffffff",
-        border: "2px solid rgba(255, 255, 255, 0.18)",
-        boxShadow: "0 20px 60px rgba(0, 0, 0, 0.08)",
-        cursor: "pointer",
-      }}
-    />
+      className="group relative aspect-square min-h-[7rem]"
+    >
+      <motion.div
+        className="relative h-full w-full cursor-pointer rounded-2xl border-2 border-white/30 bg-cover bg-center bg-no-repeat shadow-xl transition-all"
+        style={{ backgroundImage: `url(${sq.src})` }}
+        whileHover={{
+          scale: 1.05,
+          boxShadow: "0 8px 32px rgba(163, 230, 53, 0.4)",
+          borderColor: "#a3e635",
+          transition: { duration: 0.2, ease: "easeOut" },
+        }}
+        onClick={() => onCardClick(sq.videoUrl)}
+      >
+        <div className="absolute inset-0 flex flex-col items-center justify-center rounded-2xl bg-black/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-events-none">
+          <Play className="h-10 w-10 text-white drop-shadow-lg md:h-12 md:w-12" />
+          <span className="mt-1.5 text-sm font-medium text-white/90 md:text-base">
+            Ver video
+          </span>
+        </div>
+      </motion.div>
+    </motion.div>
   ));
 
-const ShuffleBoard = () => {
+const ShuffleBoard = ({ onCardClick }) => {
   const timeoutRef = useRef(null);
   const [isHovering, setIsHovering] = useState(false);
-  const [squares, setSquares] = useState(() => generateSquares());
+  const [squares, setSquares] = useState(() => generateSquares(onCardClick));
 
-  // Función para barajar y programar el próximo barajado
   const scheduleShuffle = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     if (!isHovering) {
       timeoutRef.current = setTimeout(() => {
-        setSquares(generateSquares());
-        scheduleShuffle(); // Programar el siguiente
+        setSquares(generateSquares(onCardClick));
+        scheduleShuffle();
       }, 3000);
     }
   };
 
-  // Efecto para iniciar el ciclo
   useEffect(() => {
     scheduleShuffle();
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isHovering]);
+  }, [isHovering, onCardClick]);
 
-  // Cuando el mouse entra al grid, pausamos el barajado
   const handleMouseEnter = () => {
     setIsHovering(true);
     if (timeoutRef.current) {
@@ -104,10 +141,8 @@ const ShuffleBoard = () => {
     }
   };
 
-  // Cuando el mouse sale, reanudamos el barajado
   const handleMouseLeave = () => {
     setIsHovering(false);
-    // No programamos inmediatamente, el efecto lo hará al cambiar isHovering
   };
 
   return (
@@ -123,6 +158,15 @@ const ShuffleBoard = () => {
 
 export default function TeamWorkSection() {
   const navigate = useNavigate();
+  const [selectedVideo, setSelectedVideo] = useState(null);
+
+  const handleCardClick = (videoUrl) => {
+    setSelectedVideo(videoUrl);
+  };
+
+  const closeModal = () => {
+    setSelectedVideo(null);
+  };
 
   return (
     <section
@@ -150,6 +194,7 @@ export default function TeamWorkSection() {
             alignItems: "center",
           }}
         >
+          {/* Columna izquierda (texto) */}
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -260,6 +305,7 @@ export default function TeamWorkSection() {
             </p>
           </motion.div>
 
+          {/* Columna derecha (grid shuffle) */}
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -272,11 +318,58 @@ export default function TeamWorkSection() {
               style={{ minHeight: "24rem" }}
               className="nosotros-shuffle-wrapper"
             >
-              <ShuffleBoard />
+              <ShuffleBoard onCardClick={handleCardClick} />
             </div>
           </motion.div>
         </div>
       </div>
+
+      {/* Modal de video mejorado - soporte para GIF y videos */}
+      <AnimatePresence>
+        {selectedVideo && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeModal}
+          >
+            <motion.div
+              className="relative w-full max-w-4xl overflow-hidden rounded-2xl bg-black shadow-2xl"
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="aspect-video w-full bg-black flex items-center justify-center">
+                {isGif(selectedVideo) ? (
+                  // Si es GIF, usar <img>
+                  <img
+                    src={selectedVideo}
+                    alt="Video del proyecto"
+                    className="max-h-full max-w-full object-contain"
+                  />
+                ) : (
+                  // Si es video, usar <video>
+                  <video
+                    src={selectedVideo}
+                    className="h-full w-full"
+                    controls
+                    autoPlay
+                    playsInline
+                  />
+                )}
+              </div>
+              <button
+                className="absolute right-2 top-2 rounded-full bg-black/50 p-2 text-white transition hover:bg-black/70"
+                onClick={closeModal}
+              >
+                <X className="h-6 w-6" />
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <style>{`
         .nosotros-shuffle-grid {
