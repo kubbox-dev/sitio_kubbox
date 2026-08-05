@@ -9,6 +9,7 @@ import {
 
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
+import WhatsAppWidget from "../components/layout/WhatsAppWidget";
 import { defaultSlug } from "../data/proyectos";
 import ServiciosPage from "../pages/servicios";
 
@@ -144,6 +145,7 @@ export default function AppRouter() {
         </Routes>
       </Suspense>
       <Footer />
+      <WhatsAppWidget />
     </BrowserRouter>
   );
 }
