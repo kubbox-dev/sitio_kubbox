@@ -9,119 +9,125 @@ function cn(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-// 16 CARDS DE EJEMPLO
+// 18 CARDS DE EJEMPLO
 const PROJECTS = [
   {
     id: 1,
-    title: "Kubbox",
+    title: "SELLO ROJO",
     description:
-      "Agencia de BRANDING, desarrollo web, poscionamiento y marketing predictivo",
-    imageSrc: "/images/NUESTROS PROYECTOS/Fotos-Proyectos/Imagen-1.sasxpng.webp",
+      "Campañas de la marca para incentivar la compra de productos y capturar datos de los consumidores finales.",
+    imageSrc: "/images/NUESTROS PROYECTOS/Fotos-Proyectos/sello rojo.webp",
   },
   {
     id: 2,
-    title: "Pollocoa",
-    description: "Rediseño de identidad visual y estrategia digital",
-    imageSrc:
-      "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=600&h=400&fit=crop",
+    title: "Doria",
+    description:
+      "Campaña online para registro de compras de productos en retail. Captura de datos de consumidores finales y estrategia concurso de la marca.",
+    imageSrc: "/images/NUESTROS PROYECTOS/Fotos-Proyectos/doria.webp",
   },
   {
     id: 3,
-    title: "F-rixo",
-    description: "E-commerce de alto rendimiento",
-    imageSrc:
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
+    title: "ARDEN FOR MEN",
+    description: "Sitio web – Campaña de marca.",
+    imageSrc: "/images/NUESTROS PROYECTOS/Fotos-Proyectos/arden for men.webp",
   },
   {
     id: 4,
-    title: "CAM",
-    description: "Performance marketing con ROI duplicado",
-    imageSrc:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
+    title: "BOGOTANEAR",
+    description:
+      "5 años consecutivos haciendo campañas de Bogotanear. La campaña ha sido un éxito, superando expecativas de la marca y cumpliendo con los objetivos de negocio en 2 semanas.",
+    imageSrc: "/images/NUESTROS PROYECTOS/Fotos-Proyectos/bogotanear.webp",
   },
   {
     id: 5,
-    title: "Proyecto 5",
-    description: "Descripción del proyecto 5",
-    imageSrc:
-      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&h=400&fit=crop",
+    title: "Ranchera",
+    description:
+      "Sitio para Salchicha Ranchera. Campaña de incentivo de compras de la marca. - Landing page. - Generación de códigos para impresión en empaques. - Registro de clientes finales",
+    imageSrc: "/images/NUESTROS PROYECTOS/Fotos-Proyectos/ranchera.webp",
   },
   {
     id: 6,
-    title: "Proyecto 6",
-    description: "Descripción del proyecto 6",
-    imageSrc:
-      "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&h=400&fit=crop",
+    title: "CHOCAFEST",
+    description:
+      "Campañas de la marca (CHOCOLISTO) para incentivar la compra de productos y capturar datos de los consumidores finales.",
+    imageSrc: "/images/NUESTROS PROYECTOS/Fotos-Proyectos/chocafest.webp",
   },
   {
     id: 7,
-    title: "Proyecto 7",
-    description: "Descripción del proyecto 7",
-    imageSrc:
-      "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=400&fit=crop",
+    title: "EMP",
+    description: "",
+    imageSrc: "/images/NUESTROS PROYECTOS/Fotos-Proyectos/epm.webp",
   },
   {
     id: 8,
-    title: "Proyecto 8",
-    description: "Descripción del proyecto 8",
-    imageSrc:
-      "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&h=400&fit=crop",
+    title: "Syngenta",
+    description:
+      "App para seguimiento actividades de ventas y gestion con clientes.",
+    imageSrc: "/images/NUESTROS PROYECTOS/Fotos-Proyectos/syngenta.webp",
   },
   {
     id: 9,
-    title: "Proyecto 9",
-    description: "Descripción del proyecto 9",
-    imageSrc:
-      "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600&h=400&fit=crop",
+    title: "COVERGIRL",
+    description:
+      "13.234 participantes. Se capturó esta base de datos de mujeres colombianas, para continuar activándolas con la marca. ",
+    imageSrc: "/images/NUESTROS PROYECTOS/Fotos-Proyectos/covergirl.webp",
   },
   {
     id: 10,
-    title: "Proyecto 10",
-    description: "Descripción del proyecto 10",
-    imageSrc:
-      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&h=400&fit=crop",
+    title: "PROPLAS",
+    description: "",
+    imageSrc: "/images/NUESTROS PROYECTOS/Fotos-Proyectos/proplas.webp",
   },
   {
     id: 11,
-    title: "Proyecto 11",
-    description: "Descripción del proyecto 11",
-    imageSrc:
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=400&fit=crop",
+    title: "JET",
+    description:
+      "Sitio web – Chocolates Jet – Campamento Jet. Langind page concurso de marca, para incentivar la compra de productos de la marca a través de campaña digital.",
+    imageSrc: "/images/NUESTROS PROYECTOS/Fotos-Proyectos/jet.webp",
   },
   {
     id: 12,
-    title: "Proyecto 12",
-    description: "Descripción del proyecto 12",
-    imageSrc:
-      "https://images.unsplash.com/photo-1510797215324-95aa89f43c33?w=600&h=400&fit=crop",
+    title: "NUTRESA",
+    description: "",
+    imageSrc: "/images/NUESTROS PROYECTOS/Fotos-Proyectos/gana.webp",
   },
   {
     id: 13,
-    title: "Proyecto 13",
-    description: "Descripción del proyecto 13",
-    imageSrc:
-      "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=600&h=400&fit=crop",
+    title: "POLLOCOA",
+    description: "Tienda online",
+    imageSrc: "/images/NUESTROS PROYECTOS/Fotos-Proyectos/pollocoa.webp",
   },
   {
     id: 14,
-    title: "Proyecto 14",
-    description: "Descripción del proyecto 14",
-    imageSrc:
-      "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=600&h=400&fit=crop",
+    title: "MISIÓN MEGA",
+    description: "Solución para motivar el equipo comercial.",
+    imageSrc: "/images/NUESTROS PROYECTOS/Fotos-Proyectos/mision mega.webp",
   },
   {
     id: 15,
-    title: "Proyecto 15",
-    description: "Descripción del proyecto 15",
-    imageSrc:
-      "https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=600&h=400&fit=crop",
+    title: "SAPOLIN",
+    description:
+      "La gerencia esperaba obtener 1.000 en 6 meses. Se obtuvieron 1.000 a los 3 meses, la estrategia pasó a ser algo temporal a un sitio constante de capacitaciones. Ya se están desarrollando en línea 2 niveles cada 1 de 15 módulos.",
+    imageSrc: "images/NUESTROS PROYECTOS/Fotos-Proyectos/Imagen-1.sasxpng.webp",
   },
   {
     id: 16,
-    title: "Proyecto 16",
-    description: "Descripción del proyecto 16",
-    imageSrc:
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&h=400&fit=crop",
+    title: "FRIXO",
+    description: "",
+    imageSrc: "images/NUESTROS PROYECTOS/Fotos-Proyectos/Frixo.webp",
+  },
+  {
+    id: 17,
+    title: "FUNAT",
+    description: "Tienda online",
+    imageSrc: "images/NUESTROS PROYECTOS/Fotos-Proyectos/funat.webp",
+  },
+  {
+    id: 18,
+    title: "5S100",
+    description:
+      "20.715 participantes en el concurso. Aumento de frecuencia a 5 compras en el período.",
+    imageSrc: "images/NUESTROS PROYECTOS/Fotos-Proyectos/sstop.webp",
   },
 ];
 
@@ -155,13 +161,16 @@ function DefaultFanCard({ item }) {
           </div>
         )}
       </div>
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+      {/* Gradiente más fuerte y oscuro para mejor visibilidad */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 via-40% to-transparent to-70%" />
+
+      {/* Contenido con mejor visibilidad y textos más grandes */}
       <div className="relative z-10 flex h-full flex-col justify-end p-5">
-        <div className="truncate text-lg font-semibold text-white">
+        <div className="text-xl font-bold text-white drop-shadow-lg md:text-2xl">
           {item.title}
         </div>
         {item.description ? (
-          <div className="mt-1 line-clamp-2 text-sm text-white/80">
+          <div className="mt-1 text-sm text-white/90 drop-shadow-md md:text-base">
             {item.description}
           </div>
         ) : null}
@@ -206,7 +215,7 @@ export default function GalleryProjects() {
   const autoAdvance = true;
   const intervalMs = 2000;
   const pauseOnHover = true;
-  const showCounter = true; // 👈 Contador en lugar de dots
+  const showCounter = true;
 
   const cardSpacing = Math.max(10, Math.round(cardWidth * (1 - overlap)));
   const stepDeg = maxOffset > 0 ? spreadDeg / maxOffset : 0;
@@ -259,7 +268,6 @@ export default function GalleryProjects() {
 
   if (!len) return null;
 
-  // Formatear número con dos dígitos (01, 02, ... 16)
   const formatNumber = (num) => String(num).padStart(2, "0");
 
   return (
@@ -386,10 +394,8 @@ export default function GalleryProjects() {
           </div>
         </div>
 
-        {/* 👇 CONTADOR DE POSICIÓN CON FLECHAS */}
         {showCounter && (
           <div className="mt-6 flex items-center justify-center gap-4">
-            {/* Botón anterior */}
             <button
               onClick={prev}
               disabled={!canGoPrev}
@@ -404,7 +410,6 @@ export default function GalleryProjects() {
               <ChevronLeft className="h-5 w-5" />
             </button>
 
-            {/* Contador */}
             <div className="flex items-center gap-3">
               <span className="font-display text-lg font-bold text-white">
                 {formatNumber(active + 1)}
@@ -415,7 +420,6 @@ export default function GalleryProjects() {
               </span>
             </div>
 
-            {/* Botón siguiente */}
             <button
               onClick={next}
               disabled={!canGoNext}

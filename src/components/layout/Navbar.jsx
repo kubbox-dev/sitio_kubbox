@@ -459,6 +459,7 @@ export default function Navbar() {
                                       }}
                                       onMouseEnter={openSubDropdown}
                                       onMouseLeave={closeSubDropdown}
+                                      data-lenis-prevent
                                       style={{
                                         position: "absolute",
                                         top: 0,
@@ -479,6 +480,8 @@ export default function Navbar() {
                                         scrollbarWidth: "thin",
                                         scrollbarColor:
                                           "oklch(0.88 0.26 130 / 0.3) transparent",
+                                        pointerEvents: "auto",
+                                        overscrollBehavior: "contain",
                                       }}
                                       className="custom-scrollbar-sub"
                                     >
