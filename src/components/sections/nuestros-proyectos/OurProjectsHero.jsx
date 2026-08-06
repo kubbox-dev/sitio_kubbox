@@ -137,46 +137,48 @@ export default function OurProjectsHero() {
         }}
       >
         {/* NUESTROS PROYECTOS — todo junto */}
-        <div style={{ overflow: "hidden" }}>
-          <motion.div
-            variants={lineReveal(0)}
-            initial="hidden"
-            animate="visible"
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 900,
-              fontStyle: "italic",
-              fontSize: "clamp(3rem, 10vw, 8rem)",
-              lineHeight: 0.92,
-              letterSpacing: "-0.03em",
-              textTransform: "uppercase",
-              ...NEON_STYLE,
-            }}
-          >
-            Nuestros
-          </motion.div>
-        </div>
+        <h1 style={{ margin: 0 }}>
+          <div style={{ overflow: "hidden" }}>
+            <motion.div
+              variants={lineReveal(0)}
+              initial="hidden"
+              animate="visible"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 900,
+                fontStyle: "italic",
+                fontSize: "clamp(3rem, 10vw, 8rem)",
+                lineHeight: 0.92,
+                letterSpacing: "-0.03em",
+                textTransform: "uppercase",
+                ...NEON_STYLE,
+              }}
+            >
+              Nuestros
+            </motion.div>
+          </div>
 
-        <div style={{ overflow: "hidden" }}>
-          <motion.div
-            variants={lineReveal(0.12)}
-            initial="hidden"
-            animate="visible"
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 900,
-              fontStyle: "italic",
-              fontSize: "clamp(3rem, 10vw, 8rem)",
-              lineHeight: 0.92,
-              letterSpacing: "-0.03em",
-              textTransform: "uppercase",
-              color: "var(--c-ink)",
-              marginTop: "-0.1em",
-            }}
-          >
-            Proyectos
-          </motion.div>
-        </div>
+          <div style={{ overflow: "hidden" }}>
+            <motion.div
+              variants={lineReveal(0.12)}
+              initial="hidden"
+              animate="visible"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 900,
+                fontStyle: "italic",
+                fontSize: "clamp(3rem, 10vw, 8rem)",
+                lineHeight: 0.92,
+                letterSpacing: "-0.03em",
+                textTransform: "uppercase",
+                color: "var(--c-ink)",
+                marginTop: "-0.1em",
+              }}
+            >
+              Proyectos
+            </motion.div>
+          </div>
+        </h1>
 
         {/* Subtítulo breve */}
         <motion.p

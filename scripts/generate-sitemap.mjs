@@ -3,7 +3,24 @@ import { projectList } from '../src/data/proyectos/index.js'
 
 const DOMAIN = 'https://kubbox.com'
 
-const staticRoutes = ['/', '/contacto/', '/servicios/desarrollo-digital/']
+const staticRoutes = [
+  '/',
+  '/contacto/',
+  '/nosotros/',
+  '/proyectos/',
+  '/servicios/',
+  '/servicios/desarrollo-digital/',
+  '/servicios/posicionamiento-seo/',
+  '/servicios/desarrollo-a-la-medida/',
+  '/servicios/hosting-empresarial-registro-dominios/',
+  '/servicios/desarrollo-aplicaciones-moviles/',
+  '/servicios/campanas-digitales-activacion-ventas-retail/',
+  '/servicios/diseno-desarrollo-sitios-web/',
+  '/servicios/automatizacion-campanas-whatsapp/',
+  '/servicios/google-ads-meta-ads/',
+  '/servicios/creacion-desarrollo-marca/',
+  '/servicios/carnes-digitales-tarjetas-contacto-inteligente/',
+]
 const projectRoutes = projectList.map((p) => `/proyectos/${p.slug}/`)
 const routes = [...staticRoutes, ...projectRoutes]
 

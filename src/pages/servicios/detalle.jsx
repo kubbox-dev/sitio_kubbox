@@ -11,24 +11,24 @@ export default function ServicioDinamicoPage() {
   const { slug } = useParams()
   const servicio = getServicioBySlug(slug)
 
-  // Si el slug no existe, redirige a la galería de servicios
-  if (!servicio) {
-    return <Navigate to="/servicios" replace />
-  }
-
-  const structuredData = useMemo(() => ({
+  const structuredData = useMemo(() => servicio ? {
     '@type': 'Service',
     name: servicio.title,
     provider: { '@type': 'LocalBusiness', name: 'Kubbox', url: 'https://kubbox.com/' },
     areaServed: 'Medellín, Colombia',
-  }), [servicio.title])
+  } : undefined, [servicio])
 
   useDocumentMeta({
-    title: `${servicio.title} — Kubbox`,
-    description: servicio.introText,
-    path: `/servicios/${servicio.slug}/`,
+    title: servicio ? `${servicio.title} — Kubbox` : 'Servicios — Kubbox',
+    description: servicio?.introText,
+    path: servicio ? `/servicios/${servicio.slug}/` : '/servicios/',
     structuredData,
   })
+
+  // Si el slug no existe, redirige a la galería de servicios
+  if (!servicio) {
+    return <Navigate to="/servicios" replace />
+  }
 
   return (
     <>

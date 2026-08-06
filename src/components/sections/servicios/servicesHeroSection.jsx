@@ -141,7 +141,7 @@ export default function AboutUsHeroSection() {
           maxWidth: "1200px",
         }}
       >
-        <div style={{ overflow: "hidden" }}>
+        <h1 style={{ margin: 0, overflow: "hidden" }}>
           <motion.div
             variants={lineReveal(0.12)}
             initial="hidden"
@@ -161,7 +161,7 @@ export default function AboutUsHeroSection() {
           >
             Servicios
           </motion.div>
-        </div>
+        </h1>
       </div>
 
       <motion.div

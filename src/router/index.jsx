@@ -10,6 +10,7 @@ import {
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import WhatsAppWidget from "../components/layout/WhatsAppWidget";
+import RouteErrorBoundary from "../components/layout/RouteErrorBoundary";
 import { defaultSlug } from "../data/proyectos";
 import ServiciosPage from "../pages/servicios";
 
@@ -94,6 +95,7 @@ export default function AppRouter() {
     <BrowserRouter>
       <ScrollToTop />
       <Navbar />
+      <RouteErrorBoundary>
       <Suspense fallback={<PageLoader />}>
         <Routes>
           <Route path="/" element={<LandingPage />} />
@@ -150,6 +152,7 @@ export default function AppRouter() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>
+      </RouteErrorBoundary>
       <Footer />
       <WhatsAppWidget />
     </BrowserRouter>
