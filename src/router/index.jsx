@@ -52,6 +52,7 @@ const CarnesDigitalesPage = lazy(
 );
 const ServicioDinamicoPage = lazy(() => import("../pages/servicios/detalle"));
 const ProyectoPage = lazy(() => import("../pages/proyectos"));
+const ProyectosPage = lazy(() => import("../pages/nuestros-proyectos"));
 const NosotrosPage = lazy(() => import("../pages/nosotros"));
 const NotFoundPage = lazy(() => import("../pages/not-found"));
 
@@ -98,6 +99,7 @@ export default function AppRouter() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/contacto" element={<ContactPage />} />
           <Route path="/nosotros" element={<NosotrosPage />} />
+          <Route path="/proyectos" element={<ProyectosPage />} />
           <Route
             path="/servicios/desarrollo-digital"
             element={<DesarrolloDigitalPage />}
@@ -144,10 +146,6 @@ export default function AppRouter() {
           />
           <Route path="/servicios/:slug" element={<ServicioDinamicoPage />} />
           <Route path="/proyectos/:slug" element={<ProyectoPage />} />
-          <Route
-            path="/proyectos"
-            element={<Navigate to={`/proyectos/${defaultSlug}`} replace />}
-          />
           <Route path="/servicios" element={<ServiciosPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
