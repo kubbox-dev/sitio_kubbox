@@ -2,52 +2,125 @@
 
 import * as React from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 function cn(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+// 16 CARDS DE EJEMPLO
 const PROJECTS = [
   {
     id: 1,
-    title: "Luxury Performance",
-    description: "Experience the thrill of precision engineering",
+    title: "Kellogg's",
+    description: "Campaña retail con presencia en Centroamérica",
     imageSrc:
-      "https://i.pinimg.com/736x/e7/cf/cb/e7cfcbd7a8af10b8839c8d9a3d8eb4ce.jpg",
-    href: "https://www.ruixen.com/",
+      "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=600&h=400&fit=crop",
   },
   {
     id: 2,
-    title: "Elegant Design",
-    description: "Where beauty meets functionality",
+    title: "Pollocoa",
+    description: "Rediseño de identidad visual y estrategia digital",
     imageSrc:
-      "https://i.pinimg.com/736x/f4/b0/00/f4b000a6880f7e8d0c677812d789e001.jpg",
-    href: "https://www.ruixen.com/",
+      "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=600&h=400&fit=crop",
   },
   {
     id: 3,
-    title: "Power & Speed",
-    description: "Unleash the true potential of the road",
+    title: "F-rixo",
+    description: "E-commerce de alto rendimiento",
     imageSrc:
-      "https://i.pinimg.com/1200x/ae/cf/d7/aecfd72b2439914647ec06d19cb182b5.jpg",
-    href: "https://www.ruixen.com/",
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
   },
   {
     id: 4,
-    title: "Timeless Craftsmanship",
-    description: "Built with passion, driven by excellence",
+    title: "CAM",
+    description: "Performance marketing con ROI duplicado",
     imageSrc:
-      "https://i.pinimg.com/736x/5d/f7/69/5df7696c4f24b7961c8c72748a355ff8.jpg",
-    href: "https://www.ruixen.com/",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
   },
   {
     id: 5,
-    title: "Future of Mobility",
-    description: "Innovation that moves you forward",
+    title: "Proyecto 5",
+    description: "Descripción del proyecto 5",
     imageSrc:
-      "https://i.pinimg.com/736x/9c/f2/8b/9cf28b4df4e06e0ca34fbe87f25734b6.jpg",
-    href: "https://www.ruixen.com/",
+      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&h=400&fit=crop",
+  },
+  {
+    id: 6,
+    title: "Proyecto 6",
+    description: "Descripción del proyecto 6",
+    imageSrc:
+      "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&h=400&fit=crop",
+  },
+  {
+    id: 7,
+    title: "Proyecto 7",
+    description: "Descripción del proyecto 7",
+    imageSrc:
+      "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=400&fit=crop",
+  },
+  {
+    id: 8,
+    title: "Proyecto 8",
+    description: "Descripción del proyecto 8",
+    imageSrc:
+      "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&h=400&fit=crop",
+  },
+  {
+    id: 9,
+    title: "Proyecto 9",
+    description: "Descripción del proyecto 9",
+    imageSrc:
+      "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600&h=400&fit=crop",
+  },
+  {
+    id: 10,
+    title: "Proyecto 10",
+    description: "Descripción del proyecto 10",
+    imageSrc:
+      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&h=400&fit=crop",
+  },
+  {
+    id: 11,
+    title: "Proyecto 11",
+    description: "Descripción del proyecto 11",
+    imageSrc:
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=400&fit=crop",
+  },
+  {
+    id: 12,
+    title: "Proyecto 12",
+    description: "Descripción del proyecto 12",
+    imageSrc:
+      "https://images.unsplash.com/photo-1510797215324-95aa89f43c33?w=600&h=400&fit=crop",
+  },
+  {
+    id: 13,
+    title: "Proyecto 13",
+    description: "Descripción del proyecto 13",
+    imageSrc:
+      "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=600&h=400&fit=crop",
+  },
+  {
+    id: 14,
+    title: "Proyecto 14",
+    description: "Descripción del proyecto 14",
+    imageSrc:
+      "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=600&h=400&fit=crop",
+  },
+  {
+    id: 15,
+    title: "Proyecto 15",
+    description: "Descripción del proyecto 15",
+    imageSrc:
+      "https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=600&h=400&fit=crop",
+  },
+  {
+    id: 16,
+    title: "Proyecto 16",
+    description: "Descripción del proyecto 16",
+    imageSrc:
+      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&h=400&fit=crop",
   },
 ];
 
@@ -102,7 +175,6 @@ export default function GalleryProjects() {
   const [active, setActive] = React.useState(0);
   const [hovering, setHovering] = React.useState(false);
 
-  // Responsive: detectar si es móvil
   const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
@@ -114,7 +186,6 @@ export default function GalleryProjects() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Ajustar tamaños según dispositivo
   const cardWidth = isMobile ? 280 : 520;
   const cardHeight = isMobile ? 180 : 320;
   const maxVisible = isMobile ? 3 : 5;
@@ -134,7 +205,7 @@ export default function GalleryProjects() {
   const autoAdvance = true;
   const intervalMs = 2000;
   const pauseOnHover = true;
-  const showDots = true;
+  const showCounter = true; // 👈 Contador en lugar de dots
 
   const cardSpacing = Math.max(10, Math.round(cardWidth * (1 - overlap)));
   const stepDeg = maxOffset > 0 ? spreadDeg / maxOffset : 0;
@@ -186,6 +257,9 @@ export default function GalleryProjects() {
   ]);
 
   if (!len) return null;
+
+  // Formatear número con dos dígitos (01, 02, ... 16)
+  const formatNumber = (num) => String(num).padStart(2, "0");
 
   return (
     <section
@@ -311,26 +385,49 @@ export default function GalleryProjects() {
           </div>
         </div>
 
-        {/* Dots de navegación - SIN EL BOTÓN DE LINK */}
-        {showDots && (
-          <div className="mt-6 flex items-center justify-center gap-3">
-            <div className="flex items-center gap-2">
-              {PROJECTS.map((it, idx) => {
-                const isActive = idx === active;
-                return (
-                  <button
-                    key={it.id}
-                    onClick={() => setActive(idx)}
-                    className={`h-2 rounded-full transition-all ${
-                      isActive
-                        ? "w-6 bg-[var(--c-lime)]"
-                        : "w-2 bg-white/30 hover:bg-white/50"
-                    }`}
-                    aria-label={`Ir a ${it.title}`}
-                  />
-                );
-              })}
+        {/* 👇 CONTADOR DE POSICIÓN CON FLECHAS */}
+        {showCounter && (
+          <div className="mt-6 flex items-center justify-center gap-4">
+            {/* Botón anterior */}
+            <button
+              onClick={prev}
+              disabled={!canGoPrev}
+              className={cn(
+                "flex items-center justify-center w-10 h-10 rounded-full border border-white/20 transition-all",
+                canGoPrev
+                  ? "hover:bg-white/10 hover:border-[var(--c-lime)] hover:text-[var(--c-lime)] cursor-pointer"
+                  : "opacity-30 cursor-not-allowed",
+              )}
+              aria-label="Anterior"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+
+            {/* Contador */}
+            <div className="flex items-center gap-3">
+              <span className="font-display text-lg font-bold text-white">
+                {formatNumber(active + 1)}
+              </span>
+              <span className="text-white/30 text-lg font-light">/</span>
+              <span className="font-display text-lg font-light text-white/50">
+                {formatNumber(len)}
+              </span>
             </div>
+
+            {/* Botón siguiente */}
+            <button
+              onClick={next}
+              disabled={!canGoNext}
+              className={cn(
+                "flex items-center justify-center w-10 h-10 rounded-full border border-white/20 transition-all",
+                canGoNext
+                  ? "hover:bg-white/10 hover:border-[var(--c-lime)] hover:text-[var(--c-lime)] cursor-pointer"
+                  : "opacity-30 cursor-not-allowed",
+              )}
+              aria-label="Siguiente"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
           </div>
         )}
       </div>
