@@ -143,7 +143,7 @@ function signedOffset(i, active, len, loop) {
   return Math.abs(alt) < Math.abs(raw) ? alt : raw;
 }
 
-function DefaultFanCard({ item }) {
+function DefaultFanCard({ item, isSideCard }) {
   return (
     <div className="relative h-full w-full">
       <div className="absolute inset-0">
@@ -161,22 +161,26 @@ function DefaultFanCard({ item }) {
           </div>
         )}
       </div>
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 via-40% to-transparent to-70%" />
-      <div className="relative z-10 flex h-full flex-col justify-end p-5">
-        <div className="text-lg font-bold text-white drop-shadow-lg md:text-2xl">
-          {item.title}
-        </div>
-        {item.description ? (
-          <div className="mt-1 text-sm text-white/90 drop-shadow-md md:text-base">
-            {item.description}
+      {!isSideCard && (
+        <>
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 via-40% to-transparent to-70%" />
+          <div className="relative z-10 flex h-full flex-col justify-end p-5">
+            <div className="text-lg font-bold text-white drop-shadow-lg md:text-2xl">
+              {item.title}
+            </div>
+            {item.description ? (
+              <div className="mt-1 text-sm text-white/90 drop-shadow-md md:text-base">
+                {item.description}
+              </div>
+            ) : null}
           </div>
-        ) : null}
-      </div>
+        </>
+      )}
     </div>
   );
 }
 
-// ===== COMPONENTE MÓVIL =====
+// ===== COMPONENTE MÓVIL CON PREVISUALIZACIÓN LATERAL =====
 function MobileSlider({
   projects,
   active,
@@ -189,27 +193,55 @@ function MobileSlider({
 }) {
   const formatNumber = (num) => String(num).padStart(2, "0");
 
+  // Calcular índices de las cards anteriores y siguientes
+  const prevIndex = (active - 1 + len) % len;
+  const nextIndex = (active + 1) % len;
+
   return (
     <div className="w-full py-4">
-      <div className="relative w-full flex items-center justify-center px-2">
-        <div className="w-[95%] max-w-[600px] h-[220px] relative">
-          <AnimatePresence initial={false} mode="wait">
-            <m.div
-              key={active}
-              initial={{ opacity: 0, x: 30, scale: 0.9 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: -30, scale: 0.9 }}
-              transition={{
-                type: "spring",
-                stiffness: 300,
-                damping: 30,
-                duration: 0.3,
-              }}
-              className="absolute inset-0 rounded-xl overflow-hidden shadow-2xl border-2 border-white/10"
-            >
-              <DefaultFanCard item={projects[active]} />
-            </m.div>
-          </AnimatePresence>
+      <div className="relative w-full flex items-center justify-center px-0">
+        <div className="w-full max-w-[600px] relative">
+          {/* Contenedor de las 3 cards (central + previsualizaciones) */}
+          <div className="relative flex items-center justify-center h-[220px]">
+            {/* Card anterior (previsualización izquierda) - solo foto transparente */}
+            <div className="absolute left-0 z-10 w-[70px] h-[200px] md:w-[90px] md:h-[220px] rounded-xl overflow-hidden opacity-60 scale-85 pointer-events-none transition-all duration-300 rotate-[-8deg] origin-right">
+              <img
+                src={projects[prevIndex].imageSrc}
+                alt=""
+                className="h-full w-full object-cover"
+              />
+            </div>
+
+            {/* Card central (activa) - con toda la info */}
+            <div className="relative z-20 w-[85%] h-[220px]">
+              <AnimatePresence initial={false} mode="popLayout">
+                <m.div
+                  key={active}
+                  initial={{ opacity: 0, x: 60, scale: 0.95 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: -60, scale: 0.95 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 350,
+                    damping: 30,
+                    duration: 0.4,
+                  }}
+                  className="absolute inset-0 rounded-xl overflow-hidden shadow-2xl border-2 border-white/10"
+                >
+                  <DefaultFanCard item={projects[active]} isSideCard={false} />
+                </m.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Card siguiente (previsualización derecha) - solo foto transparente */}
+            <div className="absolute right-0 z-10 w-[70px] h-[200px] md:w-[90px] md:h-[220px] rounded-xl overflow-hidden opacity-60 scale-85 pointer-events-none transition-all duration-300 rotate-[8deg] origin-left">
+              <img
+                src={projects[nextIndex].imageSrc}
+                alt=""
+                className="h-full w-full object-cover"
+              />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -482,7 +514,7 @@ export default function GalleryProjects() {
                         transformStyle: "preserve-3d",
                       }}
                     >
-                      <DefaultFanCard item={item} />
+                      <DefaultFanCard item={item} isSideCard={false} />
                     </div>
                   </m.div>
                 );
