@@ -161,16 +161,14 @@ function DefaultFanCard({ item }) {
           </div>
         )}
       </div>
-      {/* Gradiente más fuerte y oscuro para mejor visibilidad */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 via-40% to-transparent to-70%" />
 
-      {/* Contenido con mejor visibilidad y textos más grandes */}
-      <div className="relative z-10 flex h-full flex-col justify-end p-5">
-        <div className="text-xl font-bold text-white drop-shadow-lg md:text-2xl">
+      <div className="relative z-10 flex h-full flex-col justify-end p-3 md:p-5">
+        <div className="text-lg font-bold text-white drop-shadow-lg md:text-2xl">
           {item.title}
         </div>
         {item.description ? (
-          <div className="mt-1 text-sm text-white/90 drop-shadow-md md:text-base">
+          <div className="mt-0.5 text-sm text-white/90 drop-shadow-md md:mt-1 md:text-base">
             {item.description}
           </div>
         ) : null}
@@ -196,19 +194,20 @@ export default function GalleryProjects() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const cardWidth = isMobile ? 280 : 520;
+  // Ajustes para móvil
+  const cardWidth = isMobile ? 260 : 520;
   const cardHeight = isMobile ? 180 : 320;
   const maxVisible = isMobile ? 3 : 5;
-  const overlap = isMobile ? 0.35 : 0.48;
-  const spreadDeg = isMobile ? 30 : 48;
+  const overlap = isMobile ? 0.3 : 0.48;
+  const spreadDeg = isMobile ? 20 : 48;
   const maxOffset = Math.max(0, Math.floor(maxVisible / 2));
 
-  const perspectivePx = 1100;
-  const depthPx = isMobile ? 80 : 140;
-  const tiltXDeg = 12;
-  const activeLiftPx = isMobile ? 12 : 22;
-  const activeScale = 1.03;
-  const inactiveScale = 0.94;
+  const perspectivePx = isMobile ? 800 : 1100;
+  const depthPx = isMobile ? 40 : 140;
+  const tiltXDeg = isMobile ? 6 : 12;
+  const activeLiftPx = isMobile ? 8 : 22;
+  const activeScale = isMobile ? 1.02 : 1.03;
+  const inactiveScale = isMobile ? 0.96 : 0.94;
   const springStiffness = 280;
   const springDamping = 28;
   const loop = true;
@@ -217,7 +216,7 @@ export default function GalleryProjects() {
   const pauseOnHover = true;
   const showCounter = true;
 
-  const cardSpacing = Math.max(10, Math.round(cardWidth * (1 - overlap)));
+  const cardSpacing = Math.max(8, Math.round(cardWidth * (1 - overlap)));
   const stepDeg = maxOffset > 0 ? spreadDeg / maxOffset : 0;
 
   const canGoPrev = loop || active > 0;
@@ -272,23 +271,23 @@ export default function GalleryProjects() {
 
   return (
     <section
-      className="relative w-full py-8 md:py-16 mb-12 md:mb-32"
+      className="relative w-full py-6 md:py-16 mb-8 md:mb-32"
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
     >
-      <div className="mx-auto w-full max-w-7xl px-3 md:px-8">
+      <div className="mx-auto w-full max-w-7xl px-2 md:px-8">
         <div
           className="relative w-full"
-          style={{ height: Math.max(280, cardHeight + 60) }}
+          style={{ height: Math.max(240, cardHeight + 40) }}
           tabIndex={0}
           onKeyDown={onKeyDown}
         >
           <div
-            className="pointer-events-none absolute inset-x-0 top-6 mx-auto h-32 w-[70%] rounded-full bg-black/5 blur-3xl dark:bg-white/5"
+            className="pointer-events-none absolute inset-x-0 top-6 mx-auto h-20 md:h-32 w-[70%] rounded-full bg-black/5 blur-3xl dark:bg-white/5"
             aria-hidden="true"
           />
           <div
-            className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto h-28 w-[76%] rounded-full bg-black/10 blur-3xl dark:bg-black/30"
+            className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto h-20 md:h-28 w-[76%] rounded-full bg-black/10 blur-3xl dark:bg-black/30"
             aria-hidden="true"
           />
 
@@ -308,7 +307,7 @@ export default function GalleryProjects() {
 
                 const rotateZ = off * stepDeg;
                 const x = off * cardSpacing;
-                const y = abs * 8;
+                const y = abs * 6;
                 const z = -abs * depthPx;
 
                 const isActive = off === 0;
@@ -327,10 +326,10 @@ export default function GalleryProjects() {
                         if (reduceMotion) return;
                         const travel = info.offset.x;
                         const v = info.velocity.x;
-                        const threshold = Math.min(120, cardWidth * 0.22);
+                        const threshold = Math.min(80, cardWidth * 0.22);
 
-                        if (travel > threshold || v > 650) prev();
-                        else if (travel < -threshold || v < -650) next();
+                        if (travel > threshold || v > 550) prev();
+                        else if (travel < -threshold || v < -550) next();
                       },
                     }
                   : {};
@@ -339,7 +338,7 @@ export default function GalleryProjects() {
                   <m.div
                     key={item.id}
                     className={cn(
-                      "absolute bottom-0 overflow-hidden rounded-2xl border-4 border-white/10 shadow-xl will-change-transform select-none",
+                      "absolute bottom-0 overflow-hidden rounded-xl md:rounded-2xl border-2 md:border-4 border-white/10 shadow-lg md:shadow-xl will-change-transform select-none",
                       isActive
                         ? "cursor-grab active:cursor-grabbing"
                         : "cursor-pointer",
@@ -355,7 +354,7 @@ export default function GalleryProjects() {
                         ? false
                         : {
                             opacity: 0,
-                            y: y + 40,
+                            y: y + 30,
                             x,
                             rotateZ,
                             rotateX,
@@ -395,27 +394,29 @@ export default function GalleryProjects() {
         </div>
 
         {showCounter && (
-          <div className="mt-6 flex items-center justify-center gap-4">
+          <div className="mt-4 md:mt-6 flex items-center justify-center gap-3 md:gap-4">
             <button
               onClick={prev}
               disabled={!canGoPrev}
               className={cn(
-                "flex items-center justify-center w-10 h-10 rounded-full border border-white/20 transition-all",
+                "flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full border border-white/20 transition-all",
                 canGoPrev
                   ? "hover:bg-white/10 hover:border-[var(--c-lime)] hover:text-[var(--c-lime)] cursor-pointer"
                   : "opacity-30 cursor-not-allowed",
               )}
               aria-label="Anterior"
             >
-              <ChevronLeft className="h-5 w-5" />
+              <ChevronLeft className="h-4 w-4 md:h-5 md:w-5" />
             </button>
 
-            <div className="flex items-center gap-3">
-              <span className="font-display text-lg font-bold text-white">
+            <div className="flex items-center gap-2 md:gap-3">
+              <span className="font-display text-base md:text-lg font-bold text-white">
                 {formatNumber(active + 1)}
               </span>
-              <span className="text-white/30 text-lg font-light">/</span>
-              <span className="font-display text-lg font-light text-white/50">
+              <span className="text-white/30 text-base md:text-lg font-light">
+                /
+              </span>
+              <span className="font-display text-base md:text-lg font-light text-white/50">
                 {formatNumber(len)}
               </span>
             </div>
@@ -424,14 +425,14 @@ export default function GalleryProjects() {
               onClick={next}
               disabled={!canGoNext}
               className={cn(
-                "flex items-center justify-center w-10 h-10 rounded-full border border-white/20 transition-all",
+                "flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full border border-white/20 transition-all",
                 canGoNext
                   ? "hover:bg-white/10 hover:border-[var(--c-lime)] hover:text-[var(--c-lime)] cursor-pointer"
                   : "opacity-30 cursor-not-allowed",
               )}
               aria-label="Siguiente"
             >
-              <ChevronRight className="h-5 w-5" />
+              <ChevronRight className="h-4 w-4 md:h-5 md:w-5" />
             </button>
           </div>
         )}
