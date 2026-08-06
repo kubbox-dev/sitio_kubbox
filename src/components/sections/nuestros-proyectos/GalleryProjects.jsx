@@ -1,15 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { AnimatePresence, useReducedMotion } from "framer-motion";
-import * as m from "motion/react-m";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-function cn(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
-// 18 CARDS DE EJEMPLO
 const PROJECTS = [
   {
     id: 1,
@@ -69,7 +64,7 @@ const PROJECTS = [
     id: 9,
     title: "COVERGIRL",
     description:
-      "13.234 participantes. Se capturó esta base de datos de mujeres colombianas, para continuar activándolas con la marca. ",
+      "13.234 participantes. Se capturó esta base de datos de mujeres colombianas, para continuar activándolas con la marca.",
     imageSrc: "/images/NUESTROS PROYECTOS/Fotos-Proyectos/covergirl.webp",
   },
   {
@@ -82,7 +77,7 @@ const PROJECTS = [
     id: 11,
     title: "JET",
     description:
-      "Sitio web – Chocolates Jet – Campamento Jet. Langind page concurso de marca, para incentivar la compra de productos de la marca a través de campaña digital.",
+      "Sitio web – Chocolates Jet – Campamento Jet. Landing page concurso de marca.",
     imageSrc: "/images/NUESTROS PROYECTOS/Fotos-Proyectos/jet.webp",
   },
   {
@@ -107,7 +102,7 @@ const PROJECTS = [
     id: 15,
     title: "SAPOLIN",
     description:
-      "La gerencia esperaba obtener 1.000 en 6 meses. Se obtuvieron 1.000 a los 3 meses, la estrategia pasó a ser algo temporal a un sitio constante de capacitaciones. Ya se están desarrollando en línea 2 niveles cada 1 de 15 módulos.",
+      "La gerencia esperaba obtener 1.000 en 6 meses. Se obtuvieron 1.000 a los 3 meses.",
     imageSrc: "images/NUESTROS PROYECTOS/Fotos-Proyectos/Imagen-1.sasxpng.webp",
   },
   {
@@ -131,311 +126,134 @@ const PROJECTS = [
   },
 ];
 
-function wrapIndex(n, len) {
-  if (len <= 0) return 0;
-  return ((n % len) + len) % len;
-}
-
-function signedOffset(i, active, len, loop) {
-  const raw = i - active;
-  if (!loop || len <= 1) return raw;
-  const alt = raw > 0 ? raw - len : raw + len;
-  return Math.abs(alt) < Math.abs(raw) ? alt : raw;
-}
-
-function DefaultFanCard({ item }) {
+function MobileProjectCard({ project }) {
   return (
-    <div className="relative h-full w-full">
+    <div className="relative h-full w-full rounded-xl overflow-hidden shadow-2xl border-2 border-white/10">
       <div className="absolute inset-0">
-        {item.imageSrc ? (
-          <img
-            src={item.imageSrc}
-            alt={item.title}
-            className="h-full w-full object-cover"
-            draggable={false}
-            loading="eager"
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center bg-secondary text-sm text-muted-foreground">
-            No image
-          </div>
-        )}
+        <img
+          src={project.imageSrc}
+          alt={project.title}
+          className="h-full w-full object-cover"
+          draggable={false}
+          loading="lazy"
+        />
       </div>
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 via-40% to-transparent to-70%" />
-
-      <div className="relative z-10 flex h-full flex-col justify-end p-3 md:p-5">
-        <div className="text-lg font-bold text-white drop-shadow-lg md:text-2xl">
-          {item.title}
-        </div>
-        {item.description ? (
-          <div className="mt-0.5 text-sm text-white/90 drop-shadow-md md:mt-1 md:text-base">
-            {item.description}
-          </div>
-        ) : null}
+      <div className="relative z-10 flex h-full flex-col justify-end p-5">
+        <h3 className="text-xl font-bold text-white drop-shadow-lg">
+          {project.title}
+        </h3>
+        {project.description && (
+          <p className="mt-1 text-sm text-white/90 drop-shadow-md line-clamp-3">
+            {project.description}
+          </p>
+        )}
       </div>
     </div>
   );
 }
 
-export default function GalleryProjects() {
-  const reduceMotion = useReducedMotion();
-  const len = PROJECTS.length;
-  const [active, setActive] = React.useState(0);
-  const [hovering, setHovering] = React.useState(false);
+export default function MobileProjectsGallery() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const [isMobile, setIsMobile] = React.useState(false);
-
-  React.useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+  useEffect(() => {
+    const checkScreen = () => {
+      setIsMobile(window.innerWidth < 1024);
     };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    checkScreen();
+    window.addEventListener("resize", checkScreen);
+    return () => window.removeEventListener("resize", checkScreen);
   }, []);
 
-  // Ajustes para móvil
-  const cardWidth = isMobile ? 260 : 520;
-  const cardHeight = isMobile ? 180 : 320;
-  const maxVisible = isMobile ? 3 : 5;
-  const overlap = isMobile ? 0.3 : 0.48;
-  const spreadDeg = isMobile ? 20 : 48;
-  const maxOffset = Math.max(0, Math.floor(maxVisible / 2));
+  // Auto-play
+  useEffect(() => {
+    if (!isMobile) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % PROJECTS.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [isMobile]);
 
-  const perspectivePx = isMobile ? 800 : 1100;
-  const depthPx = isMobile ? 40 : 140;
-  const tiltXDeg = isMobile ? 6 : 12;
-  const activeLiftPx = isMobile ? 8 : 22;
-  const activeScale = isMobile ? 1.02 : 1.03;
-  const inactiveScale = isMobile ? 0.96 : 0.94;
-  const springStiffness = 280;
-  const springDamping = 28;
-  const loop = true;
-  const autoAdvance = true;
-  const intervalMs = 2000;
-  const pauseOnHover = true;
-  const showCounter = true;
-
-  const cardSpacing = Math.max(8, Math.round(cardWidth * (1 - overlap)));
-  const stepDeg = maxOffset > 0 ? spreadDeg / maxOffset : 0;
-
-  const canGoPrev = loop || active > 0;
-  const canGoNext = loop || active < len - 1;
-
-  const prev = React.useCallback(() => {
-    if (!len) return;
-    if (!canGoPrev) return;
-    setActive((a) => wrapIndex(a - 1, len));
-  }, [canGoPrev, len]);
-
-  const next = React.useCallback(() => {
-    if (!len) return;
-    if (!canGoNext) return;
-    setActive((a) => wrapIndex(a + 1, len));
-  }, [canGoNext, len]);
-
-  const onKeyDown = (e) => {
-    if (e.key === "ArrowLeft") prev();
-    if (e.key === "ArrowRight") next();
+  const goToPrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + PROJECTS.length) % PROJECTS.length);
   };
 
-  React.useEffect(() => {
-    if (!autoAdvance) return;
-    if (reduceMotion) return;
-    if (!len) return;
-    if (pauseOnHover && hovering) return;
+  const goToNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % PROJECTS.length);
+  };
 
-    const id = window.setInterval(
-      () => {
-        if (loop || active < len - 1) next();
-      },
-      Math.max(700, intervalMs),
-    );
-
-    return () => window.clearInterval(id);
-  }, [
-    autoAdvance,
-    intervalMs,
-    hovering,
-    pauseOnHover,
-    reduceMotion,
-    len,
-    loop,
-    active,
-    next,
-  ]);
-
-  if (!len) return null;
-
-  const formatNumber = (num) => String(num).padStart(2, "0");
+  // Si no es móvil/tablet, no renderizar nada
+  if (!isMobile) return null;
 
   return (
-    <section
-      className="relative w-full py-6 md:py-16 mb-8 md:mb-32"
-      onMouseEnter={() => setHovering(true)}
-      onMouseLeave={() => setHovering(false)}
-    >
-      <div className="mx-auto w-full max-w-7xl px-2 md:px-8">
-        <div
-          className="relative w-full"
-          style={{ height: Math.max(240, cardHeight + 40) }}
-          tabIndex={0}
-          onKeyDown={onKeyDown}
-        >
-          <div
-            className="pointer-events-none absolute inset-x-0 top-6 mx-auto h-20 md:h-32 w-[70%] rounded-full bg-black/5 blur-3xl dark:bg-white/5"
-            aria-hidden="true"
-          />
-          <div
-            className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto h-20 md:h-28 w-[76%] rounded-full bg-black/10 blur-3xl dark:bg-black/30"
-            aria-hidden="true"
-          />
-
-          <div
-            className="absolute inset-0 flex items-end justify-center"
-            style={{
-              perspective: `${perspectivePx}px`,
-            }}
-          >
-            <AnimatePresence initial={false}>
-              {PROJECTS.map((item, i) => {
-                const off = signedOffset(i, active, len, loop);
-                const abs = Math.abs(off);
-                const visible = abs <= maxOffset;
-
-                if (!visible) return null;
-
-                const rotateZ = off * stepDeg;
-                const x = off * cardSpacing;
-                const y = abs * 6;
-                const z = -abs * depthPx;
-
-                const isActive = off === 0;
-
-                const scale = isActive ? activeScale : inactiveScale;
-                const lift = isActive ? -activeLiftPx : 0;
-                const rotateX = isActive ? 0 : tiltXDeg;
-                const zIndex = 100 - abs;
-
-                const dragProps = isActive
-                  ? {
-                      drag: "x",
-                      dragConstraints: { left: 0, right: 0 },
-                      dragElastic: 0.18,
-                      onDragEnd: (_e, info) => {
-                        if (reduceMotion) return;
-                        const travel = info.offset.x;
-                        const v = info.velocity.x;
-                        const threshold = Math.min(80, cardWidth * 0.22);
-
-                        if (travel > threshold || v > 550) prev();
-                        else if (travel < -threshold || v < -550) next();
-                      },
-                    }
-                  : {};
-
-                return (
-                  <m.div
-                    key={item.id}
-                    className={cn(
-                      "absolute bottom-0 overflow-hidden rounded-xl md:rounded-2xl border-2 md:border-4 border-white/10 shadow-lg md:shadow-xl will-change-transform select-none",
-                      isActive
-                        ? "cursor-grab active:cursor-grabbing"
-                        : "cursor-pointer",
-                    )}
-                    style={{
-                      width: cardWidth,
-                      height: cardHeight,
-                      zIndex,
-                      transformStyle: "preserve-3d",
-                    }}
-                    initial={
-                      reduceMotion
-                        ? false
-                        : {
-                            opacity: 0,
-                            y: y + 30,
-                            x,
-                            rotateZ,
-                            rotateX,
-                            scale,
-                          }
-                    }
-                    animate={{
-                      opacity: 1,
-                      x,
-                      y: y + lift,
-                      rotateZ,
-                      rotateX,
-                      scale,
-                    }}
-                    transition={{
-                      type: "spring",
-                      stiffness: springStiffness,
-                      damping: springDamping,
-                    }}
-                    onClick={() => setActive(i)}
-                    {...dragProps}
-                  >
-                    <div
-                      className="h-full w-full"
-                      style={{
-                        transform: `translateZ(${z}px)`,
-                        transformStyle: "preserve-3d",
-                      }}
-                    >
-                      <DefaultFanCard item={item} />
-                    </div>
-                  </m.div>
-                );
-              })}
-            </AnimatePresence>
+    <section className="w-full py-8 px-4 bg-transparent">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold text-white font-display">
+            Nuestros <span className="text-[var(--c-lime)]">Proyectos</span>
+          </h2>
+          <div className="flex items-center gap-2">
+            <span className="text-white/50 text-sm font-light">
+              {String(currentIndex + 1).padStart(2, "0")}/
+              {String(PROJECTS.length).padStart(2, "0")}
+            </span>
           </div>
         </div>
 
-        {showCounter && (
-          <div className="mt-4 md:mt-6 flex items-center justify-center gap-3 md:gap-4">
-            <button
-              onClick={prev}
-              disabled={!canGoPrev}
-              className={cn(
-                "flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full border border-white/20 transition-all",
-                canGoPrev
-                  ? "hover:bg-white/10 hover:border-[var(--c-lime)] hover:text-[var(--c-lime)] cursor-pointer"
-                  : "opacity-30 cursor-not-allowed",
-              )}
-              aria-label="Anterior"
-            >
-              <ChevronLeft className="h-4 w-4 md:h-5 md:w-5" />
-            </button>
-
-            <div className="flex items-center gap-2 md:gap-3">
-              <span className="font-display text-base md:text-lg font-bold text-white">
-                {formatNumber(active + 1)}
-              </span>
-              <span className="text-white/30 text-base md:text-lg font-light">
-                /
-              </span>
-              <span className="font-display text-base md:text-lg font-light text-white/50">
-                {formatNumber(len)}
-              </span>
-            </div>
-
-            <button
-              onClick={next}
-              disabled={!canGoNext}
-              className={cn(
-                "flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full border border-white/20 transition-all",
-                canGoNext
-                  ? "hover:bg-white/10 hover:border-[var(--c-lime)] hover:text-[var(--c-lime)] cursor-pointer"
-                  : "opacity-30 cursor-not-allowed",
-              )}
-              aria-label="Siguiente"
-            >
-              <ChevronRight className="h-4 w-4 md:h-5 md:w-5" />
-            </button>
+        <div className="relative w-full">
+          <div className="w-full h-[300px] md:h-[350px] relative">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentIndex}
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 30,
+                  duration: 0.4,
+                }}
+                className="absolute inset-0"
+              >
+                <MobileProjectCard project={PROJECTS[currentIndex]} />
+              </motion.div>
+            </AnimatePresence>
           </div>
-        )}
+
+          {/* Flechas de navegación */}
+          <button
+            onClick={goToPrev}
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all"
+            aria-label="Anterior"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button
+            onClick={goToNext}
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all"
+            aria-label="Siguiente"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+        </div>
+
+        {/* Indicadores (dots) */}
+        <div className="flex justify-center gap-2 mt-4">
+          {PROJECTS.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`h-2 rounded-full transition-all ${
+                index === currentIndex
+                  ? "w-8 bg-[var(--c-lime)]"
+                  : "w-2 bg-white/30 hover:bg-white/50"
+              }`}
+              aria-label={`Ir al proyecto ${index + 1}`}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
