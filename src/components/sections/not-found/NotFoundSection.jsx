@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { useReducedMotion } from 'framer-motion'
+import * as m from 'motion/react-m'
 import { useNavigate } from 'react-router-dom'
 import Button from '../../ui/Button'
 
@@ -72,7 +73,7 @@ export default function NotFoundSection() {
       <div className="relative z-[1] mx-auto flex max-w-[var(--container)] flex-col items-center gap-[clamp(1.5rem,4vw,2.5rem)] px-[var(--container-pad)]">
         <h1 className="m-0 [font-family:var(--font-display)] font-black italic uppercase">
           <div>
-            <motion.div
+            <m.div
               variants={lineReveal(0.1)}
               initial="hidden"
               animate="visible"
@@ -80,11 +81,11 @@ export default function NotFoundSection() {
               style={{ color: 'var(--c-lime)', animation: reduce ? 'none' : 'nf-glitch 3.5s ease-in-out 0.6s infinite' }}
             >
               404
-            </motion.div>
+            </m.div>
           </div>
         </h1>
 
-        <motion.div
+        <m.div
           variants={rise(0.42)}
           initial="hidden"
           animate="show"
@@ -92,7 +93,7 @@ export default function NotFoundSection() {
           className="h-[2px] w-[clamp(3rem,7vw,4.5rem)] [background:var(--c-lime)] opacity-80"
         />
 
-        <motion.p
+        <m.p
           variants={rise(0.5)}
           initial="hidden"
           animate="show"
@@ -100,9 +101,9 @@ export default function NotFoundSection() {
           style={{ color: 'var(--c-ink)', opacity: 0.85 }}
         >
           Esta página no existe, se movió o nunca estuvo aquí. Volvamos a terreno conocido.
-        </motion.p>
+        </m.p>
 
-        <motion.div
+        <m.div
           variants={rise(0.6)}
           initial="hidden"
           animate="show"
@@ -110,7 +111,7 @@ export default function NotFoundSection() {
         >
           <Button variant="primary" size="lg" onClick={() => navigate('/')}>Volver al inicio</Button>
           <Button variant="outline" size="lg" onClick={() => navigate('/proyectos')}>Ver proyectos</Button>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

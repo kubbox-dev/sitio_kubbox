@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import * as m from 'motion/react-m'
 import { useScrollAnimation, fadeUp, staggerContainer } from '../../../hooks/useScrollAnimation'
 
 const PHOTO = '/images/DESARROLLO DIGITAL/WEB/Fotos/Foto para slide.webp'
@@ -41,7 +41,7 @@ export default function DigitalServicesSection({
           zIndex: 1,
         }}
       >
-        <motion.div
+        <m.div
           ref={ref}
           initial="hidden"
           animate={controls}
@@ -49,12 +49,12 @@ export default function DigitalServicesSection({
           className="dd-grid"
         >
           {/* Columna izquierda: foto */}
-          <motion.div variants={fadeUp} className="dd-photo-card">
+          <m.div variants={fadeUp} className="dd-photo-card">
             <img src={PHOTO} alt="Equipo de Kubbox desarrollando un proyecto digital" />
-          </motion.div>
+          </m.div>
 
           {/* Columna derecha: intro + grid de iconos */}
-          <motion.div variants={fadeUp}>
+          <m.div variants={fadeUp}>
             <div className="dd-intro">
               <p className="dd-tagline">{tLine}</p>
               <span className="dd-intro-line" />
@@ -69,10 +69,10 @@ export default function DigitalServicesSection({
                 </div>
               ))}
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           className="dd-statement"
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -83,7 +83,7 @@ export default function DigitalServicesSection({
           <span className="dd-corner dd-corner--br" aria-hidden="true" />
 
           <p className="dd-statement-text">{closing}</p>
-        </motion.div>
+        </m.div>
       </div>
 
       <style>{`

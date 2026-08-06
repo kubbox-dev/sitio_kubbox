@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import * as m from 'motion/react-m'
 import { cn } from '../../lib/utils'
 
 const containerVariants = {
@@ -31,7 +31,7 @@ export function Input({ label, icon: Icon, className = '', value, ...props }) {
         />
       )}
 
-      <motion.div
+      <m.div
         className={cn('absolute top-1/2 -translate-y-1/2 pointer-events-none', Icon && 'left-6')}
         style={{ color: 'var(--c-ink)' }}
         variants={containerVariants}
@@ -39,16 +39,16 @@ export function Input({ label, icon: Icon, className = '', value, ...props }) {
         animate={showLabel ? 'animate' : 'initial'}
       >
         {label.split('').map((char, index) => (
-          <motion.span
+          <m.span
             key={index}
             className="inline-block text-sm"
             variants={letterVariants}
             style={{ willChange: 'transform' }}
           >
             {char === ' ' ? ' ' : char}
-          </motion.span>
+          </m.span>
         ))}
-      </motion.div>
+      </m.div>
 
       <input
         type="text"
@@ -62,7 +62,7 @@ export function Input({ label, icon: Icon, className = '', value, ...props }) {
       />
 
       {/* Glow bajo la línea al enfocar — mismo lenguaje visual que los demás glows del sitio */}
-      <motion.div
+      <m.div
         aria-hidden="true"
         className="absolute left-0 right-0 bottom-0 pointer-events-none -z-10"
         style={{ height: '14px', background: 'var(--c-lime)', filter: 'blur(9px)', borderRadius: '50%' }}

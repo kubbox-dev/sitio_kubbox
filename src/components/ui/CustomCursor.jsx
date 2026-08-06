@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { motion, useMotionValue, useSpring } from 'framer-motion'
+import { useMotionValue, useSpring } from 'framer-motion'
+import * as m from 'motion/react-m'
 
 const DOT = 6
 const RING = 26
@@ -57,7 +58,7 @@ export default function CustomCursor() {
   return (
     <>
       {/* Dot — exact cursor position */}
-      <motion.div
+      <m.div
         aria-hidden="true"
         style={{
           position: 'fixed',
@@ -80,7 +81,7 @@ export default function CustomCursor() {
       />
 
       {/* Ring — spring-lagged */}
-      <motion.div
+      <m.div
         aria-hidden="true"
         style={{
           position: 'fixed',

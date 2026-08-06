@@ -1,5 +1,5 @@
 // components/sections/creacion-desarrollo-marca/SouvenirsCorporative.jsx
-import { motion } from "framer-motion";
+import * as m from "motion/react-m";
 import { useScrollAnimation, fadeUp } from "../../../hooks/useScrollAnimation";
 
 const transparent = "transparent";
@@ -45,7 +45,7 @@ export default function SouvenirsCorporative() {
         }}
       >
         <div className="overflow-hidden" style={{ textAlign: "center" }}>
-          <motion.h2
+          <m.h2
             variants={lineReveal(0)}
             initial="hidden"
             animate={controls}
@@ -62,9 +62,9 @@ export default function SouvenirsCorporative() {
             }}
           >
             SOUVENIRS CORPORATIVOS
-          </motion.h2>
+          </m.h2>
 
-          <motion.p
+          <m.p
             variants={fadeUp}
             initial="hidden"
             animate={controls}
@@ -85,7 +85,7 @@ export default function SouvenirsCorporative() {
             marca y generan recordación entre clientes, colaboradores y aliados.
             Cada elemento se diseña respetando la identidad visual y los
             lineamientos de la marca.
-          </motion.p>
+          </m.p>
         </div>
       </div>
     </section>

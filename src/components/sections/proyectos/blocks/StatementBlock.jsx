@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { useReducedMotion } from 'framer-motion'
+import * as m from 'motion/react-m'
 
 const HOLLOW = { color: 'transparent', WebkitTextStroke: '1.5px oklch(0.98 0 0 / 0.6)' }
 
@@ -13,40 +14,40 @@ export default function StatementBlock({ titleLime, titleWhite, tags = [], parag
   if (image) {
     return (
       <section className="relative py-[clamp(2.5rem,6vw,4.5rem)]">
-        <motion.div
+        <m.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.3 }}
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
           className="mx-auto grid max-w-[1440px] grid-cols-1 gap-[clamp(1.5rem,4vw,3rem)] px-[clamp(1rem,4vw,2rem)] min-[900px]:grid-cols-[1.3fr_1.1fr] min-[900px]:[grid-template-areas:'image_title'_'image_text']"
         >
-          <motion.img variants={rise} src={image} alt={imageAlt} className="block h-auto w-full min-[900px]:[grid-area:image]" />
+          <m.img variants={rise} src={image} alt={imageAlt} className="block h-auto w-full min-[900px]:[grid-area:image]" />
 
-          <motion.h2
+          <m.h2
             variants={rise}
             className="mt-[clamp(1rem,4vw,1.5rem)] [font-family:var(--font-display)] text-[clamp(2.2rem,5.5vw,3.5rem)] font-black italic uppercase leading-[0.92] tracking-[-0.025em] min-[900px]:mt-0 min-[900px]:mb-[clamp(0.5rem,2vw,1rem)] min-[900px]:self-end min-[900px]:[grid-area:title]"
             style={{ color: 'var(--c-lime)' }}
           >
             {titleLime}
-          </motion.h2>
+          </m.h2>
 
           {/* Main text — tags act as its heading, paragraphs get the prominence */}
           <div className="min-[900px]:[grid-area:text]">
             {tags.length > 0 && (
-              <motion.h3 variants={rise} className="m-0 [font-family:var(--font-display)] text-[clamp(2.2rem,5.5vw,3.5rem)] font-black italic uppercase leading-[0.95] tracking-[-0.02em]" style={HOLLOW}>
+              <m.h3 variants={rise} className="m-0 [font-family:var(--font-display)] text-[clamp(2.2rem,5.5vw,3.5rem)] font-black italic uppercase leading-[0.95] tracking-[-0.02em]" style={HOLLOW}>
                 {tags.join(' · ')}
-              </motion.h3>
+              </m.h3>
             )}
-            <motion.div variants={rise} aria-hidden="true" className="mt-4 h-[2px] w-[clamp(3rem,7vw,4.5rem)] [background:var(--c-lime)] opacity-80" />
+            <m.div variants={rise} aria-hidden="true" className="mt-4 h-[2px] w-[clamp(3rem,7vw,4.5rem)] [background:var(--c-lime)] opacity-80" />
             <div className="mt-6 flex max-w-[58ch] flex-col gap-5">
               {paragraphs.map((p, i) => (
-                <motion.p key={i} variants={rise} className="m-0 text-[clamp(1.05rem,1.5vw,1.25rem)] italic leading-[1.7] [font-family:var(--font-body)]" style={{ color: 'var(--c-ink)', opacity: 0.92 }}>
+                <m.p key={i} variants={rise} className="m-0 text-[clamp(1.05rem,1.5vw,1.25rem)] italic leading-[1.7] [font-family:var(--font-body)]" style={{ color: 'var(--c-ink)', opacity: 0.92 }}>
                   {p}
-                </motion.p>
+                </m.p>
               ))}
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </section>
     )
   }
@@ -54,7 +55,7 @@ export default function StatementBlock({ titleLime, titleWhite, tags = [], parag
   // Default layout (no image): title + tags | paragraphs
   return (
     <section className="relative py-[clamp(2.5rem,6vw,4.5rem)]">
-      <motion.div
+      <m.div
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.3 }}
@@ -62,23 +63,23 @@ export default function StatementBlock({ titleLime, titleWhite, tags = [], parag
         className="mx-auto grid max-w-[var(--container)] grid-cols-1 gap-[clamp(1.5rem,4vw,3rem)] px-[var(--container-pad)] min-[900px]:grid-cols-2 min-[900px]:items-center"
       >
         <div>
-          <motion.h2 variants={rise} className="m-0 [font-family:var(--font-display)] text-[clamp(2.2rem,7vw,4.5rem)] font-black italic uppercase leading-[0.92] tracking-[-0.025em]" style={{ color: 'var(--c-lime)' }}>
+          <m.h2 variants={rise} className="m-0 [font-family:var(--font-display)] text-[clamp(2.2rem,7vw,4.5rem)] font-black italic uppercase leading-[0.92] tracking-[-0.025em]" style={{ color: 'var(--c-lime)' }}>
             {titleLime}
-          </motion.h2>
+          </m.h2>
           {tags.length > 0 && (
-            <motion.p variants={rise} className="mt-1 [font-family:var(--font-display)] text-[clamp(1.5rem,5vw,3rem)] font-black italic uppercase leading-[0.95] tracking-[-0.02em]" style={HOLLOW}>
+            <m.p variants={rise} className="mt-1 [font-family:var(--font-display)] text-[clamp(1.5rem,5vw,3rem)] font-black italic uppercase leading-[0.95] tracking-[-0.02em]" style={HOLLOW}>
               {tags.join(' · ')}
-            </motion.p>
+            </m.p>
           )}
         </div>
         <div className="flex flex-col gap-4">
           {paragraphs.map((p, i) => (
-            <motion.p key={i} variants={rise} className="m-0 text-[clamp(1rem,1.4vw,1.15rem)] italic leading-[1.7] [font-family:var(--font-body)]" style={{ color: 'var(--c-ink)', opacity: 0.9 }}>
+            <m.p key={i} variants={rise} className="m-0 text-[clamp(1rem,1.4vw,1.15rem)] italic leading-[1.7] [font-family:var(--font-body)]" style={{ color: 'var(--c-ink)', opacity: 0.9 }}>
               {p}
-            </motion.p>
+            </m.p>
           ))}
         </div>
-      </motion.div>
+      </m.div>
     </section>
   )
 }

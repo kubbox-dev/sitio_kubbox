@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { AnimatePresence, useReducedMotion } from "framer-motion";
+import * as m from "motion/react-m";
 import { ChevronRight, ArrowUpRight } from "lucide-react";
 import Button from "../../ui/Button";
 import {
@@ -229,7 +230,7 @@ export default function ServicesSection() {
           </div>
         </div>
 
-        <motion.p
+        <m.p
           className="svc-impulsa"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -238,10 +239,10 @@ export default function ServicesSection() {
         >
           CREAMOS <b>SOLUCIONES </b>QUE NO SOLO SE VEN <b>BIEN,</b> SINO QUE{" "}
           <b>PRODUCEN RESULTADOS</b>
-        </motion.p>
+        </m.p>
 
         {/* ── Card con 2 columnas (texto izquierda | ruleta derecha) ───────── */}
-        <motion.div
+        <m.div
           className="svc-card-new"
           layout
           transition={{ layout: { duration: 0.45, ease: [0.34, 1.2, 0.4, 1] } }}
@@ -249,7 +250,7 @@ export default function ServicesSection() {
           onMouseLeave={() => setPaused(false)}
         >
           {/* Columna izquierda - Detalle del servicio */}
-          <motion.div
+          <m.div
             className="svc-card-left-new"
             layout
             transition={{
@@ -257,7 +258,7 @@ export default function ServicesSection() {
             }}
           >
             <AnimatePresence mode="popLayout" initial={false}>
-              <motion.div
+              <m.div
                 key={active}
                 initial={{ opacity: 0, x: -14 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -274,7 +275,7 @@ export default function ServicesSection() {
                 {service.prefix && (
                   <p className="svc-card-prefix-new">{service.prefix}</p>
                 )}
-                <motion.ul
+                <m.ul
                   className="svc-card-bullets-new"
                   initial="hidden"
                   animate="visible"
@@ -289,7 +290,7 @@ export default function ServicesSection() {
                   }}
                 >
                   {service.bullets.map((b) => (
-                    <motion.li
+                    <m.li
                       key={b}
                       variants={{
                         hidden: { opacity: 0, x: -12 },
@@ -305,10 +306,10 @@ export default function ServicesSection() {
                     >
                       <ChevronRight size={15} className="svc-bullet-ic" />
                       <span>{b}</span>
-                    </motion.li>
+                    </m.li>
                   ))}
-                </motion.ul>
-              </motion.div>
+                </m.ul>
+              </m.div>
             </AnimatePresence>
 
             {/* Ver más - Dinámico */}
@@ -322,7 +323,7 @@ export default function ServicesSection() {
                 <ArrowUpRight size={16} />
               </Button>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Columna derecha - Ruleta + Señora */}
           <div className="svc-card-right-new">
@@ -340,7 +341,7 @@ export default function ServicesSection() {
               {/* Núcleo central con ícono activo - SIN TEXTO */}
               <div className="wheel-core-new">
                 <AnimatePresence mode="wait">
-                  <motion.div
+                  <m.div
                     key={active}
                     className="wheel-core-inner"
                     initial={{
@@ -358,12 +359,12 @@ export default function ServicesSection() {
                       className="wheel-core-icon"
                       draggable="false"
                     />
-                  </motion.div>
+                  </m.div>
                 </AnimatePresence>
               </div>
 
               {/* Iconos giratorios */}
-              <motion.div
+              <m.div
                 className="wheel-spin-new"
                 animate={{ rotate: ringRot }}
                 transition={spinTransition}
@@ -379,7 +380,7 @@ export default function ServicesSection() {
                       }}
                     >
                       <div className="wheel-icon-pos-new">
-                        <motion.button
+                        <m.button
                           onClick={() => goTo(i)}
                           aria-label={s.title}
                           className={`wheel-icon-new ${isActive ? "is-active" : ""}`}
@@ -395,16 +396,16 @@ export default function ServicesSection() {
                           <span className="wheel-icon-inner-new">
                             <img src={s.icon} alt="" draggable="false" />
                           </span>
-                        </motion.button>
+                        </m.button>
                       </div>
                     </div>
                   );
                 })}
-              </motion.div>
+              </m.div>
 
               {/* Señora */}
               <div className="wheel-person-wrap-new">
-                <motion.img
+                <m.img
                   src={PERSON_IMG}
                   alt="Soluciones digitales con tecnología de vanguardia"
                   className="wheel-person-new"
@@ -429,7 +430,7 @@ export default function ServicesSection() {
               ))}
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
 
       {/* Tooltip flotante - Siempre por encima de todo */}

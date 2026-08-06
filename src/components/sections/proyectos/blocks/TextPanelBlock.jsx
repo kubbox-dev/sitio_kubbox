@@ -1,10 +1,10 @@
-import { motion } from 'framer-motion'
+import * as m from 'motion/react-m'
 
 export default function TextPanelBlock({ eyebrow, text }) {
   return (
     <section className="relative py-[clamp(2rem,5vw,3.5rem)]">
       <div className="mx-auto max-w-[var(--container)] px-[var(--container-pad)]">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
@@ -23,7 +23,7 @@ export default function TextPanelBlock({ eyebrow, text }) {
           <p className="m-0 mx-auto max-w-[60ch] text-[clamp(1.05rem,1.8vw,1.4rem)] italic leading-[1.62] [font-family:var(--font-body)] [text-wrap:pretty]" style={{ color: 'var(--c-ink)', opacity: 0.95 }}>
             {text}
           </p>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

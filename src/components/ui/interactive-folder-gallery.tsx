@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import * as m from "motion/react-m";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 
@@ -142,7 +142,7 @@ export function InteractiveFolderGallery({
           <div
             className={`relative w-full h-full flex justify-center ${isFolderOpen ? "overflow-visible" : ""}`}
           >
-            <motion.div
+            <m.div
               className="absolute bottom-6 w-80 h-56 drop-shadow-2xl left-1/2 -translate-x-1/2"
               animate={{
                 opacity: isFolderOpen ? 0 : 1,
@@ -152,7 +152,7 @@ export function InteractiveFolderGallery({
               <div className="absolute top-0 left-0 w-32 h-10 bg-[#1e1e1e] rounded-t-xl border-t border-l border-r border-white/10" />
               <div className="absolute top-8 left-0 right-0 bottom-0 bg-black rounded-b-xl rounded-tr-xl border border-[#1e1e1e] shadow-[inset_0_0_40px_rgba(0,0,0,0.8)]" />
               <div className="absolute top-10 left-2 right-2 bottom-2 bg-black/80 rounded-lg shadow-inner pointer-events-none" />
-            </motion.div>
+            </m.div>
 
             <div
               className={`absolute bottom-10 z-10 flex justify-center ${isFolderOpen ? "w-full" : ""}`}
@@ -172,7 +172,7 @@ export function InteractiveFolderGallery({
                 const openScale = 1.05;
 
                 return (
-                  <motion.div
+                  <m.div
                     key={photo.id}
                     drag={isFolderOpen ? true : false}
                     dragSnapToOrigin={true}
@@ -282,12 +282,12 @@ export function InteractiveFolderGallery({
                         </Link>
                       )}
                     </div>
-                  </motion.div>
+                  </m.div>
                 );
               })}
             </div>
 
-            <motion.div
+            <m.div
               className="absolute bottom-0 w-[340px] h-44 drop-shadow-[0_-20px_40px_rgba(0,0,0,0.8)] cursor-pointer z-20 pointer-events-auto left-1/2 -translate-x-1/2"
               style={{ transformOrigin: "bottom" }}
               animate={{
@@ -309,16 +309,16 @@ export function InteractiveFolderGallery({
                   </span>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </div>
 
-        <motion.div
+        <m.div
           animate={{ opacity: isFolderOpen ? 1 : 0, y: isFolderOpen ? 0 : 50 }}
           className="absolute bottom-10 px-6 py-3 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 backdrop-blur-md text-[var(--c-lime)] text-sm font-medium uppercase tracking-widest pointer-events-none"
         >
           {dragHintText}
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );

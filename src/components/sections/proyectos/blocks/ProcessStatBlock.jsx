@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { useReducedMotion } from 'framer-motion'
+import * as m from 'motion/react-m'
 import { ArrowRight } from 'lucide-react'
 
 export default function ProcessStatBlock({ steps = [] }) {
@@ -10,7 +11,7 @@ export default function ProcessStatBlock({ steps = [] }) {
 
   return (
     <section className="relative py-[clamp(2rem,5vw,3.5rem)]">
-      <motion.div
+      <m.div
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.3 }}
@@ -18,7 +19,7 @@ export default function ProcessStatBlock({ steps = [] }) {
         className="mx-auto flex max-w-[var(--container)] flex-col items-stretch gap-4 px-[var(--container-pad)] min-[860px]:flex-row min-[860px]:items-center"
       >
         {steps.map((step, i) => (
-          <motion.div key={i} variants={item} className="flex flex-1 items-center gap-4">
+          <m.div key={i} variants={item} className="flex flex-1 items-center gap-4">
             <div className="flex-1 rounded-[1.1rem] border p-[clamp(1.5rem,3vw,2rem)] [background:var(--c-surface)] [border-color:oklch(0.26_0.022_260)]">
               {step.stat ? (
                 <>
@@ -43,9 +44,9 @@ export default function ProcessStatBlock({ steps = [] }) {
             {i < steps.length - 1 && (
               <ArrowRight aria-hidden="true" size={22} className="hidden shrink-0 min-[860px]:block" style={{ color: 'var(--c-lime)', opacity: 0.5 }} />
             )}
-          </motion.div>
+          </m.div>
         ))}
-      </motion.div>
+      </m.div>
     </section>
   )
 }

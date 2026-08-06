@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import * as m from "motion/react-m";
 import {
   useScrollAnimation,
   fadeUp,
@@ -69,7 +69,7 @@ export default function DesignElements() {
           zIndex: 1,
         }}
       >
-        <motion.div
+        <m.div
           ref={ref}
           initial="hidden"
           animate={controls}
@@ -84,7 +84,7 @@ export default function DesignElements() {
           }}
         >
           {LOGOS.map((item, index) => (
-            <motion.div
+            <m.div
               key={item.id}
               custom={index}
               initial="hidden"
@@ -132,7 +132,7 @@ export default function DesignElements() {
               )}
 
               {/* Contenedor del icono */}
-              <motion.div
+              <m.div
                 style={{
                   width: "clamp(55px, 7vw, 100px)",
                   height: "clamp(55px, 7vw, 100px)",
@@ -166,7 +166,7 @@ export default function DesignElements() {
                     e.currentTarget.style.filter = "brightness(0) invert(1)";
                   }}
                 />
-              </motion.div>
+              </m.div>
 
               {/* Contenedor del texto */}
               <div
@@ -178,7 +178,7 @@ export default function DesignElements() {
                   width: "100%",
                 }}
               >
-                <motion.p
+                <m.p
                   style={{
                     fontFamily: "var(--font-body)",
                     fontSize: "clamp(0.7rem, 1vw, 1.05rem)",
@@ -194,11 +194,11 @@ export default function DesignElements() {
                   }}
                 >
                   {item.text}
-                </motion.p>
+                </m.p>
               </div>
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
       </div>
 
       <style>{`

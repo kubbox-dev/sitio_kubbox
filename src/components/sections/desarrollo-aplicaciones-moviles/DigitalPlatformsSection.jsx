@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import * as m from 'motion/react-m'
 
 const LOGOS = [
   { src: '/images/DESARROLLO DIGITAL/WEB/logos/laravel.svg', alt: 'Laravel' },
@@ -21,7 +21,7 @@ export default function DigitalPlatformsSection() {
   return (
     <section className="relative py-[clamp(3rem,7vw,6.5rem)]">
       <div className="mx-auto flex max-w-[var(--container)] flex-col items-start gap-[clamp(2rem,5vw,3rem)] px-[var(--container-pad)] min-[900px]:flex-row min-[900px]:items-center min-[900px]:justify-between">
-        <motion.h2
+        <m.h2
           initial={{ opacity: 0, x: -24 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.5 }}
@@ -31,14 +31,14 @@ export default function DigitalPlatformsSection() {
           <span style={SOLID_STYLE}>NUESTRAS</span>
           <br />
           <span style={OUTLINE_STYLE}>PLATAFORMAS</span>
-        </motion.h2>
+        </m.h2>
 
         <span
           aria-hidden="true"
           className="h-px w-full [background:linear-gradient(to_right,var(--c-lime),transparent)] min-[900px]:h-[88px] min-[900px]:w-px min-[900px]:[background:linear-gradient(to_bottom,var(--c-lime),transparent)]"
         />
 
-        <motion.div
+        <m.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
@@ -46,7 +46,7 @@ export default function DigitalPlatformsSection() {
           className="grid w-full grid-cols-2 items-center justify-items-center gap-x-[clamp(2rem,6vw,3.5rem)] gap-y-[clamp(1.75rem,4vw,2.5rem)] min-[900px]:flex min-[900px]:w-auto min-[900px]:flex-nowrap min-[900px]:justify-end min-[900px]:gap-[clamp(1.75rem,3vw,2.75rem)]"
         >
           {LOGOS.map((logo) => (
-            <motion.img
+            <m.img
               key={logo.alt}
               src={logo.src}
               alt={logo.alt}
@@ -59,7 +59,7 @@ export default function DigitalPlatformsSection() {
               className="h-[clamp(28px,4vw,40px)] w-auto opacity-80 [filter:drop-shadow(0_0_0_transparent)] transition-[opacity,filter] duration-300 ease-out hover:opacity-100 hover:[filter:drop-shadow(0_0_14px_oklch(0.88_0.26_130_/_0.65))]"
             />
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

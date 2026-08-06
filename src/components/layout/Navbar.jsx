@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
+import * as m from "motion/react-m";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 
@@ -204,7 +205,7 @@ export default function Navbar() {
       />
 
       {/* ══════════ DESKTOP standalone logo (md+) ══════════ */}
-      <motion.div
+      <m.div
         initial={{ y: -96, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
@@ -219,9 +220,9 @@ export default function Navbar() {
             style={{ height: "3.4rem", width: "auto" }}
           />
         </Link>
-      </motion.div>
+      </m.div>
 
-      <motion.div
+      <m.div
         initial={{ y: -96, opacity: 0 }}
         animate={{ y: hidden ? -120 : 0, opacity: hidden ? 0 : 1 }}
         transition={
@@ -284,7 +285,7 @@ export default function Navbar() {
                   )}
 
                   {CURRENT_PAGE === link.section && (
-                    <motion.span
+                    <m.span
                       layoutId="tube-pill"
                       className="absolute inset-0 rounded-full -z-10"
                       style={{ background: "oklch(0.17 0.030 260 / 0.95)" }}
@@ -336,7 +337,7 @@ export default function Navbar() {
                           filter: "blur(5px)",
                         }}
                       />
-                    </motion.span>
+                    </m.span>
                   )}
 
                   {link.label}
@@ -355,7 +356,7 @@ export default function Navbar() {
 
                 <AnimatePresence>
                   {dropdownOpen && (
-                    <motion.div
+                    <m.div
                       key="dropdown"
                       initial={{ opacity: 0, x: "-50%", y: -6, scale: 0.97 }}
                       animate={{ opacity: 1, x: "-50%", y: 0, scale: 1 }}
@@ -444,7 +445,7 @@ export default function Navbar() {
 
                                 <AnimatePresence>
                                   {subDropdownOpen && (
-                                    <motion.div
+                                    <m.div
                                       initial={{
                                         opacity: 0,
                                         x: 8,
@@ -528,7 +529,7 @@ export default function Navbar() {
                                           </span>
                                         </Link>
                                       ))}
-                                    </motion.div>
+                                    </m.div>
                                   )}
                                 </AnimatePresence>
                               </div>
@@ -543,7 +544,7 @@ export default function Navbar() {
                               }
                             : { onClick: (e) => e.preventDefault() };
                           return (
-                            <motion.div
+                            <m.div
                               key={svc.label}
                               initial={{ opacity: 0, x: -6 }}
                               animate={{ opacity: 1, x: 0 }}
@@ -589,11 +590,11 @@ export default function Navbar() {
                                   {svc.desc}
                                 </span>
                               </SvcComp>
-                            </motion.div>
+                            </m.div>
                           );
                         })}
                       </div>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </div>
@@ -636,7 +637,7 @@ export default function Navbar() {
                 )}
 
                 {CURRENT_PAGE === link.section && (
-                  <motion.span
+                  <m.span
                     layoutId="tube-pill"
                     className="absolute inset-0 rounded-full -z-10"
                     style={{ background: "oklch(0.17 0.030 260 / 0.95)" }}
@@ -684,7 +685,7 @@ export default function Navbar() {
                         filter: "blur(5px)",
                       }}
                     />
-                  </motion.span>
+                  </m.span>
                 )}
 
                 {link.label}
@@ -731,7 +732,7 @@ export default function Navbar() {
           >
             <AnimatePresence mode="wait" initial={false}>
               {menuOpen ? (
-                <motion.span
+                <m.span
                   key="x"
                   initial={{ rotate: -90, opacity: 0 }}
                   animate={{ rotate: 0, opacity: 1 }}
@@ -740,9 +741,9 @@ export default function Navbar() {
                   style={{ display: "flex" }}
                 >
                   <X size={17} />
-                </motion.span>
+                </m.span>
               ) : (
-                <motion.span
+                <m.span
                   key="menu"
                   initial={{ rotate: 90, opacity: 0 }}
                   animate={{ rotate: 0, opacity: 1 }}
@@ -751,18 +752,18 @@ export default function Navbar() {
                   style={{ display: "flex" }}
                 >
                   <Menu size={17} />
-                </motion.span>
+                </m.span>
               )}
             </AnimatePresence>
           </button>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* ══════════ MOBILE MENU overlay ══════════ */}
       <AnimatePresence>
         {menuOpen && (
           <>
-            <motion.div
+            <m.div
               key="backdrop"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -781,7 +782,7 @@ export default function Navbar() {
               }}
             />
 
-            <motion.nav
+            <m.nav
               key="panel"
               initial={{ opacity: 0, y: -16, scale: 0.97 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -810,7 +811,7 @@ export default function Navbar() {
               <div style={{ padding: "0.5rem 1.5rem 1.5rem" }}>
                 {NAV_LINKS.map((link, i) =>
                   link.dropdown ? (
-                    <motion.div
+                    <m.div
                       key={link.section}
                       initial={{ opacity: 0, x: -18 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -855,7 +856,7 @@ export default function Navbar() {
                             {link.label}
                           </span>
                         </div>
-                        <motion.span
+                        <m.span
                           animate={{ rotate: svcExpanded ? 180 : 0 }}
                           transition={{ duration: 0.25 }}
                           style={{
@@ -866,12 +867,12 @@ export default function Navbar() {
                           }}
                         >
                           <ChevronDown size={18} />
-                        </motion.span>
+                        </m.span>
                       </button>
 
                       <AnimatePresence>
                         {svcExpanded && (
-                          <motion.div
+                          <m.div
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: "auto", opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
@@ -933,7 +934,7 @@ export default function Navbar() {
                                             {svc.label}
                                           </span>
                                         </div>
-                                        <motion.span
+                                        <m.span
                                           animate={{
                                             rotate: subSvcExpanded ? 180 : 0,
                                           }}
@@ -946,12 +947,12 @@ export default function Navbar() {
                                           }}
                                         >
                                           <ChevronDown size={14} />
-                                        </motion.span>
+                                        </m.span>
                                       </button>
 
                                       <AnimatePresence>
                                         {subSvcExpanded && (
-                                          <motion.div
+                                          <m.div
                                             initial={{ height: 0, opacity: 0 }}
                                             animate={{
                                               height: "auto",
@@ -1022,7 +1023,7 @@ export default function Navbar() {
                                                 </Link>
                                               ))}
                                             </div>
-                                          </motion.div>
+                                          </m.div>
                                         )}
                                       </AnimatePresence>
                                     </div>
@@ -1045,7 +1046,7 @@ export default function Navbar() {
                                       },
                                     };
                                 return (
-                                  <motion.div
+                                  <m.div
                                     key={svc.label}
                                     initial={{ opacity: 0, x: -10 }}
                                     animate={{ opacity: 1, x: 0 }}
@@ -1091,16 +1092,16 @@ export default function Navbar() {
                                         {svc.label}
                                       </span>
                                     </SvcMobComp>
-                                  </motion.div>
+                                  </m.div>
                                 );
                               })}
                             </div>
-                          </motion.div>
+                          </m.div>
                         )}
                       </AnimatePresence>
-                    </motion.div>
+                    </m.div>
                   ) : (
-                    <motion.div
+                    <m.div
                       key={link.section}
                       initial={{ opacity: 0, x: -18 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -1164,7 +1165,7 @@ export default function Navbar() {
                           →
                         </span>
                       </Link>
-                    </motion.div>
+                    </m.div>
                   ),
                 )}
               </div>
@@ -1200,7 +1201,7 @@ export default function Navbar() {
                   Agencia creativa · Medellín, Colombia
                 </span>
               </div>
-            </motion.nav>
+            </m.nav>
           </>
         )}
       </AnimatePresence>

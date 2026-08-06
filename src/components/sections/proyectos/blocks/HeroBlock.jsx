@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { useReducedMotion } from 'framer-motion'
+import * as m from 'motion/react-m'
 
 const SOLID_STYLE = { color: 'var(--c-lime)', WebkitTextFillColor: 'transparent', WebkitTextStroke: '2px var(--c-lime)' }
 const OUTLINE_STYLE = { color: 'var(--c-ink)' }
@@ -79,18 +80,18 @@ export default function HeroBlock({ eyebrowLime, eyebrowWhite, logo, logoAlt = '
       >
         <h1 className="m-0 [font-family:var(--font-display)] text-[clamp(2.5rem,9vw,6rem)] font-black italic uppercase leading-[0.9] tracking-[-0.02em]">
           <div className="overflow-hidden">
-            <motion.div variants={lineReveal(0)} initial="hidden" animate="visible" style={SOLID_STYLE}>
+            <m.div variants={lineReveal(0)} initial="hidden" animate="visible" style={SOLID_STYLE}>
               {eyebrowLime}
-            </motion.div>
+            </m.div>
           </div>
           <div className="">
-            <motion.div variants={lineReveal(0.12)} initial="hidden" animate="visible" style={OUTLINE_STYLE}>
+            <m.div variants={lineReveal(0.12)} initial="hidden" animate="visible" style={OUTLINE_STYLE}>
               {eyebrowWhite}
-            </motion.div>
+            </m.div>
           </div>
         </h1>
-        {logo && <motion.img variants={rise(0.32)} initial="hidden" animate="show" src={logo} alt={logoAlt} className="h-[clamp(4rem,11vw,7rem)] w-auto" />}
-        {art && <motion.img variants={rise(0.42)} initial="hidden" animate="show" src={art} alt={artAlt} className="h-auto w-[clamp(180px,40vw,320px)]" />}
+        {logo && <m.img variants={rise(0.32)} initial="hidden" animate="show" src={logo} alt={logoAlt} className="h-[clamp(4rem,11vw,7rem)] w-auto" />}
+        {art && <m.img variants={rise(0.42)} initial="hidden" animate="show" src={art} alt={artAlt} className="h-auto w-[clamp(180px,40vw,320px)]" />}
       </div>
     </section>
   )

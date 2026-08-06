@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import * as m from "motion/react-m";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, ChevronUp, ChevronDown } from "lucide-react";
 import GlowOrb from "../../ui/GlowOrb";
@@ -123,7 +124,7 @@ export default function ProjectsSection() {
         <div className="proj-head">
           <div className="proj-counter">
             <AnimatePresence mode="popLayout">
-              <motion.span
+              <m.span
                 key={project.number}
                 initial={{ y: reduce ? 0 : 14, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -132,7 +133,7 @@ export default function ProjectsSection() {
                 className="proj-counter-current"
               >
                 {project.number}
-              </motion.span>
+              </m.span>
             </AnimatePresence>
             <span className="proj-counter-total">
               / {String(PROJECTS.length).padStart(2, "0")}
@@ -150,7 +151,7 @@ export default function ProjectsSection() {
           {/* Panel imagen */}
           <div className="proj-img-panel">
             <AnimatePresence initial={false} custom={dir}>
-              <motion.div
+              <m.div
                 key={`img-${idx}`}
                 custom={dir}
                 variants={imgV}
@@ -167,7 +168,7 @@ export default function ProjectsSection() {
                   />
                 </div>
                 <div aria-hidden="true" className="proj-img-blend" />
-              </motion.div>
+              </m.div>
             </AnimatePresence>
 
             {/* HUD esquinas */}
@@ -180,13 +181,13 @@ export default function ProjectsSection() {
           </div>
 
           {/* Panel info */}
-          <motion.div
+          <m.div
             className="proj-info-panel"
             layout
             transition={{ layout: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } }}
           >
             <AnimatePresence initial={false} custom={dir}>
-              <motion.div
+              <m.div
                 key={`info-${idx}`}
                 custom={dir}
                 variants={infoV}
@@ -199,36 +200,36 @@ export default function ProjectsSection() {
                   {project.number}
                 </div>
 
-                <motion.div
+                <m.div
                   variants={contentStagger}
                   initial="hidden"
                   animate="show"
                   className="proj-content"
                 >
-                  <motion.p variants={contentItem} className="proj-category">
+                  <m.p variants={contentItem} className="proj-category">
                     <span className="proj-category-dash" />
                     {project.category}
-                  </motion.p>
+                  </m.p>
 
-                  <motion.h2 variants={contentItem} className="proj-title">
+                  <m.h2 variants={contentItem} className="proj-title">
                     {project.title}
-                  </motion.h2>
+                  </m.h2>
 
-                  <motion.p variants={contentItem} className="proj-subtitle">
+                  <m.p variants={contentItem} className="proj-subtitle">
                     {project.subtitle}
-                  </motion.p>
+                  </m.p>
 
-                  <motion.p variants={contentItem} className="proj-desc">
+                  <m.p variants={contentItem} className="proj-desc">
                     {project.description}
-                  </motion.p>
+                  </m.p>
 
-                  <motion.div variants={contentItem} className="proj-tags">
+                  <m.div variants={contentItem} className="proj-tags">
                     {project.tags.map((tag) => (
                       <span key={tag} className="proj-tag">
                         {tag}
                       </span>
                     ))}
-                  </motion.div>
+                  </m.div>
 
                   <MotionLink
                     variants={contentItem}
@@ -242,10 +243,10 @@ export default function ProjectsSection() {
                       className="proj-cta-arrow"
                     />
                   </MotionLink>
-                </motion.div>
-              </motion.div>
+                </m.div>
+              </m.div>
             </AnimatePresence>
-          </motion.div>
+          </m.div>
 
           {/* Controles: dots + prev/next */}
           <div className="proj-controls">
@@ -264,7 +265,7 @@ export default function ProjectsSection() {
                 { Icon: ChevronUp, d: -1, label: "Proyecto anterior" },
                 { Icon: ChevronDown, d: 1, label: "Proyecto siguiente" },
               ].map(({ Icon, d, label }) => (
-                <motion.button
+                <m.button
                   key={label}
                   onClick={() => paginate(d)}
                   aria-label={label}
@@ -273,7 +274,7 @@ export default function ProjectsSection() {
                   className="proj-nav-btn"
                 >
                   <Icon size={16} strokeWidth={2.25} />
-                </motion.button>
+                </m.button>
               ))}
             </div>
           </div>

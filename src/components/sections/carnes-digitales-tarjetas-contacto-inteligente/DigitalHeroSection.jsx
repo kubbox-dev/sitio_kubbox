@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import * as m from "motion/react-m";
 
 const transparent = "transparent";
 
@@ -132,7 +132,7 @@ export default function DigitalHeroSection({ title }) {
         "
       >
         <div className="overflow-hidden">
-          <motion.h1
+          <m.h1
             variants={lineReveal(0)}
             initial="hidden"
             animate="visible"
@@ -151,11 +151,11 @@ export default function DigitalHeroSection({ title }) {
             style={NEON_STYLE}
           >
             {line1}
-          </motion.h1>
+          </m.h1>
         </div>
 
         <div className="overflow-hidden">
-          <motion.h2
+          <m.h2
             variants={lineReveal(0.12)}
             initial="hidden"
             animate="visible"
@@ -175,7 +175,7 @@ export default function DigitalHeroSection({ title }) {
             style={{ color: "var(--c-ink)" }}
           >
             {line2}
-          </motion.h2>
+          </m.h2>
         </div>
       </div>
     </section>

@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import * as m from "motion/react-m";
 import { useNavigate } from "react-router-dom";
 
 import Button from "../../ui/Button";
@@ -56,7 +56,7 @@ export default function CTASection() {
       {/* Subtle grid texture */}
       <div aria-hidden="true" className="cta-grid-bg" />
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
@@ -75,7 +75,7 @@ export default function CTASection() {
             const isLime = i >= 6 && h === 100;
             const isAccent = i >= 5;
             return (
-              <motion.div
+              <m.div
                 key={i}
                 className={`cta-bar ${isLime ? "cta-bar--peak" : isAccent ? "cta-bar--accent" : ""}`}
                 initial={{ scaleY: 0 }}
@@ -93,7 +93,7 @@ export default function CTASection() {
         </div>
 
         {/* Animated divider line */}
-        <motion.div
+        <m.div
           className="cta-divider"
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
@@ -102,13 +102,13 @@ export default function CTASection() {
         />
 
         {/* Heading + copy + buttons */}
-        <motion.div
+        <m.div
           ref={ref}
           initial="hidden"
           animate={controls}
           variants={staggerContainer(0.1)}
         >
-          <motion.h2
+          <m.h2
             variants={fadeUp}
             style={{
               fontFamily: "var(--font-display)",
@@ -123,9 +123,9 @@ export default function CTASection() {
             }}
           >
             LLEVAMOS TU ESTRATEGIA
-          </motion.h2>
+          </m.h2>
 
-          <motion.h2
+          <m.h2
             variants={fadeUp}
             style={{
               fontFamily: "var(--font-display)",
@@ -140,9 +140,9 @@ export default function CTASection() {
             }}
           >
             DIGITAL A OTRO NIVEL
-          </motion.h2>
+          </m.h2>
 
-          <motion.p
+          <m.p
             variants={fadeUp}
             style={{
               fontFamily: "var(--font-body)",
@@ -157,9 +157,9 @@ export default function CTASection() {
           >
             Estamos listos para potenciar tu marca. Cuéntanos en qué etapa estás
             y construimos juntos la estrategia que te lleve al siguiente nivel.
-          </motion.p>
+          </m.p>
 
-          <motion.div
+          <m.div
             variants={fadeUp}
             style={{
               display: "flex",
@@ -174,9 +174,9 @@ export default function CTASection() {
             <Button size="lg" variant="outline" onClick={goToServices}>
               Ver todos los servicios
             </Button>
-          </motion.div>
-        </motion.div>
-      </motion.div>
+          </m.div>
+        </m.div>
+      </m.div>
 
       <style>{`
         /* Beam of light from top center */

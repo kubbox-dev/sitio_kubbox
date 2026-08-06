@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import * as m from "motion/react-m";
 import {
   useScrollAnimation,
   fadeUp,
@@ -46,14 +46,14 @@ export default function DigitalServicesSection({
           zIndex: 1,
         }}
       >
-        <motion.div
+        <m.div
           ref={ref}
           initial="hidden"
           animate={controls}
           variants={staggerContainer(0.12)}
           className="dd-grid"
         >
-          <motion.div
+          <m.div
             variants={fadeUp}
             className="dd-photo-card"
             style={{ alignSelf: "center" }}
@@ -71,9 +71,9 @@ export default function DigitalServicesSection({
                 </GalleryGridCell>
               ))}
             </GalleryGrid>
-          </motion.div>
+          </m.div>
 
-          <motion.div variants={fadeUp}>
+          <m.div variants={fadeUp}>
             <div
               style={{
                 backgroundColor: "rgba(17, 28, 34, 0.85)",
@@ -111,8 +111,8 @@ export default function DigitalServicesSection({
                 </p>
               </div>
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </div>
 
       <style>{`

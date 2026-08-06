@@ -1,5 +1,6 @@
 import { useRef, useState, useCallback, useEffect } from 'react'
-import { motion, useSpring, useTransform } from 'framer-motion'
+import { useSpring, useTransform } from 'framer-motion'
+import * as m from 'motion/react-m'
 import { cn } from '../../lib/utils'
 
 export function Spotlight({ className, size = 280, springOptions = { bounce: 0 } }) {
@@ -49,7 +50,7 @@ export function Spotlight({ className, size = 280, springOptions = { bounce: 0 }
   }, [parentElement, handleMouseMove])
 
   return (
-    <motion.div
+    <m.div
       ref={containerRef}
       className={cn('pointer-events-none absolute rounded-full blur-2xl transition-opacity duration-300', className)}
       style={{

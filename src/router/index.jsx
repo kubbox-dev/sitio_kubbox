@@ -6,6 +6,7 @@ import {
   useLocation,
   Navigate,
 } from "react-router-dom";
+import { LazyMotion, domMax } from "motion/react";
 
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
@@ -92,6 +93,7 @@ function PageLoader() {
 
 export default function AppRouter() {
   return (
+    <LazyMotion features={domMax}>
     <BrowserRouter>
       <ScrollToTop />
       <Navbar />
@@ -156,5 +158,6 @@ export default function AppRouter() {
       <Footer />
       <WhatsAppWidget />
     </BrowserRouter>
+    </LazyMotion>
   );
 }

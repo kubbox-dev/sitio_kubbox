@@ -1,7 +1,8 @@
 // src/components/ui/ExpandableGallery.jsx
 "use client";
 
-import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import { AnimatePresence, LayoutGroup } from "framer-motion";
+import * as m from "motion/react-m";
 import React, { useState, useId, useRef } from "react";
 
 const transition = {
@@ -29,7 +30,7 @@ export default function ExpandableGallery({ items = [], title = "Servicios" }) {
           <div className="w-full h-12 flex items-center justify-between px-4 mb-2">
             <AnimatePresence>
               {isExpanded && (
-                <motion.button
+                <m.button
                   key="back-button"
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -54,12 +55,12 @@ export default function ExpandableGallery({ items = [], title = "Servicios" }) {
                     </svg>
                   </div>
                   <span className="font-medium">Volver</span>
-                </motion.button>
+                </m.button>
               )}
             </AnimatePresence>
           </div>
 
-          <motion.div
+          <m.div
             ref={containerRef}
             layout
             className={`relative w-full ${
@@ -83,7 +84,7 @@ export default function ExpandableGallery({ items = [], title = "Servicios" }) {
                 const zIndex = isExpanded ? 10 : 20 - index * 5;
 
                 return (
-                  <motion.div
+                  <m.div
                     key={`card-${item.id || index}`}
                     layoutId={`card-container-${item.id || index}`}
                     layout
@@ -119,7 +120,7 @@ export default function ExpandableGallery({ items = [], title = "Servicios" }) {
                     }`}
                     onClick={() => !isExpanded && setIsExpanded(true)}
                   >
-                    <motion.div
+                    <m.div
                       layoutId={`image-inner-${item.id || index}`}
                       layout="position"
                       className="w-full h-full flex flex-col items-center justify-center p-4"
@@ -135,15 +136,15 @@ export default function ExpandableGallery({ items = [], title = "Servicios" }) {
                       <span className="text-white text-xs md:text-sm font-medium text-center">
                         {item.label}
                       </span>
-                    </motion.div>
-                  </motion.div>
+                    </m.div>
+                  </m.div>
                 );
               })}
             </div>
 
             <AnimatePresence>
               {!isExpanded && (
-                <motion.div
+                <m.div
                   key="stack-content"
                   initial={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -155,10 +156,10 @@ export default function ExpandableGallery({ items = [], title = "Servicios" }) {
                   >
                     Ver todos los servicios
                   </button>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
-          </motion.div>
+          </m.div>
         </div>
       </LayoutGroup>
     </section>

@@ -1,4 +1,5 @@
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useMotionValue, useSpring } from "framer-motion";
+import * as m from "motion/react-m";
 import React, { useRef, useEffect } from "react";
 import {
   useScrollAnimation,
@@ -49,7 +50,7 @@ const GreenDot = ({ mouseX, mouseY, size, position, index }) => {
   }, [x, y, mouseX, mouseY]);
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       style={{
         x: springX,
@@ -148,7 +149,7 @@ export default function ConsistentBrand({
           zIndex: 1,
         }}
       >
-        <motion.div
+        <m.div
           ref={ref}
           initial="hidden"
           animate={controls}
@@ -156,11 +157,11 @@ export default function ConsistentBrand({
           className="dd-grid"
         >
           {/* Texto - Izquierda con efecto de palabras escalonadas */}
-          <motion.div variants={fadeUp}>
+          <m.div variants={fadeUp}>
             <div className="dd-intro">
               <div className="dd-words-container">
                 {words.map((word, i) => (
-                  <motion.span
+                  <m.span
                     key={i}
                     className="dd-word"
                     custom={i}
@@ -169,7 +170,7 @@ export default function ConsistentBrand({
                     animate={controls}
                   >
                     {word}
-                  </motion.span>
+                  </m.span>
                 ))}
               </div>
 
@@ -197,10 +198,10 @@ export default function ConsistentBrand({
                 </p>
               )}
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Imagen - Derecha */}
-          <motion.div
+          <m.div
             variants={fadeUp}
             className="dd-photo-card"
             style={{ alignSelf: "center", position: "relative" }}
@@ -233,8 +234,8 @@ export default function ConsistentBrand({
                 />
               ))}
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </div>
 
       <style>{`

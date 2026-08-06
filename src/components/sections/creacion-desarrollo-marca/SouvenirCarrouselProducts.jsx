@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { CoverflowCarousel } from "../../ui/coverflow-carousel";
 import { useScrollAnimation, fadeUp } from "../../../hooks/useScrollAnimation";
 import { useState, useEffect, useCallback, useRef } from "react";

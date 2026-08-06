@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import * as m from 'motion/react-m'
 
 const transparent = 'transparent'
 
@@ -91,7 +91,7 @@ export default function ContactHeroSection() {
 
       {/* ── Título ── */}
       <div style={{ overflow: 'hidden', position: 'relative', zIndex: 2 }}>
-        <motion.h1
+        <m.h1
           variants={lineReveal(0)}
           initial="hidden"
           animate="visible"
@@ -109,7 +109,7 @@ export default function ContactHeroSection() {
           }}
         >
           CONTACTO
-        </motion.h1>
+        </m.h1>
       </div>
     </section>
   )

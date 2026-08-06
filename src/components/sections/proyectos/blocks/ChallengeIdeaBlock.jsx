@@ -1,11 +1,12 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { useReducedMotion } from 'framer-motion'
+import * as m from 'motion/react-m'
 
 const HOLLOW = { color: 'transparent', WebkitTextStroke: '1.5px oklch(0.98 0 0 / 0.6)' }
 const GHOST_NUM = { color: 'transparent', WebkitTextStroke: '1.5px var(--c-lime)', opacity: 0.55 }
 
 function Column({ data, reveal }) {
   return (
-    <motion.div variants={reveal}>
+    <m.div variants={reveal}>
       <span aria-hidden="true" className="block [font-family:var(--font-display)] text-[clamp(3rem,8vw,4.5rem)] font-black italic leading-none" style={GHOST_NUM}>
         {data.number}
       </span>
@@ -24,7 +25,7 @@ function Column({ data, reveal }) {
           </p>
         ))}
       </div>
-    </motion.div>
+    </m.div>
   )
 }
 
@@ -37,7 +38,7 @@ export default function ChallengeIdeaBlock({ challenge, idea, image, imageAlt = 
 
   return (
     <section className="relative py-[clamp(2.5rem,6vw,4.5rem)]">
-      <motion.div
+      <m.div
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.25 }}
@@ -46,10 +47,10 @@ export default function ChallengeIdeaBlock({ challenge, idea, image, imageAlt = 
       >
         <Column data={challenge} reveal={rise} />
         <Column data={idea} reveal={rise} />
-      </motion.div>
+      </m.div>
 
       {image && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: reduce ? 0 : 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
@@ -61,7 +62,7 @@ export default function ChallengeIdeaBlock({ challenge, idea, image, imageAlt = 
             <span aria-hidden="true" className="pointer-events-none absolute left-4 top-4 h-[18px] w-[18px] border-[1.5px] border-b-0 border-r-0 [border-color:oklch(0.88_0.26_130_/_0.4)]" />
             <span aria-hidden="true" className="pointer-events-none absolute bottom-4 right-4 h-[18px] w-[18px] border-[1.5px] border-l-0 border-t-0 [border-color:oklch(0.88_0.26_130_/_0.4)]" />
           </div>
-        </motion.div>
+        </m.div>
       )}
     </section>
   )
