@@ -89,7 +89,7 @@ export default function HeroBlock({ eyebrowLime, eyebrowWhite, logo, logoAlt = '
             </motion.div>
           </div>
         </h1>
-        {logo && <motion.img variants={rise(0.32)} initial="hidden" animate="show" src={logo} alt={logoAlt} className="h-[clamp(2.5rem,7vw,4rem)] w-auto" />}
+        {logo && <motion.img variants={rise(0.32)} initial="hidden" animate="show" src={logo} alt={logoAlt} className="h-[clamp(4rem,11vw,7rem)] w-auto" />}
         {art && <motion.img variants={rise(0.42)} initial="hidden" animate="show" src={art} alt={artAlt} className="h-auto w-[clamp(180px,40vw,320px)]" />}
       </div>
     </section>

@@ -9,40 +9,21 @@ export default {
       props: {
         eyebrowLime: 'NUESTROS',
         eyebrowWhite: 'PROYECTOS',
+        logo: '/images/NUESTROS PROYECTOS/WEB/Fotos/Armorall/logo armorall.svg',
+        logoAlt: 'Armor All',
       },
     },
     {
       type: 'statement',
       props: {
-        titleLime: 'El Reto',
-        paragraphs: [
-          'Dar a conocer la marca y enseñarle a los consumidores cómo aplicar cada producto para el lavado de su auto.',
-          'Aumentar la compra de productos en las cadenas participantes y captar información de los consumidores.',
-        ],
-      },
-    },
-    {
-      type: 'statement',
-      props: {
-        titleLime: 'La Idea',
+        titleLime: 'El Reto y La Idea',
         tags: ['Gamificación', 'Retail'],
         image: '/images/NUESTROS PROYECTOS/WEB/Fotos/Armorall/collage_completo.png',
         imageAlt: 'Juego "Limpia y Gana" de Armor All: selección de productos participantes y simulación de lavado de auto',
         paragraphs: [
+          'Dar a conocer la marca y enseñarle a los consumidores cómo aplicar cada producto para el lavado de su auto.',
+          'Aumentar la compra de productos en las cadenas participantes y captar información de los consumidores.',
           'Creamos para nuestro cliente una solución de registro de facturas en los puntos de activación, premiando la compra al instante y con sorteos adicionales.',
-        ],
-      },
-    },
-    { type: 'sectionHeading', props: { lime: 'PAÍSES DE', white: 'DESPLIEGUE' } },
-    {
-      type: 'regionCards',
-      props: {
-        regions: [
-          { name: '🇨🇷 Costa Rica', stats: [] },
-          { name: '🇬🇹 Guatemala', stats: [] },
-          { name: '🇭🇳 Honduras', stats: [] },
-          { name: '🇵🇦 Panamá', stats: [] },
-          { name: '🇵🇷 Puerto Rico', stats: [] },
         ],
       },
     },
@@ -55,10 +36,43 @@ export default {
       },
     },
     {
+      type: 'mediaGallery',
+      props: {
+        columns: 2,
+        items: [
+          { src: '/images/NUESTROS PROYECTOS/WEB/Fotos/Armorall/grafica 1 armorall.png', alt: 'Gráfica de usuarios registrados por día durante la campaña' },
+          { src: '/images/NUESTROS PROYECTOS/WEB/Fotos/Armorall/grafica 2 armorall.png', alt: 'Gráfica de facturas registradas por día durante la campaña' },
+        ],
+      },
+    },
+    {
       type: 'statGrid',
       props: {
         stats: [
-          { icon: '/images/NUESTROS PROYECTOS/WEB/Iconos/Icono usuario.svg', label: 'Usuarios registrados', value: '+2.300' },
+          { icon: '/images/NUESTROS PROYECTOS/WEB/Iconos/Icono usuario.svg', label: 'Usuarios registrados', value: '+5.059' },
+          { icon: '/images/NUESTROS PROYECTOS/WEB/Iconos/icono code.svg', label: 'Facturas registradas', value: '3.794' },
+        ],
+      },
+    },
+    {
+      type: 'regionCards',
+      props: {
+        regions: [
+          { flag: '/images/NUESTROS PROYECTOS/WEB/Iconos/Panama.svg', name: 'Panamá', stats: [
+            { label: 'Usuarios registrados', value: '1.074' },
+          ] },
+          { flag: '/images/NUESTROS PROYECTOS/WEB/Iconos/Guatemala.svg', name: 'Guatemala', stats: [
+            { label: 'Usuarios registrados', value: '1.067' },
+          ] },
+          { flag: '/images/NUESTROS PROYECTOS/WEB/Iconos/Honduras.svg', name: 'Honduras', stats: [
+            { label: 'Usuarios registrados', value: '1.005' },
+          ] },
+          { flag: '/images/NUESTROS PROYECTOS/WEB/Iconos/Puerto rico.svg', name: 'Puerto Rico', stats: [
+            { label: 'Usuarios registrados', value: '1.033' },
+          ] },
+          { flag: '/images/NUESTROS PROYECTOS/WEB/Iconos/Costa rica.svg', name: 'Costa Rica', stats: [
+            { label: 'Usuarios registrados', value: '880' },
+          ] },
         ],
       },
     },
