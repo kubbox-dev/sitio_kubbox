@@ -5,6 +5,10 @@ import TextPanelBlock from './TextPanelBlock'
 import MediaGalleryBlock from './MediaGalleryBlock'
 import StatGridBlock from './StatGridBlock'
 import RegionCardsBlock from './RegionCardsBlock'
+import ChallengeIdeaBlock from './ChallengeIdeaBlock'
+import DeploymentBlock from './DeploymentBlock'
+import ProcessStatBlock from './ProcessStatBlock'
+import ServiceListBlock from './ServiceListBlock'
 
 const registry = {
   sectionHeading: SectionHeadingBlock,
@@ -14,6 +18,10 @@ const registry = {
   mediaGallery: MediaGalleryBlock,
   statGrid: StatGridBlock,
   regionCards: RegionCardsBlock,
+  challengeIdea: ChallengeIdeaBlock,
+  deployment: DeploymentBlock,
+  processStat: ProcessStatBlock,
+  serviceList: ServiceListBlock,
 }
 
 export default registry

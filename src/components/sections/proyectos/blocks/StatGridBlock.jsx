@@ -13,13 +13,13 @@ export default function StatGridBlock({ stats = [] }) {
         whileInView="show"
         viewport={{ once: true, amount: 0.3 }}
         variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
-        className="mx-auto grid max-w-[var(--container)] grid-cols-1 gap-[clamp(1rem,2.5vw,1.5rem)] px-[var(--container-pad)] min-[640px]:grid-cols-3"
+        className="mx-auto flex max-w-[var(--container)] flex-wrap justify-center gap-[clamp(1rem,2.5vw,1.5rem)] px-[var(--container-pad)]"
       >
         {stats.map((s, i) => (
           <motion.div
             key={i}
             variants={card}
-            className="flex items-center gap-4 rounded-[1.1rem] border p-[clamp(1.25rem,3vw,1.75rem)] [background:var(--c-surface)] [border-color:oklch(0.26_0.022_260)]"
+            className="flex w-full items-center gap-4 rounded-[1.1rem] border p-[clamp(1.25rem,3vw,1.75rem)] [background:var(--c-surface)] [border-color:oklch(0.26_0.022_260)] min-[640px]:w-[22rem]"
           >
             {s.icon && <img src={s.icon} alt="" aria-hidden="true" className="h-10 w-10 shrink-0 object-contain" />}
             <div className="min-w-0">
