@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { SquareArrowOutUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 function cn(...classes) {
@@ -103,7 +102,7 @@ export default function GalleryProjects() {
   const [active, setActive] = React.useState(0);
   const [hovering, setHovering] = React.useState(false);
 
-  // 👇 Responsive: detectar si es móvil
+  // Responsive: detectar si es móvil
   const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
@@ -115,7 +114,7 @@ export default function GalleryProjects() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // 👇 Ajustar tamaños según dispositivo
+  // Ajustar tamaños según dispositivo
   const cardWidth = isMobile ? 280 : 520;
   const cardHeight = isMobile ? 180 : 320;
   const maxVisible = isMobile ? 3 : 5;
@@ -187,8 +186,6 @@ export default function GalleryProjects() {
   ]);
 
   if (!len) return null;
-
-  const activeItem = PROJECTS[active];
 
   return (
     <section
@@ -314,6 +311,7 @@ export default function GalleryProjects() {
           </div>
         </div>
 
+        {/* Dots de navegación - SIN EL BOTÓN DE LINK */}
         {showDots && (
           <div className="mt-6 flex items-center justify-center gap-3">
             <div className="flex items-center gap-2">
@@ -333,17 +331,6 @@ export default function GalleryProjects() {
                 );
               })}
             </div>
-            {activeItem?.href && (
-              <Link
-                to={activeItem.href}
-                target="_blank"
-                rel="noreferrer"
-                className="text-gray-400 transition hover:text-white"
-                aria-label="Abrir enlace"
-              >
-                <SquareArrowOutUpRight className="h-4 w-4" />
-              </Link>
-            )}
           </div>
         )}
       </div>
