@@ -65,7 +65,7 @@ export default function DigitalHeroSection({ title }) {
         style={{ minHeight: "clamp(620px, 145vw, 920px)" }}
       >
         <img
-          src="/images/Servicios/campanas-whatsapp/arriba.png"
+          src="/images/Servicios/campanas-whatsapp/arriba.webp"
           alt=""
           className="
             absolute
@@ -81,7 +81,7 @@ export default function DigitalHeroSection({ title }) {
         />
 
         <img
-          src="/images/Servicios/campanas-whatsapp/abajo.png"
+          src="/images/Servicios/campanas-whatsapp/abajo.webp"
           alt=""
           className="
             absolute

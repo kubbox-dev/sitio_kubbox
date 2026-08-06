@@ -64,7 +64,7 @@ export default function DigitalHeroSection({ title }) {
         style={{ minHeight: "clamp(620px, 145vw, 920px)" }}
       >
         <img
-          src="/images/Servicios/hosting-empresarial/arriba_7.png"
+          src="/images/Servicios/hosting-empresarial/arriba_7.webp"
           alt=""
           className="
             absolute
@@ -80,7 +80,7 @@ export default function DigitalHeroSection({ title }) {
         />
 
         <img
-          src="/images/Servicios/hosting-empresarial/abajo_7.png"
+          src="/images/Servicios/hosting-empresarial/abajo_7.webp"
           alt=""
           className="
             absolute

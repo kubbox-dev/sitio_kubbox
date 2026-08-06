@@ -22,6 +22,7 @@ export default function ServicioDinamicoPage() {
     title: servicio ? `${servicio.title} — Kubbox` : 'Servicios — Kubbox',
     description: servicio?.introText,
     path: servicio ? `/servicios/${servicio.slug}/` : '/servicios/',
+    image: servicio?.image,
     structuredData,
   })
 

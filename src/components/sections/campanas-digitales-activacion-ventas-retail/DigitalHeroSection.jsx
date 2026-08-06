@@ -81,7 +81,7 @@ export default function DigitalHeroSection({ title }) {
         style={{ minHeight: "clamp(620px, 145vw, 920px)" }}
       >
         <img
-          src="/images/Servicios/campanas-digitales-activacion-ventas-retail/arriba_1.png"
+          src="/images/Servicios/campanas-digitales-activacion-ventas-retail/arriba_1.webp"
           alt=""
           className="
             absolute
@@ -97,7 +97,7 @@ export default function DigitalHeroSection({ title }) {
         />
 
         <img
-          src="/images/Servicios/campanas-digitales-activacion-ventas-retail/Abajo.png"
+          src="/images/Servicios/campanas-digitales-activacion-ventas-retail/Abajo.webp"
           alt=""
           className="
             absolute

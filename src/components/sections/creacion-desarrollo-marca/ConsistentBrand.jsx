@@ -7,7 +7,7 @@ import {
 } from "../../../hooks/useScrollAnimation";
 
 const PHOTO =
-  "/images/Servicios/creacion-desarrollo-marca/Foto para las del iman 2.png";
+  "/images/Servicios/creacion-desarrollo-marca/Foto para las del iman 2.webp";
 
 const DEFAULT_INTRO = "";
 const DEFAULT_ADDITIONAL_TEXT = "";

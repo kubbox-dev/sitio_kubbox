@@ -31,6 +31,7 @@ export default function CreacionDesarrolloMarcaPage() {
     description:
       "Construimos marcas que conectan, diferencian y generan confianza. Desarrollamos identidades de marca sólidas, coherentes y estratégicas.",
     path: "/servicios/creacion-desarrollo-marca/",
+    image: "/images/Servicios/creacion-desarrollo-marca/arriba_6.webp",
     structuredData,
   });
 

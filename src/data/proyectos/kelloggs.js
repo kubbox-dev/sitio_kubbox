@@ -2,6 +2,7 @@ export default {
   slug: 'kelloggs',
   name: "Kellogg's",
   title: 'Códigos Secretos',
+  image: '/images/NUESTROS PROYECTOS/WEB/Fotos/collage fotos.webp',
   meta: { category: 'Campaña Digital · Centroamérica' },
   blocks: [
     {
@@ -11,7 +12,7 @@ export default {
         eyebrowWhite: 'PROYECTOS',
         logo: '/images/NUESTROS PROYECTOS/WEB/Logos/Kelloggs logo.svg',
         logoAlt: "Kellogg's",
-        art: '/images/NUESTROS PROYECTOS/WEB/Fotos/bob esponja.png',
+        art: '/images/NUESTROS PROYECTOS/WEB/Fotos/bob esponja.webp',
         artAlt: 'Bob Esponja, personaje de la campaña Códigos Secretos',
       },
     },
@@ -20,7 +21,7 @@ export default {
       props: {
         titleLime: 'Códigos Secretos',
         tags: ['API', 'WhatsApp'],
-        image: '/images/NUESTROS PROYECTOS/WEB/Fotos/collage fotos.png',
+        image: '/images/NUESTROS PROYECTOS/WEB/Fotos/collage fotos.webp',
         imageAlt: 'Collage de pantallas de la campaña Códigos Secretos: validación de código, captura de celular y términos y condiciones',
         paragraphs: [
           'Desarrollamos una campaña retail con presencia en Costa Rica, Guatemala y El Salvador, diseñada para incentivar la compra en el punto de venta.',
@@ -41,8 +42,8 @@ export default {
       props: {
         columns: 2,
         items: [
-          { src: '/images/NUESTROS PROYECTOS/WEB/Fotos/grafica 1.png', alt: 'Gráfica de usuarios registrados por día durante la campaña' },
-          { src: '/images/NUESTROS PROYECTOS/WEB/Fotos/grafica 2.png', alt: 'Gráfica de códigos registrados por día durante la campaña' },
+          { src: '/images/NUESTROS PROYECTOS/WEB/Fotos/grafica 1.webp', alt: 'Gráfica de usuarios registrados por día durante la campaña' },
+          { src: '/images/NUESTROS PROYECTOS/WEB/Fotos/grafica 2.webp', alt: 'Gráfica de códigos registrados por día durante la campaña' },
         ],
       },
     },

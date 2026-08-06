@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { useScrollAnimation, fadeUp, staggerContainer } from '../../../hooks/useScrollAnimation'
 
-const PHOTO = '/images/DESARROLLO DIGITAL/WEB/Fotos/Foto para slide.png'
+const PHOTO = '/images/DESARROLLO DIGITAL/WEB/Fotos/Foto para slide.webp'
 
 // Valores por defecto (fallback para la página estática original)
 const DEFAULT_TAGLINE = 'Diseñamos experiencias digitales que conectan marcas con personas.'

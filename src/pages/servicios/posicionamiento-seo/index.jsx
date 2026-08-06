@@ -25,6 +25,7 @@ export default function PosicionamientoSEOPage() {
     description:
       "Ayudamos a que las empresas aparezcan cuando sus clientes buscan sus productos o servicios en Google.",
     path: "/servicios/posicionamiento-seo/",
+    image: "/images/Servicios/posicionamiento-SEO/arriba_4.webp",
     structuredData,
   });
 

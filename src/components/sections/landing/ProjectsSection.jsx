@@ -21,7 +21,7 @@ const PROJECTS = [
     description:
       "Desarrollamos una campaña retail con presencia en Costa Rica, Guatemala y El Salvador, diseñada para revolucionar la categoría y aumentar el engagement en el punto de venta.",
     tags: ["Estrategia", "Pauta Digital", "Contenido"],
-    image: "/images/HOME/WEB/Clientes/kelloggs.jpg",
+    image: "/images/HOME/WEB/Clientes/kelloggs.webp",
   },
   {
     number: "02",
@@ -32,7 +32,7 @@ const PROJECTS = [
     description:
       "Creamos 'Limpia y Gana', una activación con registro de facturas en 5 países que premia la compra al instante y le enseña a los consumidores a usar cada producto Armor All.",
     tags: ["Gamificación", "Activación Retail", "Implementación Técnica"],
-    image: "/images/HOME/WEB/Clientes/armorall.jpg",
+    image: "/images/HOME/WEB/Clientes/armorall.webp",
   },
 ];
 
@@ -210,9 +210,9 @@ export default function ProjectsSection() {
                     {project.category}
                   </motion.p>
 
-                  <motion.h3 variants={contentItem} className="proj-title">
+                  <motion.h2 variants={contentItem} className="proj-title">
                     {project.title}
-                  </motion.h3>
+                  </motion.h2>
 
                   <motion.p variants={contentItem} className="proj-subtitle">
                     {project.subtitle}
@@ -511,9 +511,10 @@ export default function ProjectsSection() {
         .proj-dots {
           display: flex;
           flex-direction: column;
-          gap: 0.65rem;
+          gap: 1rem;
         }
         .proj-dot {
+          position: relative;
           width: 9px;
           height: 9px;
           border-radius: 4px;
@@ -522,6 +523,12 @@ export default function ProjectsSection() {
           cursor: pointer;
           padding: 0;
           transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        /* Área de toque real de 24x24 (mínimo WCAG 2.2 AA) sin cambiar el punto visible */
+        .proj-dot::before {
+          content: "";
+          position: absolute;
+          inset: -7.5px;
         }
         .proj-dot.is-active {
           height: 2rem;

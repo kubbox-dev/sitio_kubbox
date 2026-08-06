@@ -26,6 +26,7 @@ export default function DesarrolloAppsMovilesPage() {
     description:
       "Diseñamos y desarrollamos aplicaciones móviles para iPhone y Android con experiencias intuitivas, alto desempeño y tecnologías de última generación.",
     path: "/servicios/desarrollo-aplicaciones-moviles/",
+    image: "/images/Servicios/aplicaciones-moviles/Recurso 40.webp",
     structuredData,
   });
 

@@ -7,8 +7,8 @@ import {
 } from "../../../hooks/useScrollAnimation";
 
 const PHOTOS = [
-  "/images/Servicios/campanas-whatsapp/Slider 1.png",
-  "/images/Servicios/campanas-whatsapp/Slider 2.png",
+  "/images/Servicios/campanas-whatsapp/Slider 1.webp",
+  "/images/Servicios/campanas-whatsapp/Slider 2.webp",
 ];
 
 const DEFAULT_TAGLINE =

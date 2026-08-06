@@ -69,7 +69,7 @@ export default function DigitalHeroSection({ title }) {
       >
         {/* TRIÁNGULO SUPERIOR */}
         <img
-          src="/images/Servicios/posicionamiento-SEO/arriba_4.png"
+          src="/images/Servicios/posicionamiento-SEO/arriba_4.webp"
           alt=""
           className="
             absolute
@@ -87,7 +87,7 @@ export default function DigitalHeroSection({ title }) {
 
         {/* TRIÁNGULO INFERIOR */}
         <img
-          src="/images/Servicios/posicionamiento-SEO/abajo_4.png"
+          src="/images/Servicios/posicionamiento-SEO/abajo_4.webp"
           alt=""
           className="
             absolute

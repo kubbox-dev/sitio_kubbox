@@ -26,6 +26,7 @@ export default function DisenoDesarrolloSitiosWebPage() {
     description:
       "Creamos sitios web modernos, rápidos, seguros y completamente personalizados para empresas que buscan fortalecer su presencia digital.",
     path: "/servicios/diseno-desarrollo-sitios-web/",
+    image: "/images/Servicios/diseno-desarrollo-sitios-web/arriba.webp",
     structuredData,
   });
 

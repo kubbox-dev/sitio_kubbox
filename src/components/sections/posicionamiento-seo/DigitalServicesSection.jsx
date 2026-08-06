@@ -7,8 +7,8 @@ import {
 } from "../../../hooks/useScrollAnimation";
 
 const PHOTOS = [
-  "/images/Servicios/posicionamiento-SEO/slider 1_3.png",
-  "/images/Servicios/posicionamiento-SEO/slider 2_3.png",
+  "/images/Servicios/posicionamiento-SEO/slider 1_3.webp",
+  "/images/Servicios/posicionamiento-SEO/slider 2_3.webp",
 ];
 
 const DEFAULT_TAGLINE =

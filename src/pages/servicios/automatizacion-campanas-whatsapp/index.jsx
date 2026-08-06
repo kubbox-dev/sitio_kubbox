@@ -26,6 +26,7 @@ export default function AutomatizacionWhatsAppPage() {
     description:
       "WhatsApp se ha convertido en uno de los canales comerciales más efectivos para las empresas. Desarrollamos estrategias para automatizar la comunicación con clientes.",
     path: "/servicios/automatizacion-campanas-whatsapp/",
+    image: "/images/Servicios/campanas-whatsapp/arriba.webp",
     structuredData,
   });
 

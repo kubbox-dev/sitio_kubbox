@@ -16,48 +16,48 @@ const fadeUp = {
 const squareData = [
   {
     id: 1,
-    src: "/images/Nosotros/proyectos/armorall.png",
+    src: "/images/Nosotros/proyectos/armorall.webp",
     videoUrl: "/images/Nosotros/proyectos/Videos/armorall.webm",
   },
   {
     id: 2,
-    src: "/images/Nosotros/proyectos/comida-saludable_1.png",
+    src: "/images/Nosotros/proyectos/comida-saludable_1.webp",
     videoUrl: "/images/Nosotros/proyectos/Videos/el de comida saludable.webm",
   },
   {
     id: 3,
-    src: "/images/Nosotros/proyectos/cooper-tires-1.png",
+    src: "/images/Nosotros/proyectos/cooper-tires-1.webp",
     videoUrl: "/images/Nosotros/proyectos/Videos/cooper.webm",
   },
   {
     id: 4,
-    src: "/images/Nosotros/proyectos/kubbox.png",
+    src: "/images/Nosotros/proyectos/kubbox.webp",
     videoUrl: "/images/Nosotros/proyectos/Videos/10 mandamientos -1 (2).webm",
   },
   {
     id: 5,
-    src: "/images/Nosotros/proyectos/duracell_1.png",
+    src: "/images/Nosotros/proyectos/duracell_1.webp",
     videoUrl: "/images/Nosotros/proyectos/Videos/duracell.webm",
   },
   {
     id: 6,
-    src: "/images/Nosotros/proyectos/cooper-tires-2.png",
+    src: "/images/Nosotros/proyectos/cooper-tires-2.webp",
     videoUrl:
       "/images/Nosotros/proyectos/Videos/el otro video de cooper tires.webm",
   },
   {
     id: 7,
-    src: "/images/Nosotros/proyectos/perrito.png",
+    src: "/images/Nosotros/proyectos/perrito.webp",
     videoUrl: "/images/Nosotros/proyectos/Videos/El video del perrito.webm",
   },
   {
     id: 8,
-    src: "/images/Nosotros/proyectos/llantin_1.png",
+    src: "/images/Nosotros/proyectos/llantin_1.webp",
     videoUrl: "/images/Nosotros/proyectos/Videos/video llantin.gif",
   },
   {
     id: 9,
-    src: "/images/Nosotros/proyectos/tiro-de-arrastre.png",
+    src: "/images/Nosotros/proyectos/tiro-de-arrastre.webp",
     videoUrl: "/images/Nosotros/proyectos/Videos/Tiros de arrastre.webm",
   },
 ];

@@ -7,8 +7,8 @@ import {
 } from "../../../hooks/useScrollAnimation";
 
 const PHOTOS = [
-  "/images/Servicios/campanas-digitales-activacion-ventas-retail/Slider 1_1.png",
-  "/images/Servicios/campanas-digitales-activacion-ventas-retail/Slider 2_1.png",
+  "/images/Servicios/campanas-digitales-activacion-ventas-retail/Slider 1_1.webp",
+  "/images/Servicios/campanas-digitales-activacion-ventas-retail/Slider 2_1.webp",
 ];
 
 const DEFAULT_TAGLINE =

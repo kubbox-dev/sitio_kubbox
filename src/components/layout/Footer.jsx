@@ -172,12 +172,12 @@ export default function Footer() {
           {/* Footer link sections */}
           {SECTIONS.map((section) => (
             <div key={section.title}>
-              <h4
+              <h3
                 className="text-white text-lg font-semibold mb-6"
                 style={{ fontFamily: "var(--font-body)" }}
               >
                 {section.title}
-              </h4>
+              </h3>
               <ul className="space-y-3">
                 {section.links.map((link) => (
                   <li key={link.name} className="flex items-center gap-2">
@@ -241,12 +241,12 @@ export default function Footer() {
 
           {/* ¡Pongámonos en contacto! - Formulario con Formspree */}
           <div>
-            <h4
+            <h3
               className="text-white text-lg font-semibold mb-6"
               style={{ fontFamily: "var(--font-body)" }}
             >
               ¡Pongámonos en contacto!
-            </h4>
+            </h3>
             <ContactForm />
           </div>
         </div>

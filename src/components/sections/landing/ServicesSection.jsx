@@ -10,7 +10,7 @@ import {
 } from "../../../hooks/useScrollAnimation";
 
 const ICON = (name) => encodeURI(`/images/HOME/WEB/iconos/${name}.svg`);
-const PERSON_IMG = "/images/HOME/WEB/Ruleta/senora.png";
+const PERSON_IMG = "/images/HOME/WEB/Ruleta/senora.webp";
 
 const SERVICES = [
   {
@@ -875,10 +875,11 @@ export default function ServicesSection() {
 
         .wheel-dots-new {
           display: flex;
-          gap: 0.5rem;
+          gap: 1rem;
         }
 
         .wheel-dots-new button {
+          position: relative;
           width: 9px;
           height: 9px;
           border-radius: 50%;
@@ -887,6 +888,13 @@ export default function ServicesSection() {
           cursor: pointer;
           background: oklch(0.40 0.02 260);
           transition: all 0.3s ease;
+        }
+
+        /* Área de toque real de 24x24 (mínimo WCAG 2.2 AA) sin cambiar el punto visible */
+        .wheel-dots-new button::before {
+          content: "";
+          position: absolute;
+          inset: -7.5px;
         }
 
         .wheel-dots-new button.is-active {

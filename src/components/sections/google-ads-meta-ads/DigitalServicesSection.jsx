@@ -7,8 +7,8 @@ import {
 } from "../../../hooks/useScrollAnimation";
 
 const PHOTOS = [
-  "/images/Servicios/google-ads-meta-ads/slider 1_4.png",
-  "/images/Servicios/google-ads-meta-ads/slider 2_4.png",
+  "/images/Servicios/google-ads-meta-ads/slider 1_4.webp",
+  "/images/Servicios/google-ads-meta-ads/slider 2_4.webp",
 ];
 
 const DEFAULT_TAGLINE =

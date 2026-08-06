@@ -7,7 +7,7 @@ import {
 } from "../../../hooks/useScrollAnimation";
 
 const PHOTO =
-  "/images/Servicios/creacion-desarrollo-marca/Foto para las del iman 1.png";
+  "/images/Servicios/creacion-desarrollo-marca/Foto para las del iman 1.webp";
 
 const SERVICES_LIST = [
   "Desarrollo de Personajes de Marca",

@@ -65,7 +65,7 @@ export default function DigitalHeroSection({ title }) {
         style={{ minHeight: "clamp(620px, 145vw, 920px)" }}
       >
         <img
-          src="/images/Servicios/diseno-desarrollo-sitios-web/arriba.png"
+          src="/images/Servicios/diseno-desarrollo-sitios-web/arriba.webp"
           alt=""
           className="
             absolute
@@ -81,7 +81,7 @@ export default function DigitalHeroSection({ title }) {
         />
 
         <img
-          src="/images/Servicios/diseno-desarrollo-sitios-web/abajo_1.png"
+          src="/images/Servicios/diseno-desarrollo-sitios-web/abajo_1.webp"
           alt=""
           className="
             absolute

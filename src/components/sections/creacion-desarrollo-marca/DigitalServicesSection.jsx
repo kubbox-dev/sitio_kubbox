@@ -9,10 +9,10 @@ import {
   GalleryGridCell,
 } from "../../blocks/cta-section-with-gallery";
 const PHOTOS = [
-  "/images/Servicios/creacion-desarrollo-marca/Fotos de la primera parte 1.png",
-  "/images/Servicios/creacion-desarrollo-marca/Fotos de la primera parte 2.png",
-  "/images/Servicios/creacion-desarrollo-marca/Fotos de la primera parte 3.png",
-  "/images/Servicios/creacion-desarrollo-marca/Fotos de la primera parte 4.png",
+  "/images/Servicios/creacion-desarrollo-marca/Fotos de la primera parte 1.webp",
+  "/images/Servicios/creacion-desarrollo-marca/Fotos de la primera parte 2.webp",
+  "/images/Servicios/creacion-desarrollo-marca/Fotos de la primera parte 3.webp",
+  "/images/Servicios/creacion-desarrollo-marca/Fotos de la primera parte 4.webp",
 ];
 
 const DEFAULT_TAGLINE =

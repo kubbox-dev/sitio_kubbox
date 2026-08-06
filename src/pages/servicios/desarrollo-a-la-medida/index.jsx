@@ -26,6 +26,7 @@ export default function DesarrolloSoftwareMedidaPage() {
     description:
       "Cada empresa tiene procesos únicos. Por eso desarrollamos software completamente personalizado que se adapta a las necesidades específicas de cada organización.",
     path: "/servicios/desarrollo-a-la-medida/",
+    image: "/images/Servicios/software-a-la-medida/arriba_3.webp",
     structuredData,
   });
 

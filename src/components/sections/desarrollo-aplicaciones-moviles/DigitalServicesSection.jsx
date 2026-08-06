@@ -7,8 +7,8 @@ import {
 } from "../../../hooks/useScrollAnimation";
 
 const PHOTOS = [
-  "/images/Servicios/aplicaciones-moviles/slider 1_1.png",
-  "/images/Servicios/aplicaciones-moviles/slider 2_1.png",
+  "/images/Servicios/aplicaciones-moviles/slider 1_1.webp",
+  "/images/Servicios/aplicaciones-moviles/slider 2_1.webp",
 ];
 
 const DEFAULT_TAGLINE = "SellerUp lleva tu equipo de ventas a otro nivel.";

@@ -26,6 +26,7 @@ export default function HostingEmpresarialPage() {
     description:
       "Ofrecemos infraestructura tecnológica confiable para alojar sitios web y aplicaciones empresariales. Nos aseguramos de que la infraestructura tecnológica de nuestros clientes sea estable, segura y disponible.",
     path: "/servicios/hosting-empresarial-registro-dominios/",
+    image: "/images/Servicios/hosting-empresarial/arriba_7.webp",
     structuredData,
   });
 

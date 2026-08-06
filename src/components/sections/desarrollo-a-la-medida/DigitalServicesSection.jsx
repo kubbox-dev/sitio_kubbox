@@ -7,8 +7,8 @@ import {
 } from "../../../hooks/useScrollAnimation";
 
 const PHOTOS = [
-  "/images/Servicios/software-a-la-medida/slider 1_2.png",
-  "/images/Servicios/software-a-la-medida/slider 2_2.png",
+  "/images/Servicios/software-a-la-medida/slider 1_2.webp",
+  "/images/Servicios/software-a-la-medida/slider 2_2.webp",
 ];
 
 const DEFAULT_TAGLINE = "Cada empresa tiene procesos únicos";

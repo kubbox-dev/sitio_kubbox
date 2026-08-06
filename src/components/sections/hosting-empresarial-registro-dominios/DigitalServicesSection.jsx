@@ -7,8 +7,8 @@ import {
 } from "../../../hooks/useScrollAnimation";
 
 const PHOTOS = [
-  "/images/Servicios/hosting-empresarial/hosting.png",
-  "/images/Servicios/hosting-empresarial/slider 2_6.png",
+  "/images/Servicios/hosting-empresarial/hosting.webp",
+  "/images/Servicios/hosting-empresarial/slider 2_6.webp",
 ];
 
 const DEFAULT_TAGLINE =
