@@ -103,17 +103,30 @@ export default function GalleryProjects() {
   const [active, setActive] = React.useState(0);
   const [hovering, setHovering] = React.useState(false);
 
-  const maxVisible = 5;
+  // 👇 Responsive: detectar si es móvil
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // 👇 Ajustar tamaños según dispositivo
+  const cardWidth = isMobile ? 280 : 520;
+  const cardHeight = isMobile ? 180 : 320;
+  const maxVisible = isMobile ? 3 : 5;
+  const overlap = isMobile ? 0.35 : 0.48;
+  const spreadDeg = isMobile ? 30 : 48;
   const maxOffset = Math.max(0, Math.floor(maxVisible / 2));
 
-  const cardWidth = 520;
-  const cardHeight = 320;
-  const overlap = 0.48;
-  const spreadDeg = 48;
   const perspectivePx = 1100;
-  const depthPx = 140;
+  const depthPx = isMobile ? 80 : 140;
   const tiltXDeg = 12;
-  const activeLiftPx = 22;
+  const activeLiftPx = isMobile ? 12 : 22;
   const activeScale = 1.03;
   const inactiveScale = 0.94;
   const springStiffness = 280;
@@ -179,23 +192,23 @@ export default function GalleryProjects() {
 
   return (
     <section
-      className="relative w-full py-12 md:py-16 mb-20 md:mb-32"
+      className="relative w-full py-8 md:py-16 mb-12 md:mb-32"
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
     >
-      <div className="mx-auto w-full max-w-7xl px-4 md:px-8">
+      <div className="mx-auto w-full max-w-7xl px-3 md:px-8">
         <div
           className="relative w-full"
-          style={{ height: Math.max(380, cardHeight + 80) }}
+          style={{ height: Math.max(280, cardHeight + 60) }}
           tabIndex={0}
           onKeyDown={onKeyDown}
         >
           <div
-            className="pointer-events-none absolute inset-x-0 top-6 mx-auto h-48 w-[70%] rounded-full bg-black/5 blur-3xl dark:bg-white/5"
+            className="pointer-events-none absolute inset-x-0 top-6 mx-auto h-32 w-[70%] rounded-full bg-black/5 blur-3xl dark:bg-white/5"
             aria-hidden="true"
           />
           <div
-            className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto h-40 w-[76%] rounded-full bg-black/10 blur-3xl dark:bg-black/30"
+            className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto h-28 w-[76%] rounded-full bg-black/10 blur-3xl dark:bg-black/30"
             aria-hidden="true"
           />
 
@@ -215,7 +228,7 @@ export default function GalleryProjects() {
 
                 const rotateZ = off * stepDeg;
                 const x = off * cardSpacing;
-                const y = abs * 10;
+                const y = abs * 8;
                 const z = -abs * depthPx;
 
                 const isActive = off === 0;
@@ -234,7 +247,7 @@ export default function GalleryProjects() {
                         if (reduceMotion) return;
                         const travel = info.offset.x;
                         const v = info.velocity.x;
-                        const threshold = Math.min(160, cardWidth * 0.22);
+                        const threshold = Math.min(120, cardWidth * 0.22);
 
                         if (travel > threshold || v > 650) prev();
                         else if (travel < -threshold || v < -650) next();
@@ -301,7 +314,6 @@ export default function GalleryProjects() {
           </div>
         </div>
 
-        {/* 👇 DOTS DE NAVEGACIÓN - ESTO ES LO QUE FALTABA */}
         {showDots && (
           <div className="mt-6 flex items-center justify-center gap-3">
             <div className="flex items-center gap-2">
