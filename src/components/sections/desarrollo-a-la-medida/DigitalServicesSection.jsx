@@ -248,8 +248,7 @@ export default function DigitalServicesSection({
           width: 100%;
           height: 100%;
           min-height: 360px;
-          object-fit: contain;
-          object-position: center;
+          object-fit: cover;
           display: block;
         }
 
@@ -496,7 +495,7 @@ export default function DigitalServicesSection({
             gap: 2rem;
           }
           .dd-photo-card {
-            max-height: 360px;
+            max-height: 400px;
             min-height: 0;
           }
           .slider-container {
@@ -504,6 +503,8 @@ export default function DigitalServicesSection({
           }
           .slider-image {
             min-height: 300px;
+            object-fit: contain;
+            background: #0a0a0a;
           }
           .dd-full-title {
             font-size: clamp(1.4rem, 4vw, 2.2rem);
@@ -532,10 +533,12 @@ export default function DigitalServicesSection({
             height: 18px;
           }
           .slider-container {
-            min-height: 250px;
+            min-height: 220px;
           }
           .slider-image {
-            min-height: 250px;
+            min-height: 220px;
+            object-fit: contain;
+            background: #0a0a0a;
           }
           .dd-full-title {
             font-size: clamp(1.2rem, 5vw, 1.8rem);

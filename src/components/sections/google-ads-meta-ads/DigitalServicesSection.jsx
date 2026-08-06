@@ -515,7 +515,7 @@ export default function DigitalServicesSection({
             gap: 2rem;
           }
           .dd-photo-card {
-            max-height: 360px;
+            max-height: 400px;
             min-height: 0;
           }
           .slider-container {
@@ -523,6 +523,8 @@ export default function DigitalServicesSection({
           }
           .slider-image {
             min-height: 300px;
+            object-fit: contain;
+            background: #0a0a0a;
           }
         }
 
@@ -545,10 +547,12 @@ export default function DigitalServicesSection({
             height: 18px;
           }
           .slider-container {
-            min-height: 250px;
+            min-height: 220px;
           }
           .slider-image {
-            min-height: 250px;
+            min-height: 220px;
+            object-fit: contain;
+            background: #0a0a0a;
           }
         }
       `}</style>
