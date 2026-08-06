@@ -1,8 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as m from "motion/react-m";
 import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
 
 export interface GalleryPhoto {
   id: string | number;
@@ -108,6 +108,17 @@ export function InteractiveFolderGallery({
 }: InteractiveFolderGalleryProps) {
   const [isFolderOpen, setIsFolderOpen] = useState(false);
   const [hoverFolder, setHoverFolder] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [expandedId, setExpandedId] = useState<number | string | null>(null);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const totalPhotos = photos.length;
   const centerIndex = Math.floor(totalPhotos / 2);
@@ -128,6 +139,120 @@ export function InteractiveFolderGallery({
     return id % 2 !== 0 ? "#4974A0" : "#90B20A";
   };
 
+  const toggleExpand = (id: number | string) => {
+    if (expandedId === id) {
+      setExpandedId(null);
+    } else {
+      setExpandedId(id);
+    }
+  };
+
+  // Vista móvil - Acordeón
+  if (isMobile) {
+    return (
+      <div className="w-full py-8 px-4 relative">
+        <div className="text-center mb-6">
+          <span className="text-white/90 text-sm font-medium tracking-wide bg-[#1e1e1e] px-5 py-2.5 rounded-lg border border-[#2a2a2a] inline-block">
+            {folderName}
+          </span>
+        </div>
+
+        <div className="space-y-3">
+          {photos.map((photo) => {
+            const color = getColorById(photo.id as number);
+            const isExpanded = expandedId === photo.id;
+
+            return (
+              <div
+                key={photo.id}
+                className="bg-[#1F1F1F] rounded-xl border-t-[3px] overflow-hidden shadow-lg"
+                style={{ borderTopColor: color }}
+              >
+                {/* Header - siempre visible */}
+                <button
+                  onClick={() => toggleExpand(photo.id)}
+                  className="w-full p-4 flex items-center gap-3 text-left"
+                >
+                  {photo.icon && (
+                    <div className="w-8 h-8 flex-shrink-0">
+                      <img
+                        src={photo.icon}
+                        alt={photo.title || "Icono de servicio"}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-white text-sm font-bold leading-tight">
+                      {photo.title}
+                    </h3>
+                    <p className="text-white/50 text-xs line-clamp-1">
+                      {photo.description}
+                    </p>
+                  </div>
+                  <ChevronDown
+                    size={18}
+                    className={`text-white/50 transition-transform duration-300 ${
+                      isExpanded ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+
+                {/* Body - expandible */}
+                <m.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{
+                    height: isExpanded ? "auto" : 0,
+                    opacity: isExpanded ? 1 : 0,
+                  }}
+                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                  className="overflow-hidden"
+                >
+                  <div className="px-4 pb-4 pt-1 space-y-2">
+                    {photo.description && (
+                      <p className="text-white/60 text-xs leading-relaxed">
+                        {photo.description}
+                      </p>
+                    )}
+                    {photo.bullets && photo.bullets.length > 0 && (
+                      <ul className="space-y-1">
+                        {photo.bullets.map((bullet, idx) => (
+                          <li
+                            key={idx}
+                            className="flex items-start gap-2 text-xs text-white/50"
+                          >
+                            <span
+                              className="w-1.5 h-1.5 rounded-full flex-shrink-0 mt-1"
+                              style={{
+                                background: color,
+                                boxShadow: `0 0 4px ${color}40`,
+                              }}
+                            />
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {photo.url && (
+                      <Link
+                        to={photo.url}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 mt-2 text-xs font-semibold text-black transition-colors rounded-lg bg-[#a3e635] hover:bg-[#84cc16]"
+                      >
+                        {buttonText}
+                        <ArrowUpRight size={14} />
+                      </Link>
+                    )}
+                  </div>
+                </m.div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  // Vista escritorio - Galería interactiva original
   return (
     <div className={`w-full py-32 relative ${className || ""}`}>
       <div className="relative w-full min-h-[500px] flex flex-col items-center justify-center">
@@ -271,7 +396,6 @@ export function InteractiveFolderGallery({
                         )}
                       </div>
 
-                      {/* Botón Ver más - más pequeño y centrado */}
                       {isFolderOpen && photo.url && (
                         <Link
                           to={photo.url}

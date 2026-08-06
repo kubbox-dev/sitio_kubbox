@@ -182,6 +182,33 @@ export default function GalleryServicesSection() {
             padding-bottom: 2rem !important;
           }
         }
+
+        /* Ajustes para móvil */
+        @media (max-width: 768px) {
+          .gallery-services-section {
+            padding-block: 1rem !important;
+            margin-top: -2rem !important;
+          }
+          
+          .gallery-services-section [class*="scale-160"] {
+            transform: scale(1) !important;
+          }
+          
+          .gallery-services-section [class*="min-h-\\[600px\\]"] {
+            min-height: 400px !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .gallery-services-section {
+            padding-block: 0.5rem !important;
+            margin-top: -1rem !important;
+          }
+          
+          .gallery-services-section [class*="min-h-\\[600px\\]"] {
+            min-height: 350px !important;
+          }
+        }
       `}</style>
     </section>
   );
