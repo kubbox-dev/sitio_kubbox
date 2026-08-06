@@ -203,7 +203,7 @@ export default function ContactFormSection() {
                 <strong>Celular:</strong> 310 4255766
               </p>
               <p className="contact-info-line">
-                <strong>Email:</strong> cfernandez@kubbox.com
+                <strong>Correo:</strong> cfernandez@kubbox.com
               </p>
               <p className="contact-info-line">
                 <strong>Dirección:</strong> {ADDRESS}
