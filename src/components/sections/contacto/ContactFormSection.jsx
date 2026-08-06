@@ -33,7 +33,6 @@ export default function ContactFormSection() {
   const { ref, controls } = useScrollAnimation(0.15);
   const [state, handleSubmit] = useForm("xgoggjqr");
 
-  // Mantenemos el estado local para los inputs
   const [form, setForm] = useState({
     nombre: "",
     correo: "",
@@ -41,9 +40,73 @@ export default function ContactFormSection() {
     mensaje: "",
   });
 
+  const [countryCode, setCountryCode] = useState("+57");
+  const [customCode, setCustomCode] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+  const [showPhoneError, setShowPhoneError] = useState(false);
+
+  const validatePhone = (value) => {
+    if (!value || value.length === 0) {
+      return true;
+    }
+    const digits = value.replace(/\D/g, "");
+    if (digits.length === 0) {
+      return true;
+    }
+    if (digits.length < 7) {
+      return false;
+    }
+    if (digits.length > 15) {
+      return false;
+    }
+    return true;
+  };
+
+  const handleCountryCodeChange = (e) => {
+    const value = e.target.value;
+    setCountryCode(value);
+    if (value !== "otro") {
+      setCustomCode("");
+    }
+  };
+
+  const getFinalCountryCode = () => {
+    if (countryCode === "otro" && customCode) {
+      return customCode;
+    }
+    return countryCode;
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm((f) => ({ ...f, [name]: value }));
+
+    if (name === "telefono") {
+      const digits = value.replace(/\D/g, "");
+      if (digits.length <= 15) {
+        setForm((f) => ({ ...f, [name]: digits }));
+        setShowPhoneError(false);
+      }
+    } else {
+      setForm((f) => ({ ...f, [name]: value }));
+    }
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    // Validar teléfono solo al enviar
+    if (form.telefono && !validatePhone(form.telefono)) {
+      setShowPhoneError(true);
+      if (form.telefono.length < 7) {
+        setPhoneError("El número debe tener al menos 7 dígitos");
+      } else if (form.telefono.length > 15) {
+        setPhoneError("El número no puede tener más de 15 dígitos");
+      }
+      return;
+    }
+
+    setShowPhoneError(false);
+    handleSubmit(e);
   };
 
   if (state.succeeded) {
@@ -195,8 +258,7 @@ export default function ContactFormSection() {
               Cuéntanos en qué podemos ayudarte.
             </p>
 
-            {/* Mantenemos el onSubmit de Formspree */}
-            <form onSubmit={handleSubmit} className="contact-form">
+            <form onSubmit={handleFormSubmit} className="contact-form">
               <input type="hidden" name="_captcha" value="true" />
 
               <div>
@@ -237,16 +299,86 @@ export default function ContactFormSection() {
                 />
               </div>
 
+              {/* Teléfono con código de país */}
               <div>
-                <Input
-                  icon={Phone}
-                  label="Teléfono"
-                  type="tel"
-                  name="telefono"
-                  value={form.telefono}
-                  onChange={handleChange}
-                  autoComplete="tel"
-                />
+                <div className="flex gap-2 w-full items-end">
+                  <div className="flex-shrink-0 w-32">
+                    <select
+                      name="codigo_pais"
+                      value={countryCode}
+                      onChange={handleCountryCodeChange}
+                      className="w-full px-4 py-3 bg-[#050C16] border-0 border-b-2 border-white/10 rounded-none text-white placeholder:text-white/50 focus:outline-none focus:border-[#a3e635] transition-colors text-sm appearance-none custom-select h-[52px]"
+                      style={{ fontFamily: "var(--font-body)" }}
+                    >
+                      <option value="+1">+1 (EE.UU)</option>
+                      <option value="+34">+34 (España)</option>
+                      <option value="+52">+52 (México)</option>
+                      <option value="+54">+54 (Argentina)</option>
+                      <option value="+56">+56 (Chile)</option>
+                      <option value="+57">+57 (Colombia)</option>
+                      <option value="+58">+58 (Venezuela)</option>
+                      <option value="+591">+591 (Bolivia)</option>
+                      <option value="+593">+593 (Ecuador)</option>
+                      <option value="+598">+598 (Uruguay)</option>
+                      <option value="+502">+502 (Guatemala)</option>
+                      <option value="+503">+503 (El Salvador)</option>
+                      <option value="+504">+504 (Honduras)</option>
+                      <option value="+505">+505 (Nicaragua)</option>
+                      <option value="+506">+506 (Costa Rica)</option>
+                      <option value="+507">+507 (Panamá)</option>
+                      <option value="otro">✏️ Otro</option>
+                    </select>
+                  </div>
+
+                  <div className="flex-1 min-w-0">
+                    <Input
+                      icon={Phone}
+                      label="Teléfono"
+                      type="tel"
+                      name="telefono"
+                      value={form.telefono}
+                      onChange={handleChange}
+                      autoComplete="tel"
+                      className={
+                        showPhoneError &&
+                        form.telefono &&
+                        form.telefono.length > 0
+                          ? "border-red-500 focus:border-red-500"
+                          : ""
+                      }
+                    />
+                  </div>
+                </div>
+
+                {countryCode === "otro" && (
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      name="codigo_personalizado"
+                      placeholder="Ingresa tu código de país (ej: +123)"
+                      value={customCode}
+                      onChange={(e) => setCustomCode(e.target.value)}
+                      className="w-full px-4 py-3 bg-[#050C16] border border-white/10 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-[#a3e635] transition-colors text-sm"
+                      style={{ fontFamily: "var(--font-body)" }}
+                      required={countryCode === "otro"}
+                    />
+                    <input
+                      type="hidden"
+                      name="codigo_pais_final"
+                      value={getFinalCountryCode()}
+                    />
+                  </div>
+                )}
+
+                {showPhoneError && form.telefono && form.telefono.length > 0 ? (
+                  <p className="text-red-400 text-xs mt-1 font-medium">
+                    ⚠️ {phoneError}
+                  </p>
+                ) : (
+                  <p className="text-white/40 text-xs mt-1">
+                    Mínimo 7 dígitos, máximo 15
+                  </p>
+                )}
                 <ValidationError
                   prefix="Teléfono"
                   field="telefono"
@@ -305,7 +437,6 @@ export default function ContactFormSection() {
           align-items: stretch;
         }
 
-        /* ── Panel base — mismo lenguaje visual que .svc-card-new ── */
         .contact-panel {
           position: relative;
           background: oklch(0.13 0.020 260 / 0.85);
@@ -337,16 +468,6 @@ export default function ContactFormSection() {
         }
         .contact-corner--tl { top: 16px; left: 16px; border-right: 0; border-bottom: 0; }
         .contact-corner--br { bottom: 16px; right: 16px; border-left: 0; border-top: 0; }
-
-        .contact-watermark {
-          position: absolute;
-          right: -1.5rem;
-          bottom: -1.5rem;
-          color: var(--c-lime);
-          opacity: 0.06;
-          pointer-events: none;
-          z-index: 0;
-        }
 
         .contact-panel-heading {
           font-family: var(--font-display);
@@ -465,29 +586,26 @@ export default function ContactFormSection() {
           gap: 1rem;
         }
 
-        .contact-status-line {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          font-family: var(--font-body);
-          font-size: 0.78rem;
-          font-weight: 500;
-          letter-spacing: 0.02em;
-          color: var(--c-muted);
-          margin: 0;
+        .custom-select {
+          background-color: #050C16;
+          color: white;
+          border-bottom: 2px solid rgba(255, 255, 255, 0.1) !important;
         }
-        .contact-status-dot {
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          background: var(--c-lime);
-          box-shadow: 0 0 8px var(--c-lime);
-          flex-shrink: 0;
-          animation: contact-pulse 2s ease-in-out infinite;
+
+        .custom-select:focus {
+          border-bottom: 2px solid #a3e635 !important;
+          outline: none !important;
+          box-shadow: none !important;
         }
-        @keyframes contact-pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.4; }
+
+        .custom-select option {
+          background-color: #050C16;
+          color: white;
+          padding: 8px 12px;
+        }
+
+        .custom-select option:hover {
+          background-color: #1C4964;
         }
 
         @media (max-width: 880px) {
