@@ -146,6 +146,7 @@ export default function GalleryServicesSection() {
   return (
     <section
       id="gallery-servicios"
+      className="gallery-services-section"
       style={{
         position: "relative",
         paddingBlock: "clamp(2rem, 5vw, 4rem)",
@@ -172,6 +173,16 @@ export default function GalleryServicesSection() {
           buttonText="Ver más"
         />
       </div>
+
+      <style>{`
+        @media (min-width: 1024px) {
+          .gallery-services-section {
+            margin-top: -22rem !important;
+            padding-top: 0.5rem !important;
+            padding-bottom: 2rem !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
