@@ -45,8 +45,11 @@ RewriteRule ^ index.html [QSA,L]
   Header always set X-Content-Type-Options "nosniff"
   Header always set X-Frame-Options "SAMEORIGIN"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
-  # No cachear el index.html
+  # index.html: nunca servir una copia vieja sin antes revalidar con el
+  # servidor (protege contra rollbacks/deploys viejos). Sin "no-store" para
+  # no bloquear el back/forward cache del navegador — el ErrorBoundary de
+  # React ya cubre el caso de un chunk desactualizado con un reload automático.
   <FilesMatch "^index\.html$">
-    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Cache-Control "no-cache, must-revalidate"
   </FilesMatch>
 </IfModule>
