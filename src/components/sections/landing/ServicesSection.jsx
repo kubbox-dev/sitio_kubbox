@@ -105,7 +105,7 @@ const SERVICES = [
     body: "Una marca va mucho más allá de un logotipo. Es la manera en que una empresa se presenta al mundo, comunica su esencia y construye relaciones duraderas con sus clientes.",
     prefix: "Garantizamos identidad y comunicación, incluyendo:",
     icon: ICON("Creación y Desarrollo de Marca"),
-    url: "/servicios/desarrollo-digital",
+    url: "/servicios/creacion-desarrollo-marca",
     bullets: [
       "Diseño de logotipo",
       "Sistema de identidad visual",
