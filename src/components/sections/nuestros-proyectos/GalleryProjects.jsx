@@ -16,7 +16,7 @@ const PROJECTS = [
     title: "Kubbox",
     description:
       "Agencia de BRANDING, desarrollo web, poscionamiento y marketing predictivo",
-    imageSrc: "/images/NUESTROS PROYECTOS/Fotos-Proyectos/Imagen-1.sasxpng.png",
+    imageSrc: "/images/NUESTROS PROYECTOS/Fotos-Proyectos/Imagen-1.sasxpng.webp",
   },
   {
     id: 2,
