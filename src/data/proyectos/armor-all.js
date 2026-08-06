@@ -76,16 +76,16 @@ export default {
         ],
       },
     },
+    { type: 'sectionHeading', props: { lime: 'NUESTROS', white: 'SERVICIOS' } },
     {
-      type: 'statement',
+      type: 'serviceList',
       props: {
-        titleLime: 'Servicios',
-        paragraphs: [
-          'Desarrollo de campaña digital',
-          'Diseño y programación del juego de lavado de auto',
-          'Premios por acumulación y aciertos',
-          'Implementación técnica',
-          'Operación y control de campaña',
+        services: [
+          { icon: 'megaphone', label: 'Desarrollo de campaña digital' },
+          { icon: 'gamepad', label: 'Diseño y programación del juego de lavado de auto' },
+          { icon: 'trophy', label: 'Premios por acumulación y aciertos' },
+          { icon: 'code', label: 'Implementación técnica' },
+          { icon: 'gauge', label: 'Operación y control de campaña' },
         ],
       },
     },
