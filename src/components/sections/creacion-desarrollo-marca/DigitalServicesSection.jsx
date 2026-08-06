@@ -34,8 +34,12 @@ export default function DigitalServicesSection({
 
   return (
     <section
-      className="mt-[clamp(-328px,-58vw,-248px)] min-[1280px]:mt-0"
-      style={{ position: "relative", paddingBlock: "clamp(3rem, 7vw, 6.5rem)" }}
+      className="min-[1280px]:mt-0"
+      style={{
+        position: "relative",
+        paddingBlock: "clamp(3rem, 7vw, 6.5rem)",
+        marginTop: "clamp(-1000px, -90vw, -400px)",
+      }}
     >
       <div
         style={{
@@ -221,9 +225,6 @@ export default function DigitalServicesSection({
         }
 
         @media (max-width: 880px) {
-          section {
-            margin-top: -4rem !important;
-          }
           .dd-grid {
             grid-template-columns: 1fr;
             gap: 2rem;
@@ -253,9 +254,6 @@ export default function DigitalServicesSection({
         }
 
         @media (max-width: 520px) {
-          section {
-            margin-top: -2rem !important;
-          }
           .dd-photo-card {
             min-height: 400px;
             max-height: 500px;

@@ -51,6 +51,8 @@ export default function DigitalHeroSection({ title }) {
         min-[1280px]:pt-[clamp(6.5rem,9vw,8.5rem)]
         pb-8
         min-[1280px]:pb-0
+        max-[1280px]:mb-[-6rem]
+        max-[600px]:mb-[-10rem]
       "
     >
       <div
@@ -124,7 +126,8 @@ export default function DigitalHeroSection({ title }) {
           z-[10]
           max-w-[760px]
           px-[clamp(1.5rem,6vw,5rem)]
-          pt-10
+          pt-20
+          min-[1280px]:pt-10
           min-[1280px]:mt-[-25rem]
           ml-0 min-[1280px]:ml-50
         "
