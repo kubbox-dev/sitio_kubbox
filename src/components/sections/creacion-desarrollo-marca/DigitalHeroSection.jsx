@@ -53,6 +53,7 @@ export default function DigitalHeroSection({ title }) {
         min-[1280px]:pb-0
         max-[1280px]:mb-[-6rem]
         max-[600px]:mb-[-10rem]
+        min-[1280px]:mb-0
       "
     >
       <div
