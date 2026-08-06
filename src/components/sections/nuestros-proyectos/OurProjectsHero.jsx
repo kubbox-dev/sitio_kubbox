@@ -45,6 +45,10 @@ export default function OurProjectsHero() {
           #proyectos {
             min-height: 90svh !important;
           }
+          .subtitle-text {
+            max-width: 35ch !important;
+            font-size: 1rem !important;
+          }
         }
       `}</style>
 
@@ -180,11 +184,12 @@ export default function OurProjectsHero() {
           </div>
         </h1>
 
-        {/* Subtítulo breve */}
+        {/* Subtítulo breve - con clase para controlar en móvil */}
         <m.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="subtitle-text"
           style={{
             fontFamily: "var(--font-display)",
             fontWeight: 600,
