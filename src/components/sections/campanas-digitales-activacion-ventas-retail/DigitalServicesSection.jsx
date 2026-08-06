@@ -16,7 +16,7 @@ const DEFAULT_TAGLINE =
 const DEFAULT_INTRO =
   "Diseñamos estrategias que conectan el mundo digital con el canal tradicional para incrementar visitas, impulsar compras y fortalecer la relación entre las marcas y sus consumidores.";
 const DEFAULT_STATEMENT =
-  "Integramos pauta digital, geolocalización, redes sociales, WhatsApp y páginas de aterrizaje para convertir el interés digital en ventas reales.";
+  "Integramos pauta digital, juegos de interacción, geolocalización, redes sociales, WhatsApp y páginas de aterrizaje para convertir el interés digital en ventas reales.";
 const DEFAULT_BULLETS = [
   {
     icon: encodeURI(
@@ -187,7 +187,7 @@ export default function DigitalServicesSection({
         >
           <div className="dd-sub-header">
             <span className="dd-sub-line" />
-            <span className="dd-sub-title">Servicios Adicionales</span>
+            <span className="dd-sub-title">Destacados</span>
             <span className="dd-sub-line" />
           </div>
           <ul className="dd-sub-grid">

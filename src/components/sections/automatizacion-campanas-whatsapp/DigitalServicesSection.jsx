@@ -26,7 +26,7 @@ const DEFAULT_BULLETS = [
     icon: encodeURI(
       "/images/Servicios/campanas-whatsapp/Automatizacion de respuestas.svg",
     ),
-    label: "Automatización de respuestas",
+    label: "Creación de Bots para atención al cliente",
   },
   {
     icon: encodeURI(
@@ -38,7 +38,7 @@ const DEFAULT_BULLETS = [
     icon: encodeURI(
       "/images/Servicios/campanas-whatsapp/Notificaciones automaticas.svg",
     ),
-    label: "Notificaciones automáticas",
+    label: "Automatización de respuestas",
   },
 ];
 
@@ -47,6 +47,7 @@ const SUB_BULLETS = [
   "Integración con CRM",
   "Captura de prospectos",
   "Seguimiento comercial",
+  "Notificaciones automáticas",
 ];
 
 export default function DigitalServicesSection({
