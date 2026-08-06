@@ -8,7 +8,7 @@ export default function ProyectosPage() {
   useDocumentMeta({
     title: "Nuestros Proyectos — Kubbox",
     description: "Conoce los proyectos y casos de éxito de Kubbox.",
-    path: "/proyectos",
+    path: "/proyectos/",
   });
 
   return (

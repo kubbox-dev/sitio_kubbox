@@ -11,7 +11,7 @@ export default function NosotrosPage() {
   useDocumentMeta({
     title: "Nosotros — Kubbox",
     description: "Conoce al equipo y la filosofía de trabajo de Kubbox.",
-    path: "/nosotros",
+    path: "/nosotros/",
   });
 
   return (

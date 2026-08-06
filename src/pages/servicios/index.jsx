@@ -9,7 +9,7 @@ export default function ServiciosPage() {
     title: "Servicios — Kubbox",
     description:
       "Descubre todos los servicios digitales que ofrecemos en Kubbox.",
-    path: "/servicios",
+    path: "/servicios/",
   });
 
   return (
