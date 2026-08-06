@@ -1,10 +1,15 @@
 "use client";
 
 import * as React from "react";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, useReducedMotion } from "framer-motion";
+import * as m from "motion/react-m";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
+function cn(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
+// 16 CARDS DE EJEMPLO
 const PROJECTS = [
   {
     id: 1,
@@ -64,7 +69,7 @@ const PROJECTS = [
     id: 9,
     title: "COVERGIRL",
     description:
-      "13.234 participantes. Se capturó esta base de datos de mujeres colombianas, para continuar activándolas con la marca.",
+      "13.234 participantes. Se capturó esta base de datos de mujeres colombianas, para continuar activándolas con la marca. ",
     imageSrc: "/images/NUESTROS PROYECTOS/Fotos-Proyectos/covergirl.webp",
   },
   {
@@ -77,7 +82,7 @@ const PROJECTS = [
     id: 11,
     title: "JET",
     description:
-      "Sitio web – Chocolates Jet – Campamento Jet. Landing page concurso de marca.",
+      "Sitio web – Chocolates Jet – Campamento Jet. Langind page concurso de marca, para incentivar la compra de productos de la marca a través de campaña digital.",
     imageSrc: "/images/NUESTROS PROYECTOS/Fotos-Proyectos/jet.webp",
   },
   {
@@ -102,7 +107,7 @@ const PROJECTS = [
     id: 15,
     title: "SAPOLIN",
     description:
-      "La gerencia esperaba obtener 1.000 en 6 meses. Se obtuvieron 1.000 a los 3 meses.",
+      "La gerencia esperaba obtener 1.000 en 6 meses. Se obtuvieron 1.000 a los 3 meses, la estrategia pasó a ser algo temporal a un sitio constante de capacitaciones. Ya se están desarrollando en línea 2 niveles cada 1 de 15 módulos.",
     imageSrc: "images/NUESTROS PROYECTOS/Fotos-Proyectos/Imagen-1.sasxpng.webp",
   },
   {
@@ -126,134 +131,407 @@ const PROJECTS = [
   },
 ];
 
-function MobileProjectCard({ project }) {
+function wrapIndex(n, len) {
+  if (len <= 0) return 0;
+  return ((n % len) + len) % len;
+}
+
+function signedOffset(i, active, len, loop) {
+  const raw = i - active;
+  if (!loop || len <= 1) return raw;
+  const alt = raw > 0 ? raw - len : raw + len;
+  return Math.abs(alt) < Math.abs(raw) ? alt : raw;
+}
+
+function DefaultFanCard({ item }) {
   return (
-    <div className="relative h-full w-full rounded-xl overflow-hidden shadow-2xl border-2 border-white/10">
+    <div className="relative h-full w-full">
       <div className="absolute inset-0">
-        <img
-          src={project.imageSrc}
-          alt={project.title}
-          className="h-full w-full object-cover"
-          draggable={false}
-          loading="lazy"
-        />
+        {item.imageSrc ? (
+          <img
+            src={item.imageSrc}
+            alt={item.title}
+            className="h-full w-full object-cover"
+            draggable={false}
+            loading="eager"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center bg-secondary text-sm text-muted-foreground">
+            No image
+          </div>
+        )}
       </div>
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 via-40% to-transparent to-70%" />
       <div className="relative z-10 flex h-full flex-col justify-end p-5">
-        <h3 className="text-xl font-bold text-white drop-shadow-lg">
-          {project.title}
-        </h3>
-        {project.description && (
-          <p className="mt-1 text-sm text-white/90 drop-shadow-md line-clamp-3">
-            {project.description}
-          </p>
-        )}
+        <div className="text-lg font-bold text-white drop-shadow-lg md:text-2xl">
+          {item.title}
+        </div>
+        {item.description ? (
+          <div className="mt-1 text-sm text-white/90 drop-shadow-md md:text-base">
+            {item.description}
+          </div>
+        ) : null}
       </div>
     </div>
   );
 }
 
-export default function MobileProjectsGallery() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkScreen = () => {
-      setIsMobile(window.innerWidth < 1024);
-    };
-    checkScreen();
-    window.addEventListener("resize", checkScreen);
-    return () => window.removeEventListener("resize", checkScreen);
-  }, []);
-
-  // Auto-play
-  useEffect(() => {
-    if (!isMobile) return;
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % PROJECTS.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [isMobile]);
-
-  const goToPrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + PROJECTS.length) % PROJECTS.length);
-  };
-
-  const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % PROJECTS.length);
-  };
-
-  // Si no es móvil/tablet, no renderizar nada
-  if (!isMobile) return null;
+// ===== COMPONENTE MÓVIL =====
+function MobileSlider({
+  projects,
+  active,
+  setActive,
+  canGoPrev,
+  canGoNext,
+  prev,
+  next,
+  len,
+}) {
+  const formatNumber = (num) => String(num).padStart(2, "0");
 
   return (
-    <section className="w-full py-8 px-4 bg-transparent">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-white font-display">
-            Nuestros <span className="text-[var(--c-lime)]">Proyectos</span>
-          </h2>
-          <div className="flex items-center gap-2">
-            <span className="text-white/50 text-sm font-light">
-              {String(currentIndex + 1).padStart(2, "0")}/
-              {String(PROJECTS.length).padStart(2, "0")}
-            </span>
-          </div>
+    <div className="w-full py-4">
+      <div className="relative w-full flex items-center justify-center px-2">
+        <div className="w-[92%] max-w-[500px] h-[280px] relative">
+          <AnimatePresence initial={false} mode="wait">
+            <m.div
+              key={active}
+              initial={{ opacity: 0, x: 30, scale: 0.9 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: -30, scale: 0.9 }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 30,
+                duration: 0.3,
+              }}
+              className="absolute inset-0 rounded-xl overflow-hidden shadow-2xl border-2 border-white/10"
+            >
+              <DefaultFanCard item={projects[active]} />
+            </m.div>
+          </AnimatePresence>
+        </div>
+      </div>
+
+      <div className="mt-4 flex items-center justify-center gap-3">
+        <button
+          onClick={prev}
+          disabled={!canGoPrev}
+          className={cn(
+            "flex items-center justify-center w-8 h-8 rounded-full border border-white/20 transition-all",
+            canGoPrev
+              ? "hover:bg-white/10 hover:border-[var(--c-lime)] hover:text-[var(--c-lime)] cursor-pointer"
+              : "opacity-30 cursor-not-allowed",
+          )}
+          aria-label="Anterior"
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </button>
+
+        <div className="flex items-center gap-1.5">
+          <span className="font-display text-sm font-bold text-white">
+            {formatNumber(active + 1)}
+          </span>
+          <span className="text-white/30 text-sm font-light">/</span>
+          <span className="font-display text-sm font-light text-white/50">
+            {formatNumber(len)}
+          </span>
         </div>
 
-        <div className="relative w-full">
-          <div className="w-full h-[300px] md:h-[350px] relative">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentIndex}
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -50 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 300,
-                  damping: 30,
-                  duration: 0.4,
-                }}
-                className="absolute inset-0"
-              >
-                <MobileProjectCard project={PROJECTS[currentIndex]} />
-              </motion.div>
+        <button
+          onClick={next}
+          disabled={!canGoNext}
+          className={cn(
+            "flex items-center justify-center w-8 h-8 rounded-full border border-white/20 transition-all",
+            canGoNext
+              ? "hover:bg-white/10 hover:border-[var(--c-lime)] hover:text-[var(--c-lime)] cursor-pointer"
+              : "opacity-30 cursor-not-allowed",
+          )}
+          aria-label="Siguiente"
+        >
+          <ChevronRight className="h-4 w-4" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ===== COMPONENTE PRINCIPAL =====
+export default function GalleryProjects() {
+  const reduceMotion = useReducedMotion();
+  const len = PROJECTS.length;
+  const [active, setActive] = React.useState(0);
+  const [hovering, setHovering] = React.useState(false);
+
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const cardWidth = 520;
+  const cardHeight = 320;
+  const maxVisible = 5;
+  const overlap = 0.48;
+  const spreadDeg = 48;
+  const maxOffset = Math.max(0, Math.floor(maxVisible / 2));
+
+  const perspectivePx = 1100;
+  const depthPx = 140;
+  const tiltXDeg = 12;
+  const activeLiftPx = 22;
+  const activeScale = 1.03;
+  const inactiveScale = 0.94;
+  const springStiffness = 280;
+  const springDamping = 28;
+  const loop = true;
+  const autoAdvance = true;
+  const intervalMs = 2000;
+  const pauseOnHover = true;
+  const showCounter = true;
+
+  const cardSpacing = Math.max(10, Math.round(cardWidth * (1 - overlap)));
+  const stepDeg = maxOffset > 0 ? spreadDeg / maxOffset : 0;
+
+  const canGoPrev = loop || active > 0;
+  const canGoNext = loop || active < len - 1;
+
+  const prev = React.useCallback(() => {
+    if (!len) return;
+    if (!canGoPrev) return;
+    setActive((a) => wrapIndex(a - 1, len));
+  }, [canGoPrev, len]);
+
+  const next = React.useCallback(() => {
+    if (!len) return;
+    if (!canGoNext) return;
+    setActive((a) => wrapIndex(a + 1, len));
+  }, [canGoNext, len]);
+
+  const onKeyDown = (e) => {
+    if (e.key === "ArrowLeft") prev();
+    if (e.key === "ArrowRight") next();
+  };
+
+  React.useEffect(() => {
+    if (!autoAdvance) return;
+    if (reduceMotion) return;
+    if (!len) return;
+    if (pauseOnHover && hovering) return;
+
+    const id = window.setInterval(
+      () => {
+        if (loop || active < len - 1) next();
+      },
+      Math.max(700, intervalMs),
+    );
+
+    return () => window.clearInterval(id);
+  }, [
+    autoAdvance,
+    intervalMs,
+    hovering,
+    pauseOnHover,
+    reduceMotion,
+    len,
+    loop,
+    active,
+    next,
+  ]);
+
+  if (!len) return null;
+
+  // Si es móvil, renderiza el slider simple
+  if (isMobile) {
+    return (
+      <section className="relative w-full py-8 mb-12">
+        <div className="mx-auto w-full max-w-7xl px-3">
+          <MobileSlider
+            projects={PROJECTS}
+            active={active}
+            setActive={setActive}
+            canGoPrev={canGoPrev}
+            canGoNext={canGoNext}
+            prev={prev}
+            next={next}
+            len={len}
+          />
+        </div>
+      </section>
+    );
+  }
+
+  // Versión de escritorio - efecto 3D original
+  return (
+    <section
+      className="relative w-full py-8 md:py-16 mb-12 md:mb-32"
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+    >
+      <div className="mx-auto w-full max-w-7xl px-3 md:px-8">
+        <div
+          className="relative w-full"
+          style={{ height: Math.max(280, cardHeight + 60) }}
+          tabIndex={0}
+          onKeyDown={onKeyDown}
+        >
+          <div
+            className="pointer-events-none absolute inset-x-0 top-6 mx-auto h-32 w-[70%] rounded-full bg-black/5 blur-3xl dark:bg-white/5"
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto h-28 w-[76%] rounded-full bg-black/10 blur-3xl dark:bg-black/30"
+            aria-hidden="true"
+          />
+
+          <div
+            className="absolute inset-0 flex items-end justify-center"
+            style={{
+              perspective: `${perspectivePx}px`,
+            }}
+          >
+            <AnimatePresence initial={false}>
+              {PROJECTS.map((item, i) => {
+                const off = signedOffset(i, active, len, loop);
+                const abs = Math.abs(off);
+                const visible = abs <= maxOffset;
+
+                if (!visible) return null;
+
+                const rotateZ = off * stepDeg;
+                const x = off * cardSpacing;
+                const y = abs * 8;
+                const z = -abs * depthPx;
+
+                const isActive = off === 0;
+
+                const scale = isActive ? activeScale : inactiveScale;
+                const lift = isActive ? -activeLiftPx : 0;
+                const rotateX = isActive ? 0 : tiltXDeg;
+                const zIndex = 100 - abs;
+
+                const dragProps = isActive
+                  ? {
+                      drag: "x",
+                      dragConstraints: { left: 0, right: 0 },
+                      dragElastic: 0.18,
+                      onDragEnd: (_e, info) => {
+                        if (reduceMotion) return;
+                        const travel = info.offset.x;
+                        const v = info.velocity.x;
+                        const threshold = Math.min(120, cardWidth * 0.22);
+
+                        if (travel > threshold || v > 650) prev();
+                        else if (travel < -threshold || v < -650) next();
+                      },
+                    }
+                  : {};
+
+                return (
+                  <m.div
+                    key={item.id}
+                    className={cn(
+                      "absolute bottom-0 overflow-hidden rounded-2xl border-4 border-white/10 shadow-xl will-change-transform select-none",
+                      isActive
+                        ? "cursor-grab active:cursor-grabbing"
+                        : "cursor-pointer",
+                    )}
+                    style={{
+                      width: cardWidth,
+                      height: cardHeight,
+                      zIndex,
+                      transformStyle: "preserve-3d",
+                    }}
+                    initial={
+                      reduceMotion
+                        ? false
+                        : {
+                            opacity: 0,
+                            y: y + 40,
+                            x,
+                            rotateZ,
+                            rotateX,
+                            scale,
+                          }
+                    }
+                    animate={{
+                      opacity: 1,
+                      x,
+                      y: y + lift,
+                      rotateZ,
+                      rotateX,
+                      scale,
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: springStiffness,
+                      damping: springDamping,
+                    }}
+                    onClick={() => setActive(i)}
+                    {...dragProps}
+                  >
+                    <div
+                      className="h-full w-full"
+                      style={{
+                        transform: `translateZ(${z}px)`,
+                        transformStyle: "preserve-3d",
+                      }}
+                    >
+                      <DefaultFanCard item={item} />
+                    </div>
+                  </m.div>
+                );
+              })}
             </AnimatePresence>
           </div>
-
-          {/* Flechas de navegación */}
-          <button
-            onClick={goToPrev}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all"
-            aria-label="Anterior"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-          <button
-            onClick={goToNext}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all"
-            aria-label="Siguiente"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
         </div>
 
-        {/* Indicadores (dots) */}
-        <div className="flex justify-center gap-2 mt-4">
-          {PROJECTS.map((_, index) => (
+        {showCounter && (
+          <div className="mt-6 flex items-center justify-center gap-4">
             <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`h-2 rounded-full transition-all ${
-                index === currentIndex
-                  ? "w-8 bg-[var(--c-lime)]"
-                  : "w-2 bg-white/30 hover:bg-white/50"
-              }`}
-              aria-label={`Ir al proyecto ${index + 1}`}
-            />
-          ))}
-        </div>
+              onClick={prev}
+              disabled={!canGoPrev}
+              className={cn(
+                "flex items-center justify-center w-10 h-10 rounded-full border border-white/20 transition-all",
+                canGoPrev
+                  ? "hover:bg-white/10 hover:border-[var(--c-lime)] hover:text-[var(--c-lime)] cursor-pointer"
+                  : "opacity-30 cursor-not-allowed",
+              )}
+              aria-label="Anterior"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+
+            <div className="flex items-center gap-3">
+              <span className="font-display text-lg font-bold text-white">
+                {String(active + 1).padStart(2, "0")}
+              </span>
+              <span className="text-white/30 text-lg font-light">/</span>
+              <span className="font-display text-lg font-light text-white/50">
+                {String(len).padStart(2, "0")}
+              </span>
+            </div>
+
+            <button
+              onClick={next}
+              disabled={!canGoNext}
+              className={cn(
+                "flex items-center justify-center w-10 h-10 rounded-full border border-white/20 transition-all",
+                canGoNext
+                  ? "hover:bg-white/10 hover:border-[var(--c-lime)] hover:text-[var(--c-lime)] cursor-pointer"
+                  : "opacity-30 cursor-not-allowed",
+              )}
+              aria-label="Siguiente"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
