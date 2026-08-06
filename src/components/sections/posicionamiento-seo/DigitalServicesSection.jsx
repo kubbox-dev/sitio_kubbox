@@ -33,23 +33,23 @@ const DEFAULT_BULLETS = [
     icon: encodeURI(
       "/images/Servicios/posicionamiento-SEO/Estrategia de palabras clave.svg",
     ),
-    label: "Estrategia de palabras clave",
+    label: "SEO técnico",
   },
   {
     icon: encodeURI(
       "/images/Servicios/posicionamiento-SEO/monitoreo de resultado.svg",
     ),
-    label: "Monitoreo de resultados",
+    label: "Creación de contenido optimizado",
   },
 ];
 
 // Solo los que NO están en los principales
 const SUB_BULLETS = [
-  "SEO técnico",
   "Optimización On Page",
   "Arquitectura web",
   "SEO local",
-  "Creación de contenido optimizado",
+  "Estrategia de palabras clave",
+  "Monitoreo de resultados",
 ];
 
 export default function DigitalServicesSection({
