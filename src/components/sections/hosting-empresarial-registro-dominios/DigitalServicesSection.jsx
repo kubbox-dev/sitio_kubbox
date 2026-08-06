@@ -22,7 +22,7 @@ const DEFAULT_BULLETS = [
     icon: encodeURI(
       "/images/Servicios/hosting-empresarial/soporte técnico.svg",
     ),
-    label: "Soporte técnico",
+    label: "Soporte y monitoreo",
   },
   {
     icon: encodeURI(
@@ -34,22 +34,21 @@ const DEFAULT_BULLETS = [
     icon: encodeURI(
       "/images/Servicios/hosting-empresarial/Copias de seguridad.svg",
     ),
-    label: "Copias de seguridad",
+    label: "Registro de dominios",
   },
   {
     icon: encodeURI(
       "/images/Servicios/hosting-empresarial/Registro de dominios nacionales e internacionales.svg",
     ),
-    label: "Registro de dominios",
+    label: "Hosting de alto rendimiento",
   },
 ];
 
 // Solo los que NO están en los principales
 const SUB_BULLETS = [
-  "Hosting de alto rendimiento",
   "Migraciones",
   "Correo corporativo",
-  "Monitoreo",
+  "Copias de seguridad",
 ];
 
 export default function DigitalServicesSection({
