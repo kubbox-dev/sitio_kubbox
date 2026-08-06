@@ -8,7 +8,20 @@ const PORT = 4173
 const ROUTES = [
   '/',
   '/contacto',
+  '/nosotros',
+  '/proyectos',
+  '/servicios',
   '/servicios/desarrollo-digital',
+  '/servicios/posicionamiento-seo',
+  '/servicios/desarrollo-a-la-medida',
+  '/servicios/hosting-empresarial-registro-dominios',
+  '/servicios/desarrollo-aplicaciones-moviles',
+  '/servicios/campanas-digitales-activacion-ventas-retail',
+  '/servicios/diseno-desarrollo-sitios-web',
+  '/servicios/automatizacion-campanas-whatsapp',
+  '/servicios/google-ads-meta-ads',
+  '/servicios/creacion-desarrollo-marca',
+  '/servicios/carnes-digitales-tarjetas-contacto-inteligente',
   ...projectList.map((p) => `/proyectos/${p.slug}`),
 ]
 

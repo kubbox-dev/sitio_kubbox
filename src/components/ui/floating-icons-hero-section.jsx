@@ -9,6 +9,7 @@ const Icon = ({ mouseX, mouseY, iconData, index }) => {
   const y = useMotionValue(0);
   const springX = useSpring(x, { stiffness: 300, damping: 20 });
   const springY = useSpring(y, { stiffness: 300, damping: 20 });
+  const [floatDuration] = React.useState(() => 5 + Math.random() * 5);
 
   React.useEffect(() => {
     const handleMouseMove = () => {
@@ -54,7 +55,7 @@ const Icon = ({ mouseX, mouseY, iconData, index }) => {
           rotate: [0, 5, 0, -5, 0],
         }}
         transition={{
-          duration: 5 + Math.random() * 5,
+          duration: floatDuration,
           repeat: Infinity,
           repeatType: "mirror",
           ease: "easeInOut",
