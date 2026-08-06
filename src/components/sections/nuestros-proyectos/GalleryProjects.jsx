@@ -192,7 +192,7 @@ function MobileSlider({
   return (
     <div className="w-full py-4">
       <div className="relative w-full flex items-center justify-center px-2">
-        <div className="w-[92%] max-w-[500px] h-[280px] relative">
+        <div className="w-[95%] max-w-[600px] h-[220px] relative">
           <AnimatePresence initial={false} mode="wait">
             <m.div
               key={active}
