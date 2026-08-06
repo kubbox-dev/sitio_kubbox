@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import * as m from "motion/react-m";
 
 /**
  * variant: 'primary' | 'outline' | 'ghost'
@@ -53,7 +53,7 @@ export default function Button({
   };
 
   return (
-    <motion.button
+    <m.button
       style={{ ...base, ...sizes[size], ...variants[variant], ...style }}
       whileHover={{
         scale: 1.03,
@@ -67,6 +67,6 @@ export default function Button({
       {...props}
     >
       {children}
-    </motion.button>
+    </m.button>
   );
 }

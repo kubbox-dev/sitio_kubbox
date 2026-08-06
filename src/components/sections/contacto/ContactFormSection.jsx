@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import * as m from "motion/react-m";
 import {
   Users,
   Camera,
@@ -175,14 +175,15 @@ export default function ContactFormSection() {
           zIndex: 1,
         }}
       >
-        <motion.div
+        <m.div
           ref={ref}
           initial="hidden"
           animate={controls}
           variants={staggerContainer(0.12)}
           className="contact-grid"
         >
-          <motion.div variants={fadeUp} className="contact-panel">
+          {/* ── Panel izquierdo: datos + mapa ── */}
+          <m.div variants={fadeUp} className="contact-panel">
             <span
               className="contact-corner contact-corner--tl"
               aria-hidden="true"
@@ -236,9 +237,10 @@ export default function ContactFormSection() {
                 }}
               />
             </div>
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          {/* ── Panel derecho: formulario ── */}
+          <m.div
             variants={fadeUp}
             className="contact-panel contact-panel--form"
           >
@@ -423,8 +425,8 @@ export default function ContactFormSection() {
                 </Button>
               </div>
             </form>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </div>
 
       <style>{`

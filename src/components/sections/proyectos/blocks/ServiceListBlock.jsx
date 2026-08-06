@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { useReducedMotion } from 'framer-motion'
+import * as m from 'motion/react-m'
 import { Megaphone, Gamepad2, Trophy, Code2, Gauge } from 'lucide-react'
 
 const ICONS = { megaphone: Megaphone, gamepad: Gamepad2, trophy: Trophy, code: Code2, gauge: Gauge }
@@ -12,7 +13,7 @@ export default function ServiceListBlock({ services = [] }) {
 
   return (
     <section className="relative py-[clamp(2rem,5vw,3.5rem)]">
-      <motion.div
+      <m.div
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.25 }}
@@ -27,7 +28,7 @@ export default function ServiceListBlock({ services = [] }) {
           {services.map((s, i) => {
             const Icon = ICONS[s.icon] ?? Code2
             return (
-              <motion.div
+              <m.div
                 key={i}
                 variants={item}
                 whileHover={reduce ? undefined : { x: 4 }}
@@ -46,11 +47,11 @@ export default function ServiceListBlock({ services = [] }) {
                   </span>
                   {s.label}
                 </p>
-              </motion.div>
+              </m.div>
             )
           })}
         </div>
-      </motion.div>
+      </m.div>
     </section>
   )
 }

@@ -1,9 +1,9 @@
-import { motion } from 'framer-motion'
+import * as m from 'motion/react-m'
 import { ArrowUpRight } from 'lucide-react'
 
 export default function ProjectCard({ number, title, category, description, imageSrc, imageAlt }) {
   return (
-    <motion.article
+    <m.article
       whileHover={{ y: -4 }}
       transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
       style={{
@@ -121,6 +121,6 @@ export default function ProjectCard({ number, title, category, description, imag
       }}>
         {String(number).padStart(2, '0')}
       </div>
-    </motion.article>
+    </m.article>
   )
 }

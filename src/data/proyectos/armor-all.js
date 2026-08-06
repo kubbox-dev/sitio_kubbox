@@ -2,6 +2,7 @@ export default {
   slug: 'armor-all',
   name: 'Armor All',
   title: 'Limpia y Gana',
+  image: '/images/NUESTROS PROYECTOS/WEB/Fotos/Armorall/collage_completo.webp',
   meta: { category: 'Campaña Digital · Centroamérica y Caribe' },
   blocks: [
     {
@@ -18,7 +19,7 @@ export default {
       props: {
         titleLime: 'El Reto y La Idea',
         tags: ['Gamificación', 'Retail'],
-        image: '/images/NUESTROS PROYECTOS/WEB/Fotos/Armorall/collage_completo.png',
+        image: '/images/NUESTROS PROYECTOS/WEB/Fotos/Armorall/collage_completo.webp',
         imageAlt: 'Juego "Limpia y Gana" de Armor All: selección de productos participantes y simulación de lavado de auto',
         paragraphs: [
           'Dar a conocer la marca y enseñarle a los consumidores cómo aplicar cada producto para el lavado de su auto.',
@@ -40,8 +41,8 @@ export default {
       props: {
         columns: 2,
         items: [
-          { src: '/images/NUESTROS PROYECTOS/WEB/Fotos/Armorall/grafica 1 armorall.png', alt: 'Gráfica de usuarios registrados por día durante la campaña' },
-          { src: '/images/NUESTROS PROYECTOS/WEB/Fotos/Armorall/grafica 2 armorall.png', alt: 'Gráfica de facturas registradas por día durante la campaña' },
+          { src: '/images/NUESTROS PROYECTOS/WEB/Fotos/Armorall/grafica 1 armorall.webp', alt: 'Gráfica de usuarios registrados por día durante la campaña' },
+          { src: '/images/NUESTROS PROYECTOS/WEB/Fotos/Armorall/grafica 2 armorall.webp', alt: 'Gráfica de facturas registradas por día durante la campaña' },
         ],
       },
     },

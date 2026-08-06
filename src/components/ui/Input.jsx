@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { cn } from "../../lib/utils";
+import { useState } from 'react'
+import * as m from 'motion/react-m'
+import { cn } from '../../lib/utils'
 
 const containerVariants = {
   initial: {},
@@ -38,27 +38,24 @@ export function Input({
         />
       )}
 
-      <motion.div
-        className={cn(
-          "absolute top-1/2 -translate-y-1/2 pointer-events-none",
-          Icon && "left-6",
-        )}
-        style={{ color: "var(--c-ink)" }}
+      <m.div
+        className={cn('absolute top-1/2 -translate-y-1/2 pointer-events-none', Icon && 'left-6')}
+        style={{ color: 'var(--c-ink)' }}
         variants={containerVariants}
         initial="initial"
         animate={showLabel ? "animate" : "initial"}
       >
-        {label.split("").map((char, index) => (
-          <motion.span
+        {label.split('').map((char, index) => (
+          <m.span
             key={index}
             className="inline-block text-sm"
             variants={letterVariants}
             style={{ willChange: "transform" }}
           >
-            {char === " " ? " " : char}
-          </motion.span>
+            {char === ' ' ? ' ' : char}
+          </m.span>
         ))}
-      </motion.div>
+      </m.div>
 
       <input
         type={type}
@@ -70,7 +67,8 @@ export function Input({
         className="relative z-10 outline-none border-b-2 border-[var(--c-ink)]/30 w-full text-base font-medium text-[var(--c-ink)] bg-transparent placeholder-transparent transition-colors duration-200 focus:border-[var(--c-lime)]"
       />
 
-      <motion.div
+      {/* Glow bajo la línea al enfocar — mismo lenguaje visual que los demás glows del sitio */}
+      <m.div
         aria-hidden="true"
         className="absolute left-0 right-0 bottom-0 pointer-events-none -z-10"
         style={{

@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import * as m from "motion/react-m";
 import { ArrowDown } from "lucide-react";
 
 const transparent = "transparent";
@@ -139,7 +139,7 @@ export default function OurProjectsHero() {
         {/* NUESTROS PROYECTOS — todo junto */}
         <h1 style={{ margin: 0 }}>
           <div style={{ overflow: "hidden" }}>
-            <motion.div
+            <m.div
               variants={lineReveal(0)}
               initial="hidden"
               animate="visible"
@@ -155,11 +155,11 @@ export default function OurProjectsHero() {
               }}
             >
               Nuestros
-            </motion.div>
+            </m.div>
           </div>
 
           <div style={{ overflow: "hidden" }}>
-            <motion.div
+            <m.div
               variants={lineReveal(0.12)}
               initial="hidden"
               animate="visible"
@@ -176,12 +176,12 @@ export default function OurProjectsHero() {
               }}
             >
               Proyectos
-            </motion.div>
+            </m.div>
           </div>
         </h1>
 
         {/* Subtítulo breve */}
-        <motion.p
+        <m.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -197,11 +197,11 @@ export default function OurProjectsHero() {
           }}
         >
           Casos de éxito que transforman ideas en resultados medibles.
-        </motion.p>
+        </m.p>
       </div>
 
       {/* Scroll indicator */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8, duration: 0.6 }}
@@ -212,7 +212,7 @@ export default function OurProjectsHero() {
           transform: "translateX(-50%)",
         }}
       >
-        <motion.div
+        <m.div
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
           style={{
@@ -227,8 +227,8 @@ export default function OurProjectsHero() {
           }}
         >
           <ArrowDown size={18} />
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </section>
   );
 }

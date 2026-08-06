@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { useReducedMotion } from 'framer-motion'
+import * as m from 'motion/react-m'
 
 export default function RegionCardsBlock({ regions = [] }) {
   const reduce = useReducedMotion()
@@ -8,7 +9,7 @@ export default function RegionCardsBlock({ regions = [] }) {
   }
   return (
     <section className="relative py-[clamp(1.5rem,4vw,3rem)]">
-      <motion.div
+      <m.div
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.3 }}
@@ -16,7 +17,7 @@ export default function RegionCardsBlock({ regions = [] }) {
         className="mx-auto flex max-w-[var(--container)] flex-wrap justify-center gap-[clamp(1rem,2.5vw,1.5rem)] px-[var(--container-pad)]"
       >
         {regions.map((r, i) => (
-          <motion.div
+          <m.div
             key={i}
             variants={card}
             className="w-full rounded-[1.1rem] border p-[clamp(1.25rem,3vw,1.75rem)] [background:var(--c-surface)] [border-color:oklch(0.26_0.022_260)] min-[640px]:w-[22rem]"
@@ -35,9 +36,9 @@ export default function RegionCardsBlock({ regions = [] }) {
                 </div>
               ))}
             </dl>
-          </motion.div>
+          </m.div>
         ))}
-      </motion.div>
+      </m.div>
     </section>
   )
 }

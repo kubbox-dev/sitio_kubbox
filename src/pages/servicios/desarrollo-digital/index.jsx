@@ -17,6 +17,7 @@ export default function DesarrolloDigitalPage() {
     title: 'Desarrollo Digital',
     description: 'Plataformas, sitios web y productos digitales a la medida. Servicio de desarrollo digital de Kubbox.',
     path: '/servicios/desarrollo-digital/',
+    image: '/images/DESARROLLO DIGITAL/WEB/Fotos/foto arriba.webp',
     structuredData,
   })
 

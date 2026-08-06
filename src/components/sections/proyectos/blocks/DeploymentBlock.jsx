@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { useReducedMotion } from 'framer-motion'
+import * as m from 'motion/react-m'
 
 const TILTS = [-2, 1.5, -1, 2, -1.5, 1]
 
@@ -7,7 +8,7 @@ export default function DeploymentBlock({ regions = [] }) {
 
   return (
     <section className="relative py-[clamp(1.5rem,4vw,3rem)]">
-      <motion.div
+      <m.div
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.3 }}
@@ -17,7 +18,7 @@ export default function DeploymentBlock({ regions = [] }) {
         {regions.map((r, i) => {
           const tilt = reduce ? 0 : TILTS[i % TILTS.length]
           return (
-            <motion.div
+            <m.div
               key={r.code}
               variants={{
                 hidden: { opacity: 0, y: reduce ? 0 : 16, scale: reduce ? 1 : 0.94, rotate: 0 },
@@ -38,10 +39,10 @@ export default function DeploymentBlock({ regions = [] }) {
               <span className="text-[0.7rem] font-semibold uppercase tracking-[0.1em] [font-family:var(--font-body)]" style={{ color: 'var(--c-muted)' }}>
                 {r.name}
               </span>
-            </motion.div>
+            </m.div>
           )
         })}
-      </motion.div>
+      </m.div>
     </section>
   )
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import Button from "../../ui/Button";
 
 const SPRING_TRANSITION_CONFIG = {
@@ -33,7 +33,7 @@ const areaClasses = [
 export const ContainerStagger = React.forwardRef(
   ({ transition, ...props }, ref) => {
     return (
-      <motion.div
+      <m.div
         ref={ref}
         initial="hidden"
         whileInView={"visible"}
@@ -54,7 +54,7 @@ ContainerStagger.displayName = "ContainerStagger";
 export const ContainerAnimated = React.forwardRef(
   ({ transition, ...props }, ref) => {
     return (
-      <motion.div
+      <m.div
         ref={ref}
         variants={filterVariants}
         viewport={{ once: false, amount: 0.2 }}
@@ -84,7 +84,7 @@ GalleryGrid.displayName = "ContainerSticky";
 export const GalleryGridCell = React.forwardRef(
   ({ className, transition, index, ...props }, ref) => {
     return (
-      <motion.div
+      <m.div
         ref={ref}
         initial={{ opacity: 0, scale: 0.9 }}
         whileInView={{ opacity: 1, scale: 1 }}

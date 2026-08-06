@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import * as m from "motion/react-m";
 
 const CLIENTS = [
   { name: "Pollocao", src: "/images/HOME/WEB/Logos/pollocoa logo.svg" },
@@ -117,7 +117,7 @@ export default function ClientsSection() {
 function MarqueeTrack({ offset = 0 }) {
   const doubled = [...CLIENTS, ...CLIENTS];
   return (
-    <motion.div
+    <m.div
       animate={{ x: ["0%", "-50%"] }}
       transition={{
         repeat: Infinity,
@@ -180,6 +180,6 @@ function MarqueeTrack({ offset = 0 }) {
           </div>
         );
       })}
-    </motion.div>
+    </m.div>
   );
 }

@@ -1,5 +1,6 @@
 import { Suspense, useRef, useCallback } from "react";
-import { motion, useInView } from "framer-motion";
+import { useInView } from "framer-motion";
+import * as m from "motion/react-m";
 import { Sparkles, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom"; // 👈 Importar useNavigate
 
@@ -65,7 +66,7 @@ export default function AISection() {
           zIndex: 1,
         }}
       >
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
@@ -173,7 +174,7 @@ export default function AISection() {
           </div>
 
           {/* Right: copy */}
-          <motion.div
+          <m.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
@@ -189,7 +190,7 @@ export default function AISection() {
             }}
           >
             {/* Badge */}
-            <motion.div
+            <m.div
               variants={fadeUp}
               style={{
                 display: "inline-flex",
@@ -216,10 +217,10 @@ export default function AISection() {
               >
                 Inteligencia Artificial
               </span>
-            </motion.div>
+            </m.div>
 
             {/* Headline */}
-            <motion.h2
+            <m.h2
               variants={fadeUp}
               style={{
                 fontFamily: "var(--font-display)",
@@ -236,10 +237,10 @@ export default function AISection() {
               <br />
               <span style={{ color: "var(--c-lime)" }}>IMPULSADA</span>
               <span style={{ color: "var(--c-ink)" }}> POR IA</span>
-            </motion.h2>
+            </m.h2>
 
             {/* Subtítulo */}
-            <motion.p
+            <m.p
               variants={fadeUp}
               style={{
                 fontFamily: "var(--font-body)",
@@ -254,10 +255,10 @@ export default function AISection() {
               Adaptándonos a los nuevos entornos
               <br />
               digitales y tecnológicos
-            </motion.p>
+            </m.p>
 
             {/* Body */}
-            <motion.p
+            <m.p
               variants={fadeUp}
               style={{
                 fontFamily: "var(--font-body)",
@@ -273,10 +274,10 @@ export default function AISection() {
               tecnológico para crear soluciones innovadoras y análisis más
               rápidos. Combinamos el ingenio humano con el poder de la
               automatización para diseñar estrategias que realmente funcionan.
-            </motion.p>
+            </m.p>
 
             {/* CTA - Navega a /servicios */}
-            <motion.div variants={fadeUp}>
+            <m.div variants={fadeUp}>
               <Button
                 variant="primary"
                 size="md"
@@ -289,9 +290,9 @@ export default function AISection() {
                   className="transition-transform group-hover:translate-x-1"
                 />
               </Button>
-            </motion.div>
-          </motion.div>
-        </motion.div>
+            </m.div>
+          </m.div>
+        </m.div>
       </div>
 
       <style>{`

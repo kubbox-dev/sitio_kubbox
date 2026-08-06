@@ -1,4 +1,5 @@
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useMotionValue, useSpring } from "framer-motion";
+import * as m from "motion/react-m";
 import React, { useRef, useEffect } from "react";
 import {
   useScrollAnimation,
@@ -7,7 +8,7 @@ import {
 } from "../../../hooks/useScrollAnimation";
 
 const PHOTO =
-  "/images/Servicios/creacion-desarrollo-marca/Foto para las del iman 1.png";
+  "/images/Servicios/creacion-desarrollo-marca/Foto para las del iman 1.webp";
 
 const SERVICES_LIST = [
   "Desarrollo de Personajes de Marca",
@@ -67,7 +68,7 @@ const GreenDot = ({ mouseX, mouseY, size, position, index }) => {
   }, [x, y, mouseX, mouseY]);
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       style={{
         x: springX,
@@ -143,14 +144,14 @@ export default function DigitalServicesSection({
           zIndex: 1,
         }}
       >
-        <motion.div
+        <m.div
           ref={ref}
           initial="hidden"
           animate={controls}
           variants={staggerContainer(0.12)}
           className="dd-grid"
         >
-          <motion.div
+          <m.div
             variants={fadeUp}
             className="dd-photo-card"
             style={{ alignSelf: "center", position: "relative" }}
@@ -183,10 +184,10 @@ export default function DigitalServicesSection({
                 />
               ))}
             </div>
-          </motion.div>
+          </m.div>
 
           {/* TEXTO - FORZADO A LA IZQUIERDA */}
-          <motion.div
+          <m.div
             variants={fadeUp}
             style={{ textAlign: "left", width: "100%" }}
           >
@@ -210,8 +211,8 @@ export default function DigitalServicesSection({
               </ul>
               <p className="dd-additional-text">{addText}</p>
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </div>
 
       <style>{`

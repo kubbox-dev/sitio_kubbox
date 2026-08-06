@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import * as m from "motion/react-m";
 import { useState, useEffect } from "react";
 import {
   useScrollAnimation,
@@ -7,8 +7,8 @@ import {
 } from "../../../hooks/useScrollAnimation";
 
 const PHOTOS = [
-  "/images/Servicios/campanas-digitales-activacion-ventas-retail/Slider 1_1.png",
-  "/images/Servicios/campanas-digitales-activacion-ventas-retail/Slider 2_1.png",
+  "/images/Servicios/campanas-digitales-activacion-ventas-retail/Slider 1_1.webp",
+  "/images/Servicios/campanas-digitales-activacion-ventas-retail/Slider 2_1.webp",
 ];
 
 const DEFAULT_TAGLINE =
@@ -94,14 +94,14 @@ export default function DigitalServicesSection({
           zIndex: 1,
         }}
       >
-        <motion.div
+        <m.div
           ref={ref}
           initial="hidden"
           animate={controls}
           variants={staggerContainer(0.12)}
           className="dd-grid"
         >
-          <motion.div variants={fadeUp} className="dd-photo-card">
+          <m.div variants={fadeUp} className="dd-photo-card">
             <div className="slider-container">
               <img
                 src={PHOTOS[currentIndex]}
@@ -157,9 +157,9 @@ export default function DigitalServicesSection({
                 ))}
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
-          <motion.div variants={fadeUp}>
+          <m.div variants={fadeUp}>
             <div className="dd-intro">
               <p className="dd-tagline">{tLine}</p>
               <span className="dd-intro-line" />
@@ -174,11 +174,11 @@ export default function DigitalServicesSection({
                 </div>
               ))}
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
 
         {/* Sub-bullets section - servicios adicionales */}
-        <motion.div
+        <m.div
           className="dd-sub-section"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -198,9 +198,9 @@ export default function DigitalServicesSection({
               </li>
             ))}
           </ul>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           className="dd-statement"
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -210,7 +210,7 @@ export default function DigitalServicesSection({
           <span className="dd-corner dd-corner--tl" aria-hidden="true" />
           <span className="dd-corner dd-corner--br" aria-hidden="true" />
           <p className="dd-statement-text">{closing}</p>
-        </motion.div>
+        </m.div>
       </div>
 
       <style>{`

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import * as m from 'motion/react-m'
 import { cn } from '../../lib/utils'
 
 const containerVariants = {
@@ -31,7 +31,7 @@ export function Textarea({ label, icon: Icon, className = '', value, rows = 5, .
         />
       )}
 
-      <motion.div
+      <m.div
         className={cn('absolute top-3 left-0 pointer-events-none', Icon && 'left-6')}
         style={{ color: 'var(--c-ink)' }}
         variants={containerVariants}
@@ -39,16 +39,16 @@ export function Textarea({ label, icon: Icon, className = '', value, rows = 5, .
         animate={showLabel ? 'animate' : 'initial'}
       >
         {label.split('').map((char, index) => (
-          <motion.span
+          <m.span
             key={index}
             className="inline-block text-sm"
             variants={letterVariants}
             style={{ willChange: 'transform' }}
           >
             {char === ' ' ? ' ' : char}
-          </motion.span>
+          </m.span>
         ))}
-      </motion.div>
+      </m.div>
 
       <textarea
         rows={rows}
@@ -61,7 +61,7 @@ export function Textarea({ label, icon: Icon, className = '', value, rows = 5, .
         className="relative z-10 outline-none border-b-2 border-[var(--c-ink)]/30 w-full text-base font-medium text-[var(--c-ink)] bg-transparent placeholder-transparent transition-colors duration-200 focus:border-[var(--c-lime)] resize-none"
       />
 
-      <motion.div
+      <m.div
         aria-hidden="true"
         className="absolute left-0 right-0 bottom-0 pointer-events-none -z-10"
         style={{ height: '14px', background: 'var(--c-lime)', filter: 'blur(9px)', borderRadius: '50%' }}

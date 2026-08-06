@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
+import * as m from "motion/react-m";
 
 export default function TrajectorySection() {
   const [yearCount, setYearCount] = useState(2008);
@@ -170,7 +171,7 @@ export default function TrajectorySection() {
           ref={counterRef}
           style={{ textAlign: "center", marginBottom: "2rem" }}
         >
-          <motion.h2
+          <m.h2
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isVisible ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.6 }}
@@ -190,7 +191,7 @@ export default function TrajectorySection() {
             }}
           >
             <AnimatePresence mode="wait">
-              <motion.span
+              <m.span
                 key={isGoingUp ? "hasta" : "desde"}
                 initial={{ opacity: 0, x: isGoingUp ? 40 : -40 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -204,7 +205,7 @@ export default function TrajectorySection() {
                 }}
               >
                 {isGoingUp ? "Hasta" : "Desde"}
-              </motion.span>
+              </m.span>
             </AnimatePresence>
 
             <span
@@ -216,7 +217,7 @@ export default function TrajectorySection() {
             >
               {yearCount}
             </span>
-          </motion.h2>
+          </m.h2>
 
           <p
             style={{

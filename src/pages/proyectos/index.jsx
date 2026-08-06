@@ -22,6 +22,7 @@ export default function ProjectDetailPage() {
     title: project ? `${project.title} · ${project.name}` : 'Proyecto',
     description: project ? `${project.name} — ${project.meta.category}. Caso de éxito de Kubbox.` : 'Caso de éxito de Kubbox.',
     path: `/proyectos/${slug}/`,
+    image: project?.image,
     structuredData,
   })
 

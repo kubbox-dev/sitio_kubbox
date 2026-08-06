@@ -26,6 +26,7 @@ export default function CampanasDigitalesPage() {
     description:
       "Convertimos el interés digital en ventas reales en puntos de venta físicos. Diseñamos estrategias que conectan el mundo digital con el canal tradicional.",
     path: "/servicios/campanas-digitales-activacion-ventas-retail/",
+    image: "/images/Servicios/campanas-digitales-activacion-ventas-retail/arriba_1.webp",
     structuredData,
   });
 

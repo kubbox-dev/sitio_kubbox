@@ -1,5 +1,6 @@
 import * as React from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useMotionValue, useSpring } from "framer-motion";
+import * as m from "motion/react-m";
 import { cn } from "../../lib/utils";
 import Button from "./Button";
 
@@ -38,7 +39,7 @@ const Icon = ({ mouseX, mouseY, iconData, index }) => {
   }, [x, y, mouseX, mouseY]);
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       key={iconData.id}
       style={{ x: springX, y: springY }}
@@ -47,7 +48,7 @@ const Icon = ({ mouseX, mouseY, iconData, index }) => {
       transition={{ delay: index * 0.08, duration: 0.6 }}
       className={cn("absolute", iconData.className)}
     >
-      <motion.div
+      <m.div
         className="flex items-center justify-center w-12 h-12 md:w-20 md:h-20 p-1 md:p-3 rounded-3xl shadow-xl border-none bg-[#101010] backdrop-blur-md"
         animate={{
           y: [0, -8, 0, 8, 0],
@@ -62,8 +63,8 @@ const Icon = ({ mouseX, mouseY, iconData, index }) => {
         }}
       >
         <iconData.icon className="w-5 h-5 md:w-10 md:h-10 text-foreground" />
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 };
 

@@ -36,14 +36,19 @@ function setRouteStructuredData(structuredData) {
   })
 }
 
+const DEFAULT_IMAGE = '/images/HOME/WEB/Pantallazo/pantallazo-home.webp'
+
 /**
- * Sets document.title, meta description, canonical, Open Graph tags and
- * optional route-specific JSON-LD for the current page.
+ * Sets document.title, meta description, canonical, Open Graph tags,
+ * Twitter Card tags and optional route-specific JSON-LD for the current page.
+ * `image`, if given, is a root-relative path (e.g. '/images/foo.webp'); it
+ * falls back to the site's default social preview image when omitted.
  * Usage: useDocumentMeta({ title: 'Contacto', description: '...', path: '/contacto' })
  */
-export function useDocumentMeta({ title, description, path, structuredData, noindex = false }) {
+export function useDocumentMeta({ title, description, path, image, structuredData, noindex = false }) {
   useEffect(() => {
-    const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`
+    const fullTitle = title.includes(SITE_NAME) ? title : `${title} — ${SITE_NAME}`
+    const fullImage = encodeURI(`${DOMAIN}${image || DEFAULT_IMAGE}`)
     document.title = fullTitle
 
     upsertMeta('name', 'description', description)
@@ -51,6 +56,10 @@ export function useDocumentMeta({ title, description, path, structuredData, noin
     upsertMeta('property', 'og:title', fullTitle)
     upsertMeta('property', 'og:description', description)
     upsertMeta('property', 'og:url', `${DOMAIN}${path}`)
+    upsertMeta('property', 'og:image', fullImage)
+    upsertMeta('name', 'twitter:title', fullTitle)
+    upsertMeta('name', 'twitter:description', description)
+    upsertMeta('name', 'twitter:image', fullImage)
 
     if (noindex) {
       upsertMeta('name', 'robots', 'noindex, nofollow')
@@ -62,5 +71,5 @@ export function useDocumentMeta({ title, description, path, structuredData, noin
     setRouteStructuredData(structuredData)
 
     return () => setRouteStructuredData(null)
-  }, [title, description, path, structuredData, noindex])
+  }, [title, description, path, image, structuredData, noindex])
 }

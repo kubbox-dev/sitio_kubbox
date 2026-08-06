@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import * as m from "motion/react-m";
 import { useState, useEffect } from "react";
 import {
   useScrollAnimation,
@@ -7,8 +7,8 @@ import {
 } from "../../../hooks/useScrollAnimation";
 
 const PHOTOS = [
-  "/images/Servicios/software-a-la-medida/slider 1_2.png",
-  "/images/Servicios/software-a-la-medida/slider 2_2.png",
+  "/images/Servicios/software-a-la-medida/slider 1_2.webp",
+  "/images/Servicios/software-a-la-medida/slider 2_2.webp",
 ];
 
 const DEFAULT_TAGLINE = "Cada empresa tiene procesos únicos";
@@ -86,14 +86,14 @@ export default function DigitalServicesSection({
           zIndex: 1,
         }}
       >
-        <motion.div
+        <m.div
           ref={ref}
           initial="hidden"
           animate={controls}
           variants={staggerContainer(0.12)}
           className="dd-grid"
         >
-          <motion.div variants={fadeUp} className="dd-photo-card">
+          <m.div variants={fadeUp} className="dd-photo-card">
             <div className="slider-container">
               <img
                 src={PHOTOS[currentIndex]}
@@ -149,9 +149,9 @@ export default function DigitalServicesSection({
                 ))}
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
-          <motion.div variants={fadeUp}>
+          <m.div variants={fadeUp}>
             <div className="dd-intro">
               <p className="dd-tagline">{tLine}</p>
               <span className="dd-intro-line" />
@@ -166,10 +166,10 @@ export default function DigitalServicesSection({
                 </div>
               ))}
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           className="dd-sub-section"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -189,11 +189,11 @@ export default function DigitalServicesSection({
               </li>
             ))}
           </ul>
-        </motion.div>
+        </m.div>
       </div>
 
       {/* Nueva sección - estilo letra hueco con texto en mayúsculas */}
-      <motion.div
+      <m.div
         className="dd-full-section"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -209,7 +209,7 @@ export default function DigitalServicesSection({
             <span className="hollow-green">IMPLEMENTACIÓN Y EVOLUCIÓN.</span>
           </p>
         </div>
-      </motion.div>
+      </m.div>
 
       <style>{`
         .dd-grid {

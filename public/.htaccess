@@ -2,6 +2,12 @@ Options -MultiViews
 
 RewriteEngine On
 
+# ── Dominio canónico: www.kubbox.com -> kubbox.com ─────────────────────────────
+# Evita contenido duplicado (dos URLs distintas para la misma página a ojos
+# de un buscador). El canonical de cada página ya apunta a la versión sin www.
+RewriteCond %{HTTP_HOST} ^www\.kubbox\.com$ [NC]
+RewriteRule ^ https://kubbox.com%{REQUEST_URI} [R=301,L]
+
 # ── SPA: redirige todo a index.html (excepto archivos físicos) ────────────────
 # SPA fallback: si el archivo/carpeta pedido no existe físicamente,
 # sirve index.html y deja que react-router-dom resuelva la ruta en el cliente.

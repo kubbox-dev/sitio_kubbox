@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { useReducedMotion } from 'framer-motion'
+import * as m from 'motion/react-m'
 
 export default function MediaGalleryBlock({ items = [], columns = 2 }) {
   const reduce = useReducedMotion()
@@ -8,7 +9,7 @@ export default function MediaGalleryBlock({ items = [], columns = 2 }) {
   }
   return (
     <section className="relative py-[clamp(1.5rem,4vw,3rem)]">
-      <motion.div
+      <m.div
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.25 }}
@@ -17,15 +18,15 @@ export default function MediaGalleryBlock({ items = [], columns = 2 }) {
         style={{ '--cols': columns }}
       >
         {items.map((it, i) => (
-          <motion.figure
+          <m.figure
             key={i}
             variants={card}
             className="relative m-0 overflow-hidden rounded-[1.1rem] border [background:oklch(0.13_0.020_260_/_0.7)] [backdrop-filter:blur(10px)] [border-color:oklch(0.26_0.022_260)]"
           >
             <img src={it.src} alt={it.alt || ''} className="block h-auto w-full" />
-          </motion.figure>
+          </m.figure>
         ))}
-      </motion.div>
+      </m.div>
     </section>
   )
 }

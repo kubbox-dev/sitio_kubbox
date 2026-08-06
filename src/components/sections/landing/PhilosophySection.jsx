@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import * as m from 'motion/react-m'
 
 
 const BELIEFS = [
@@ -42,7 +42,7 @@ export default function PhilosophySection() {
             <span>Identidad y Propósito</span>
           </div>
           <div className="phil-headline-block">
-            <motion.h2
+            <m.h2
               className="phil-heading-solid"
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -50,8 +50,8 @@ export default function PhilosophySection() {
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             >
               NUESTRA
-            </motion.h2>
-            <motion.span
+            </m.h2>
+            <m.span
               className="phil-heading-outline"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -59,12 +59,12 @@ export default function PhilosophySection() {
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
             >
               FILOSOFÍA
-            </motion.span>
+            </m.span>
           </div>
         </div>
 
         {/* ── Belief cards ─────────────────────────────────────── */}
-        <motion.div
+        <m.div
           className="phil-beliefs"
           initial="hidden"
           whileInView="visible"
@@ -72,7 +72,7 @@ export default function PhilosophySection() {
           variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.14 } } }}
         >
           {BELIEFS.map(({ number, title, quote, accent }) => (
-            <motion.div
+            <m.div
               key={number}
               className="phil-card"
               style={{ '--accent': accent }}
@@ -87,12 +87,12 @@ export default function PhilosophySection() {
               </div>
               <h3 className="phil-card-title">{title}</h3>
               <p className="phil-card-quote">{quote}</p>
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
 
         {/* ── Tagline ───────────────────────────────────────────── */}
-        <motion.div
+        <m.div
           className="phil-tagline-wrap"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -101,7 +101,7 @@ export default function PhilosophySection() {
         >
           <div aria-hidden="true" className="phil-tagline-deco">◆</div>
           <p className="phil-tagline">{TAGLINE}</p>
-        </motion.div>
+        </m.div>
       </div>
 
       <style>{`

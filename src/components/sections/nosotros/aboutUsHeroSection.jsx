@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import * as m from "motion/react-m";
 import { ArrowDown } from "lucide-react";
 
 const BG_DARK = "oklch(0.06 0.018 260)";
@@ -152,7 +152,7 @@ export default function AboutUsHeroSection() {
       >
         {/* NUEVA CABECERA: 'Nuestra' (negro con trazo verde) y 'esencia' (blanco) */}
         <div style={{ overflow: "hidden" }}>
-          <motion.div
+          <m.div
             variants={lineReveal(0.12)}
             initial="hidden"
             animate="visible"
@@ -170,13 +170,13 @@ export default function AboutUsHeroSection() {
             }}
           >
             Nuestra
-          </motion.div>
+          </m.div>
         </div>
 
         <div
           style={{ overflow: "hidden", marginBottom: "clamp(2rem, 5vw, 4rem)" }}
         >
-          <motion.div
+          <m.div
             variants={lineReveal(0.22)}
             initial="hidden"
             animate="visible"
@@ -194,14 +194,14 @@ export default function AboutUsHeroSection() {
             }}
           >
             esencia
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Texto eliminado por petición del usuario (link a #experiencia) */}
       </div>
 
       {/* Scroll indicator */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4, duration: 0.6 }}
@@ -212,7 +212,7 @@ export default function AboutUsHeroSection() {
           transform: "translateX(-50%)",
         }}
       >
-        <motion.div
+        <m.div
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
           style={{
@@ -227,8 +227,8 @@ export default function AboutUsHeroSection() {
           }}
         >
           <ArrowDown size={18} />
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </section>
   );
 }

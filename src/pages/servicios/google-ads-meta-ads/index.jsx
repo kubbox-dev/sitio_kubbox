@@ -26,6 +26,7 @@ export default function GoogleAdsMetaAdsPage() {
     description:
       "Diseñamos campañas publicitarias enfocadas en resultados. Nuestro equipo optimiza permanentemente cada inversión para obtener el mayor retorno posible.",
     path: "/servicios/google-ads-meta-ads/",
+    image: "/images/Servicios/google-ads-meta-ads/arriba_5.webp",
     structuredData,
   });
 

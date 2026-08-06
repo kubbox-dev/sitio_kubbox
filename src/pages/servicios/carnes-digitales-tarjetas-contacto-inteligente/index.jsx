@@ -26,6 +26,7 @@ export default function CarnesDigitalesPage() {
     description:
       "Modernizamos la presentación empresarial mediante soluciones digitales que facilitan el intercambio de información y fortalecen la imagen profesional.",
     path: "/servicios/carnes-digitales-tarjetas-contacto-inteligente/",
+    image: "/images/Servicios/carnes-digitales/arriba_8.webp",
     structuredData,
   });
 

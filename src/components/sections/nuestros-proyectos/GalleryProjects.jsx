@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { AnimatePresence, useReducedMotion } from "framer-motion";
+import * as m from "motion/react-m";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 function cn(...classes) {
@@ -327,7 +328,7 @@ export default function GalleryProjects() {
                   : {};
 
                 return (
-                  <motion.div
+                  <m.div
                     key={item.id}
                     className={cn(
                       "absolute bottom-0 overflow-hidden rounded-2xl border-4 border-white/10 shadow-xl will-change-transform select-none",
@@ -378,7 +379,7 @@ export default function GalleryProjects() {
                     >
                       <DefaultFanCard item={item} />
                     </div>
-                  </motion.div>
+                  </m.div>
                 );
               })}
             </AnimatePresence>

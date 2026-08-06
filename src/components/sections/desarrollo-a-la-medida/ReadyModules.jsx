@@ -2,27 +2,27 @@ import ImageHover from "../../ui/link-hover";
 
 const MODULE_ITEMS = [
   {
-    imgUrl: "/images/Servicios/software-a-la-medida/Dashboard de clientes.png",
+    imgUrl: "/images/Servicios/software-a-la-medida/Dashboard de clientes.webp",
     title: "Dashboard de Clientes & Contactos",
   },
   {
-    imgUrl: "/images/Servicios/software-a-la-medida/registro de facturas.png",
+    imgUrl: "/images/Servicios/software-a-la-medida/registro de facturas.webp",
     title: "Registro de facturas por compras para premios e incentivos.",
   },
   {
     imgUrl:
-      "/images/Servicios/software-a-la-medida/juegos para realizar sorteos.png",
+      "/images/Servicios/software-a-la-medida/juegos para realizar sorteos.webp",
     title: "Juego para realizar sorteos de campañas.",
   },
   {
     imgUrl:
-      "/images/Servicios/software-a-la-medida/plataforma de gestión de vistas.png",
+      "/images/Servicios/software-a-la-medida/plataforma de gestión de vistas.webp",
     title:
       "Plataforma de gestión de visitas y venta. Red de ventas y comercial.",
   },
   {
     imgUrl:
-      "/images/Servicios/software-a-la-medida/pregunta por nuestras soluciones.png",
+      "/images/Servicios/software-a-la-medida/pregunta por nuestras soluciones.webp",
     title: "Pregunta por nuestras soluciones listas para su uso.",
   },
 ];

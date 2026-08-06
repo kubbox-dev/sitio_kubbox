@@ -1,4 +1,5 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
+import * as m from "motion/react-m";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Play, X } from "lucide-react";
@@ -16,48 +17,48 @@ const fadeUp = {
 const squareData = [
   {
     id: 1,
-    src: "/images/Nosotros/proyectos/armorall.png",
+    src: "/images/Nosotros/proyectos/armorall.webp",
     videoUrl: "/images/Nosotros/proyectos/Videos/armorall.webm",
   },
   {
     id: 2,
-    src: "/images/Nosotros/proyectos/comida-saludable_1.png",
+    src: "/images/Nosotros/proyectos/comida-saludable_1.webp",
     videoUrl: "/images/Nosotros/proyectos/Videos/el de comida saludable.webm",
   },
   {
     id: 3,
-    src: "/images/Nosotros/proyectos/cooper-tires-1.png",
+    src: "/images/Nosotros/proyectos/cooper-tires-1.webp",
     videoUrl: "/images/Nosotros/proyectos/Videos/cooper.webm",
   },
   {
     id: 4,
-    src: "/images/Nosotros/proyectos/kubbox.png",
+    src: "/images/Nosotros/proyectos/kubbox.webp",
     videoUrl: "/images/Nosotros/proyectos/Videos/10 mandamientos -1 (2).webm",
   },
   {
     id: 5,
-    src: "/images/Nosotros/proyectos/duracell_1.png",
+    src: "/images/Nosotros/proyectos/duracell_1.webp",
     videoUrl: "/images/Nosotros/proyectos/Videos/duracell.webm",
   },
   {
     id: 6,
-    src: "/images/Nosotros/proyectos/cooper-tires-2.png",
+    src: "/images/Nosotros/proyectos/cooper-tires-2.webp",
     videoUrl:
       "/images/Nosotros/proyectos/Videos/el otro video de cooper tires.webm",
   },
   {
     id: 7,
-    src: "/images/Nosotros/proyectos/perrito.png",
+    src: "/images/Nosotros/proyectos/perrito.webp",
     videoUrl: "/images/Nosotros/proyectos/Videos/El video del perrito.webm",
   },
   {
     id: 8,
-    src: "/images/Nosotros/proyectos/llantin_1.png",
+    src: "/images/Nosotros/proyectos/llantin_1.webp",
     videoUrl: "/images/Nosotros/proyectos/Videos/video llantin.gif",
   },
   {
     id: 9,
-    src: "/images/Nosotros/proyectos/tiro-de-arrastre.png",
+    src: "/images/Nosotros/proyectos/tiro-de-arrastre.webp",
     videoUrl: "/images/Nosotros/proyectos/Videos/Tiros de arrastre.webm",
   },
 ];
@@ -84,13 +85,13 @@ const isGif = (url) => {
 
 const generateSquares = (onCardClick) =>
   shuffle(squareData).map((sq) => (
-    <motion.div
+    <m.div
       key={sq.id}
       layout
       transition={{ duration: 1.2, type: "spring", bounce: 0.28 }}
       className="group relative aspect-square min-h-[7rem]"
     >
-      <motion.div
+      <m.div
         className="relative h-full w-full cursor-pointer rounded-2xl border-2 border-white/30 bg-cover bg-center bg-no-repeat shadow-xl transition-all"
         style={{ backgroundImage: `url(${sq.src})` }}
         whileHover={{
@@ -107,8 +108,8 @@ const generateSquares = (onCardClick) =>
             Ver video
           </span>
         </div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   ));
 
 const ShuffleBoard = ({ onCardClick }) => {
@@ -195,7 +196,7 @@ export default function TeamWorkSection() {
           }}
         >
           {/* Columna izquierda (texto) */}
-          <motion.div
+          <m.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.24 }}
@@ -303,10 +304,10 @@ export default function TeamWorkSection() {
                 DE TU INVERSIÓN
               </span>
             </p>
-          </motion.div>
+          </m.div>
 
           {/* Columna derecha (grid shuffle) */}
-          <motion.div
+          <m.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.24 }}
@@ -320,21 +321,21 @@ export default function TeamWorkSection() {
             >
               <ShuffleBoard onCardClick={handleCardClick} />
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </div>
 
       {/* Modal de video mejorado - soporte para GIF y videos */}
       <AnimatePresence>
         {selectedVideo && (
-          <motion.div
+          <m.div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeModal}
           >
-            <motion.div
+            <m.div
               className="relative w-full max-w-4xl overflow-hidden rounded-2xl bg-black shadow-2xl"
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
@@ -366,8 +367,8 @@ export default function TeamWorkSection() {
               >
                 <X className="h-6 w-6" />
               </button>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
 

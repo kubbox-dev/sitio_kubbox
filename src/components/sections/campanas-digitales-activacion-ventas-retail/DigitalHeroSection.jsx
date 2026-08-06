@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import * as m from "motion/react-m";
 
 const transparent = "transparent";
 
@@ -81,7 +81,7 @@ export default function DigitalHeroSection({ title }) {
         style={{ minHeight: "clamp(620px, 145vw, 920px)" }}
       >
         <img
-          src="/images/Servicios/campanas-digitales-activacion-ventas-retail/arriba_1.png"
+          src="/images/Servicios/campanas-digitales-activacion-ventas-retail/arriba_1.webp"
           alt=""
           className="
             absolute
@@ -97,7 +97,7 @@ export default function DigitalHeroSection({ title }) {
         />
 
         <img
-          src="/images/Servicios/campanas-digitales-activacion-ventas-retail/Abajo.png"
+          src="/images/Servicios/campanas-digitales-activacion-ventas-retail/Abajo.webp"
           alt=""
           className="
             absolute
@@ -146,7 +146,7 @@ export default function DigitalHeroSection({ title }) {
         "
       >
         <div className="overflow-hidden">
-          <motion.h1
+          <m.h1
             variants={lineReveal(0)}
             initial="hidden"
             animate="visible"
@@ -166,11 +166,11 @@ export default function DigitalHeroSection({ title }) {
             style={NEON_STYLE}
           >
             {line1}
-          </motion.h1>
+          </m.h1>
         </div>
 
         <div className="overflow-hidden mt-1">
-          <motion.h2
+          <m.h2
             variants={lineReveal(0.12)}
             initial="hidden"
             animate="visible"
@@ -191,12 +191,12 @@ export default function DigitalHeroSection({ title }) {
             style={{ color: "var(--c-ink)" }}
           >
             {line2}
-          </motion.h2>
+          </m.h2>
         </div>
 
         {line3 && (
           <div className="overflow-hidden mt-1">
-            <motion.h3
+            <m.h3
               variants={lineReveal(0.24)}
               initial="hidden"
               animate="visible"
@@ -217,7 +217,7 @@ export default function DigitalHeroSection({ title }) {
               style={{ color: "var(--c-ink)" }}
             >
               {line3}
-            </motion.h3>
+            </m.h3>
           </div>
         )}
       </div>

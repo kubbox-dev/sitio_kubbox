@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
+import * as m from "motion/react-m";
 import { X } from "lucide-react";
 
 const WHATSAPP_NUMBER = "573104255766";
@@ -38,7 +39,7 @@ export default function WhatsAppWidget() {
     <div className="fixed bottom-6 right-6 z-50">
       <AnimatePresence>
         {open && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.85, y: 12 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.85, y: 12 }}
@@ -82,11 +83,11 @@ export default function WhatsAppWidget() {
                 Escribir por WhatsApp
               </a>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
-      <motion.button
+      <m.button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
@@ -98,7 +99,7 @@ export default function WhatsAppWidget() {
         <span className="absolute inset-0 -z-10 animate-pulse rounded-full bg-[var(--glow-lime)] blur-md" />
         <AnimatePresence mode="wait" initial={false}>
           {open ? (
-            <motion.span
+            <m.span
               key="close"
               initial={{ opacity: 0, rotate: -45 }}
               animate={{ opacity: 1, rotate: 0 }}
@@ -106,9 +107,9 @@ export default function WhatsAppWidget() {
               transition={{ duration: 0.15 }}
             >
               <X className="h-7 w-7 text-[var(--c-cta-ink)]" />
-            </motion.span>
+            </m.span>
           ) : (
-            <motion.span
+            <m.span
               key="icon"
               initial={{ opacity: 0, rotate: 45 }}
               animate={{ opacity: 1, rotate: 0 }}
@@ -116,10 +117,10 @@ export default function WhatsAppWidget() {
               transition={{ duration: 0.15 }}
             >
               <WhatsAppGlyph className="h-8 w-8 text-[var(--c-cta-ink)]" />
-            </motion.span>
+            </m.span>
           )}
         </AnimatePresence>
-      </motion.button>
+      </m.button>
     </div>
   );
 }
