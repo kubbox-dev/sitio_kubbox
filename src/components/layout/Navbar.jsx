@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, useReducedMotion } from "framer-motion";
 import * as m from "motion/react-m";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 
 const NAV_LINKS = [
   { label: "Experiencia", href: "/", section: "experiencia" },
@@ -16,68 +16,58 @@ const NAV_LINKS = [
   { label: "Contacto", href: "/contacto", section: "contacto" },
 ];
 
-const SERVICES_MENU = [
+/* Los 10 servicios agrupados por categoría — un solo nivel, sin submenús.
+   Reparto 4 / 4 / 2: la tercera columna queda corta a propósito, la
+   asimetría da ritmo y evita el bloque de tres columnas idénticas. */
+const SERVICE_GROUPS = [
   {
-    label: "Servicios",
-    desc: "Soluciones de marketing y desarrollo web",
-    isSubmenu: true,
+    title: "Marketing y Publicidad",
     items: [
+      { label: "Posicionamiento SEO", href: "/servicios/posicionamiento-seo" },
+      { label: "Google Ads y Meta Ads", href: "/servicios/google-ads-meta-ads" },
       {
-        label: "Creación y Desarrollo de Marca",
-        href: "/servicios/creacion-desarrollo-marca",
-        desc: "Construimos marcas que conectan, diferencian y generan confianza",
-      },
-      {
-        label: "Posicionamiento SEO",
-        href: "/servicios/posicionamiento-seo",
-        desc: "Aumentamos la visibilidad de tu empresa en Google",
-      },
-      {
-        label: "Desarrollo de Software a la Medida",
-        href: "/servicios/desarrollo-a-la-medida",
-        desc: "Software personalizado para tu organización",
-      },
-      {
-        label: "Hosting Empresarial y Registro de Dominios",
-        href: "/servicios/hosting-empresarial-registro-dominios",
-        desc: "Infraestructura tecnológica confiable para tu negocio.",
-      },
-      {
-        label: "Desarrollo de Aplicaciones Móviles",
-        href: "/servicios/desarrollo-aplicaciones-moviles",
-        desc: "Apps nativas y multiplataforma para iOS y Android",
-      },
-      {
-        label: "Campañas Digitales para Activación de Ventas en Retail",
+        label: "Campañas Digitales para Retail",
         href: "/servicios/campanas-digitales-activacion-ventas-retail",
-        desc: "Convertimos el interés digital en ventas reales",
-      },
-      {
-        label: "Diseño y Desarrollo de Sitios Web",
-        href: "/servicios/diseno-desarrollo-sitios-web",
-        desc: "Sitios web modernos, rápidos y personalizados",
       },
       {
         label: "Automatización y Campañas por WhatsApp",
         href: "/servicios/automatizacion-campanas-whatsapp",
-        desc: "Automatiza la comunicación con tus clientes",
-      },
-      {
-        label: "Google Ads y Meta Ads",
-        href: "/servicios/google-ads-meta-ads",
-        desc: "Campañas publicitarias enfocadas en resultados",
-      },
-      {
-        label: "Carnés Digitales y Tarjetas de Contacto Inteligentes",
-        href: "/servicios/carnes-digitales-tarjetas-contacto-inteligente",
-        desc: "Modernizamos la presentación empresarial con soluciones digitales",
       },
     ],
   },
   {
-    label: "Nuestros Proyectos",
-    href: "/proyectos",
-    desc: "Casos de éxito y trabajos realizados",
+    title: "Desarrollo y Software",
+    items: [
+      {
+        label: "Diseño y Desarrollo de Sitios Web",
+        href: "/servicios/diseno-desarrollo-sitios-web",
+      },
+      {
+        label: "Desarrollo de Software a la Medida",
+        href: "/servicios/desarrollo-a-la-medida",
+      },
+      {
+        label: "Desarrollo de Aplicaciones Móviles",
+        href: "/servicios/desarrollo-aplicaciones-moviles",
+      },
+      {
+        label: "Hosting Empresarial y Dominios",
+        href: "/servicios/hosting-empresarial-registro-dominios",
+      },
+    ],
+  },
+  {
+    title: "Marca e Identidad",
+    items: [
+      {
+        label: "Creación y Desarrollo de Marca",
+        href: "/servicios/creacion-desarrollo-marca",
+      },
+      {
+        label: "Carnés Digitales y Tarjetas Inteligentes",
+        href: "/servicios/carnes-digitales-tarjetas-contacto-inteligente",
+      },
+    ],
   },
 ];
 
@@ -98,9 +88,19 @@ const PILL_DEFAULT = {
     "0 4px 24px oklch(0.04 0.02 260 / 0.45), 0 1px 0 oklch(0.28 0.018 260 / 0.10) inset",
 };
 
+/* Hairline lima que corona el panel — firma de marca, se conserva */
+const LIME_HAIRLINE =
+  "linear-gradient(to right, transparent 5%, var(--c-lime) 40%, var(--c-lime) 60%, transparent 95%)";
+
+/* Subrayado degradado bajo cada encabezado de categoría */
+const CATEGORY_RULE =
+  "linear-gradient(to right, oklch(0.88 0.26 130 / 0.45), oklch(0.88 0.26 130 / 0.07) 72%, transparent)";
+
 export default function Navbar() {
   const location = useLocation();
   const pathname = location.pathname || "/";
+  const reduceMotion = useReducedMotion();
+
   let CURRENT_PAGE = "experiencia";
   if (pathname === "/contacto") CURRENT_PAGE = "contacto";
   else if (
@@ -116,11 +116,13 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [svcExpanded, setSvcExpanded] = useState(false);
-  const [subDropdownOpen, setSubDropdownOpen] = useState(false);
-  const [subSvcExpanded, setSubSvcExpanded] = useState(false);
   const lastScrollY = useRef(0);
   const dropdownTimer = useRef(null);
-  const subDropdownTimer = useRef(null);
+  const servicesTriggerRef = useRef(null);
+  const megaPanelRef = useRef(null);
+  /* Escape devuelve el foco al disparador, y ese focus() volvería a abrir
+     el panel. Esta ventana corta ignora ese reenfoque sin bloquear el hover. */
+  const reopenGuard = useRef(0);
 
   /* ── Scroll ── */
   useEffect(() => {
@@ -150,7 +152,6 @@ export default function Navbar() {
       if (window.innerWidth >= 768) {
         setMenuOpen(false);
         setSvcExpanded(false);
-        setSubSvcExpanded(false);
       }
     };
     window.addEventListener("resize", onResize);
@@ -163,19 +164,45 @@ export default function Navbar() {
     setDropdownOpen(true);
   };
   const closeDropdown = () => {
-    dropdownTimer.current = setTimeout(() => {
-      setDropdownOpen(false);
-      setSubDropdownOpen(false);
-    }, 150);
+    dropdownTimer.current = setTimeout(() => setDropdownOpen(false), 150);
+  };
+  const closeDropdownNow = () => {
+    clearTimeout(dropdownTimer.current);
+    setDropdownOpen(false);
   };
 
-  const openSubDropdown = () => {
-    clearTimeout(dropdownTimer.current);
-    clearTimeout(subDropdownTimer.current);
-    setSubDropdownOpen(true);
+  /* Solo abre por foco si el foco llegó por teclado, no por el reenfoque
+     que dispara Escape al cerrar. */
+  const openDropdownFromFocus = () => {
+    if (Date.now() < reopenGuard.current) return;
+    openDropdown();
   };
-  const closeSubDropdown = () => {
-    subDropdownTimer.current = setTimeout(() => setSubDropdownOpen(false), 150);
+
+  /* ── Escape cierra el panel; devuelve el foco al disparador solo si el
+       foco estaba dentro del panel (si se abrió con el mouse, no lo roba) ── */
+  useEffect(() => {
+    if (!dropdownOpen) return;
+    const onKeyDown = (e) => {
+      if (e.key !== "Escape") return;
+      const focusWasInside = megaPanelRef.current?.contains(
+        document.activeElement,
+      );
+      reopenGuard.current = Date.now() + 400;
+      closeDropdownNow();
+      if (focusWasInside) servicesTriggerRef.current?.focus();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [dropdownOpen]);
+
+  /* ── Si el foco sale de la píldora por completo, cierra ── */
+  const handlePillBlur = (e) => {
+    if (!e.currentTarget.contains(e.relatedTarget)) closeDropdownNow();
+  };
+
+  const closeMobileMenu = () => {
+    setMenuOpen(false);
+    setSvcExpanded(false);
   };
 
   const pillStyle = {
@@ -236,20 +263,29 @@ export default function Navbar() {
         <div
           className="hidden md:flex items-center rounded-full relative"
           style={pillStyle}
+          onBlur={handlePillBlur}
         >
           <PillDecorations scrollProgress={scrollProgress} />
 
           {/* Links */}
           {NAV_LINKS.map((link) =>
             link.dropdown ? (
+              /* Wrapper sin `position` propio: el panel se ancla contra la
+                 píldora (que sí es relative) y queda centrado en pantalla,
+                 pero en el DOM va justo tras su disparador para que el
+                 orden de tabulación sea el natural. */
               <div
                 key={link.section}
-                className="relative"
                 onMouseEnter={openDropdown}
                 onMouseLeave={closeDropdown}
               >
                 <Link
+                  ref={servicesTriggerRef}
                   to={link.href}
+                  aria-haspopup="true"
+                  aria-expanded={dropdownOpen}
+                  aria-controls="mega-servicios"
+                  onFocus={openDropdownFromFocus}
                   className="group relative rounded-full no-underline flex items-center gap-1"
                   style={{
                     padding: "0.48rem 1.1rem",
@@ -343,6 +379,7 @@ export default function Navbar() {
                   {link.label}
                   <ChevronDown
                     size={11}
+                    aria-hidden="true"
                     style={{
                       opacity: 0.55,
                       flexShrink: 0,
@@ -354,248 +391,155 @@ export default function Navbar() {
                   />
                 </Link>
 
+                {/* ── Puente invisible: deja viajar el mouse del disparador
+                       al panel sin cruzar una zona muerta ── */}
+                {dropdownOpen && (
+                  <div
+                    aria-hidden="true"
+                    className="absolute left-0 right-0 top-full h-4"
+                  />
+                )}
+
+                {/* ══════════ MEGA MENÚ ══════════ */}
                 <AnimatePresence>
                   {dropdownOpen && (
                     <m.div
-                      key="dropdown"
-                      initial={{ opacity: 0, x: "-50%", y: -6, scale: 0.97 }}
-                      animate={{ opacity: 1, x: "-50%", y: 0, scale: 1 }}
-                      exit={{ opacity: 0, x: "-50%", y: -4, scale: 0.98 }}
-                      transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                      key="mega-servicios"
+                      id="mega-servicios"
+                      initial={
+                        reduceMotion
+                          ? { opacity: 0, x: "-50%" }
+                          : { opacity: 0, x: "-50%", y: -8, scale: 0.98 }
+                      }
+                      animate={
+                        reduceMotion
+                          ? { opacity: 1, x: "-50%" }
+                          : { opacity: 1, x: "-50%", y: 0, scale: 1 }
+                      }
+                      exit={
+                        reduceMotion
+                          ? { opacity: 0, x: "-50%" }
+                          : { opacity: 0, x: "-50%", y: -6, scale: 0.985 }
+                      }
+                      transition={{
+                        duration: reduceMotion ? 0.15 : 0.22,
+                        ease: [0.16, 1, 0.3, 1],
+                      }}
                       onMouseEnter={openDropdown}
                       onMouseLeave={closeDropdown}
-                      style={{
-                        position: "absolute",
-                        top: "calc(100% + 0.85rem)",
-                        left: "50%",
-                        minWidth: "270px",
-                        background: "oklch(0.10 0.026 260 / 0.98)",
-                        border: "1px solid oklch(0.22 0.020 260)",
-                        borderRadius: "1rem",
-                        backdropFilter: "blur(24px)",
-                        zIndex: 100,
-                      }}
+                      ref={megaPanelRef}
+                      /* Fondo opaco a propósito: con alfa 0.98 el titular
+                         lima del hero se fantasmeaba a través del panel. */
+                      className="absolute left-1/2 top-full mt-3 overflow-hidden rounded-[1.15rem] border border-[oklch(0.22_0.020_260)] bg-[oklch(0.105_0.026_260)] shadow-[0_24px_64px_oklch(0.03_0.02_260_/_0.7)] w-[min(920px,calc(100vw-2.5rem))] z-[60] [transform-origin:top_center]"
                     >
                       <div
-                        style={{
-                          height: "2px",
-                          background:
-                            "linear-gradient(to right, transparent 5%, var(--c-lime) 40%, var(--c-lime) 60%, transparent 95%)",
-                          opacity: 0.65,
-                        }}
+                        aria-hidden="true"
+                        className="h-[2px] opacity-65"
+                        style={{ background: LIME_HAIRLINE }}
                       />
-                      <div style={{ padding: "0.4rem" }}>
-                        {SERVICES_MENU.map((svc, i) => {
-                          if (svc.isSubmenu) {
-                            return (
-                              <div
-                                key={svc.label}
-                                className="relative"
-                                onMouseEnter={openSubDropdown}
-                                onMouseLeave={closeSubDropdown}
-                              >
-                                <div
-                                  className="flex items-center justify-between rounded-lg no-underline cursor-pointer"
-                                  style={{
-                                    padding: "0.55rem 0.75rem",
-                                    transition: "background 0.15s ease",
-                                  }}
-                                  onMouseEnter={(e) => {
-                                    e.currentTarget.style.background =
-                                      "oklch(0.16 0.024 260 / 0.8)";
-                                  }}
-                                  onMouseLeave={(e) => {
-                                    e.currentTarget.style.background =
-                                      "transparent";
-                                  }}
-                                >
-                                  <div className="flex flex-col">
-                                    <span
-                                      style={{
-                                        fontFamily: "var(--font-display)",
-                                        fontWeight: 700,
-                                        fontSize: "0.82rem",
-                                        textTransform: "uppercase",
-                                        letterSpacing: "0.05em",
-                                        color: "var(--c-ink)",
-                                      }}
-                                    >
-                                      {svc.label}
-                                    </span>
-                                    <span
-                                      style={{
-                                        fontFamily: "var(--font-body)",
-                                        fontSize: "0.71rem",
-                                        color: "oklch(0.46 0.014 260)",
-                                        marginTop: "0.1rem",
-                                      }}
-                                    >
-                                      {svc.desc}
-                                    </span>
-                                  </div>
-                                  <ChevronRight
-                                    size={13}
-                                    style={{
-                                      color: "oklch(0.46 0.014 260)",
-                                      opacity: 0.8,
-                                      marginLeft: "0.5rem",
-                                    }}
-                                  />
-                                </div>
 
-                                <AnimatePresence>
-                                  {subDropdownOpen && (
-                                    <m.div
-                                      initial={{
-                                        opacity: 0,
-                                        x: 8,
-                                        scale: 0.97,
-                                      }}
-                                      animate={{ opacity: 1, x: 0, scale: 1 }}
-                                      exit={{ opacity: 0, x: 6, scale: 0.98 }}
-                                      transition={{
-                                        duration: 0.2,
-                                        ease: [0.16, 1, 0.3, 1],
-                                      }}
-                                      onMouseEnter={openSubDropdown}
-                                      onMouseLeave={closeSubDropdown}
-                                      data-lenis-prevent
-                                      style={{
-                                        position: "absolute",
-                                        top: 0,
-                                        left: "100%",
-                                        minWidth: "250px",
-                                        maxHeight: "400px",
-                                        overflowY: "auto",
-                                        background:
-                                          "oklch(0.10 0.026 260 / 0.98)",
-                                        border:
-                                          "1px solid oklch(0.22 0.020 260)",
-                                        borderRadius: "1rem",
-                                        backdropFilter: "blur(24px)",
-                                        padding: "0.4rem",
-                                        zIndex: 110,
-                                        boxShadow:
-                                          "0 8px 32px oklch(0.04 0.02 260 / 0.5)",
-                                        scrollbarWidth: "thin",
-                                        scrollbarColor:
-                                          "oklch(0.88 0.26 130 / 0.3) transparent",
-                                        pointerEvents: "auto",
-                                        overscrollBehavior: "contain",
-                                      }}
-                                      className="custom-scrollbar-sub"
-                                    >
-                                      {svc.items.map((subSvc) => (
-                                        <Link
-                                          key={subSvc.label}
-                                          to={subSvc.href}
-                                          onClick={() => {
-                                            setDropdownOpen(false);
-                                            setSubDropdownOpen(false);
-                                          }}
-                                          className="flex flex-col rounded-lg no-underline"
-                                          style={{
-                                            padding: "0.55rem 0.75rem",
-                                            transition: "background 0.15s ease",
-                                            cursor: "pointer",
-                                          }}
-                                          onMouseEnter={(e) => {
-                                            e.currentTarget.style.background =
-                                              "oklch(0.16 0.024 260 / 0.8)";
-                                          }}
-                                          onMouseLeave={(e) => {
-                                            e.currentTarget.style.background =
-                                              "transparent";
-                                          }}
-                                        >
-                                          <span
-                                            style={{
-                                              fontFamily: "var(--font-display)",
-                                              fontWeight: 700,
-                                              fontSize: "0.82rem",
-                                              textTransform: "uppercase",
-                                              letterSpacing: "0.05em",
-                                              color: "var(--c-ink)",
-                                            }}
-                                          >
-                                            {subSvc.label}
-                                          </span>
-                                          <span
-                                            style={{
-                                              fontFamily: "var(--font-body)",
-                                              fontSize: "0.71rem",
-                                              color: "oklch(0.46 0.014 260)",
-                                              marginTop: "0.1rem",
-                                            }}
-                                          >
-                                            {subSvc.desc}
-                                          </span>
-                                        </Link>
-                                      ))}
-                                    </m.div>
-                                  )}
-                                </AnimatePresence>
-                              </div>
-                            );
-                          }
+                      {/* Columnas de categorías */}
+                      <div className="grid [grid-template-columns:repeat(auto-fit,minmax(220px,1fr))] gap-x-[clamp(1rem,2.5vw,2.25rem)] gap-y-7 px-7 pt-6 pb-5">
+                        {SERVICE_GROUPS.map((group, gi) => (
+                          <m.div
+                            key={group.title}
+                            initial={
+                              reduceMotion
+                                ? { opacity: 0 }
+                                : { opacity: 0, y: 6 }
+                            }
+                            animate={
+                              reduceMotion
+                                ? { opacity: 1 }
+                                : { opacity: 1, y: 0 }
+                            }
+                            transition={{
+                              delay: reduceMotion ? 0 : 0.05 + gi * 0.04,
+                              duration: 0.28,
+                              ease: [0.16, 1, 0.3, 1],
+                            }}
+                          >
+                            <h3 className="m-0 text-[0.66rem] font-bold uppercase tracking-[0.16em] text-[var(--c-lime)] [font-family:var(--font-display)]">
+                              {group.title}
+                            </h3>
+                            <div
+                              aria-hidden="true"
+                              className="mt-[0.45rem] mb-[0.35rem] h-px"
+                              style={{ background: CATEGORY_RULE }}
+                            />
+                            <ul className="m-0 list-none p-0">
+                              {group.items.map((item) => (
+                                <li key={item.href}>
+                                  <Link
+                                    to={item.href}
+                                    onClick={closeDropdownNow}
+                                    className="block rounded-lg px-3 py-[0.55rem] text-[0.875rem] font-medium leading-snug no-underline [font-family:var(--font-body)] text-[oklch(0.78_0.010_260)] transition-colors duration-150 hover:bg-[oklch(0.17_0.026_260)] hover:text-[var(--c-lime)] focus-visible:bg-[oklch(0.17_0.026_260)] focus-visible:text-[var(--c-lime)] focus-visible:outline-none"
+                                  >
+                                    {item.label}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </m.div>
+                        ))}
+                      </div>
 
-                          const SvcComp = svc.href ? Link : "a";
-                          const svcNavProps = svc.href
-                            ? {
-                                to: svc.href,
-                                onClick: () => setDropdownOpen(false),
-                              }
-                            : { onClick: (e) => e.preventDefault() };
-                          return (
-                            <m.div
-                              key={svc.label}
-                              initial={{ opacity: 0, x: -6 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: i * 0.04, duration: 0.25 }}
+                      {/* Barra inferior — dos accesos con peso de CTA, no
+                          texto de pie de página. Asimétrica a propósito:
+                          Proyectos lleva el acento lima porque es el destino
+                          que más vende (principio "conversión primero"). */}
+                      <div className="grid grid-cols-2 gap-3 border-t border-[oklch(0.19_0.018_260)] bg-[oklch(0.075_0.024_260)] p-4">
+                        <Link
+                          to="/servicios"
+                          onClick={closeDropdownNow}
+                          className="group/f flex items-center gap-3 rounded-xl border border-[oklch(0.27_0.022_260)] bg-[oklch(0.14_0.028_260)] px-4 py-3 no-underline transition-colors duration-150 hover:border-[oklch(0.42_0.060_130)] hover:bg-[oklch(0.16_0.030_260)] focus-visible:border-[oklch(0.55_0.120_130)] focus-visible:outline-none"
+                        >
+                          <span
+                            aria-hidden="true"
+                            className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[oklch(0.22_0.026_260)] text-[oklch(0.80_0.010_260)] transition-colors duration-150 group-hover/f:bg-[var(--c-lime)] group-hover/f:text-[var(--c-cta-ink)]"
+                          >
+                            <span
+                              aria-hidden="true"
+                              className="inline-block transition-transform duration-200 group-hover/f:translate-x-0.5"
                             >
-                              <SvcComp
-                                {...svcNavProps}
-                                className="flex flex-col rounded-lg no-underline"
-                                style={{
-                                  padding: "0.55rem 0.75rem",
-                                  transition: "background 0.15s ease",
-                                  cursor: "pointer",
-                                }}
-                                onMouseEnter={(e) => {
-                                  e.currentTarget.style.background =
-                                    "oklch(0.16 0.024 260 / 0.8)";
-                                }}
-                                onMouseLeave={(e) => {
-                                  e.currentTarget.style.background =
-                                    "transparent";
-                                }}
-                              >
-                                <span
-                                  style={{
-                                    fontFamily: "var(--font-display)",
-                                    fontWeight: 700,
-                                    fontSize: "0.82rem",
-                                    textTransform: "uppercase",
-                                    letterSpacing: "0.05em",
-                                    color: "var(--c-ink)",
-                                  }}
-                                >
-                                  {svc.label}
-                                </span>
-                                <span
-                                  style={{
-                                    fontFamily: "var(--font-body)",
-                                    fontSize: "0.71rem",
-                                    color: "oklch(0.46 0.014 260)",
-                                    marginTop: "0.1rem",
-                                  }}
-                                >
-                                  {svc.desc}
-                                </span>
-                              </SvcComp>
-                            </m.div>
-                          );
-                        })}
+                              →
+                            </span>
+                          </span>
+                          <span className="flex flex-col leading-tight">
+                            <span className="text-[0.92rem] font-semibold [font-family:var(--font-body)] text-[var(--c-ink)]">
+                              Ver todos los servicios
+                            </span>
+                            <span className="mt-[0.1rem] text-[0.72rem] [font-family:var(--font-body)] text-[oklch(0.62_0.016_260)]">
+                              Las 10 soluciones completas
+                            </span>
+                          </span>
+                        </Link>
+
+                        <Link
+                          to="/proyectos"
+                          onClick={closeDropdownNow}
+                          className="group/p flex items-center gap-3 rounded-xl border border-[oklch(0.40_0.090_130)] bg-[oklch(0.155_0.034_150)] px-4 py-3 no-underline transition-colors duration-150 hover:border-[oklch(0.60_0.150_130)] hover:bg-[oklch(0.185_0.040_150)] focus-visible:border-[oklch(0.70_0.180_130)] focus-visible:outline-none"
+                        >
+                          <span
+                            aria-hidden="true"
+                            className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--c-lime)] text-[var(--c-cta-ink)] shadow-[0_0_12px_var(--glow-lime)]"
+                          >
+                            <span
+                              aria-hidden="true"
+                              className="inline-block transition-transform duration-200 group-hover/p:translate-x-0.5"
+                            >
+                              →
+                            </span>
+                          </span>
+                          <span className="flex flex-col leading-tight">
+                            <span className="text-[0.92rem] font-semibold [font-family:var(--font-body)] text-[var(--c-ink)]">
+                              Nuestros Proyectos
+                            </span>
+                            <span className="mt-[0.1rem] text-[0.72rem] [font-family:var(--font-body)] text-[oklch(0.75_0.130_130)]">
+                              Casos de éxito reales
+                            </span>
+                          </span>
+                        </Link>
                       </div>
                     </m.div>
                   )}
@@ -772,11 +716,7 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
-              onClick={() => {
-                setMenuOpen(false);
-                setSvcExpanded(false);
-                setSubSvcExpanded(false);
-              }}
+              onClick={closeMobileMenu}
               className="fixed inset-0 md:hidden"
               style={{
                 zIndex: 40,
@@ -800,13 +740,17 @@ export default function Navbar() {
                 background: "oklch(0.10 0.026 260 / 0.98)",
                 border: "1px solid oklch(0.22 0.020 260)",
                 backdropFilter: "blur(24px)",
+                maxHeight: "calc(100dvh - 6.5rem)",
+                overflowY: "auto",
+                overscrollBehavior: "contain",
               }}
+              data-lenis-prevent
             >
               <div
+                aria-hidden="true"
                 style={{
                   height: "2px",
-                  background:
-                    "linear-gradient(to right, transparent 5%, var(--c-lime) 40%, var(--c-lime) 60%, transparent 95%)",
+                  background: LIME_HAIRLINE,
                   opacity: 0.7,
                 }}
               />
@@ -826,6 +770,7 @@ export default function Navbar() {
                     >
                       <button
                         onClick={() => setSvcExpanded((v) => !v)}
+                        aria-expanded={svcExpanded}
                         className="flex items-center justify-between w-full border-none cursor-pointer"
                         style={{
                           padding: "1.1rem 0",
@@ -873,6 +818,7 @@ export default function Navbar() {
                         </m.span>
                       </button>
 
+                      {/* Un solo nivel: categorías + servicios, sin submenú */}
                       <AnimatePresence>
                         {svcExpanded && (
                           <m.div
@@ -885,219 +831,53 @@ export default function Navbar() {
                             }}
                             style={{ overflow: "hidden" }}
                           >
-                            <div
-                              style={{
-                                padding: "0.5rem 0 0.75rem 1rem",
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: "0.1rem",
-                              }}
-                            >
-                              {SERVICES_MENU.map((svc, si) => {
-                                if (svc.isSubmenu) {
-                                  return (
-                                    <div
-                                      key={svc.label}
-                                      style={{
-                                        display: "flex",
-                                        flexDirection: "column",
-                                      }}
-                                    >
-                                      <button
-                                        onClick={() =>
-                                          setSubSvcExpanded((v) => !v)
-                                        }
-                                        className="flex items-center justify-between w-full border-none cursor-pointer"
-                                        style={{
-                                          padding: "0.6rem 0.5rem",
-                                          background: "transparent",
-                                          textAlign: "left",
-                                        }}
+                            <div className="flex flex-col gap-5 pt-4 pb-3 pl-1">
+                              {SERVICE_GROUPS.map((group) => (
+                                <div key={group.title}>
+                                  <h3 className="m-0 mb-[0.4rem] text-[0.63rem] font-bold uppercase tracking-[0.16em] text-[var(--c-lime)] [font-family:var(--font-display)]">
+                                    {group.title}
+                                  </h3>
+                                  <div
+                                    aria-hidden="true"
+                                    className="mb-[0.3rem] h-px"
+                                    style={{ background: CATEGORY_RULE }}
+                                  />
+                                  <div className="flex flex-col">
+                                    {group.items.map((item) => (
+                                      <Link
+                                        key={item.href}
+                                        to={item.href}
+                                        onClick={closeMobileMenu}
+                                        className="rounded-lg px-2 py-[0.55rem] text-[0.9rem] font-medium leading-snug no-underline [font-family:var(--font-body)] text-[oklch(0.78_0.010_260)] transition-colors duration-150 active:bg-[oklch(0.17_0.026_260)] active:text-[var(--c-lime)]"
                                       >
-                                        <div className="flex items-center gap-2">
-                                          <span
-                                            style={{
-                                              width: "4px",
-                                              height: "4px",
-                                              borderRadius: "50%",
-                                              background: "var(--c-lime)",
-                                              flexShrink: 0,
-                                              boxShadow:
-                                                "0 0 5px var(--c-lime)",
-                                            }}
-                                          />
-                                          <span
-                                            style={{
-                                              fontFamily: "var(--font-body)",
-                                              fontSize: "0.9rem",
-                                              fontWeight: 500,
-                                              color: "oklch(0.72 0.010 260)",
-                                            }}
-                                          >
-                                            {svc.label}
-                                          </span>
-                                        </div>
-                                        <m.span
-                                          animate={{
-                                            rotate: subSvcExpanded ? 180 : 0,
-                                          }}
-                                          transition={{ duration: 0.25 }}
-                                          style={{
-                                            color: subSvcExpanded
-                                              ? "var(--c-lime)"
-                                              : "oklch(0.30 0.016 260)",
-                                            display: "flex",
-                                          }}
-                                        >
-                                          <ChevronDown size={14} />
-                                        </m.span>
-                                      </button>
+                                        {item.label}
+                                      </Link>
+                                    ))}
+                                  </div>
+                                </div>
+                              ))}
 
-                                      <AnimatePresence>
-                                        {subSvcExpanded && (
-                                          <m.div
-                                            initial={{ height: 0, opacity: 0 }}
-                                            animate={{
-                                              height: "auto",
-                                              opacity: 1,
-                                            }}
-                                            exit={{ height: 0, opacity: 0 }}
-                                            transition={{
-                                              duration: 0.28,
-                                              ease: [0.16, 1, 0.3, 1],
-                                            }}
-                                            style={{ overflow: "hidden" }}
-                                          >
-                                            <div
-                                              style={{
-                                                padding:
-                                                  "0.2rem 0 0.5rem 1.5rem",
-                                                display: "flex",
-                                                flexDirection: "column",
-                                                gap: "0.1rem",
-                                              }}
-                                            >
-                                              {svc.items.map((subSvc) => (
-                                                <Link
-                                                  key={subSvc.label}
-                                                  to={subSvc.href}
-                                                  onClick={() => {
-                                                    setMenuOpen(false);
-                                                    setSvcExpanded(false);
-                                                    setSubSvcExpanded(false);
-                                                  }}
-                                                  className="flex items-center gap-2 no-underline rounded-lg"
-                                                  style={{
-                                                    padding: "0.45rem 0.5rem",
-                                                    transition:
-                                                      "background 0.15s ease",
-                                                  }}
-                                                  onMouseEnter={(e) =>
-                                                    (e.currentTarget.style.background =
-                                                      "oklch(0.16 0.024 260 / 0.7)")
-                                                  }
-                                                  onMouseLeave={(e) =>
-                                                    (e.currentTarget.style.background =
-                                                      "transparent")
-                                                  }
-                                                >
-                                                  <span
-                                                    style={{
-                                                      width: "3px",
-                                                      height: "3px",
-                                                      borderRadius: "50%",
-                                                      background:
-                                                        "var(--c-lime)",
-                                                      flexShrink: 0,
-                                                    }}
-                                                  />
-                                                  <span
-                                                    style={{
-                                                      fontFamily:
-                                                        "var(--font-body)",
-                                                      fontSize: "0.85rem",
-                                                      fontWeight: 500,
-                                                      color:
-                                                        "oklch(0.60 0.010 260)",
-                                                    }}
-                                                  >
-                                                    {subSvc.label}
-                                                  </span>
-                                                </Link>
-                                              ))}
-                                            </div>
-                                          </m.div>
-                                        )}
-                                      </AnimatePresence>
-                                    </div>
-                                  );
-                                }
-
-                                const SvcMobComp = svc.href ? Link : "a";
-                                const svcMobNavProps = svc.href
-                                  ? {
-                                      to: svc.href,
-                                      onClick: () => {
-                                        setMenuOpen(false);
-                                        setSvcExpanded(false);
-                                      },
-                                    }
-                                  : {
-                                      onClick: (e) => {
-                                        e.preventDefault();
-                                        setMenuOpen(false);
-                                      },
-                                    };
-                                return (
-                                  <m.div
-                                    key={svc.label}
-                                    initial={{ opacity: 0, x: -10 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{
-                                      delay: si * 0.05,
-                                      duration: 0.25,
-                                    }}
-                                  >
-                                    <SvcMobComp
-                                      {...svcMobNavProps}
-                                      className="flex items-center gap-2 no-underline rounded-lg"
-                                      style={{
-                                        padding: "0.45rem 0.5rem",
-                                        transition: "background 0.15s ease",
-                                      }}
-                                      onMouseEnter={(e) =>
-                                        (e.currentTarget.style.background =
-                                          "oklch(0.16 0.024 260 / 0.7)")
-                                      }
-                                      onMouseLeave={(e) =>
-                                        (e.currentTarget.style.background =
-                                          "transparent")
-                                      }
-                                    >
-                                      <span
-                                        style={{
-                                          width: "4px",
-                                          height: "4px",
-                                          borderRadius: "50%",
-                                          background: "var(--c-lime)",
-                                          flexShrink: 0,
-                                          boxShadow: "0 0 5px var(--c-lime)",
-                                        }}
-                                      />
-                                      <span
-                                        style={{
-                                          fontFamily: "var(--font-body)",
-                                          fontSize: "0.9rem",
-                                          fontWeight: 500,
-                                          color: "oklch(0.72 0.010 260)",
-                                        }}
-                                      >
-                                        {svc.label}
-                                      </span>
-                                    </SvcMobComp>
-                                  </m.div>
-                                );
-                              })}
+                              <Link
+                                to="/proyectos"
+                                onClick={closeMobileMenu}
+                                className="flex items-center justify-between gap-3 rounded-lg border-t border-[oklch(0.20_0.018_260)] px-2 pt-4 pb-1 no-underline"
+                              >
+                                <span className="flex items-center gap-2">
+                                  <span
+                                    aria-hidden="true"
+                                    className="inline-block h-[5px] w-[5px] flex-shrink-0 rounded-full bg-[var(--c-lime)] shadow-[0_0_6px_var(--c-lime)]"
+                                  />
+                                  <span className="text-[0.9rem] font-semibold [font-family:var(--font-body)] text-[oklch(0.82_0.010_260)]">
+                                    Nuestros Proyectos
+                                  </span>
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                  className="text-[oklch(0.45_0.016_260)]"
+                                >
+                                  →
+                                </span>
+                              </Link>
                             </div>
                           </m.div>
                         )}
@@ -1246,28 +1026,4 @@ function PillDecorations({ scrollProgress }) {
       />
     </div>
   );
-}
-
-/* ── Estilos para scrollbar ─────────────────────────────── */
-const subScrollStyles = `
-  .custom-scrollbar-sub::-webkit-scrollbar {
-    width: 4px;
-  }
-  .custom-scrollbar-sub::-webkit-scrollbar-track {
-    background: transparent;
-    border-radius: 4px;
-  }
-  .custom-scrollbar-sub::-webkit-scrollbar-thumb {
-    background: oklch(0.88 0.26 130 / 0.3);
-    border-radius: 4px;
-  }
-  .custom-scrollbar-sub::-webkit-scrollbar-thumb:hover {
-    background: oklch(0.88 0.26 130 / 0.5);
-  }
-`;
-
-if (typeof document !== "undefined") {
-  const styleSheet = document.createElement("style");
-  styleSheet.textContent = subScrollStyles;
-  document.head.appendChild(styleSheet);
 }
