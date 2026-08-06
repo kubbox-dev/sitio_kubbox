@@ -12,10 +12,10 @@ function cn(...classes) {
 const PROJECTS = [
   {
     id: 1,
-    title: "Kellogg's",
-    description: "Campaña retail con presencia en Centroamérica",
-    imageSrc:
-      "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=600&h=400&fit=crop",
+    title: "Kubbox",
+    description:
+      "Agencia de BRANDING, desarrollo web, poscionamiento y marketing predictivo",
+    imageSrc: "/images/NUESTROS PROYECTOS/Fotos-Proyectos/Imagen-1.sasxpng.png",
   },
   {
     id: 2,
