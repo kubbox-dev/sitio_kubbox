@@ -2,7 +2,7 @@ import { AnimatePresence } from "framer-motion";
 import * as m from "motion/react-m";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Play, X } from "lucide-react";
+import { Play, X, Pause, Volume2, VolumeX, Maximize } from "lucide-react";
 import Button from "../../ui/Button";
 
 const fadeUp = {
@@ -78,7 +78,6 @@ const shuffle = (array) => {
   return copy;
 };
 
-// Función para detectar si la URL es un GIF
 const isGif = (url) => {
   return url && url.toLowerCase().includes(".gif");
 };
@@ -157,6 +156,196 @@ const ShuffleBoard = ({ onCardClick }) => {
   );
 };
 
+// ===== COMPONENTE DE VIDEO PLAYER PERSONALIZADO =====
+const VideoPlayer = ({ videoUrl, onClose }) => {
+  const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [isMuted, setIsMuted] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const updateProgress = () => {
+      if (video.duration) {
+        setProgress((video.currentTime / video.duration) * 100);
+      }
+    };
+
+    const updateDuration = () => {
+      setDuration(video.duration);
+    };
+
+    video.addEventListener("timeupdate", updateProgress);
+    video.addEventListener("loadedmetadata", updateDuration);
+
+    return () => {
+      video.removeEventListener("timeupdate", updateProgress);
+      video.removeEventListener("loadedmetadata", updateDuration);
+    };
+  }, []);
+
+  const togglePlay = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (isPlaying) {
+      video.pause();
+    } else {
+      video.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleProgressClick = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const video = videoRef.current;
+    if (video && video.duration) {
+      video.currentTime = x * video.duration;
+    }
+  };
+
+  const toggleMute = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = !video.muted;
+    setIsMuted(!isMuted);
+  };
+
+  const toggleFullscreen = () => {
+    const container = document.querySelector(".video-modal-content");
+    if (!container) return;
+    if (!document.fullscreenElement) {
+      container.requestFullscreen();
+      setIsFullscreen(true);
+    } else {
+      document.exitFullscreen();
+      setIsFullscreen(false);
+    }
+  };
+
+  const formatTime = (seconds) => {
+    if (!seconds || isNaN(seconds)) return "0:00";
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
+  };
+
+  return (
+    <m.div
+      className="video-modal-content relative w-full max-w-4xl overflow-hidden rounded-2xl bg-black shadow-2xl"
+      initial={{ scale: 0.9, y: 20 }}
+      animate={{ scale: 1, y: 0 }}
+      exit={{ scale: 0.9, y: 20 }}
+      onClick={(e) => e.stopPropagation()}
+    >
+      {isGif(videoUrl) ? (
+        <div className="aspect-video w-full bg-black flex items-center justify-center">
+          <img
+            src={videoUrl}
+            alt="Video del proyecto"
+            className="max-h-full max-w-full object-contain"
+          />
+        </div>
+      ) : (
+        <div className="relative aspect-video w-full bg-black">
+          <video
+            ref={videoRef}
+            src={videoUrl}
+            className="h-full w-full"
+            autoPlay
+            playsInline
+            onClick={togglePlay}
+          />
+
+          {/* Overlay de play/pausa centrado */}
+          <button
+            onClick={togglePlay}
+            className="absolute inset-0 flex items-center justify-center bg-black/20 transition-opacity hover:bg-black/40 group"
+          >
+            {!isPlaying && (
+              <div className="rounded-full bg-[var(--c-lime)]/20 p-4 backdrop-blur-sm transition-transform group-hover:scale-110">
+                <Play className="h-12 w-12 text-white drop-shadow-lg md:h-16 md:w-16" />
+              </div>
+            )}
+          </button>
+
+          {/* Controles personalizados */}
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-3 pt-8 md:p-4 md:pt-12">
+            {/* Barra de progreso */}
+            <div
+              className="group relative mb-2 h-1 cursor-pointer rounded-full bg-white/30 hover:h-1.5 transition-all"
+              onClick={handleProgressClick}
+            >
+              <div
+                className="h-full rounded-full bg-[var(--c-lime)] transition-all"
+                style={{ width: `${progress}%` }}
+              />
+              <div
+                className="absolute top-1/2 -translate-y-1/2 h-3 w-3 rounded-full bg-[var(--c-lime)] opacity-0 shadow-lg group-hover:opacity-100 transition-opacity"
+                style={{ left: `calc(${progress}% - 6px)` }}
+              />
+            </div>
+
+            {/* Botones de control */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 md:gap-4">
+                <button
+                  onClick={togglePlay}
+                  className="text-white transition hover:text-[var(--c-lime)]"
+                >
+                  {isPlaying ? (
+                    <Pause className="h-4 w-4 md:h-5 md:w-5" />
+                  ) : (
+                    <Play className="h-4 w-4 md:h-5 md:w-5" />
+                  )}
+                </button>
+
+                <div className="flex items-center gap-1 text-xs text-white/70 md:text-sm">
+                  <span>{formatTime(videoRef.current?.currentTime || 0)}</span>
+                  <span>/</span>
+                  <span>{formatTime(duration)}</span>
+                </div>
+
+                <button
+                  onClick={toggleMute}
+                  className="text-white transition hover:text-[var(--c-lime)]"
+                >
+                  {isMuted ? (
+                    <VolumeX className="h-4 w-4 md:h-5 md:w-5" />
+                  ) : (
+                    <Volume2 className="h-4 w-4 md:h-5 md:w-5" />
+                  )}
+                </button>
+              </div>
+
+              <div className="flex items-center gap-2 md:gap-4">
+                <button
+                  onClick={toggleFullscreen}
+                  className="text-white transition hover:text-[var(--c-lime)]"
+                >
+                  <Maximize className="h-4 w-4 md:h-5 md:w-5" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Botón cerrar */}
+      <button
+        className="absolute right-2 top-2 rounded-full bg-black/50 p-2 text-white transition hover:bg-black/70 hover:text-[var(--c-lime)]"
+        onClick={onClose}
+      >
+        <X className="h-5 w-5 md:h-6 md:w-6" />
+      </button>
+    </m.div>
+  );
+};
+
 export default function TeamWorkSection() {
   const navigate = useNavigate();
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -195,7 +384,6 @@ export default function TeamWorkSection() {
             alignItems: "center",
           }}
         >
-          {/* Columna izquierda (texto) */}
           <m.div
             initial="hidden"
             whileInView="visible"
@@ -306,7 +494,6 @@ export default function TeamWorkSection() {
             </p>
           </m.div>
 
-          {/* Columna derecha (grid shuffle) */}
           <m.div
             initial="hidden"
             whileInView="visible"
@@ -325,7 +512,6 @@ export default function TeamWorkSection() {
         </div>
       </div>
 
-      {/* Modal de video mejorado - soporte para GIF y videos */}
       <AnimatePresence>
         {selectedVideo && (
           <m.div
@@ -335,39 +521,7 @@ export default function TeamWorkSection() {
             exit={{ opacity: 0 }}
             onClick={closeModal}
           >
-            <m.div
-              className="relative w-full max-w-4xl overflow-hidden rounded-2xl bg-black shadow-2xl"
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="aspect-video w-full bg-black flex items-center justify-center">
-                {isGif(selectedVideo) ? (
-                  // Si es GIF, usar <img>
-                  <img
-                    src={selectedVideo}
-                    alt="Video del proyecto"
-                    className="max-h-full max-w-full object-contain"
-                  />
-                ) : (
-                  // Si es video, usar <video>
-                  <video
-                    src={selectedVideo}
-                    className="h-full w-full"
-                    controls
-                    autoPlay
-                    playsInline
-                  />
-                )}
-              </div>
-              <button
-                className="absolute right-2 top-2 rounded-full bg-black/50 p-2 text-white transition hover:bg-black/70"
-                onClick={closeModal}
-              >
-                <X className="h-6 w-6" />
-              </button>
-            </m.div>
+            <VideoPlayer videoUrl={selectedVideo} onClose={closeModal} />
           </m.div>
         )}
       </AnimatePresence>
