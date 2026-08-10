@@ -1,15 +1,6 @@
 import { useState } from "react";
 import * as m from "motion/react-m";
-import {
-  Users,
-  Camera,
-  Send,
-  Check,
-  User,
-  Mail,
-  MessageSquare,
-  Phone,
-} from "lucide-react";
+import { Send, Check, User, Mail, MessageSquare, Phone } from "lucide-react";
 import { useForm, ValidationError } from "@formspree/react";
 
 import Button from "../../ui/Button";
@@ -23,11 +14,6 @@ import {
 
 const ADDRESS = "Cra. 48 #25B Sur 12, Zona 1, Envigado, Antioquia";
 const MAP_SRC = `https://www.google.com/maps?q=${encodeURIComponent(ADDRESS + ", Colombia")}&output=embed`;
-
-const SOCIAL = [
-  { Icon: Users, href: "#", label: "Facebook" },
-  { Icon: Camera, href: "#", label: "Instagram" },
-];
 
 export default function ContactFormSection() {
   const { ref, controls } = useScrollAnimation(0.15);
@@ -210,19 +196,6 @@ export default function ContactFormSection() {
               </p>
             </div>
 
-            <div className="contact-social-row">
-              {SOCIAL.map(({ Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  className="contact-social-ic"
-                >
-                  <Icon size={17} />
-                </a>
-              ))}
-            </div>
-
             <div className="contact-map-wrap">
               <iframe
                 src={MAP_SRC}
@@ -307,7 +280,7 @@ export default function ContactFormSection() {
                       name="codigo_pais"
                       value={countryCode}
                       onChange={handleCountryCodeChange}
-                      className="w-full px-4 py-3 bg-[#050C16] border-0 border-b-2 border-white/10 rounded-none text-white placeholder:text-white/50 focus:outline-none focus:border-[#a3e635] transition-colors text-sm appearance-none custom-select h-[52px]"
+                      className="w-full px-4 py-[0.95rem] bg-[#050C16] border-0 border-b-2 border-white/10 rounded-none text-white placeholder:text-white/50 focus:outline-none focus:border-[#a3e635] transition-colors text-sm appearance-none custom-select h-[52px]"
                       style={{ fontFamily: "var(--font-body)" }}
                     >
                       <option value="+1">+1 (EE.UU)</option>
@@ -508,31 +481,6 @@ export default function ContactFormSection() {
         .contact-info-line strong {
           color: var(--c-ink);
           font-weight: 700;
-        }
-
-        .contact-social-row {
-          display: flex;
-          gap: 0.75rem;
-          margin-bottom: 1.75rem;
-          position: relative;
-          z-index: 1;
-        }
-        .contact-social-ic {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 2.4rem;
-          height: 2.4rem;
-          border-radius: 50%;
-          border: 1px solid oklch(0.30 0.020 260);
-          color: var(--c-muted);
-          text-decoration: none;
-          transition: color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-        }
-        .contact-social-ic:hover {
-          color: var(--c-lime);
-          border-color: var(--c-lime);
-          box-shadow: 0 0 16px oklch(0.88 0.26 130 / 0.25);
         }
 
         .contact-map-wrap {
