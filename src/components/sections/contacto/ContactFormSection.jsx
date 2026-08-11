@@ -2,6 +2,7 @@ import { useState } from "react";
 import * as m from "motion/react-m";
 import { Send, Check, User, Mail, MessageSquare, Phone } from "lucide-react";
 import { useForm, ValidationError } from "@formspree/react";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import Button from "../../ui/Button";
 import { Input } from "../../ui/Input";
@@ -30,6 +31,11 @@ export default function ContactFormSection() {
   const [customCode, setCustomCode] = useState("");
   const [phoneError, setPhoneError] = useState("");
   const [showPhoneError, setShowPhoneError] = useState(false);
+  const [captchaValue, setCaptchaValue] = useState(null);
+  const [captchaError, setCaptchaError] = useState(false);
+
+  // Site Key de reCAPTCHA
+  const RECAPTCHA_SITE_KEY = "6LcK1IAtAAAAACdTO15skeBRg3SXlHYZ85Foo8Qm";
 
   const validatePhone = (value) => {
     if (!value || value.length === 0) {
@@ -77,8 +83,19 @@ export default function ContactFormSection() {
     }
   };
 
+  const onCaptchaChange = (value) => {
+    setCaptchaValue(value);
+    setCaptchaError(false);
+  };
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
+    // Validar captcha
+    if (!captchaValue) {
+      setCaptchaError(true);
+      return;
+    }
 
     // Validar teléfono solo al enviar
     if (form.telefono && !validatePhone(form.telefono)) {
@@ -377,6 +394,22 @@ export default function ContactFormSection() {
                   className="text-red-400 text-xs mt-1 block"
                 />
               </div>
+
+              {/* reCAPTCHA */}
+              <div className="flex justify-center">
+                <ReCAPTCHA
+                  sitekey={RECAPTCHA_SITE_KEY}
+                  onChange={onCaptchaChange}
+                  theme="dark"
+                  size="normal"
+                  hl="es"
+                />
+              </div>
+              {captchaError && (
+                <p className="text-red-400 text-xs text-center font-medium">
+                  ⚠️ Por favor, confirma que no eres un robot.
+                </p>
+              )}
 
               <div className="contact-form-footer">
                 <Button

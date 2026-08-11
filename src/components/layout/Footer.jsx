@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { useForm, ValidationError } from "@formspree/react";
+import ReCAPTCHA from "react-google-recaptcha";
 
 // ============ DATOS DEL FOOTER ============
 const SECTIONS = [
@@ -37,6 +38,11 @@ function ContactForm() {
   const [telefono, setTelefono] = useState("");
   const [countryCode, setCountryCode] = useState("+57");
   const [customCode, setCustomCode] = useState("");
+  const [captchaValue, setCaptchaValue] = useState(null);
+  const [captchaError, setCaptchaError] = useState(false);
+
+  // Site Key de reCAPTCHA
+  const RECAPTCHA_SITE_KEY = "6LcK1IAtAAAAACdTO15skeBRg3SXlHYZ85Foo8Qm";
 
   const validatePhone = (value) => {
     if (!value || value.length === 0) {
@@ -80,11 +86,24 @@ function ContactForm() {
     validatePhone(e.target.value);
   };
 
+  const onCaptchaChange = (value) => {
+    setCaptchaValue(value);
+    setCaptchaError(false);
+  };
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
+    // Validar captcha
+    if (!captchaValue) {
+      setCaptchaError(true);
+      return;
+    }
+
     if (telefono && !validatePhone(telefono)) {
       return;
     }
+
     handleSubmit(e);
   };
 
@@ -207,6 +226,22 @@ function ContactForm() {
           Mínimo 7 dígitos, máximo 15
         </p>
       </div>
+
+      {/* reCAPTCHA */}
+      <div className="flex justify-center">
+        <ReCAPTCHA
+          sitekey={RECAPTCHA_SITE_KEY}
+          onChange={onCaptchaChange}
+          theme="dark"
+          size="normal"
+          hl="es"
+        />
+      </div>
+      {captchaError && (
+        <p className="text-red-400 text-xs text-center font-medium">
+          ⚠️ Por favor, confirma que no eres un robot.
+        </p>
+      )}
 
       <button
         type="submit"
