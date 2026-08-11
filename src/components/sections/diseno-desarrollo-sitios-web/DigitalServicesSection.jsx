@@ -483,22 +483,31 @@ export default function DigitalServicesSection({
           text-wrap: pretty;
         }
 
+        /* ====== AJUSTES PARA MÓVIL ====== */
         @media (max-width: 880px) {
           .dd-grid {
             grid-template-columns: 1fr;
             gap: 2rem;
           }
           .dd-photo-card {
-            max-height: 400px;
+            max-height: 500px;
             min-height: 0;
           }
           .slider-container {
-            min-height: 300px;
+            min-height: 400px;
           }
           .slider-image {
-            min-height: 300px;
+            min-height: 400px;
             object-fit: contain;
             background: #0a0a0a;
+          }
+          .slider-arrow {
+            width: 36px;
+            height: 36px;
+          }
+          .slider-arrow svg {
+            width: 20px;
+            height: 20px;
           }
         }
 
@@ -521,10 +530,10 @@ export default function DigitalServicesSection({
             height: 18px;
           }
           .slider-container {
-            min-height: 220px;
+            min-height: 300px;
           }
           .slider-image {
-            min-height: 220px;
+            min-height: 300px;
             object-fit: contain;
             background: #0a0a0a;
           }
