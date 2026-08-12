@@ -4,9 +4,6 @@ import { useRef, useState, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
-const DefaultImg =
-  "https://images.unsplash.com/photo-1491555103944-7c647fd857e6?w=400&q=80";
-
 const DefaultItems = [
   {
     imgUrl:
@@ -233,14 +230,19 @@ export default function ImageHover({ items = DefaultItems }) {
         ref={previewContainerRef}
         className="relative w-full max-w-sm overflow-hidden rounded-2xl border border-gray-700/50 shadow-2xl aspect-[1.5/1] md:max-w-md lg:max-w-lg"
       >
-        <img src={DefaultImg} alt="" className="h-full w-full object-cover" />
+        {/* 👇 Ahora muestra la última imagen del array por defecto */}
+        <img
+          src={items[items.length - 1]?.imgUrl}
+          alt=""
+          className="h-full w-full object-cover"
+        />
         <div
           ref={newImgRef}
           className="absolute bottom-0 left-0 h-full w-full"
           style={{ transform: "translateY(100%)" }}
         >
           <img
-            src={items[1]?.imgUrl || DefaultImg}
+            src={items[1]?.imgUrl}
             alt=""
             className="h-full w-full object-cover"
           />
