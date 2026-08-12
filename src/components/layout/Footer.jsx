@@ -227,15 +227,17 @@ function ContactForm() {
         </p>
       </div>
 
-      {/* reCAPTCHA */}
+      {/* reCAPTCHA - tamaño intermedio */}
       <div className="flex justify-center">
-        <ReCAPTCHA
-          sitekey={RECAPTCHA_SITE_KEY}
-          onChange={onCaptchaChange}
-          theme="dark"
-          size="normal"
-          hl="es"
-        />
+        <div className="transform scale-85 origin-center">
+          <ReCAPTCHA
+            sitekey={RECAPTCHA_SITE_KEY}
+            onChange={onCaptchaChange}
+            theme="dark"
+            size="normal"
+            hl="es"
+          />
+        </div>
       </div>
       {captchaError && (
         <p className="text-red-400 text-xs text-center font-medium">
