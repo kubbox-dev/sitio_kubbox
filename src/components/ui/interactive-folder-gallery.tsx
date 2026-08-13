@@ -113,7 +113,7 @@ export function InteractiveFolderGallery({
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth < 1430);
     };
     checkMobile();
     window.addEventListener("resize", checkMobile);
@@ -121,13 +121,12 @@ export function InteractiveFolderGallery({
   }, []);
 
   const totalPhotos = photos.length;
-  const centerIndex = Math.floor(totalPhotos / 2);
-
   const stackPhotos = photos.slice(0, visibleStack);
-  const stackCenterIndex = Math.floor(stackPhotos.length / 2);
-
+  const stackCenterIndex = Math.floor((stackPhotos.length - 1) / 2);
   const displayPhotos = isFolderOpen ? photos : stackPhotos;
-  const activeCenterIndex = isFolderOpen ? centerIndex : stackCenterIndex;
+  const activeCenterIndex = isFolderOpen
+    ? Math.floor((photos.length - 1) / 2)
+    : stackCenterIndex;
 
   const getOpenX = (offset: number, total: number) => {
     if (!isFolderOpen) return offset * 130;
@@ -147,7 +146,6 @@ export function InteractiveFolderGallery({
     }
   };
 
-  // Vista móvil - Acordeón
   if (isMobile) {
     return (
       <div className="w-full py-8 px-4 relative">
@@ -278,7 +276,6 @@ export function InteractiveFolderGallery({
     );
   }
 
-  // Vista escritorio - Galería interactiva
   return (
     <div className={`w-full py-32 relative ${className || ""}`}>
       <div className="relative w-full min-h-[500px] flex flex-col items-center justify-center">
@@ -307,6 +304,9 @@ export function InteractiveFolderGallery({
 
             <div
               className={`absolute bottom-10 z-10 flex justify-center ${isFolderOpen ? "w-full" : ""}`}
+              style={{
+                marginRight: "60px",
+              }}
             >
               {displayPhotos.map((photo, i) => {
                 const offset = i - activeCenterIndex;
@@ -323,7 +323,6 @@ export function InteractiveFolderGallery({
                 const openScale = 1.05;
 
                 const cardWidth = isFolderOpen ? "w-48" : "w-56";
-                // 👇 ALTURA CAMBIADA A 280px
                 const cardHeight = "h-[280px]";
 
                 return (

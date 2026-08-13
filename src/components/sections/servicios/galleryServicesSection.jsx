@@ -197,7 +197,6 @@ export default function GalleryServicesSection() {
           }
         }
 
-        /* Ajustes para móvil */
         @media (max-width: 768px) {
           .gallery-services-section {
             padding-block: 1rem !important;
