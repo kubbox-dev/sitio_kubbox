@@ -102,8 +102,8 @@ export function InteractiveFolderGallery({
   folderName = "Photography.gallery",
   dragHintText = "Arrastra cualquier servicio hacia abajo para cerrar",
   className,
-  visibleStack = 5,
-  maxOpenWidth = "90%",
+  visibleStack = 3,
+  maxOpenWidth = "95%",
   buttonText = "Ver más",
 }: InteractiveFolderGalleryProps) {
   const [isFolderOpen, setIsFolderOpen] = useState(false);
@@ -131,7 +131,7 @@ export function InteractiveFolderGallery({
 
   const getOpenX = (offset: number, total: number) => {
     if (!isFolderOpen) return offset * 130;
-    const spacing = total > 7 ? 90 : 130;
+    const spacing = total > 8 ? 75 : total > 6 ? 95 : 130;
     return offset * spacing;
   };
 
@@ -152,7 +152,14 @@ export function InteractiveFolderGallery({
     return (
       <div className="w-full py-8 px-4 relative">
         <div className="text-center mb-6">
-          <span className="text-white/90 text-sm font-medium tracking-wide bg-[#1e1e1e] px-5 py-2.5 rounded-lg border border-[#2a2a2a] inline-block">
+          <span
+            className="text-white/90 text-sm font-medium tracking-wide bg-[#1e1e1e] px-5 py-2.5 rounded-lg border border-[#2a2a2a] inline-block"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 800,
+              fontStyle: "italic",
+            }}
+          >
             {folderName}
           </span>
         </div>
@@ -168,7 +175,6 @@ export function InteractiveFolderGallery({
                 className="bg-[#1F1F1F] rounded-xl border-t-[3px] overflow-hidden shadow-lg"
                 style={{ borderTopColor: color }}
               >
-                {/* Header - siempre visible */}
                 <button
                   onClick={() => toggleExpand(photo.id)}
                   className="w-full p-4 flex items-center gap-3 text-left"
@@ -183,7 +189,15 @@ export function InteractiveFolderGallery({
                     </div>
                   )}
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-white text-sm font-bold leading-tight">
+                    <h3
+                      className="text-white text-sm font-bold leading-tight"
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontWeight: 700,
+                        fontStyle: "italic",
+                        letterSpacing: "-0.01em",
+                      }}
+                    >
                       {photo.title}
                     </h3>
                     <p className="text-white/50 text-xs line-clamp-1">
@@ -198,7 +212,6 @@ export function InteractiveFolderGallery({
                   />
                 </button>
 
-                {/* Body - expandible */}
                 <m.div
                   initial={{ height: 0, opacity: 0 }}
                   animate={{
@@ -210,7 +223,12 @@ export function InteractiveFolderGallery({
                 >
                   <div className="px-4 pb-4 pt-1 space-y-2">
                     {photo.description && (
-                      <p className="text-white/60 text-xs leading-relaxed">
+                      <p
+                        className="text-white/60 text-xs leading-relaxed"
+                        style={{
+                          fontFamily: "var(--font-body)",
+                        }}
+                      >
                         {photo.description}
                       </p>
                     )}
@@ -220,6 +238,9 @@ export function InteractiveFolderGallery({
                           <li
                             key={idx}
                             className="flex items-start gap-2 text-xs text-white/50"
+                            style={{
+                              fontFamily: "var(--font-body)",
+                            }}
                           >
                             <span
                               className="w-1.5 h-1.5 rounded-full flex-shrink-0 mt-1"
@@ -237,6 +258,11 @@ export function InteractiveFolderGallery({
                       <Link
                         to={photo.url}
                         className="inline-flex items-center gap-1.5 px-3 py-1.5 mt-2 text-xs font-semibold text-black transition-colors rounded-lg bg-[#a3e635] hover:bg-[#84cc16]"
+                        style={{
+                          fontFamily: "var(--font-display)",
+                          fontWeight: 700,
+                          fontStyle: "italic",
+                        }}
                       >
                         {buttonText}
                         <ArrowUpRight size={14} />
@@ -252,7 +278,7 @@ export function InteractiveFolderGallery({
     );
   }
 
-  // Vista escritorio - Galería interactiva original
+  // Vista escritorio - Galería interactiva
   return (
     <div className={`w-full py-32 relative ${className || ""}`}>
       <div className="relative w-full min-h-[500px] flex flex-col items-center justify-center">
@@ -296,6 +322,10 @@ export function InteractiveFolderGallery({
                 const openRotate = 0;
                 const openScale = 1.05;
 
+                const cardWidth = isFolderOpen ? "w-48" : "w-56";
+                // 👇 ALTURA CAMBIADA A 280px
+                const cardHeight = "h-[280px]";
+
                 return (
                   <m.div
                     key={photo.id}
@@ -307,7 +337,7 @@ export function InteractiveFolderGallery({
                         setHoverFolder(false);
                       }
                     }}
-                    className={`absolute bottom-0 w-56 h-72 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.5)] overflow-hidden origin-bottom border-t-[3px] ${
+                    className={`absolute bottom-0 ${cardWidth} ${cardHeight} rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.5)] origin-bottom border-t-[3px] ${
                       isFolderOpen
                         ? "cursor-grab active:cursor-grabbing pointer-events-auto"
                         : "pointer-events-none"
@@ -315,6 +345,7 @@ export function InteractiveFolderGallery({
                     style={{
                       background: "#1F1F1F",
                       borderTopColor: color,
+                      overflow: "hidden",
                     }}
                     animate={
                       !isFolderOpen
@@ -345,11 +376,11 @@ export function InteractiveFolderGallery({
                     }
                     transition={{ type: "spring", stiffness: 350, damping: 30 }}
                   >
-                    <div className="w-full h-full p-4 flex flex-col justify-between items-start text-left overflow-hidden">
-                      <div className="w-full">
-                        <div className="flex items-center gap-3 w-full mb-2">
+                    <div className="w-full h-full p-3 flex flex-col items-start text-left">
+                      <div className="w-full flex-1 overflow-y-auto">
+                        <div className="flex items-center gap-2 w-full mb-1.5">
                           {photo.icon && (
-                            <div className="w-10 h-10 flex-shrink-0">
+                            <div className="w-8 h-8 flex-shrink-0">
                               <img
                                 src={photo.icon}
                                 alt={photo.title || "Icono de servicio"}
@@ -358,7 +389,7 @@ export function InteractiveFolderGallery({
                             </div>
                           )}
                           <div
-                            className="h-[2px] rounded-full min-w-[40px] flex-1"
+                            className="h-[2px] rounded-full min-w-[30px] flex-1"
                             style={{
                               background: color,
                               boxShadow: `0 0 4px ${color}40`,
@@ -366,24 +397,42 @@ export function InteractiveFolderGallery({
                           />
                         </div>
                         {photo.title && (
-                          <h3 className="text-white text-sm font-bold leading-tight mb-1">
+                          <h3
+                            className="text-white text-[11px] font-bold leading-tight mb-1"
+                            style={{
+                              fontFamily: "var(--font-display)",
+                              fontWeight: 700,
+                              fontStyle: "italic",
+                              letterSpacing: "-0.01em",
+                            }}
+                          >
                             {photo.title}
                           </h3>
                         )}
                         {photo.description && (
-                          <p className="text-white/50 text-[11px] leading-relaxed text-left mb-2 line-clamp-2">
+                          <p
+                            className="text-white/50 text-[10px] leading-relaxed text-left mb-1.5"
+                            style={{
+                              fontFamily: "var(--font-body)",
+                              wordWrap: "break-word",
+                              overflowWrap: "break-word",
+                            }}
+                          >
                             {photo.description}
                           </p>
                         )}
                         {photo.bullets && photo.bullets.length > 0 && (
                           <ul className="space-y-0.5 w-full">
-                            {photo.bullets.slice(0, 4).map((bullet, idx) => (
+                            {photo.bullets.map((bullet, idx) => (
                               <li
                                 key={idx}
-                                className="flex items-start gap-1.5 text-[10px] text-white/50"
+                                className="flex items-start gap-1.5 text-[9px] text-white/50"
+                                style={{
+                                  fontFamily: "var(--font-body)",
+                                }}
                               >
                                 <span
-                                  className="w-1.5 h-1.5 rounded-full flex-shrink-0 mt-1"
+                                  className="w-1 h-1 rounded-full flex-shrink-0 mt-1"
                                   style={{
                                     background: color,
                                     boxShadow: `0 0 4px ${color}40`,
@@ -399,10 +448,15 @@ export function InteractiveFolderGallery({
                       {isFolderOpen && photo.url && (
                         <Link
                           to={photo.url}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 mt-3 text-xs font-semibold text-black transition-colors rounded-lg bg-[#a3e635] hover:bg-[#84cc16] mx-auto"
+                          className="inline-flex items-center gap-1 px-2.5 py-1.5 mt-1 text-[10px] font-semibold text-black transition-colors rounded-lg bg-[#a3e635] hover:bg-[#84cc16] w-full justify-center flex-shrink-0"
+                          style={{
+                            fontFamily: "var(--font-display)",
+                            fontWeight: 700,
+                            fontStyle: "italic",
+                          }}
                         >
                           {buttonText}
-                          <ArrowUpRight size={14} />
+                          <ArrowUpRight size={12} />
                         </Link>
                       )}
                     </div>
@@ -428,7 +482,14 @@ export function InteractiveFolderGallery({
                 <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-white/40 to-transparent" />
 
                 <div className="px-5 py-2.5 bg-[#1e1e1e] rounded-lg border border-[#2a2a2a] shadow-inner flex items-center justify-center backdrop-blur-md">
-                  <span className="text-white/90 text-sm font-medium tracking-wide">
+                  <span
+                    className="text-white/90 text-sm font-medium tracking-wide"
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 800,
+                      fontStyle: "italic",
+                    }}
+                  >
                     {folderName}
                   </span>
                 </div>
@@ -440,6 +501,11 @@ export function InteractiveFolderGallery({
         <m.div
           animate={{ opacity: isFolderOpen ? 1 : 0, y: isFolderOpen ? 0 : 50 }}
           className="absolute bottom-10 px-6 py-3 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 backdrop-blur-md text-[var(--c-lime)] text-sm font-medium uppercase tracking-widest pointer-events-none"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 700,
+            fontStyle: "italic",
+          }}
         >
           {dragHintText}
         </m.div>

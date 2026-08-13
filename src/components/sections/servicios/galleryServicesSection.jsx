@@ -8,7 +8,7 @@ const serviciosData = [
     description:
       "Cada empresa tiene procesos únicos. Por eso desarrollamos software completamente personalizado que se adapta a las necesidades específicas de cada organización.",
     icon: "/images/Servicios/Desarrollo de software a la medida.svg",
-    url: "/servicios/desarrollo-software-medida",
+    url: "/servicios/desarrollo-a-la-medida",
     bullets: [
       "Sistemas administrativos",
       "CRM personalizados",
@@ -130,6 +130,20 @@ const serviciosData = [
       "Lineamientos para el uso correcto de la marca",
     ],
   },
+  {
+    id: 10,
+    title: "Carnés Digitales y Tarjetas Inteligentes",
+    description:
+      "Modernizamos la presentación empresarial mediante soluciones digitales que facilitan el intercambio de información y fortalecen la imagen profesional.",
+    icon: "/images/Servicios/carnes-digitales/acceso inmediato_1.svg",
+    url: "/servicios/carnes-digitales-tarjetas-contacto-inteligente",
+    bullets: [
+      "Tarjetas con tecnología NFC",
+      "Tarjetas con código QR",
+      "Carnés digitales para colaboradores",
+      "Acceso inmediato desde dispositivos móviles",
+    ],
+  },
 ];
 
 const serviciosPhotos = serviciosData.map((servicio) => ({
@@ -168,8 +182,8 @@ export default function GalleryServicesSection() {
           }
           dragHintText="Arrastra cualquier servicio hacia abajo para cerrar"
           className="scale-160 [&>div]:min-h-[600px]"
-          visibleStack={5}
-          maxOpenWidth="90%"
+          visibleStack={3}
+          maxOpenWidth="95%"
           buttonText="Ver más"
         />
       </div>
