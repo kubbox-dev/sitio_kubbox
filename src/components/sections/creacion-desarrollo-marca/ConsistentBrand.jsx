@@ -6,6 +6,7 @@ import {
   fadeUp,
   staggerContainer,
 } from "../../../hooks/useScrollAnimation";
+import ShortSlideDown from "../../ui/ShortSlideDown";
 
 const PHOTO =
   "/images/Servicios/creacion-desarrollo-marca/Foto para las del iman 2.webp";
@@ -108,27 +109,8 @@ export default function ConsistentBrand({
     },
   ];
 
-  // Variantes para el texto con efecto de aparición escalonada
-  const wordVariants = {
-    hidden: {
-      opacity: 0,
-      y: 40,
-      rotateX: 20,
-    },
-    visible: (i) => ({
-      opacity: 1,
-      y: 0,
-      rotateX: 0,
-      transition: {
-        delay: i * 0.1 + 0.3,
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    }),
-  };
-
-  // Dividir el texto en palabras
-  const words = "Una marca coherente genera mejores resultados.".split(" ");
+  // Frases para el ShortSlideDown
+  const phrases = ["Una marca coherente", "genera mejores resultados."];
 
   return (
     <section
@@ -156,22 +138,15 @@ export default function ConsistentBrand({
           variants={staggerContainer(0.12)}
           className="dd-grid"
         >
-          {/* Texto - Izquierda con efecto de palabras escalonadas */}
+          {/* Texto - Izquierda con ShortSlideDown */}
           <m.div variants={fadeUp}>
             <div className="dd-intro">
               <div className="dd-words-container">
-                {words.map((word, i) => (
-                  <m.span
-                    key={i}
-                    className="dd-word"
-                    custom={i}
-                    variants={wordVariants}
-                    initial="hidden"
-                    animate={controls}
-                  >
-                    {word}
-                  </m.span>
-                ))}
+                <ShortSlideDown
+                  className="[font-family:var(--font-display)] font-black italic text-white text-4xl md:text-6xl lg:text-7xl text-center"
+                  phrases={phrases}
+                  interval={3000}
+                />
               </div>
 
               {intro && (
@@ -319,7 +294,7 @@ export default function ConsistentBrand({
           height: 100%;
         }
 
-        /* Contenedor de palabras - efecto de aparición escalonada */
+        /* Contenedor de palabras */
         .dd-words-container {
           display: flex;
           flex-wrap: wrap;
@@ -328,19 +303,7 @@ export default function ConsistentBrand({
           gap: 0.3rem 0.6rem;
           min-height: 100px;
           padding: 1rem 0;
-        }
-
-        .dd-word {
-          font-family: var(--font-display);
-          font-weight: 700;
-          font-style: italic;
-          font-size: clamp(2.75rem, 5vw, 4.5rem);
-          color: #ffffff;
-          line-height: 1.15;
-          letter-spacing: -0.02em;
-          display: inline-block;
-          transform-origin: center bottom;
-          backface-visibility: hidden;
+          width: 100%;
         }
 
         .dd-body {
@@ -395,6 +358,18 @@ export default function ConsistentBrand({
           text-align: center;
         }
 
+        /* Ajustes para ShortSlideDown dentro del contenedor */
+        .dd-words-container span[class*="flex flex-col"] {
+          width: 100%;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .dd-words-container span[class*="flex flex-col"] span {
+          display: block;
+          text-align: center;
+        }
+
         @media (max-width: 880px) {
           .dd-grid {
             grid-template-columns: 1fr;
@@ -416,9 +391,6 @@ export default function ConsistentBrand({
           }
           .dd-intro {
             text-align: center;
-          }
-          .dd-word {
-            font-size: clamp(2.5rem, 6vw, 3.8rem);
           }
           .dd-body {
             text-align: center;
@@ -478,9 +450,6 @@ export default function ConsistentBrand({
           .dd-image-wrapper img {
             min-height: 240px;
             max-height: 300px;
-          }
-          .dd-word {
-            font-size: clamp(2.2rem, 6vw, 2.8rem);
           }
           .dd-bullets {
             grid-template-columns: 1fr;

@@ -31,7 +31,19 @@ export default function ReadyModules() {
   return (
     <div className="w-full bg-black/40 py-12 md:py-16">
       <div className="w-full px-4 md:px-8">
-        <h2 className="text-center font-display text-3xl font-bold italic text-[var(--c-lime)] md:text-4xl lg:text-5xl">
+        <h2
+          className="text-center text-[var(--c-lime)] md:text-4xl lg:text-5xl"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 900,
+            fontStyle: "italic",
+            fontSize: "clamp(1.8rem, 4vw, 3rem)",
+            letterSpacing: "-0.03em",
+            textTransform: "uppercase",
+            lineHeight: 1.1,
+            marginBottom: 0,
+          }}
+        >
           Módulos listos para tu uso
         </h2>
 

@@ -4,9 +4,6 @@ import { useRef, useState, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
-const DefaultImg =
-  "https://images.unsplash.com/photo-1491555103944-7c647fd857e6?w=400&q=80";
-
 const DefaultItems = [
   {
     imgUrl:
@@ -165,6 +162,12 @@ export default function ImageHover({ items = DefaultItems }) {
                 idx === currentIndex ? "text-white font-bold" : ""
               }`}
               onClick={() => handleItemClick(idx)}
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: idx === currentIndex ? 900 : 700,
+                fontStyle: "italic",
+                letterSpacing: "-0.01em",
+              }}
             >
               {item.title}
             </li>
@@ -207,7 +210,16 @@ export default function ImageHover({ items = DefaultItems }) {
       <div className="flex-1">
         <ul className="flex flex-col gap-3 text-lg font-medium text-gray-400 transition-all md:gap-4 md:text-xl lg:text-2xl [&>li]:cursor-pointer [&>li]:transition [&>li]:hover:text-white">
           {items.map(({ title }) => (
-            <li key={title} className="menu-link-item">
+            <li
+              key={title}
+              className="menu-link-item"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 700,
+                fontStyle: "italic",
+                letterSpacing: "-0.01em",
+              }}
+            >
               {title}
             </li>
           ))}
@@ -218,14 +230,19 @@ export default function ImageHover({ items = DefaultItems }) {
         ref={previewContainerRef}
         className="relative w-full max-w-sm overflow-hidden rounded-2xl border border-gray-700/50 shadow-2xl aspect-[1.5/1] md:max-w-md lg:max-w-lg"
       >
-        <img src={DefaultImg} alt="" className="h-full w-full object-cover" />
+        {/* 👇 Ahora muestra la última imagen del array por defecto */}
+        <img
+          src={items[items.length - 1]?.imgUrl}
+          alt=""
+          className="h-full w-full object-cover"
+        />
         <div
           ref={newImgRef}
           className="absolute bottom-0 left-0 h-full w-full"
           style={{ transform: "translateY(100%)" }}
         >
           <img
-            src={items[1]?.imgUrl || DefaultImg}
+            src={items[1]?.imgUrl}
             alt=""
             className="h-full w-full object-cover"
           />
