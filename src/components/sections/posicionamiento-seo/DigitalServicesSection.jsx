@@ -21,9 +21,9 @@ const DEFAULT_STATEMENT =
 const DEFAULT_BULLETS = [
   {
     icon: encodeURI(
-      "/images/Servicios/posicionamiento-SEO/Optimización de velocidad.svg",
+      "/images/Servicios/posicionamiento-SEO/optimizacion-de-velocidad.svg",
     ),
-    label: "Optimización de velocidad",
+    label: "optimizacion-de-velocidad",
   },
   {
     icon: encodeURI("/images/Servicios/posicionamiento-SEO/Auditoria seo.svg"),

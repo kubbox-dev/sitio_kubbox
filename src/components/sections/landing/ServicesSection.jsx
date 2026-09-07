@@ -19,7 +19,7 @@ const SERVICES = [
     title: "Diseño y Desarrollo de Sitios Web",
     body: "Creamos sitios web modernos, rápidos, seguros y completamente personalizados para empresas que buscan fortalecer su presencia digital.",
     prefix: "Desarrollamos:",
-    icon: ICON("Diseño y Desarrollo de Sitios Web"),
+    icon: ICON("diseno-y-desarrollo-de-sitios-web"),
     url: "/servicios/diseno-desarrollo-sitios-web",
     bullets: [
       "Sitios web corporativos",
@@ -33,7 +33,7 @@ const SERVICES = [
     title: "Desarrollo de Aplicaciones Móviles",
     body: "Diseñamos y desarrollamos aplicaciones móviles para iPhone y Android con experiencias intuitivas, alto desempeño y tecnologías de última generación.",
     prefix: "Creamos aplicaciones para:",
-    icon: ICON("Desarrollo de Aplicaciones Móviles"),
+    icon: ICON("desarrollo-de-aplicaciones-moviles"),
     url: "/servicios/desarrollo-aplicaciones-moviles",
     bullets: [
       "Empresas",
@@ -47,7 +47,7 @@ const SERVICES = [
     title: "Campañas Digitales para Activación de Ventas en Retail",
     body: "Uno de nuestros mayores diferenciales es la creación de campañas digitales enfocadas en generar tráfico hacia puntos de venta físicos.",
     prefix: "Creamos campañas para:",
-    icon: ICON("Campañas Digitales para Activaciónde Ventas en Retail"),
+    icon: ICON("campanas-digitales-para-activacionde-ventas-en-retail"),
     url: "/servicios/campanas-digitales-activacion-ventas-retail",
     bullets: [
       "Retail",
@@ -66,7 +66,7 @@ const SERVICES = [
     bullets: [
       "Auditoría SEO",
       "SEO técnico",
-      "Optimización de velocidad",
+      "optimizacion-de-velocidad",
       "SEO local",
       "Monitoreo de resultados",
     ],
@@ -76,12 +76,12 @@ const SERVICES = [
     title: "Automatización y Campañas por WhatsApp",
     body: "WhatsApp se ha convertido en uno de los canales comerciales más efectivos para las empresas.",
     prefix: "Facilitamos procesos comerciales mediante:",
-    icon: ICON("Automatización y Campañas por WhatsApp"),
+    icon: ICON("automatizacion-y-campanas-por-whatsapp"),
     url: "/servicios/automatizacion-campanas-whatsapp",
     bullets: [
       "Campañas masivas",
       "Integración con CRM",
-      "Optimización de velocidad",
+      "optimizacion-de-velocidad",
       "Atención al cliente",
       "Notificaciones automáticas",
     ],
@@ -105,7 +105,7 @@ const SERVICES = [
     title: "Creación y Desarrollo de Marca",
     body: "Una marca va mucho más allá de un logotipo. Es la manera en que una empresa se presenta al mundo, comunica su esencia y construye relaciones duraderas con sus clientes.",
     prefix: "Garantizamos identidad y comunicación, incluyendo:",
-    icon: ICON("Creación y Desarrollo de Marca"),
+    icon: ICON("creacion-y-desarrollo-de-marca"),
     url: "/servicios/creacion-desarrollo-marca",
     bullets: [
       "Diseño de logotipo",

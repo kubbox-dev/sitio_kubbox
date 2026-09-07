@@ -16,7 +16,7 @@ const MODULE_ITEMS = [
   },
   {
     imgUrl:
-      "/images/Servicios/software-a-la-medida/plataforma de gestión de vistas.webp",
+      "/images/Servicios/software-a-la-medida/plataforma-de-gestion-de-vistas.webp",
     title:
       "Plataforma de gestión de visitas y venta. Red de ventas y comercial.",
   },

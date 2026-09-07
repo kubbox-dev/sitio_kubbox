@@ -16,12 +16,12 @@ export default function TrajectorySection() {
     {
       id: 1,
       title: "Más de 18 años de experiencia",
-      icon: "/images/Nosotros/18 años de experiencia.svg",
+      icon: "/images/Nosotros/18-anos-de-experiencia.svg",
     },
     {
       id: 2,
       title: "Clientes en varios países",
-      icon: "/images/Nosotros/varios países.svg",
+      icon: "/images/Nosotros/varios-paises.svg",
     },
     {
       id: 3,
@@ -36,7 +36,7 @@ export default function TrajectorySection() {
     {
       id: 5,
       title: "Metodologías ágiles",
-      icon: "/images/Nosotros/metodologías ágiles.svg",
+      icon: "/images/Nosotros/metodologias-agiles.svg",
     },
   ];
 
@@ -44,7 +44,7 @@ export default function TrajectorySection() {
     {
       id: 6,
       title: "Acompañamiento permanente",
-      icon: "/images/Nosotros/acompañamiento permanente.svg",
+      icon: "/images/Nosotros/acompanamiento-permanente.svg",
     },
     {
       id: 7,
@@ -59,12 +59,12 @@ export default function TrajectorySection() {
     {
       id: 9,
       title: "Compromiso con la innovación",
-      icon: "/images/Nosotros/compromiso con la innovación.svg",
+      icon: "/images/Nosotros/compromiso-con-la-innovacion.svg",
     },
     {
       id: 10,
       title: "Orientación a resultados",
-      icon: "/images/Nosotros/orientación a resultados.svg",
+      icon: "/images/Nosotros/orientacion-a-resultados.svg",
     },
   ];
 

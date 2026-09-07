@@ -16,8 +16,8 @@ export const serviciosData = [
   //       icon: "/images/Servicios/software-a-la-medida/Sistemas administrativos.svg",
   //     },
   //     {
-  //       label: "Automatización de procesos",
-  //       icon: "/images/Servicios/software-a-la-medida/Automatización de procesos.svg",
+  //       label: "automatizacion-de-procesos",
+  //       icon: "/images/Servicios/software-a-la-medida/automatizacion-de-procesos.svg",
   //     },
   //     {
   //       label: "CRM personalizados",
@@ -41,8 +41,8 @@ export const serviciosData = [
   //     "Nuestro servicio de SEO combina estrategia, contenido, optimización técnica y análisis permanente para mejorar el posicionamiento orgánico y aumentar el tráfico de calidad.",
   //   bullets: [
   //     {
-  //       label: "Optimización de velocidad",
-  //       icon: "/images/Servicios/posicionamiento-SEO/Optimización de velocidad.svg",
+  //       label: "optimizacion-de-velocidad",
+  //       icon: "/images/Servicios/posicionamiento-SEO/optimizacion-de-velocidad.svg",
   //     },
   //     {
   //       label: "Auditoría SEO",
@@ -70,7 +70,7 @@ export const serviciosData = [
   //   bullets: [
   //     {
   //       label: "Soporte técnico",
-  //       icon: "/images/Servicios/hosting-empresarial/soporte técnico.svg",
+  //       icon: "/images/Servicios/hosting-empresarial/soporte-tecnico.svg",
   //     },
   //     {
   //       label: "Certificados SSL",
@@ -98,8 +98,8 @@ export const serviciosData = [
   //     "Diseñamos y desarrollamos aplicaciones móviles para iPhone y Android con experiencias intuitivas, alto desempeño y tecnologías de última generación. Cada aplicación es desarrollada pensando en la experiencia del usuario, la seguridad y la escalabilidad del negocio.",
   //   bullets: [
   //     {
-  //       label: "Automatización de procesos",
-  //       icon: "/images/Servicios/aplicaciones-moviles/Automatización de procesos.svg",
+  //       label: "automatizacion-de-procesos",
+  //       icon: "/images/Servicios/aplicaciones-moviles/automatizacion-de-procesos.svg",
   //     },
   //     {
   //       label: "Comercio electrónico",
@@ -110,8 +110,8 @@ export const serviciosData = [
   //       icon: "/images/Servicios/aplicaciones-moviles/Equipos comerciales.svg",
   //     },
   //     {
-  //       label: "Fidelización de clientes",
-  //       icon: "/images/Servicios/aplicaciones-moviles/Fidelización de clientes.svg",
+  //       label: "fidelizacion-de-clientes",
+  //       icon: "/images/Servicios/aplicaciones-moviles/fidelizacion-de-clientes.svg",
   //     },
   //   ],
   //   statement:

@@ -8,15 +8,30 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} ^www\.kubbox\.com$ [NC]
 RewriteRule ^ https://kubbox.com%{REQUEST_URI} [R=301,L]
 
-# ── SPA: redirige todo a index.html (excepto archivos físicos) ────────────────
-# SPA fallback: si el archivo/carpeta pedido no existe físicamente,
-# sirve index.html y deja que react-router-dom resuelva la ruta en el cliente.
-# Las rutas que el Task 8 (prerender) ya generó como carpetas reales
-# (ej. dist/contacto/index.html) se siguen sirviendo directo por Apache
-# ANTES de llegar a esta regla, porque Apache prioriza archivos/carpetas reales.
+# ── Limpieza de URLs heredadas del WordPress hackeado (permalinks ?p=, etc.) ───
+# El WordPress viejo fue comprometido con spam de casino/apuestas; Google
+# todavía tiene ~25k de esas URLs en "rastreada, sin indexar". Estas nunca
+# existieron en el sitio en React — 410 explícito para que Google las suelte
+# del índice en vez de quedar atascadas (antes cerraban en 200 con la home,
+# que Google no interpreta como "eliminada").
+RewriteCond %{QUERY_STRING} ^(p|page_id|attachment_id|cat)=\d+$ [NC]
+RewriteRule ^$ - [G,L]
+
+# ── SPA: rutas reales se sirven directo; todo lo demás es basura heredada ─────
+# Confirmado en el router (src/router/index.jsx) + prerender (scripts/prerender.mjs):
+# TODA ruta real de la app hoy es una carpeta física en dist/. /servicios/:slug
+# no tiene datos activos (src/data/servicios.js) y /proyectos/:slug está acoplado
+# 1:1 al mismo array que genera el prerender — no hay ninguna ruta que dependa
+# de este fallback. Si eso cambia (nueva ruta dinámica sin prerenderizar), hay
+# que excluirla aquí explícitamente ANTES del catch-all.
+#
+# Excepción: archivo de verificación de Google Search Console (google<token>.html),
+# por si alguna vez se usa ese método en vez de la meta tag — cae a un 404 normal
+# de Apache en lugar de 410, sin tocar la lógica de arriba.
+RewriteCond %{REQUEST_URI} !^/google[a-f0-9]+\.html$ [NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ index.html [QSA,L]
+RewriteRule ^ - [G,L]
 
 # ── Compresión Gzip ───────────────────────────────────────────────────────────
 <IfModule mod_deflate.c>

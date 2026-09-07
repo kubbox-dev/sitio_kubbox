@@ -26,7 +26,7 @@ const DEFAULT_BULLETS = [
   },
   {
     icon: encodeURI(
-      "/images/Servicios/diseno-desarrollo-sitios-web/Landing Pages de alta conversión.svg",
+      "/images/Servicios/diseno-desarrollo-sitios-web/landing-pages-de-alta-conversion.svg",
     ),
     label: "Landing Pages de alta conversión",
   },

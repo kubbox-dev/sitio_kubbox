@@ -20,7 +20,7 @@ const DEFAULT_STATEMENT =
 const DEFAULT_BULLETS = [
   {
     icon: encodeURI(
-      "/images/Servicios/hosting-empresarial/soporte técnico.svg",
+      "/images/Servicios/hosting-empresarial/soporte-tecnico.svg",
     ),
     label: "Soporte y monitoreo",
   },
