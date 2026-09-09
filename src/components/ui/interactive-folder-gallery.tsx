@@ -22,7 +22,7 @@ const defaultPhotos: GalleryPhoto[] = [
     title: "Diseño y Desarrollo de Sitios Web",
     description:
       "Creamos sitios web modernos, rápidos, seguros y completamente personalizados.",
-    icon: "/images/Servicios/Diseño y Desarrollo de Sitios Web.svg",
+    icon: "/images/Servicios/diseno-y-desarrollo-de-sitios-web.svg",
     url: "/servicios/diseno-desarrollo-sitios-web",
     bullets: [
       "Sitios web corporativos",
@@ -37,7 +37,7 @@ const defaultPhotos: GalleryPhoto[] = [
     title: "Desarrollo de Aplicaciones Móviles",
     description:
       "Diseñamos y desarrollamos aplicaciones móviles para iPhone y Android.",
-    icon: "/images/Servicios/Desarrollo de Aplicaciones Móviles.svg",
+    icon: "/images/Servicios/desarrollo-de-aplicaciones-moviles.svg",
     url: "/servicios/desarrollo-aplicaciones-moviles",
     bullets: [
       "Empresas",
@@ -52,7 +52,7 @@ const defaultPhotos: GalleryPhoto[] = [
     title: "Campañas Digitales para Retail",
     description:
       "Creamos campañas digitales enfocadas en generar tráfico hacia puntos de venta físicos.",
-    icon: "/images/Servicios/Campañas Digitales para Activaciónde Ventas en Retail.svg",
+    icon: "/images/Servicios/campanas-digitales-para-activacionde-ventas-en-retail.svg",
     url: "/servicios/campanas-digitales-activacion-ventas-retail",
     bullets: [
       "Retail",
@@ -81,7 +81,7 @@ const defaultPhotos: GalleryPhoto[] = [
     bullets: [
       "Auditoría SEO",
       "SEO técnico",
-      "Optimización de velocidad",
+      "optimizacion-de-velocidad",
       "SEO local",
     ],
   },

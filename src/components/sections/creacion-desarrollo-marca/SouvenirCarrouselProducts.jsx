@@ -8,9 +8,9 @@ const IMAGE_URL =
 
 const SOUVENIR_SLIDES = [
   {
-    src: "/images/Servicios/creacion-desarrollo-marca/productos/Botellas de plástico.webp",
+    src: "/images/Servicios/creacion-desarrollo-marca/productos/botellas-de-plastico.webp",
     alt: "",
-    title: "Botellas de plástico",
+    title: "botellas-de-plastico",
     subtitle: "",
     meta: [],
   },
@@ -78,9 +78,9 @@ const SOUVENIR_SLIDES = [
     meta: [],
   },
   {
-    src: "/images/Servicios/creacion-desarrollo-marca/productos/Termos metálicos.webp",
+    src: "/images/Servicios/creacion-desarrollo-marca/productos/termos-metalicos.webp",
     alt: "",
-    title: "Termos metálicos",
+    title: "termos-metalicos",
     subtitle: "",
     meta: [],
   },

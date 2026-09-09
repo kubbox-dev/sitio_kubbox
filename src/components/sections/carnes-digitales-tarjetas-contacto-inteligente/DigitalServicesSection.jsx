@@ -20,7 +20,7 @@ const DEFAULT_STATEMENT =
 const DEFAULT_BULLETS = [
   {
     icon: encodeURI(
-      "/images/Servicios/carnes-digitales/tarjetas con tecnología nfc.svg",
+      "/images/Servicios/carnes-digitales/tarjetas-con-tecnologia-nfc.svg",
     ),
     label: "Tarjetas con tecnología NFC",
   },

@@ -8,7 +8,7 @@ import {
 const LOGOS = [
   {
     id: 1,
-    src: "/images/Servicios/creacion-desarrollo-marca/Diseño logotipo icono.svg",
+    src: "/images/Servicios/creacion-desarrollo-marca/diseno-logotipo-icono.svg",
     text: "Diseño de logotipo y manual de marca.",
   },
   {
@@ -18,7 +18,7 @@ const LOGOS = [
   },
   {
     id: 3,
-    src: "/images/Servicios/creacion-desarrollo-marca/Tipografía corporativa icono.svg",
+    src: "/images/Servicios/creacion-desarrollo-marca/tipografia-corporativa-icono.svg",
     text: "Tipografías corporativas.",
   },
   {
@@ -28,7 +28,7 @@ const LOGOS = [
   },
   {
     id: 5,
-    src: "/images/Servicios/creacion-desarrollo-marca/aplicaciones gráficas iconos.svg",
+    src: "/images/Servicios/creacion-desarrollo-marca/aplicaciones-graficas-iconos.svg",
     text: "Aplicaciones gráficas para medios impresos y digitales.",
   },
 ];

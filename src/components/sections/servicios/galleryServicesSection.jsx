@@ -13,7 +13,7 @@ const serviciosData = [
       "Sistemas administrativos",
       "CRM personalizados",
       "Plataformas para fuerza comercial",
-      "Automatización de procesos",
+      "automatizacion-de-procesos",
     ],
   },
   {
@@ -21,7 +21,7 @@ const serviciosData = [
     title: "Diseño y Desarrollo de Sitios Web",
     description:
       "Creamos sitios web modernos, rápidos, seguros y completamente personalizados para empresas que buscan fortalecer su presencia digital.",
-    icon: "/images/Servicios/Diseño y Desarrollo de Sitios Web.svg",
+    icon: "/images/Servicios/diseno-y-desarrollo-de-sitios-web.svg",
     url: "/servicios/diseno-desarrollo-sitios-web",
     bullets: [
       "Sitios web corporativos",
@@ -35,7 +35,7 @@ const serviciosData = [
     title: "Desarrollo de Aplicaciones Móviles",
     description:
       "Diseñamos y desarrollamos aplicaciones móviles para iPhone y Android con experiencias intuitivas y alto desempeño.",
-    icon: "/images/Servicios/Desarrollo de Aplicaciones Móviles.svg",
+    icon: "/images/Servicios/desarrollo-de-aplicaciones-moviles.svg",
     url: "/servicios/desarrollo-aplicaciones-moviles",
     bullets: [
       "Empresas",
@@ -49,7 +49,7 @@ const serviciosData = [
     title: "Campañas Digitales para Activación de Ventas en Retail",
     description:
       "Creamos campañas digitales enfocadas en generar tráfico hacia puntos de venta físicos.",
-    icon: "/images/Servicios/Campañas Digitales para Activaciónde Ventas en Retail.svg",
+    icon: "/images/Servicios/campanas-digitales-para-activacionde-ventas-en-retail.svg",
     url: "/servicios/campanas-digitales-activacion-ventas-retail",
     bullets: [
       "Retail",
@@ -82,7 +82,7 @@ const serviciosData = [
     bullets: [
       "Auditoría SEO",
       "SEO técnico",
-      "Optimización de velocidad",
+      "optimizacion-de-velocidad",
       "SEO local",
       "Monitoreo de resultados",
     ],
@@ -92,12 +92,12 @@ const serviciosData = [
     title: "Automatización y Campañas por WhatsApp",
     description:
       "Facilitamos procesos comerciales mediante campañas masivas, integración con CRM y automatización de comunicación.",
-    icon: "/images/Servicios/Automatización y Campañas por WhatsApp.svg",
+    icon: "/images/Servicios/automatizacion-y-campanas-por-whatsapp.svg",
     url: "/servicios/automatizacion-campanas-whatsapp",
     bullets: [
       "Campañas masivas",
       "Integración con CRM",
-      "Optimización de velocidad",
+      "optimizacion-de-velocidad",
       "Atención al cliente",
       "Notificaciones automáticas",
     ],
@@ -121,7 +121,7 @@ const serviciosData = [
     title: "Creación y Desarrollo de Marca",
     description:
       "Construimos identidades que conectan, inspiran y perduran en el tiempo, con sistemas de identidad coherentes.",
-    icon: "/images/Servicios/Creación y Desarrollo de Marca.svg",
+    icon: "/images/Servicios/creacion-y-desarrollo-de-marca.svg",
     url: "/servicios/creacion-desarrollo-marca",
     bullets: [
       "Diseño de logotipo",

@@ -19,9 +19,9 @@ const DEFAULT_STATEMENT =
 const DEFAULT_BULLETS = [
   {
     icon: encodeURI(
-      "/images/Servicios/aplicaciones-moviles/Automatización de procesos.svg",
+      "/images/Servicios/aplicaciones-moviles/automatizacion-de-procesos.svg",
     ),
-    label: "Automatización de procesos",
+    label: "automatizacion-de-procesos",
   },
   {
     icon: encodeURI(
@@ -37,9 +37,9 @@ const DEFAULT_BULLETS = [
   },
   {
     icon: encodeURI(
-      "/images/Servicios/aplicaciones-moviles/Fidelización de clientes.svg",
+      "/images/Servicios/aplicaciones-moviles/fidelizacion-de-clientes.svg",
     ),
-    label: "Fidelización de clientes",
+    label: "fidelizacion-de-clientes",
   },
 ];
 
